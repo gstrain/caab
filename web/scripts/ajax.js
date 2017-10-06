@@ -1,15 +1,17 @@
 $( document ).ready(function() {
     console.log( "ready!" );
+    getData();
 });
 
 function getData() {
     $.ajax({
         type: 'GET',
-        url: '/dbservlet',
+        url: '/navbar',
         success: function (data) { // data should hopefully be a json stream (GSON?)
             // $("#thead").text(data);
             console.log('success');
-            console.log(data);
+            $('body').append(data);
+            // $('*').css('visibility', 'visible');
         }
     });
 }
