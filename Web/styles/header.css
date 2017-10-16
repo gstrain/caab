@@ -18,7 +18,7 @@
 #list
 {
     padding-top: 75px;
-    padding-botton: none;
+    padding-botton: 75px;
 }
 
 #list button
@@ -27,6 +27,7 @@
     border: none;
     color: white;
     font-size: 18px;
+
     -webkit-transition-duration: 0.4s;
     -moz-transition-duration: 0.4s;
     -ms-transition-duration: 0.4s;
