@@ -11,7 +11,7 @@
          com.mysql.jdbc.Driver
       </property>
       <property name="hibernate.connection.url">
-         jdbc:mysql://127.0.0.1:3306/test
+         jdbc:mysql://127.0.0.1:3306/habitat
       </property>
       <property name="hibernate.connection.username">
          root
@@ -25,6 +25,7 @@
       <mapping class="org.habitatmclean.entity.ConstructionStatus" />
       <mapping class="org.habitatmclean.entity.Family" />
       <mapping class="org.habitatmclean.entity.House" />
+      <mapping class="org.habitatmclean.entity.HouseContribution" />
       <mapping class="org.habitatmclean.entity.HouseStyle" />
       <mapping class="org.habitatmclean.entity.Log" />
       <mapping class="org.habitatmclean.entity.Milestone" />

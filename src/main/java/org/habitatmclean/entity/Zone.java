@@ -1,11 +1,10 @@
 package org.habitatmclean.entity;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+@Table(name="zone")
 public class Zone implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +44,7 @@ public class Zone implements Serializable {
         this.zone_info = zone_info;
     }
 
-    @Column(name="zone_description")
+    @Column(name="zone_desc")
     public String getZone_description() {
         return zone_description;
     }

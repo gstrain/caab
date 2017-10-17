@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="property_status")
+@Table(name="property-status")
 public class PropertyStatus implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +44,7 @@ public class PropertyStatus implements Serializable {
         this.pstatus = pstatus;
     }
 
-    @Column(name="pstatus_description")
+    @Column(name="pstatus_desc")
     public String getPstatus_description() {
         return pstatus_description;
     }

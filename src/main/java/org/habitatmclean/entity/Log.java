@@ -16,7 +16,6 @@ public class Log implements Serializable {
     private Date date;
     private String notes;
     private String status;
-    private String type;
     private Family family;
     private Actor actor;
     private House house;
@@ -24,25 +23,23 @@ public class Log implements Serializable {
 
     public Log() { }
 
-    public Log(Long log_id, String reason, Date date, String notes, String status, String type, Family family, Actor actor, House house, Property property) {
+    public Log(Long log_id, String reason, Date date, String notes, String status, Family family, Actor actor, House house, Property property) {
         this.log_id = log_id;
         this.reason = reason;
         this.date = date;
         this.notes = notes;
         this.status = status;
-        this.type = type;
         this.family = family;
         this.actor = actor;
         this.house = house;
         this.property = property;
     }
 
-    public Log(String reason, Date date, String notes, String status, String type, Family family, Actor actor, House house, Property property) {
+    public Log(String reason, Date date, String notes, String status, Family family, Actor actor, House house, Property property) {
         this.reason = reason;
         this.date = date;
         this.notes = notes;
         this.status = status;
-        this.type = type;
         this.family = family;
         this.actor = actor;
         this.house = house;
@@ -92,15 +89,6 @@ public class Log implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    @Column(name="type")
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     @ManyToOne(optional = true)

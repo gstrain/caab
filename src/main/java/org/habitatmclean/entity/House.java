@@ -17,15 +17,52 @@ public class House implements Serializable {
     private ConstructionStatus construction_status;
     private HouseStyle house_style;
     private Property property;
+    private Address address;
+    private Family family;
 
-    public House() { }
-
-    public House(Long house_id, double construction_cost, int size, int bedrooms, int bathrooms) {
+    public House(Long house_id, Family family, double construction_cost, int size, int bedrooms, double bathrooms, ConstructionStatus construction_status, HouseStyle house_style, Property property, Address address) {
         this.house_id = house_id;
+        this.family = family;
         this.construction_cost = construction_cost;
         this.size = size;
         this.bedrooms = bedrooms;
         this.bathrooms = bathrooms;
+        this.construction_status = construction_status;
+        this.house_style = house_style;
+        this.property = property;
+        this.address = address;
+    }
+
+    public House(double construction_cost, Family family, int size, int bedrooms, double bathrooms, ConstructionStatus construction_status, HouseStyle house_style, Property property, Address address) {
+        this.construction_cost = construction_cost;
+        this.family = family;
+        this.size = size;
+        this.bedrooms = bedrooms;
+        this.bathrooms = bathrooms;
+        this.construction_status = construction_status;
+        this.house_style = house_style;
+        this.property = property;
+        this.address = address;
+    }
+
+    @ManyToOne(optional = true)
+    public Family getFamily() {
+        return family;
+    }
+
+    public void setFamily(Family family) {
+        this.family = family;
+    }
+
+    public House() { }
+
+    @ManyToOne(optional = false)
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @ManyToOne(optional = false)
@@ -92,11 +129,12 @@ public class House implements Serializable {
     }
 
     @Column(name="bathrooms")
-    public int getBathrooms() {
+    public double getBathrooms() {
         return bathrooms;
     }
 
-    public void setBathrooms(int bathrooms) {
+    public void setBathrooms(double bathrooms) {
         this.bathrooms = bathrooms;
     }
+
 }

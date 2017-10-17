@@ -61,7 +61,7 @@ public class Property implements Serializable {
         this.appriased_value = appriased_value;
     }
 
-    @Column(name="date")
+    @Column(name="appraised_date")
     public Date getAppriased_date() {
         return appriased_date;
     }

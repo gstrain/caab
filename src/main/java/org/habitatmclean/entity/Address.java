@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Table(name="address")                        // serializable must be included if this object needs
 public class Address implements Serializable{ // to be sent over a network and reconstructed elsewhere
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //TODO how are we tracking whether this address belongs to a family/house/property? If it's on the other side, why does actor have one?
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long address_id;
 
     private String street;

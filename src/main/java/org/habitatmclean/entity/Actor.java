@@ -1,10 +1,11 @@
 package org.habitatmclean.entity;
 
+import javax.management.relation.Relation;
 import javax.persistence.*;
 
 @Entity
 @Table(name="actor")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(
         name = "actor_type",
         discriminatorType = DiscriminatorType.STRING)
@@ -14,10 +15,17 @@ public class Actor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long actor_id;
 
+    private RelationType relationType;
+
     public Actor() { }
 
-    public Actor(Long actor_id) {
+    public Actor(RelationType relationType) {
+        this.relationType = relationType;
+    }
+
+    public Actor(Long actor_id, RelationType relationType) {
         this.actor_id = actor_id;
+        this.relationType = relationType;
     }
 
     @Column(name="actor_id")
@@ -27,5 +35,14 @@ public class Actor {
 
     public void setActor_id(Long actor_id) {
         this.actor_id = actor_id;
+    }
+
+    @ManyToOne
+    public RelationType getRelationType() {
+        return relationType;
+    }
+
+    public void setRelationType(RelationType relationType) {
+        this.relationType = relationType;
     }
 }
