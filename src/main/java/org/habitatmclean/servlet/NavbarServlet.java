@@ -1,4 +1,4 @@
-package org.habitat.servlet;
+package org.habitatmclean.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

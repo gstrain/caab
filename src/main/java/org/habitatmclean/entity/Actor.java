@@ -19,8 +19,8 @@ public class Actor {
 
     public Actor() { }
 
-    public Actor(RelationType relationType) {
-        this.relationType = relationType;
+    public Actor(Long actor_id) {
+        this.actor_id = actor_id;
     }
 
     public Actor(Long actor_id, RelationType relationType) {

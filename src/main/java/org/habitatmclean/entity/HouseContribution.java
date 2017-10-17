@@ -13,6 +13,8 @@ public class HouseContribution {
     private Actor actor;
     private House house;
 
+    public HouseContribution() { }
+
     public HouseContribution(String involvementDescription, Actor actor, House house) {
         this.involvementDescription = involvementDescription;
         this.actor = actor;
