@@ -1,7 +1,6 @@
-package org.habitat.entity;
+package org.habitatmclean.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name="user_table")
@@ -18,9 +17,7 @@ public class User {
     @Transient // keeps the password from being included in gson.toJson()
     private String password;
 
-    public User() {
-    }
-
+    public User() { }
 
     public User(String firstName, String middleName, String lastName, String email, String userId, String password) {
         this.firstName = firstName;

@@ -1,9 +1,9 @@
-package org.habitat.servlet;
+package org.habitatmclean.servlet;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.habitat.entity.User;
-import org.habitat.hibernate.HibernateUtil;
+import org.habitatmclean.entity.User;
+import org.habitatmclean.hibernate.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

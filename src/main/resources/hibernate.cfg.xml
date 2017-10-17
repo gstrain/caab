@@ -19,8 +19,22 @@
       <property name="hibernate.connection.password"></property>
       <property name="show_sql">true</property>
 
-      <mapping class="org.habitat.entity.User" />
-
+      <mapping class="org.habitatmclean.entity.Actor" />
+      <mapping class="org.habitatmclean.entity.Address" />
+      <mapping class="org.habitatmclean.entity.Class" />
+      <mapping class="org.habitatmclean.entity.ConstructionStatus" />
+      <mapping class="org.habitatmclean.entity.Family" />
+      <mapping class="org.habitatmclean.entity.House" />
+      <mapping class="org.habitatmclean.entity.HouseStyle" />
+      <mapping class="org.habitatmclean.entity.Log" />
+      <mapping class="org.habitatmclean.entity.Milestone" />
+      <mapping class="org.habitatmclean.entity.Organization" />
+      <mapping class="org.habitatmclean.entity.Person" />
+      <mapping class="org.habitatmclean.entity.Property" />
+      <mapping class="org.habitatmclean.entity.User" /> <!-- TODO remove this eventually -->
+      <mapping class="org.habitatmclean.entity.PropertyStatus" />
+      <mapping class="org.habitatmclean.entity.RelationType" />
+      <mapping class="org.habitatmclean.entity.Zone" />
    </session-factory>
 
 </hibernate-configuration>
