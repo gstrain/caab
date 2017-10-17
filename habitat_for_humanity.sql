@@ -264,10 +264,10 @@ INSERT INTO `milestone` (`milestone_id`, `milestone`, `milestone_desc`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orginization`
+-- Table structure for table `organization`
 --
 
-CREATE TABLE `orginization` (
+CREATE TABLE `organization` (
   `orginization_id` int(9) NOT NULL,
   `name` varchar(120) NOT NULL,
   `contact_id` int(9) NOT NULL COMMENT 'person_id'
