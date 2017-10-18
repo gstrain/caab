@@ -1,17 +1,17 @@
 package org.habitatmclean.dao;
 
-import org.habitatmclean.entity.Property;
+import org.habitatmclean.entity.Actor;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
 
-public class PropertyDAO implements ReadDAO<Property, Long>, CreateUpdateDeleteDAO<Property, Long> {
+public class ActorDAO implements ReadDAO<Actor, Long>, CreateUpdateDeleteDAO<Actor, Long> {
     private SessionFactory sessionFacotry = null;
 
-    public PropertyDAO() {}
-    public PropertyDAO(SessionFactory sessionFacotry) {
+    public ActorDAO() {}
+    public ActorDAO(SessionFactory sessionFacotry) {
         this.sessionFacotry = sessionFacotry;
     }
 
@@ -20,27 +20,28 @@ public class PropertyDAO implements ReadDAO<Property, Long>, CreateUpdateDeleteD
     }
 
     @Override
-    public Property findByPrimaryKey(Long id) {
+    public Actor findByPrimaryKey(Long id) {
         Session session = sessionFacotry.getCurrentSession();
-        Object obj = session.load(Property.class, id);
-        return (Property) obj;
+        Object obj = session.load(Actor.class, id);
+        return (Actor) obj;
     }
 
     @Override
-    public Property save(Property entity) {
+    public Actor save(Actor entity) {
         Session session = sessionFacotry.getCurrentSession();
         session.saveOrUpdate(entity);
         return entity;
     }
 
     @Override
-    public void delete(Property entity) {
+    public void delete(Actor entity) {
         sessionFacotry.getCurrentSession().delete(entity);
     }
 
     @Override
-    public List<Property> findAll() {
+    public List<Actor> findAll() {
         Session session = sessionFacotry.getCurrentSession();
-        return session.createQuery("from Property ").list();
+        Query result = session.createQuery("from Actor");
+        return result.list();
     }
 }

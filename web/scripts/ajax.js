@@ -6,11 +6,12 @@ $( document ).ready(function() {
 function getData() {
     $.ajax({
         type: 'GET',
-        url: '/navbar',
+        url: '/dbservlet',
         success: function (data) { // data should hopefully be a json stream (GSON?)
             // $("#thead").text(data);
             console.log('success');
-            $('body').append(data);
+            console.log(data);
+            // $('body').append(data);
             // $('*').css('visibility', 'visible');
         }
     });

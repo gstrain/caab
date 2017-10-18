@@ -13,11 +13,13 @@ public class HibernateUtil {
             sessionFactory = new Configuration()
                     .configure()
                     .addPackage("org.habitatmclean.entity")
+                    .addAnnotatedClass(Actor.class)
                     .addAnnotatedClass(Address.class)
                     .addAnnotatedClass(Class.class)
                     .addAnnotatedClass(ConstructionStatus.class)
                     .addAnnotatedClass(Family.class)
                     .addAnnotatedClass(House.class)
+                    .addAnnotatedClass(HouseContribution.class)
                     .addAnnotatedClass(HouseStyle.class)
                     .addAnnotatedClass(Log.class)
                     .addAnnotatedClass(Milestone.class)
@@ -36,5 +38,9 @@ public class HibernateUtil {
 
     public static Session openSession() {
         return sessionFactory.openSession();
+    }
+
+    public static SessionFactory getSessionFactory() {
+        return sessionFactory;
     }
 }

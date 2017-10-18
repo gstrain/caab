@@ -6,9 +6,14 @@ import java.io.Serializable;
 @Entity
 @Table(name="organization")
 @DiscriminatorValue("O")
+@Inheritance(strategy = InheritanceType.JOINED)
+@PrimaryKeyJoinColumn(name = "organization_id", referencedColumnName = "actor_id")
 public class Organization extends Actor implements Serializable {
 
     private String name;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name="contact_id")
     private Person person;
 
     public Organization() { }
@@ -33,7 +38,6 @@ public class Organization extends Actor implements Serializable {
         this.name = name;
     }
 
-    @ManyToOne(optional = false)
     public Person getPerson() {
         return person;
     }

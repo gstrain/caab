@@ -10,7 +10,13 @@ public class HouseContribution {
     private Long contribution_id;
 
     private String involvementDescription;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name="actor_id")
     private Actor actor;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name="house_id")
     private House house;
 
     public HouseContribution() { }
@@ -46,7 +52,6 @@ public class HouseContribution {
         this.involvementDescription = involvementDescription;
     }
 
-    @ManyToOne(optional = false)
     public Actor getActor() {
         return actor;
     }
@@ -55,7 +60,6 @@ public class HouseContribution {
         this.actor = actor;
     }
 
-    @ManyToOne(optional = false)
     public House getHouse() {
         return house;
     }

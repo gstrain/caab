@@ -16,9 +16,21 @@ public class Log implements Serializable {
     private Date date;
     private String notes;
     private String status;
+
+    @ManyToOne(optional = true)
+    @JoinColumn(name="family_id")
     private Family family;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name="contact_id")
     private Actor actor;
+
+    @ManyToOne(optional = true)
+    @JoinColumn(name="house_id")
     private House house;
+
+    @ManyToOne(optional = true)
+    @JoinColumn(name="property_id")
     private Property property;
 
     public Log() { }
@@ -91,7 +103,6 @@ public class Log implements Serializable {
         this.status = status;
     }
 
-    @ManyToOne(optional = true)
     public Family getFamily() {
         return family;
     }
@@ -100,7 +111,6 @@ public class Log implements Serializable {
         this.family = family;
     }
 
-    @ManyToOne(optional = false)
     public Actor getActor() {
         return actor;
     }
@@ -109,7 +119,6 @@ public class Log implements Serializable {
         this.actor = actor;
     }
 
-    @ManyToOne(optional=true)
     public House getHouse() {
         return house;
     }
@@ -118,7 +127,6 @@ public class Log implements Serializable {
         this.house = house;
     }
 
-    @ManyToOne(optional = true)
     public Property getProperty() {
         return property;
     }

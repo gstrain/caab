@@ -11,21 +11,29 @@ public class Property implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long property_no;
 
-    private double appriased_value;
-    @Temporal(TemporalType.TIMESTAMP) // includes date & time
-    private Date appriased_date;
+    private double appraised_value;
+    private Date appraised_date;
     private double taxes;
     private String notes;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name="pstatus_id")
     private PropertyStatus property_status;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name="zone_id")
     private Zone zone;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name="owner_id")
     private Actor owner;
 
     public Property() { }
 
-    public Property(Long property_no, double appriased_value, Date appriased_date, double taxes, String notes, PropertyStatus property_status, Zone zone, Actor owner) {
+    public Property(Long property_no, double appraised_value, Date appraised_date, double taxes, String notes, PropertyStatus property_status, Zone zone, Actor owner) {
         this.property_no = property_no;
-        this.appriased_value = appriased_value;
-        this.appriased_date = appriased_date;
+        this.appraised_value = appraised_value;
+        this.appraised_date = appraised_date;
         this.taxes = taxes;
         this.notes = notes;
         this.property_status = property_status;
@@ -33,9 +41,9 @@ public class Property implements Serializable {
         this.owner = owner;
     }
 
-    public Property(double appriased_value, Date appriased_date, double taxes, String notes, PropertyStatus property_status, Zone zone, Actor owner) {
-        this.appriased_value = appriased_value;
-        this.appriased_date = appriased_date;
+    public Property(double appraised_value, Date appraised_date, double taxes, String notes, PropertyStatus property_status, Zone zone, Actor owner) {
+        this.appraised_value = appraised_value;
+        this.appraised_date = appraised_date;
         this.taxes = taxes;
         this.notes = notes;
         this.property_status = property_status;
@@ -53,21 +61,22 @@ public class Property implements Serializable {
     }
 
     @Column(name="appraised_value")
-    public double getAppriased_value() {
-        return appriased_value;
+    public double getAppraised_value() {
+        return appraised_value;
     }
 
-    public void setAppriased_value(double appriased_value) {
-        this.appriased_value = appriased_value;
+    public void setAppraised_value(double appraised_value) {
+        this.appraised_value = appraised_value;
     }
 
     @Column(name="appraised_date")
-    public Date getAppriased_date() {
-        return appriased_date;
+    @Temporal(TemporalType.TIMESTAMP) // includes date & time
+    public Date getAppraised_date() {
+        return appraised_date;
     }
 
-    public void setAppriased_date(Date appriased_date) {
-        this.appriased_date = appriased_date;
+    public void setAppraised_date(Date appraised_date) {
+        this.appraised_date = appraised_date;
     }
 
     @Column(name="taxes")
@@ -88,7 +97,6 @@ public class Property implements Serializable {
         this.notes = notes;
     }
 
-    @ManyToOne(optional = false)
     public PropertyStatus getProperty_status() {
         return property_status;
     }
@@ -97,7 +105,6 @@ public class Property implements Serializable {
         this.property_status = property_status;
     }
 
-    @ManyToOne(optional = false)
     public Zone getZone() {
         return zone;
     }
@@ -106,7 +113,6 @@ public class Property implements Serializable {
         this.zone = zone;
     }
 
-    @ManyToOne(optional = false)
     public Actor getOwner() {
         return owner;
     }

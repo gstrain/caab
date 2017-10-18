@@ -12,7 +12,13 @@ public class Family implements Serializable{
 
     private double equity_hrs;
     private double income;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name="milestone_id")
     private Milestone milestone;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name="class_id")
     private Class classType;
 
     public Family() { }
@@ -59,7 +65,6 @@ public class Family implements Serializable{
         this.income = income;
     }
 
-    @ManyToOne(optional = false)
     public Milestone getMilestone() {
         return milestone;
     }
@@ -68,7 +73,6 @@ public class Family implements Serializable{
         this.milestone = milestone;
     }
 
-    @ManyToOne(optional = false)
     public Class getClassType() {
         return classType;
     }

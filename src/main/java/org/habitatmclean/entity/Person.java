@@ -6,6 +6,8 @@ import java.io.Serializable;
 @Entity
 @Table(name="person")
 @DiscriminatorValue("P")
+@Inheritance(strategy = InheritanceType.JOINED)
+@PrimaryKeyJoinColumn(name = "person_id", referencedColumnName = "actor_id")
 public class Person extends Actor implements Serializable {
 
     private String first;

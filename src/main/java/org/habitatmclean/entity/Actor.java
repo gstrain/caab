@@ -2,6 +2,7 @@ package org.habitatmclean.entity;
 
 import javax.management.relation.Relation;
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="actor")
@@ -10,11 +11,13 @@ import javax.persistence.*;
         name = "actor_type",
         discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("A")
-public class Actor {
+public class Actor implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long actor_id;
 
+    @ManyToOne(optional = true)
+    @JoinColumn(name="relation_id")
     private RelationType relationType;
 
     public Actor() { }
@@ -37,7 +40,6 @@ public class Actor {
         this.actor_id = actor_id;
     }
 
-    @ManyToOne
     public RelationType getRelationType() {
         return relationType;
     }

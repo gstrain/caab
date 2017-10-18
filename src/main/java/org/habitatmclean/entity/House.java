@@ -14,10 +14,25 @@ public class House implements Serializable {
     private int size;
     private int bedrooms;
     private double bathrooms;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name="cstatus_id")
     private ConstructionStatus construction_status;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name="house_style")
     private HouseStyle house_style;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "property_id")
     private Property property;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name="address_id")
     private Address address;
+
+    @ManyToOne(optional = true)
+    @JoinColumn(name="family_id")
     private Family family;
 
     public House(Long house_id, Family family, double construction_cost, int size, int bedrooms, double bathrooms, ConstructionStatus construction_status, HouseStyle house_style, Property property, Address address) {
@@ -45,7 +60,6 @@ public class House implements Serializable {
         this.address = address;
     }
 
-    @ManyToOne(optional = true)
     public Family getFamily() {
         return family;
     }
@@ -56,7 +70,7 @@ public class House implements Serializable {
 
     public House() { }
 
-    @ManyToOne(optional = false)
+
     public Address getAddress() {
         return address;
     }
@@ -65,7 +79,6 @@ public class House implements Serializable {
         this.address = address;
     }
 
-    @ManyToOne(optional = false)
     public ConstructionStatus getConstruction_status() {
         return construction_status;
     }
@@ -74,7 +87,6 @@ public class House implements Serializable {
         this.construction_status = construction_status;
     }
 
-    @ManyToOne(optional = false)
     public HouseStyle getHouse_style() {
         return house_style;
     }
@@ -83,7 +95,6 @@ public class House implements Serializable {
         this.house_style = house_style;
     }
 
-    @ManyToOne(optional = false)
     public Property getProperty() {
         return property;
     }

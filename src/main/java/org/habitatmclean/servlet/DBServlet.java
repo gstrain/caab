@@ -2,8 +2,11 @@ package org.habitatmclean.servlet;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.habitatmclean.dao.PersonDAO;
-import org.habitatmclean.entity.Person;
+import org.habitatmclean.adapter.PropertyAdapter;
+import org.habitatmclean.dao.PropertyDAO;
+import org.habitatmclean.entity.Property;
+import org.habitatmclean.hibernate.HibernateUtil;
+import org.hibernate.SessionFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +19,7 @@ import java.util.List;
 
 @WebServlet(name = "DBServlet", value="/dbservlet")
 public class DBServlet extends HttpServlet {
-    private static final Gson gson = new GsonBuilder()
+    private static Gson gson = new GsonBuilder()
             .create();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,7 +28,12 @@ public class DBServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
-        List<Person> list = new PersonDAO().findAll();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        PropertyDAO dao = new PropertyDAO(sessionFactory);
+        sessionFactory.getCurrentSession().beginTransaction();
+        List<Property> list = dao.findAll();
+        sessionFactory.getCurrentSession().getTransaction().commit();
+        gson = new GsonBuilder().registerTypeAdapter(Property.class, new PropertyAdapter()).create();
         String s = gson.toJson(list);
         System.out.println("called servlet");
         System.out.println("stringified list of users into json: ");
