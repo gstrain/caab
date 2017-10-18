@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2017 at 01:39 AM
+-- Generation Time: Oct 18, 2017 at 07:20 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -268,16 +268,16 @@ INSERT INTO `milestone` (`milestone_id`, `milestone`, `milestone_desc`) VALUES
 --
 
 CREATE TABLE `organization` (
-  `orginization_id` int(9) NOT NULL,
+  `organization_id` int(9) NOT NULL,
   `name` varchar(120) NOT NULL,
   `contact_id` int(9) NOT NULL COMMENT 'person_id'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `orginization`
+-- Dumping data for table `organization`
 --
 
-INSERT INTO `orginization` (`orginization_id`, `name`, `contact_id`) VALUES
+INSERT INTO `organization` (`organization_id`, `name`, `contact_id`) VALUES
 (3, 'FrontierAirlines', 1),
 (4, 'loudbaron.co', 5);
 
@@ -338,20 +338,20 @@ INSERT INTO `property` (`property_no`, `address_id`, `zone_id`, `owner_id`, `pst
 -- --------------------------------------------------------
 
 --
--- Table structure for table `property-status`
+-- Table structure for table `property_status`
 --
 
-CREATE TABLE `property-status` (
+CREATE TABLE `property_status` (
   `pstatus_id` int(9) NOT NULL,
   `pstatus` varchar(120) NOT NULL,
   `pstatus_desc` text
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data for table `property-status`
+-- Dumping data for table `property_status`
 --
 
-INSERT INTO `property-status` (`pstatus_id`, `pstatus`, `pstatus_desc`) VALUES
+INSERT INTO `property_status` (`pstatus_id`, `pstatus`, `pstatus_desc`) VALUES
 (1, 'vacant', NULL),
 (2, 'filled', NULL),
 (3, 'processing', NULL);
@@ -359,20 +359,20 @@ INSERT INTO `property-status` (`pstatus_id`, `pstatus`, `pstatus_desc`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `relation-type`
+-- Table structure for table `relation_type`
 --
 
-CREATE TABLE `relation-type` (
+CREATE TABLE `relation_type` (
   `relation_id` int(9) NOT NULL,
   `relation_name` varchar(120) NOT NULL,
   `relation_desc` text
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data for table `relation-type`
+-- Dumping data for table `relation_type`
 --
 
-INSERT INTO `relation-type` (`relation_id`, `relation_name`, `relation_desc`) VALUES
+INSERT INTO `relation_type` (`relation_id`, `relation_name`, `relation_desc`) VALUES
 (1, 'tennant', NULL),
 (2, 'private property owner', NULL),
 (3, 'vendor', NULL),
@@ -465,10 +465,10 @@ ALTER TABLE `milestone`
   ADD PRIMARY KEY (`milestone_id`);
 
 --
--- Indexes for table `orginization`
+-- Indexes for table `organization`
 --
-ALTER TABLE `orginization`
-  ADD PRIMARY KEY (`orginization_id`);
+ALTER TABLE `organization`
+  ADD PRIMARY KEY (`organization_id`);
 
 --
 -- Indexes for table `person`
@@ -484,15 +484,15 @@ ALTER TABLE `property`
   ADD UNIQUE KEY `address_id` (`address_id`);
 
 --
--- Indexes for table `property-status`
+-- Indexes for table `property_status`
 --
-ALTER TABLE `property-status`
+ALTER TABLE `property_status`
   ADD PRIMARY KEY (`pstatus_id`);
 
 --
--- Indexes for table `relation-type`
+-- Indexes for table `relation_type`
 --
-ALTER TABLE `relation-type`
+ALTER TABLE `relation_type`
   ADD PRIMARY KEY (`relation_id`);
 
 --
@@ -561,14 +561,14 @@ ALTER TABLE `milestone`
 ALTER TABLE `property`
   MODIFY `property_no` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `property-status`
+-- AUTO_INCREMENT for table `property_status`
 --
-ALTER TABLE `property-status`
+ALTER TABLE `property_status`
   MODIFY `pstatus_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT for table `relation-type`
+-- AUTO_INCREMENT for table `relation_type`
 --
-ALTER TABLE `relation-type`
+ALTER TABLE `relation_type`
   MODIFY `relation_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `zone`
