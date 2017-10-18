@@ -184,7 +184,7 @@ CREATE TABLE `house_contribution` (
 -- Dumping data for table `house_contribution`
 --
 
-INSERT INTO `house_contribution` (`contribution_id`, `actor_id`, `house_id`, `involment_desc`) VALUES
+INSERT INTO `house_contribution` (`contribution_id`, `actor_id`, `house_id`, `involvement_desc`) VALUES
 (1, 1, 1, NULL),
 (2, 2, 1, NULL),
 (3, 2, 2, NULL);
