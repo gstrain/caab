@@ -177,7 +177,7 @@ CREATE TABLE `house_contribution` (
   `contribution_id` int(9) NOT NULL,
   `actor_id` int(9) NOT NULL,
   `house_id` int(9) NOT NULL,
-  `involment_desc` varchar(120) DEFAULT NULL
+  `involvement_desc` varchar(120) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
