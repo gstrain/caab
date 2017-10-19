@@ -1,5 +1,7 @@
 package org.habitatmclean.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -18,19 +20,28 @@ public class Property implements Serializable {
 
     @ManyToOne(optional = false)
     @JoinColumn(name="pstatus_id")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private PropertyStatus property_status;
 
     @ManyToOne(optional = false)
     @JoinColumn(name="zone_id")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+
     private Zone zone;
 
     @ManyToOne(optional = false)
     @JoinColumn(name="owner_id")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Actor owner;
+
+    @OneToOne
+    @JoinColumn(name="address_id")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    private Address address;
 
     public Property() { }
 
-    public Property(Long property_no, double appraised_value, Date appraised_date, double taxes, String notes, PropertyStatus property_status, Zone zone, Actor owner) {
+    public Property(Long property_no, double appraised_value, Date appraised_date, double taxes, String notes, PropertyStatus property_status, Zone zone, Actor owner, Address address) {
         this.property_no = property_no;
         this.appraised_value = appraised_value;
         this.appraised_date = appraised_date;
@@ -39,9 +50,10 @@ public class Property implements Serializable {
         this.property_status = property_status;
         this.zone = zone;
         this.owner = owner;
+        this.address = address;
     }
 
-    public Property(double appraised_value, Date appraised_date, double taxes, String notes, PropertyStatus property_status, Zone zone, Actor owner) {
+    public Property(double appraised_value, Date appraised_date, double taxes, String notes, PropertyStatus property_status, Zone zone, Actor owner, Address address) {
         this.appraised_value = appraised_value;
         this.appraised_date = appraised_date;
         this.taxes = taxes;
@@ -49,8 +61,8 @@ public class Property implements Serializable {
         this.property_status = property_status;
         this.zone = zone;
         this.owner = owner;
+        this.address = address;
     }
-
     @Column(name="property_no")
     public Long getProperty_no() {
         return property_no;
@@ -119,5 +131,13 @@ public class Property implements Serializable {
 
     public void setOwner(Actor actor) {
         this.owner = actor;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

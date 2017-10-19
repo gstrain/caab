@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 
 import java.util.List;
 
-public class ZoneDAO implements ReadDAO<Zone, Long>, CreateUpdateDeleteDAO<Zone, Long> {
+public class ZoneDAO implements ReadDAO<Zone, Long> {
     private SessionFactory sessionFacotry = null;
 
     public ZoneDAO() {}
@@ -24,18 +24,6 @@ public class ZoneDAO implements ReadDAO<Zone, Long>, CreateUpdateDeleteDAO<Zone,
         Session session = sessionFacotry.getCurrentSession();
         Object obj = session.load(Zone.class, id);
         return (Zone) obj;
-    }
-
-    @Override
-    public Zone save(Zone entity) {
-        Session session = sessionFacotry.getCurrentSession();
-        session.saveOrUpdate(entity);
-        return entity;
-    }
-
-    @Override
-    public void delete(Zone entity) {
-        sessionFacotry.getCurrentSession().delete(entity);
     }
 
     @Override

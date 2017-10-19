@@ -11,19 +11,19 @@ public class Zone implements Serializable {
     private Long zone_id;
 
     private String zone_info;
-    private String zone_description;
+    private String zone_desc;
 
     public Zone() { }
 
-    public Zone(Long zone_id, String zone_info, String zone_description) {
+    public Zone(Long zone_id, String zone_info, String zone_desc) {
         this.zone_id = zone_id;
         this.zone_info = zone_info;
-        this.zone_description = zone_description;
+        this.zone_desc = zone_desc;
     }
 
-    public Zone(String zone_info, String zone_description) {
+    public Zone(String zone_info, String zone_desc) {
         this.zone_info = zone_info;
-        this.zone_description = zone_description;
+        this.zone_desc = zone_desc;
     }
 
     @Column(name="zone_id")
@@ -45,11 +45,11 @@ public class Zone implements Serializable {
     }
 
     @Column(name="zone_desc")
-    public String getZone_description() {
-        return zone_description;
+    public String getZone_desc() {
+        return zone_desc;
     }
 
-    public void setZone_description(String zone_description) {
-        this.zone_description = zone_description;
+    public void setZone_desc(String zone_description) {
+        this.zone_desc = zone_description;
     }
 }

@@ -1,5 +1,7 @@
 package org.habitatmclean.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,10 +15,12 @@ public class HouseContribution {
 
     @ManyToOne(optional = false)
     @JoinColumn(name="actor_id")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Actor actor;
 
     @ManyToOne(optional = false)
     @JoinColumn(name="house_id")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private House house;
 
     public HouseContribution() { }

@@ -29,6 +29,15 @@ public class Address implements Serializable{ // to be sent over a network and r
         this.zipcode = zipcode;
     }
 
+    public Address(String street, String number, String apartment_no, String city, String state, String zipcode) {
+        this.street = street;
+        this.number = number;
+        this.apartment_no = apartment_no;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+    }
+
     @Column(name="address_id")
     public Long getAddress_id() {
         return address_id;

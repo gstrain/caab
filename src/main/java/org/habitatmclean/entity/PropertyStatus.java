@@ -4,26 +4,26 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="property-status")
+@Table(name="property_status")
 public class PropertyStatus implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pstatus_id;
 
     private String pstatus;
-    private String pstatus_description;
+    private String pstatus_desc;
 
     public PropertyStatus() { }
 
-    public PropertyStatus(Long pstatus_id, String pstatus, String pstatus_description) {
+    public PropertyStatus(Long pstatus_id, String pstatus, String pstatus_desc) {
         this.pstatus_id = pstatus_id;
         this.pstatus = pstatus;
-        this.pstatus_description = pstatus_description;
+        this.pstatus_desc = pstatus_desc;
     }
 
-    public PropertyStatus(String pstatus, String pstatus_description) {
+    public PropertyStatus(String pstatus, String pstatus_desc) {
         this.pstatus = pstatus;
-        this.pstatus_description = pstatus_description;
+        this.pstatus_desc = pstatus_desc;
     }
 
     @Column(name="pstatus_id")
@@ -45,11 +45,11 @@ public class PropertyStatus implements Serializable {
     }
 
     @Column(name="pstatus_desc")
-    public String getPstatus_description() {
-        return pstatus_description;
+    public String getPstatus_desc() {
+        return pstatus_desc;
     }
 
-    public void setPstatus_description(String pstatus_description) {
-        this.pstatus_description = pstatus_description;
+    public void setPstatus_desc(String pstatus_description) {
+        this.pstatus_desc = pstatus_description;
     }
 }

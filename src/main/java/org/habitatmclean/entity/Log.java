@@ -1,5 +1,7 @@
 package org.habitatmclean.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -17,20 +19,24 @@ public class Log implements Serializable {
     private String notes;
     private String status;
 
-    @ManyToOne(optional = true)
+    @ManyToOne
     @JoinColumn(name="family_id")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Family family;
 
     @ManyToOne(optional = false)
     @JoinColumn(name="contact_id")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Actor actor;
 
-    @ManyToOne(optional = true)
+    @ManyToOne
     @JoinColumn(name="house_id")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private House house;
 
-    @ManyToOne(optional = true)
+    @ManyToOne
     @JoinColumn(name="property_id")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Property property;
 
     public Log() { }

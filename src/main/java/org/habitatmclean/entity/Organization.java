@@ -1,5 +1,7 @@
 package org.habitatmclean.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -14,6 +16,7 @@ public class Organization extends Actor implements Serializable {
 
     @ManyToOne(optional = false)
     @JoinColumn(name="contact_id")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Person person;
 
     public Organization() { }
