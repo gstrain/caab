@@ -4,24 +4,28 @@
 
 <hibernate-configuration>
    <session-factory>
-      <property name="hibernate.dialect">
-         org.hibernate.dialect.MySQLDialect
-      </property>
-      <property name="hibernate.connection.driver_class">
-         com.mysql.cj.jdbc.Driver
-      </property>
-      <property name="hibernate.connection.url">
-         jdbc:mysql://127.0.0.1:3306/habitat
-      </property>
-      <property name="hibernate.connection.username">
-         root
-      </property>
+       <!--Database Configuration-->
+      <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+      <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+      <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/habitat</property>
+      <property name="hibernate.connection.username">root</property>
       <property name="hibernate.connection.password"/>
+
+      <!--SQL output to console-->
       <property name="show_sql">true</property>
       <property name="format_sql">true</property>
 
+      <!--thread context-->
       <property name="hibernate.current_session_context_class">thread</property>
 
+      <!--Connection Pooling-->
+      <property name="hibernate.c3p0.min_size">5</property>
+      <property name="hibernate.c3p0.max_size">20</property>
+      <property name="hibernate.c3p0.timeout">300</property>
+      <property name="hibernate.c3p0.max_statements">50</property>
+      <property name="hibernate.c3p0.idle_test_period">3000</property>
+
+       <!--Mapping Entity Classes-->
       <mapping class="org.habitatmclean.entity.Actor" />
       <mapping class="org.habitatmclean.entity.Address" />
       <mapping class="org.habitatmclean.entity.Class" />
