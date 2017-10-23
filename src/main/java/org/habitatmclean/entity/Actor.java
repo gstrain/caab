@@ -1,5 +1,7 @@
 package org.habitatmclean.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.management.relation.Relation;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,14 +13,19 @@ import java.io.Serializable;
         name = "actor_type",
         discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("A")
-public class Actor implements Serializable {
+public class Actor implements Serializable, RetrievableProperties {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long actor_id;
 
-    @ManyToOne(optional = true)
+    @ManyToOne
     @JoinColumn(name="relation_id")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private RelationType relationType;
+
+    @OneToOne(optional = false)
+    @JoinColumn(name="address_id")
+    private Address address;
 
     public Actor() { }
 
@@ -26,9 +33,15 @@ public class Actor implements Serializable {
         this.actor_id = actor_id;
     }
 
-    public Actor(Long actor_id, RelationType relationType) {
+    public Actor(RelationType relationType, Address address) {
+        this.relationType = relationType;
+        this.address = address;
+    }
+
+    public Actor(Long actor_id, RelationType relationType, Address address) {
         this.actor_id = actor_id;
         this.relationType = relationType;
+        this.address = address;
     }
 
     @Column(name="actor_id")
@@ -46,5 +59,29 @@ public class Actor implements Serializable {
 
     public void setRelationType(RelationType relationType) {
         this.relationType = relationType;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "actor_id":
+                return "" + getActor_id();
+            case "address_id":
+                return "" + getAddress().getAddress_id();
+            case "relation_id":
+                return "" + getRelationType().getRelation_id();
+            case "actor_type":
+                return "" + getActor_id();
+            default:
+                return "invalid property specifier";
+        }
     }
 }

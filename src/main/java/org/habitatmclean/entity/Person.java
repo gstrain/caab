@@ -1,5 +1,7 @@
 package org.habitatmclean.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -8,7 +10,7 @@ import java.io.Serializable;
 @DiscriminatorValue("P")
 @Inheritance(strategy = InheritanceType.JOINED)
 @PrimaryKeyJoinColumn(name = "person_id", referencedColumnName = "actor_id")
-public class Person extends Actor implements Serializable {
+public class Person extends Actor implements Serializable, RetrievableProperties {
 
     private String first;
     private String middle;
@@ -18,9 +20,14 @@ public class Person extends Actor implements Serializable {
     private String cell_phone;
     private String work_phone;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name="family_id")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    private Family family;
+
     public Person() { }
 
-    public Person(String first, String middle, String last, String email, String home_phone, String cell_phone, String work_phone) {
+    public Person(String first, String middle, String last, String email, String home_phone, String cell_phone, String work_phone, Family family) {
         this.first = first;
         this.middle = middle;
         this.last = last;
@@ -28,9 +35,10 @@ public class Person extends Actor implements Serializable {
         this.home_phone = home_phone;
         this.cell_phone = cell_phone;
         this.work_phone = work_phone;
+        this.family = family;
     }
 
-    public Person(Long actor_id, String first, String middle, String last, String email, String home_phone, String cell_phone, String work_phone) {
+    public Person(Long actor_id, String first, String middle, String last, String email, String home_phone, String cell_phone, String work_phone, Family family) {
         super(actor_id);
         this.first = first;
         this.middle = middle;
@@ -39,6 +47,7 @@ public class Person extends Actor implements Serializable {
         this.home_phone = home_phone;
         this.cell_phone = cell_phone;
         this.work_phone = work_phone;
+        this.family = family;
     }
 
     @Column(name="first")
@@ -102,5 +111,39 @@ public class Person extends Actor implements Serializable {
 
     public void setWork_phone(String work_phone) {
         this.work_phone = work_phone;
+    }
+
+    public Family getFamily() {
+        return family;
+    }
+
+    public void setFamily(Family family) {
+        this.family = family;
+    }
+
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "person_id":
+                return "" + getActor_id();
+            case "family_id":
+                return "" + getFamily();
+            case "first":
+                return "" + getFirst();
+            case "middle":
+                return "" + getMiddle();
+            case "last":
+                return "" + getLast();
+            case "email":
+                return "" + getEmail();
+            case "home_phone":
+                return "" + getHome_phone();
+            case "cell_phone":
+                return "" + getCell_phone();
+            case "work_phone":
+                return "" + getWork_phone();
+            default:
+                return "invalid property specifier";
+        }
     }
 }

@@ -8,39 +8,39 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 
 public class RelationTypeDAO implements ReadDAO<RelationType, Long>, CreateUpdateDeleteDAO<RelationType, Long> {
-    private SessionFactory sessionFacotry = null;
+    private SessionFactory sessionFactory = null;
 
     public RelationTypeDAO() {}
-    public RelationTypeDAO(SessionFactory sessionFacotry) {
-        this.sessionFacotry = sessionFacotry;
+    public RelationTypeDAO(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
-    public void setSessionFacotry(SessionFactory sessionFacotry) {
-        this.sessionFacotry = sessionFacotry;
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
     public RelationType findByPrimaryKey(Long id) {
-        Session session = sessionFacotry.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         Object obj = session.load(RelationType.class, id);
         return (RelationType) obj;
     }
 
     @Override
     public RelationType save(RelationType entity) {
-        Session session = sessionFacotry.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(entity);
         return entity;
     }
 
     @Override
     public void delete(RelationType entity) {
-        sessionFacotry.getCurrentSession().delete(entity);
+        sessionFactory.getCurrentSession().delete(entity);
     }
 
     @Override
     public List<RelationType> findAll() {
-        Session session = sessionFacotry.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         Query result = session.createQuery("from RelationType");
         return result.list();
     }

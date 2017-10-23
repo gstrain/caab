@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="relation_type")
-public class RelationType implements Serializable {
+public class RelationType implements Serializable, RetrievableProperties {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long relation_id;
@@ -50,5 +50,19 @@ public class RelationType implements Serializable {
 
     public void setRelation_desc(String relation_desc) {
         this.relation_desc = relation_desc;
+    }
+
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "relation_id":
+                return "" + getRelation_id();
+            case "relation_name":
+                return "" + getRelation_name();
+            case "relation_desc":
+                return "" + getRelation_desc();
+            default:
+                return "invalid property specifier";
+        }
     }
 }

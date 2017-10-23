@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="class")
-public class Class implements Serializable {
+public class Class implements Serializable, RetrievableProperties {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long class_id;
@@ -46,6 +46,20 @@ public class Class implements Serializable {
 
     public void setClass_desc(String class_desc) {
         this.class_desc = class_desc;
+    }
+
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "class_id":
+                return "" + getClass_id();
+            case "class_name":
+                return "" + getClass_name();
+            case "class_desc":
+                return "" + getClass_desc();
+            default:
+                return "invalid property specifier";
+        }
     }
 
 }

@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="zone")
-public class Zone implements Serializable {
+public class Zone implements Serializable, RetrievableProperties {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long zone_id;
@@ -51,5 +51,19 @@ public class Zone implements Serializable {
 
     public void setZone_desc(String zone_description) {
         this.zone_desc = zone_description;
+    }
+
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "zone_id":
+                return "" + getZone_id();
+            case "zone_info":
+                return "" + getZone_info();
+            case "zone_desc":
+                return "" + getZone_desc();
+            default:
+                return "invalid property specifier";
+        }
     }
 }

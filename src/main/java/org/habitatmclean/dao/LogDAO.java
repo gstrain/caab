@@ -8,39 +8,39 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 
 public class LogDAO implements ReadDAO<Log, Long>, CreateUpdateDeleteDAO<Log, Long> {
-    private SessionFactory sessionFacotry = null;
+    private SessionFactory sessionFactory = null;
 
     public LogDAO() {}
-    public LogDAO(SessionFactory sessionFacotry) {
-        this.sessionFacotry = sessionFacotry;
+    public LogDAO(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
-    public void setSessionFacotry(SessionFactory sessionFacotry) {
-        this.sessionFacotry = sessionFacotry;
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
     public Log findByPrimaryKey(Long id) {
-        Session session = sessionFacotry.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         Object obj = session.load(Log.class, id);
         return (Log) obj;
     }
 
     @Override
     public Log save(Log entity) {
-        Session session = sessionFacotry.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(entity);
         return entity;
     }
 
     @Override
     public void delete(Log entity) {
-        sessionFacotry.getCurrentSession().delete(entity);
+        sessionFactory.getCurrentSession().delete(entity);
     }
 
     @Override
     public List<Log> findAll() {
-        Session session = sessionFacotry.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         Query result = session.createQuery("from Log");
         return result.list();
     }

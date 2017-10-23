@@ -8,27 +8,27 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 
 public class ZoneDAO implements ReadDAO<Zone, Long> {
-    private SessionFactory sessionFacotry = null;
+    private SessionFactory sessionFactory = null;
 
     public ZoneDAO() {}
-    public ZoneDAO(SessionFactory sessionFacotry) {
-        this.sessionFacotry = sessionFacotry;
+    public ZoneDAO(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
-    public void setSessionFacotry(SessionFactory sessionFacotry) {
-        this.sessionFacotry = sessionFacotry;
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
     public Zone findByPrimaryKey(Long id) {
-        Session session = sessionFacotry.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         Object obj = session.load(Zone.class, id);
         return (Zone) obj;
     }
 
     @Override
     public List<Zone> findAll() {
-        Session session = sessionFacotry.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         Query result = session.createQuery("from Zone");
         return result.list();
     }

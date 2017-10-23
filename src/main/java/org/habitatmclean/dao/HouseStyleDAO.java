@@ -8,39 +8,39 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 
 public class HouseStyleDAO implements ReadDAO<HouseStyle, Long>, CreateUpdateDeleteDAO<HouseStyle, Long> {
-    private SessionFactory sessionFacotry = null;
+    private SessionFactory sessionFactory = null;
 
     public HouseStyleDAO() {}
-    public HouseStyleDAO(SessionFactory sessionFacotry) {
-        this.sessionFacotry = sessionFacotry;
+    public HouseStyleDAO(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
-    public void setSessionFacotry(SessionFactory sessionFacotry) {
-        this.sessionFacotry = sessionFacotry;
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
     public HouseStyle findByPrimaryKey(Long id) {
-        Session session = sessionFacotry.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         Object obj = session.load(HouseStyle.class, id);
         return (HouseStyle) obj;
     }
 
     @Override
     public HouseStyle save(HouseStyle entity) {
-        Session session = sessionFacotry.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(entity);
         return entity;
     }
 
     @Override
     public void delete(HouseStyle entity) {
-        sessionFacotry.getCurrentSession().delete(entity);
+        sessionFactory.getCurrentSession().delete(entity);
     }
 
     @Override
     public List<HouseStyle> findAll() {
-        Session session = sessionFacotry.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         Query result = session.createQuery("from HouseStyle");
         return result.list();
     }

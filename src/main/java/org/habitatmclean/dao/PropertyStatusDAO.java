@@ -8,39 +8,39 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 
 public class PropertyStatusDAO implements ReadDAO<PropertyStatus, Long>, CreateUpdateDeleteDAO<PropertyStatus, Long> {
-    private SessionFactory sessionFacotry = null;
+    private SessionFactory sessionFactory = null;
 
     public PropertyStatusDAO() {}
-    public PropertyStatusDAO(SessionFactory sessionFacotry) {
-        this.sessionFacotry = sessionFacotry;
+    public PropertyStatusDAO(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
-    public void setSessionFacotry(SessionFactory sessionFacotry) {
-        this.sessionFacotry = sessionFacotry;
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
     public PropertyStatus findByPrimaryKey(Long id) {
-        Session session = sessionFacotry.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         Object obj = session.load(PropertyStatus.class, id);
         return (PropertyStatus) obj;
     }
 
     @Override
     public PropertyStatus save(PropertyStatus entity) {
-        Session session = sessionFacotry.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(entity);
         return entity;
     }
 
     @Override
     public void delete(PropertyStatus entity) {
-        sessionFacotry.getCurrentSession().delete(entity);
+        sessionFactory.getCurrentSession().delete(entity);
     }
 
     @Override
     public List<PropertyStatus> findAll() {
-        Session session = sessionFacotry.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         Query result = session.createQuery("from PropertyStatus");
         return result.list();
     }

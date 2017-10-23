@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="family")
-public class Family implements Serializable{
+public class Family implements Serializable, RetrievableProperties {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long family_id;
@@ -79,5 +79,23 @@ public class Family implements Serializable{
 
     public void setClassType(Class classType) {
         this.classType = classType;
+    }
+
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "family_id":
+                return "" + getFamily_id();
+            case "class_id":
+                return "" + getClassType().getClass_id();
+            case "milestone_id":
+                return "" + getMilestone().getMilestone_id();
+            case "equity_hrs":
+                return "" + getEquity_hrs();
+            case "income":
+                return "" + getIncome();
+            default:
+                return "invalid property specifier";
+        }
     }
 }

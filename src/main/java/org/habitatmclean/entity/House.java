@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="house")
-public class House implements Serializable {
+public class House implements Serializable, RetrievableProperties {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long house_id;
@@ -146,6 +146,34 @@ public class House implements Serializable {
 
     public void setBathrooms(double bathrooms) {
         this.bathrooms = bathrooms;
+    }
+
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "house_id":
+                return "" + getHouse_id();
+            case "address_id":
+                return "" + getAddress().getAddress_id();
+            case "property_id":
+                return "" + getProperty().getProperty_no();
+            case "family_id":
+                return "" + getFamily().getFamily_id();
+            case "construction_cost":
+                return "" + getConstruction_cost();
+            case "size":
+                return "" + getSize();
+            case "bedrooms":
+                return "" + getBedrooms();
+            case "bathrooms":
+                return "" + getBathrooms();
+            case "cstatus_id":
+                return "" + getConstruction_status().getCstatus_id();
+            case "house_style":
+                return "" + getHouse_style().getStyle_id();
+            default:
+                return "invalid property specifier";
+        }
     }
 
 }

@@ -3,10 +3,11 @@ package org.habitatmclean.entity;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="house_contribution")
-public class HouseContribution {
+public class HouseContribution implements Serializable, RetrievableProperties {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long contribution_id;
@@ -70,5 +71,21 @@ public class HouseContribution {
 
     public void setHouse(House house) {
         this.house = house;
+    }
+
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "contribution_id":
+                return "" + getContribution_id();
+            case "actor_id":
+                return "" + getActor().getActor_id();
+            case "house_id":
+                return "" + getHouse().getHouse_id();
+            case "involvement_desc":
+                return "" + getInvolvementDescription();
+            default:
+                return "invalid property specifier";
+        }
     }
 }

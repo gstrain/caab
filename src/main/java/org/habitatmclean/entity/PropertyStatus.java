@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="property_status")
-public class PropertyStatus implements Serializable {
+public class PropertyStatus implements Serializable, RetrievableProperties {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pstatus_id;
@@ -51,5 +51,19 @@ public class PropertyStatus implements Serializable {
 
     public void setPstatus_desc(String pstatus_description) {
         this.pstatus_desc = pstatus_description;
+    }
+
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "pstatus_id":
+                return "" + getPstatus_id();
+            case "pstatus":
+                return "" + getPstatus();
+            case "pstatus_desc":
+                return "" + getPstatus_desc();
+            default:
+                return "invalid property specifier";
+        }
     }
 }

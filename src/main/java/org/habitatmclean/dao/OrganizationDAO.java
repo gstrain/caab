@@ -8,39 +8,39 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 
 public class OrganizationDAO implements ReadDAO<Organization, Long>, CreateUpdateDeleteDAO<Organization, Long> {
-    private SessionFactory sessionFacotry = null;
+    private SessionFactory sessionFactory = null;
 
     public OrganizationDAO() {}
-    public OrganizationDAO(SessionFactory sessionFacotry) {
-        this.sessionFacotry = sessionFacotry;
+    public OrganizationDAO(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
-    public void setSessionFacotry(SessionFactory sessionFacotry) {
-        this.sessionFacotry = sessionFacotry;
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
     public Organization findByPrimaryKey(Long id) {
-        Session session = sessionFacotry.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         Object obj = session.load(Organization.class, id);
         return (Organization) obj;
     }
 
     @Override
     public Organization save(Organization entity) {
-        Session session = sessionFacotry.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(entity);
         return entity;
     }
 
     @Override
     public void delete(Organization entity) {
-        sessionFacotry.getCurrentSession().delete(entity);
+        sessionFactory.getCurrentSession().delete(entity);
     }
 
     @Override
     public List<Organization> findAll() {
-        Session session = sessionFacotry.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         Query result = session.createQuery("from Organization");
         return result.list();
     }

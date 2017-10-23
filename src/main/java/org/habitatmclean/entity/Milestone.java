@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="milestone")
-public class Milestone implements Serializable {
+public class Milestone implements Serializable, RetrievableProperties {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long milestone_id;
@@ -51,5 +51,19 @@ public class Milestone implements Serializable {
 
     public void setMileStone_desc(String mileStone_desc) {
         this.mileStone_desc = mileStone_desc;
+    }
+
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "milestone_id":
+                return "" + getMilestone_id();
+            case "milestone":
+                return "" + getMilestone();
+            case "milestone_desc":
+                return "" + getMileStone_desc();
+            default:
+                return "invalid property specifier";
+        }
     }
 }

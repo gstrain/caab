@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="log")
-public class Log implements Serializable {
+public class Log implements Serializable, RetrievableProperties {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long log_id;
@@ -139,6 +139,32 @@ public class Log implements Serializable {
 
     public void setProperty(Property property) {
         this.property = property;
+    }
+
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "log_id":
+                return "" + getLog_id();
+            case "family_id":
+                return "" + getFamily().getFamily_id();
+            case "contact_id":
+                return "" + getActor().getActor_id();
+            case "house_id":
+                return "" + getHouse().getHouse_id();
+            case "property_id":
+                return "" + getProperty().getProperty_no();
+            case "reason":
+                return "" + getReason();
+            case "date":
+                return "" + getDate();
+            case "notes":
+                return "" + getNotes();
+            case "status":
+                return getStatus();
+            default:
+                return "invalid property specifier";
+        }
     }
 }
 

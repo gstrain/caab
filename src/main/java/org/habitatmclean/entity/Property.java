@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="property")
-public class Property implements Serializable {
+public class Property implements Serializable, RetrievableProperties {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long property_no;
@@ -139,5 +139,31 @@ public class Property implements Serializable {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "property_no":
+                return "" + getProperty_no();
+            case "address_id":
+                return "" + getAddress().getAddress_id();
+            case "zone_id":
+                return "" + getZone().getZone_id();
+            case "owner_id":
+                return "" + getOwner().getActor_id();
+            case "property_status":
+                return "" + getProperty_status().getPstatus_id();
+            case "appraised_value":
+                return "" + getAppraised_value();
+            case "appraised_date":
+                return "" + getAppraised_date();
+            case "taxes":
+                return "" + getTaxes();
+            case "notes":
+                return "" + getNotes();
+            default:
+                return "invalid property specifier";
+        }
     }
 }
