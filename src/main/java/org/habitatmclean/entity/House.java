@@ -1,5 +1,7 @@
 package org.habitatmclean.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -27,13 +29,15 @@ public class House implements Serializable, RetrievableProperties {
     @JoinColumn(name = "property_id")
     private Property property;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name="address_id")
-    private Address address;
 
     @ManyToOne(optional = true)
     @JoinColumn(name="family_id")
     private Family family;
+
+    @OneToOne(optional = false)
+    @JoinColumn(name="address_id")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    private Address address;
 
     public House(Long house_id, Family family, double construction_cost, int size, int bedrooms, double bathrooms, ConstructionStatus construction_status, HouseStyle house_style, Property property, Address address) {
         this.house_id = house_id;

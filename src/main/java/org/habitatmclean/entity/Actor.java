@@ -25,6 +25,7 @@ public class Actor implements Serializable, RetrievableProperties {
 
     @OneToOne(optional = false)
     @JoinColumn(name="address_id")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Address address;
 
     public Actor() { }

@@ -5,50 +5,36 @@ import org.habitatmclean.entity.RetrievableProperties;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Table {
-    private final String TABLE_BEGIN = "<table>";
-    private final String TABLE_END = "</table>";
-    private List<TableRow> rows;
-    private TableRow headers;
+public abstract class Table {
+    protected final String TABLE_BEGIN = "<table>";
+    protected final String TABLE_END = "</table>";
+    protected List<TableRow> rows;
+    protected TableRow headers;
+    protected final String[] HEADERS;
 
-    public Table() {
+    // do not include default constructor so a table cannot be created without headers
+
+    Table(String[] HEADERS) {
         rows = new ArrayList<Table.TableRow>();
+        this.HEADERS = HEADERS;
+        addHeaders();
     }
 
     /**
-     * @param headers the headers of the table column to create
-     */
-    public Table(String[] headers) {
-        rows = new ArrayList<Table.TableRow>();
-        try {
-            addHeaders(headers);
-        } catch (HeadersAlreadyDefinedException e) {
-            e.printStackTrace(); // this will never happen
-        }
-    }
-
-    /**
-     * @param headers the headers of the table column to create
+     * @param HEADERS the headers of the table column to create
      * @param entities a list of entities to add to the table, contents MUST implement RetrievableProperties
      */
-    public Table(String[] headers, List entities) {
-        this(headers);
-        try {
-            addData(entities);
-        } catch (HeadersNotDefinedException e) {
-            e.printStackTrace(); // this will never happen
-        }
+    Table(String[] HEADERS, List entities) {
+        this(HEADERS);
+        addData(entities);
     }
 
     /**
      * adds an array of column names to be the column headers of the table
-     * @param headers the headers for the columns to go in the table
-     * @throws HeadersAlreadyDefinedException if the headers for this table are already set
      */
-    public void addHeaders(String[] headers) throws HeadersAlreadyDefinedException {
-        if(this.headers != null) throw new HeadersAlreadyDefinedException();
+    public void addHeaders()  {
         List<TableRow.Cell> cells = new ArrayList<TableRow.Cell>();
-        for(String header : headers) {
+        for(String header : HEADERS) {
             cells.add(new TableRow.Cell(header));
         }
         this.headers = new TableRow(cells);
@@ -57,24 +43,14 @@ public class Table {
     /**
      * adds a row to a table
      * @param entity the entity to add data from
-     * @throws HeadersNotDefinedException if the column headers for the table were not already defined
      */
-    public void addRow(RetrievableProperties entity) throws HeadersNotDefinedException {
-        if(headers == null) throw new HeadersNotDefinedException();
-        List<TableRow.Cell> cells = new ArrayList<TableRow.Cell>();
-        for(String property : headers.toArray()) {
-            String value = entity.getValueByPropertyName(property);
-            cells.add(new TableRow.Cell(value));
-        }
-        rows.add(new TableRow(cells));
-    }
+    public abstract void addRow(RetrievableProperties entity);
 
     /**
      * adds the entire list of entities as rows to the table
      * @param entities a list of entities to add to the table, contents MUST implement RetrievableProperties
-     * @throws HeadersNotDefinedException if the column headers for the table were not already defined
      */
-    public void addData(List<RetrievableProperties> entities) throws HeadersNotDefinedException{
+    public void addData(List<RetrievableProperties> entities) {
         for(RetrievableProperties entity : entities) {
             addRow(entity);
         }
@@ -91,7 +67,7 @@ public class Table {
         return table.toString();
     }
 
-    private static class TableRow {
+    static class TableRow {
         final String LINE_BEGIN = "<tr>";
         final String LINE_END = "</tr>";
         List<Cell> cells = new ArrayList<Cell>();
@@ -127,16 +103,13 @@ public class Table {
             return row.toString();
         }
 
-        private static class Cell {
-            private final String CELL_BEGIN = "<td>";
-            private final String CELL_END = "</td>";
+        static class Cell {
+            private final String CELL_BEGIN = "<td>"; // if these change, make sure to also change the .toArray() method
+            private final String CELL_END = "</td>";  // in TableRow
             private String value;
 
             public Cell(String value) {
-                if(!value.equals("null"))
-                    this.value = value;
-                else
-                    this.value = "";
+                 setValue(value);
             }
 
             public String getValue() {
@@ -144,7 +117,10 @@ public class Table {
             }
 
             public void setValue(String value) {
-                this.value = value;
+                if(value == null || value.equals("null"))
+                    this.value = "";
+                else
+                    this.value = value;
             }
 
             public String toString() {

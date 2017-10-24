@@ -26,7 +26,6 @@ public class Property implements Serializable, RetrievableProperties {
     @ManyToOne(optional = false)
     @JoinColumn(name="zone_id")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-
     private Zone zone;
 
     @ManyToOne(optional = false)
@@ -34,7 +33,7 @@ public class Property implements Serializable, RetrievableProperties {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Actor owner;
 
-    @OneToOne
+    @OneToOne(optional = false)
     @JoinColumn(name="address_id")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Address address;

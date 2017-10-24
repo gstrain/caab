@@ -3,10 +3,10 @@ package org.habitatmclean.servlet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.habitatmclean.dao.*;
-import org.habitatmclean.entity.*;
 import org.habitatmclean.hibernate.HibernateUtil;
-import org.habitatmclean.table.HeadersAlreadyDefinedException;
 import org.habitatmclean.table.Table;
+import org.habitatmclean.table.TableFactory;
+import org.habitatmclean.table.TableTypeNotFoundException;
 import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.proxy.HibernateProxy;
@@ -17,10 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 @WebServlet(name = "DBServlet", value="/dbservlet")
 public class DBServlet extends HttpServlet {
@@ -90,11 +87,17 @@ public class DBServlet extends HttpServlet {
 //        sessionFactory.getCurrentSession().getTransaction().commit();
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        ReadDAO dao = new RelationTypeDAO(sessionFactory);
+        ReadDAO dao = new PersonDAO(sessionFactory);
         sessionFactory.getCurrentSession().beginTransaction();
-        List zones = dao.findAll();
-        String[] headers = {"relation_id", "relation_name", "relation_desc"};
-        Table table = new Table(headers, zones);
+        List persons = dao.findAll();
+        Table table = null;
+        try {
+            table = TableFactory.getTable("person");
+        } catch (TableTypeNotFoundException e) {
+            e.printStackTrace();
+        }
+        table.addData(persons);
+
 
         response.getWriter().println("<!DOCTYPE html><head></head><body>");
         response.getWriter().println(table);
