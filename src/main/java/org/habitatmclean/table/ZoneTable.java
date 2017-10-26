@@ -13,9 +13,9 @@ public class ZoneTable extends Table {
     @Override
     public void addRow(RetrievableProperties entity) {
         Zone zone = (Zone) entity;
-        List<TableRow.Cell> cells = new ArrayList<TableRow.Cell>();
-        cells.add(new TableRow.Cell(zone.getZone_info()));
-        cells.add(new TableRow.Cell(zone.getZone_desc()));
-        rows.add(new TableRow(cells));
+        List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
+        tableCells.add(new TableRow.TableCell(zone.getZone_info()));
+        tableCells.add(new TableRow.TableCell(zone.getZone_desc()));
+        rows.add(new TableRow(tableCells));
     }
 }

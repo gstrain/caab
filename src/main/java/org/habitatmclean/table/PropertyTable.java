@@ -13,10 +13,10 @@ public class PropertyTable<P> extends Table {
     @Override
     public void addRow(RetrievableProperties entity) {
         Property property = (Property) entity;
-        List<TableRow.Cell> cells = new ArrayList<TableRow.Cell>();
-        cells.add(new TableRow.Cell("" + property.getProperty_no()));
-        cells.add(new TableRow.Cell("" + property.getOwner().getActor_id()));
-        cells.add(new TableRow.Cell(property.getProperty_status().getPstatus_desc()));
-        rows.add(new TableRow(cells));
+        List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
+        tableCells.add(new TableRow.TableCell("" + property.getProperty_no()));
+        tableCells.add(new TableRow.TableCell("" + property.getOwner().getActor_id()));
+        tableCells.add(new TableRow.TableCell(property.getProperty_status().getPstatus_desc()));
+        rows.add(new TableRow(tableCells));
     }
 }

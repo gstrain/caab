@@ -13,10 +13,10 @@ public class PeopleTable extends Table {
     @Override
     public void addRow(RetrievableProperties entity) {
         Person person = (Person) entity;
-        List<TableRow.Cell> cells = new ArrayList<TableRow.Cell>();
-        cells.add(new TableRow.Cell(person.getFirst()));
-        cells.add(new TableRow.Cell(person.getMiddle()));
-        cells.add(new TableRow.Cell(person.getLast()));
-        rows.add(new TableRow(cells));
+        List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
+        tableCells.add(new TableRow.TableCell(person.getFirst()));
+        tableCells.add(new TableRow.TableCell(person.getMiddle()));
+        tableCells.add(new TableRow.TableCell(person.getLast()));
+        rows.add(new TableRow(tableCells));
     }
 }

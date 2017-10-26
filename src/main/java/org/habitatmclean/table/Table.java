@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Table {
-    protected final String TABLE_BEGIN = "<table>";
-    protected final String TABLE_END = "</table>";
-    protected List<TableRow> rows;
-    protected TableRow headers;
-    protected final String[] HEADERS;
+    private final String TABLE_BEGIN = "<table>\n";
+    private final String TABLE_END = "\n</table>";
+    List<TableRow> rows;
+    TableRow headers;
+    private final String[] HEADERS;
 
     // do not include default constructor so a table cannot be created without headers
 
@@ -33,11 +33,11 @@ public abstract class Table {
      * adds an array of column names to be the column headers of the table
      */
     public void addHeaders()  {
-        List<TableRow.Cell> cells = new ArrayList<TableRow.Cell>();
+        List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
         for(String header : HEADERS) {
-            cells.add(new TableRow.Cell(header));
+            tableCells.add(new TableRow.TableCell(header));
         }
-        this.headers = new TableRow(cells);
+        this.headers = new TableRow.TableHeaders(tableCells);
     }
 
     /**
@@ -68,55 +68,77 @@ public abstract class Table {
     }
 
     static class TableRow {
-        final String LINE_BEGIN = "<tr>";
-        final String LINE_END = "</tr>";
-        List<Cell> cells = new ArrayList<Cell>();
+        final String LINE_BEGIN = "\n<tr>\n";
+        final String LINE_END = "\n</tr>\n";
+        final String BUTTON = "<td><button type=\"button\">Edit</button></td>";
+        List<TableCell> tableCells = new ArrayList<TableCell>();
 
-        public String[] toArray() {
-            String[] data = new String[cells.size()];
+        String[] toArray() {
+            String[] data = new String[tableCells.size()];
             for(int i = 0; i < data.length; i++) {
-                data[i] = cells.get(i).toString().replace("<td>", "");
+                data[i] = tableCells.get(i).toString().replace("<td>", "");
                 data[i] = data[i].replace("</td>", "");
             }
             return data;
         }
 
-        public TableRow(List<Cell> cells){
-            this.cells = cells;
+        TableRow(List<TableCell> tableCells){
+            this.tableCells = tableCells;
         }
 
-        public List<Cell> getCells() {
-            return cells;
+        List<TableCell> getTableCells() {
+            return tableCells;
         }
 
-        public void setCells(List<Cell> cells) {
-            this.cells = cells;
+        void setTableCells(List<TableCell> tableCells) {
+            this.tableCells = tableCells;
         }
 
         public String toString() {
+            boolean first = true;
             StringBuilder row = new StringBuilder();
             row.append(LINE_BEGIN);
-            for(Cell cell : cells) {
-                row.append(cell);
+            for(TableCell tableCell : tableCells) {
+                row.append(tableCell);
             }
+            row.append(BUTTON);
             row.append(LINE_END);
             return row.toString();
         }
 
-        static class Cell {
+        static class TableHeaders extends TableRow {
+
+            TableHeaders(List<TableCell> tableCells) {
+                super(tableCells);
+            }
+
+            @Override
+            public String toString() {
+                boolean first = true;
+                StringBuilder row = new StringBuilder();
+                row.append(LINE_BEGIN);
+                for(TableCell tableCell : tableCells) {
+                    row.append(tableCell);
+                }
+                row.append(LINE_END);
+                return row.toString();
+            }
+        }
+
+        static class TableCell {
             private final String CELL_BEGIN = "<td>"; // if these change, make sure to also change the .toArray() method
             private final String CELL_END = "</td>";  // in TableRow
             private String value;
 
-            public Cell(String value) {
+            TableCell(String value) {
                  setValue(value);
             }
 
-            public String getValue() {
+            String getValue() {
                 return value;
             }
 
-            public void setValue(String value) {
+            void setValue(String value) {
                 if(value == null || value.equals("null"))
                     this.value = "";
                 else

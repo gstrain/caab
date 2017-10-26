@@ -13,9 +13,9 @@ public class VendorTable extends Table {
     @Override
     public void addRow(RetrievableProperties entity) {
         Organization organization = (Organization) entity;
-        List<TableRow.Cell> cells = new ArrayList<TableRow.Cell>();
-        cells.add(new TableRow.Cell(organization.getName()));
-        cells.add(new TableRow.Cell(organization.getPerson().getFirst()));
-        rows.add(new TableRow(cells));
+        List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
+        tableCells.add(new TableRow.TableCell(organization.getName()));
+        tableCells.add(new TableRow.TableCell(organization.getPerson().getFirst()));
+        rows.add(new TableRow(tableCells));
     }
 }

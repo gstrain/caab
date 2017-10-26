@@ -99,7 +99,7 @@ public class DBServlet extends HttpServlet {
         table.addData(persons);
 
 
-        response.getWriter().println("<!DOCTYPE html><head></head><body>");
+        response.getWriter().println("<!DOCTYPE html><html><head></head><body>");
         response.getWriter().println(table);
         response.getWriter().println("</body></html>");
     }
