@@ -60,10 +60,15 @@
 
 #footer
 {
+    width: 100%;
+    height: 50px;
     display: block;
-    padding: 150px 150px;
+    bottom: 0;
+    position: fixed;
+    padding: 1rem;
     color: #FFFFFF;
     background-color: rgba(1,174,216,1);
+    list-style-type: none;
 }
 
 #bottom
@@ -76,5 +81,15 @@
     content: '';
     display: inline-block;
     clear: both;
+}
+
+#footer-list {
+    /*padding-left: 100px;*/
+}
+
+#footer-list li {
+    list-style-type: none;
+    display: inline-block;
+    padding-right: 100px;
 }
 
