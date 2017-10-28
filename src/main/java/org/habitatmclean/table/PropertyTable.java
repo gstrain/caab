@@ -19,4 +19,9 @@ public class PropertyTable<P> extends Table {
         tableCells.add(new TableRow.TableCell(property.getProperty_status().getPstatus_desc()));
         rows.add(new TableRow(tableCells));
     }
+
+    @Override
+    public void buildModal(){
+        modal = new Modal ("Property");
+    }
 }

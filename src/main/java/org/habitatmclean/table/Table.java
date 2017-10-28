@@ -8,7 +8,8 @@ import java.util.List;
 public abstract class Table {
     private final String TABLE_BEGIN = "<table class=\"table\" style=\"display:inline; margin:10px\">\n"; // TODO move inline display to CSS
     private final String TABLE_END = "\n</table>";
-    private final String BUTTON = "<button type=\"button\" class=\"btn btn-success btn-lg\">Add</button>";
+    private final String BUTTON = "<button type=\"button\" class=\"btn btn-success btn-lg\" data-toggle=\"modal\" data-target=\"#record-modal\">Add</button>";
+    Modal modal;
     List<TableRow> rows;
     TableRow headers;
     private final String[] HEADERS;
@@ -19,6 +20,7 @@ public abstract class Table {
         rows = new ArrayList<Table.TableRow>();
         this.HEADERS = HEADERS;
         addHeaders();
+        buildModal();
     }
 
     /**
@@ -48,6 +50,11 @@ public abstract class Table {
     public abstract void addRow(RetrievableProperties entity);
 
     /**
+     * builds this tables modal
+     */
+    public abstract void buildModal();
+
+    /**
      * adds the entire list of entities as rows to the table
      * @param entities a list of entities to add to the table, contents MUST implement RetrievableProperties
      */
@@ -66,13 +73,14 @@ public abstract class Table {
         }
         table.append(TABLE_END);
         table.append(BUTTON);
+        table.append(modal.toString());
         return table.toString();
     }
 
     static class TableRow {
         final String LINE_BEGIN = "\t<tr>\n\t\t";
         final String LINE_END = "\n\t</tr>\n";
-        final String EDIT_BUTTON = "<td><button type=\"button\" class=\"btn btn-warning btn-sm\" style=\"margin:5px\">Edit</button></td>"; // TODO move CSS to stylesheet
+        final String EDIT_BUTTON = "<td><button type=\"button\" class=\"btn btn-warning btn-sm\" style=\"margin:5px\" data-toggle=\"modal\" data-target=\"#record-modal\">Edit</button></td>"; // TODO move CSS to stylesheet
         final String DELETE_BUTTON = "<td><button type=\"button\" class=\"btn btn-danger btn-sm\" style=\"margin:5px\">Delete</button></td>";
         List<TableCell> tableCells = new ArrayList<TableCell>();
 

@@ -18,4 +18,9 @@ public class VendorTable extends Table {
         tableCells.add(new TableRow.TableCell(organization.getPerson().getFirst()));
         rows.add(new TableRow(tableCells));
     }
+
+    @Override
+    public void buildModal(){
+        modal = new Modal ("Vendors");
+    }
 }

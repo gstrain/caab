@@ -18,4 +18,9 @@ public class ZoneTable extends Table {
         tableCells.add(new TableRow.TableCell(zone.getZone_desc()));
         rows.add(new TableRow(tableCells));
     }
+
+    @Override
+    public void buildModal(){
+        modal = new Modal ("Zone");
+    }
 }

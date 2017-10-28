@@ -19,4 +19,9 @@ public class PeopleTable extends Table {
         tableCells.add(new TableRow.TableCell(person.getLast()));
         rows.add(new TableRow(tableCells));
     }
+
+    @Override
+    public void buildModal(){
+        modal = new Modal ("People");
+    }
 }

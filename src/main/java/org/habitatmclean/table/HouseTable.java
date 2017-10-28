@@ -24,4 +24,9 @@ public class HouseTable extends Table {
         tableCells.add(new TableRow.TableCell("" + house.getBathrooms()));
         rows.add(new TableRow(tableCells));
     }
+
+    @Override
+    public void buildModal(){
+        modal = new Modal ("Houses");
+    }
 }
