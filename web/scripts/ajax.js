@@ -11,7 +11,7 @@ function getData() {
             // $("#thead").text(data);
             console.log('success');
             console.log(data);
-            // $('body').append(data);
+            $('#nav').after(data);
             // $('*').css('visibility', 'visible');
         }
     });

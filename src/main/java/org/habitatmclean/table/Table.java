@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Table {
-    private final String TABLE_BEGIN = "<table>\n";
+    private final String TABLE_BEGIN = "<table class=\"table\" style=\"display:inline; margin:10px\">\n"; // TODO move inline display to CSS
     private final String TABLE_END = "\n</table>";
+    private final String BUTTON = "<button type=\"button\" class=\"btn btn-success btn-lg\">Add</button>";
     List<TableRow> rows;
     TableRow headers;
     private final String[] HEADERS;
@@ -64,13 +65,15 @@ public abstract class Table {
             table.append(row);
         }
         table.append(TABLE_END);
+        table.append(BUTTON);
         return table.toString();
     }
 
     static class TableRow {
-        final String LINE_BEGIN = "\n<tr>\n";
-        final String LINE_END = "\n</tr>\n";
-        final String BUTTON = "<td><button type=\"button\">Edit</button></td>";
+        final String LINE_BEGIN = "\t<tr>\n\t\t";
+        final String LINE_END = "\n\t</tr>\n";
+        final String EDIT_BUTTON = "<td><button type=\"button\" class=\"btn btn-warning btn-sm\" style=\"margin:5px\">Edit</button></td>"; // TODO move CSS to stylesheet
+        final String DELETE_BUTTON = "<td><button type=\"button\" class=\"btn btn-danger btn-sm\" style=\"margin:5px\">Delete</button></td>";
         List<TableCell> tableCells = new ArrayList<TableCell>();
 
         String[] toArray() {
@@ -101,13 +104,15 @@ public abstract class Table {
             for(TableCell tableCell : tableCells) {
                 row.append(tableCell);
             }
-            row.append(BUTTON);
+            row.append(EDIT_BUTTON);
+            row.append(DELETE_BUTTON);
             row.append(LINE_END);
             return row.toString();
         }
 
         static class TableHeaders extends TableRow {
-
+            private final String HEADER_BEGIN = "\t<thead>\n\t\t";
+            private final String HEADER_END = "</thead>";
             TableHeaders(List<TableCell> tableCells) {
                 super(tableCells);
             }
@@ -116,11 +121,11 @@ public abstract class Table {
             public String toString() {
                 boolean first = true;
                 StringBuilder row = new StringBuilder();
-                row.append(LINE_BEGIN);
+                row.append(HEADER_BEGIN);
                 for(TableCell tableCell : tableCells) {
                     row.append(tableCell);
                 }
-                row.append(LINE_END);
+                row.append(HEADER_END);
                 return row.toString();
             }
         }
