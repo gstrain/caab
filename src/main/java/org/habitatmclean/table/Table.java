@@ -8,7 +8,7 @@ import java.util.List;
 public abstract class Table {
     private final String TABLE_BEGIN = "<table class=\"table\" style=\"display:inline; margin:10px\">\n"; // TODO move inline display to CSS
     private final String TABLE_END = "\n</table>";
-    private final String BUTTON = "<button type=\"button\" class=\"btn btn-success btn-lg\" data-toggle=\"modal\" data-target=\"#record-modal\">Add</button>";
+    private final String BUTTON = "<button type=\"button\" class=\"btn btn-success btn-lg btn-add\" data-toggle=\"modal\" data-target=\"#record-modal\">Add</button>";
     Modal modal;
     List<TableRow> rows;
     TableRow headers;
@@ -80,7 +80,7 @@ public abstract class Table {
     static class TableRow {
         final String LINE_BEGIN = "\t<tr>\n\t\t";
         final String LINE_END = "\n\t</tr>\n";
-        final String EDIT_BUTTON = "<td><button type=\"button\" class=\"btn btn-warning btn-sm\" style=\"margin:5px\" data-toggle=\"modal\" data-target=\"#record-modal\">Edit</button></td>"; // TODO move CSS to stylesheet
+        final String EDIT_BUTTON = "<td><button type=\"button\" class=\"btn btn-warning btn-sm btn-edit\" style=\"margin:5px\" data-toggle=\"modal\" data-target=\"#record-modal\">Edit</button></td>"; // TODO move CSS to stylesheet
         final String DELETE_BUTTON = "<td><button type=\"button\" class=\"btn btn-danger btn-sm\" style=\"margin:5px\">Delete</button></td>";
         List<TableCell> tableCells = new ArrayList<TableCell>();
 

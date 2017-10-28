@@ -22,6 +22,6 @@ public class PeopleTable extends Table {
 
     @Override
     public void buildModal(){
-        modal = new Modal ("People");
+        modal = new Modal ("Person");
     }
 }
