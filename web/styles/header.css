@@ -61,35 +61,24 @@
 #footer
 {
     width: 100%;
-    height: 50px;
-    display: block;
+    overflow: hidden;
     bottom: 0;
     position: fixed;
-    padding: 1rem;
     color: #FFFFFF;
     background-color: rgba(1,174,216,1);
-    list-style-type: none;
-}
-
-#bottom
-{
-    float: left;
-}
-
-#moreInfo
-{
-    content: '';
-    display: inline-block;
-    clear: both;
 }
 
 #footer-list {
-    /*padding-left: 100px;*/
+    width: 60%;
+    float: right;
+    list-style: none;
 }
 
 #footer-list li {
-    list-style-type: none;
     display: inline-block;
-    padding-right: 100px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    float: left;
+    padding-right: 50px;
 }
 
