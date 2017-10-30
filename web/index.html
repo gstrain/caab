@@ -1,19 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html class="no-js" lang="">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Welcome to Our Page</title>
+    <title>Welcome to the CAAB</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="manifest" href="site.webmanifest">
     <link rel="apple-touch-icon" href="icon.png">
-    <!-- Place favicon.ico in the root directory -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script type="text/javascript" src="../scripts/ajax.js"></script>
-    <script type="text/javascript" src="../scripts/load.js"></script>
-    <link rel="stylesheet" href="../styles/header.css">
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/ajax.js"></script>
+    <script type="text/javascript" src="scripts/load.js"></script>
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/font-awesome/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script type="text/javascript" src="scripts/ajax.js"></script>
+    <script type="text/javascript" src="scripts/load.js"></script>
+    <link rel="stylesheet" href="styles/header.css">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
@@ -32,8 +40,7 @@
             </a>
         </div>
 
-        <div id="collapse">
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div id="collapse" class="collapse navbar-collapse">
             <ul id="list" class="nav navbar-nav">
                 <button type="button" onclick="getData()"><a href="properties.html"> Properties</a></button>
                 <button type="button" onclick="getData()"><a href="houses.html"> Houses</a></button>
@@ -49,22 +56,17 @@
                 </div>
             </form>
             </div>
-        </div>
-    </div>
+         </div>
     </div>
 </nav>
+</body>
 
 <footer id="footer" class="mdl-mega-footer">
-    <div class="mdl-mega-footer--middle-section">
-        <div id="bottom" class="mdl-mega-footer--drop-down-section">
-            <h1 class="mdl-mega-footer--heading">FAQ</h1>
-            <ul class="mdl-mega-footer--link-list">
-                <li><a href="#">Questions</a></li>
-                <li><a href="#">Answers</a></li>
-                <li><a href="#">Contact us</a></li>
-            </ul>
-        </div>
-    </div>
+    <ul id="footer-list" class="mdl-mega-footer--link-list">
+               <li><a href="https://www.facebook.com/HabitatMcLean/"> <i class="fa fa-facebook-official" style="font-size:36px;color: #ffffff;" ></i> </a> </li>
+               <li><a href="https://twitter.com/HabitatMcLean"> <i class="fa fa-twitter-square" aria-hidden="true" style="font-size: 36px;color: #ffffff"></i></a></li>
+               <li><a href="#"><i class="fa fa-question-circle" aria-hidden="true" style="font-size: 36px;color: #ffffff"></i></a></li>
+    </ul>
 </footer>
-</body>
+
 </html>
