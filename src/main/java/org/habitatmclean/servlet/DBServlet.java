@@ -109,24 +109,7 @@ public class DBServlet extends HttpServlet {
 //        response.getWriter().println(jscript + "</body></html>");
     }
 
-    /*
-     * turns objects returned by a hibernate query into real objects. those returned by a
-     * lazy fetch query are technically of type HibernateProxy. Useful if we want to serialize something
-     * returned by a query, but it MUST be used DURING the session (see above example)
-     */
-    private static <T> T initializeAndUnproxy(T entity) {
-        if (entity == null) {
-            throw new
-                    NullPointerException("Entity passed for initialization is null");
-        }
 
-        Hibernate.initialize(entity);
-        if (entity instanceof HibernateProxy) {
-            entity = (T) ((HibernateProxy) entity).getHibernateLazyInitializer()
-                    .getImplementation();
-        }
-        return entity;
-    }
 
 
 //      toInsert.setProperty_no(null); // remove primary key so we can test a save instead of update
