@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Table {
-    private final String TABLE_BEGIN = "<table class=\"table\" style=\"display:inline; margin:10px\">\n"; // TODO move inline display to CSS
+    private final String TABLE_BEGIN = "<table id=\"table\" class=\"table\" style=\"display:inline; margin:10px\">\n"; // TODO move inline display to CSS
     private final String TABLE_END = "\n</table>";
-    private final String BUTTON = "<button type=\"button\" class=\"btn btn-success btn-lg btn-add\" data-toggle=\"modal\" data-target=\"#record-modal\">Add</button>";
+    private final String ADD_BUTTON = "<button id=\"addButton\" type=\"button\" class=\"btn btn-success btn-lg button-add\" data-toggle=\"modal\" data-target=\"#record-modal\">Add</button>";
     Modal modal;
     List<TableRow> rows;
     TableRow headers;
@@ -72,7 +72,7 @@ public abstract class Table {
             table.append(row);
         }
         table.append(TABLE_END);
-        table.append(BUTTON);
+        table.append(ADD_BUTTON);
         table.append(modal.toString());
         return table.toString();
     }
@@ -80,8 +80,8 @@ public abstract class Table {
     static class TableRow {
         final String LINE_BEGIN = "\t<tr ";
         final String LINE_END = "\n\t</tr>\n";
-        final String EDIT_BUTTON = "<td><button type=\"button\" class=\"btn btn-warning btn-sm btn-edit\" style=\"margin:5px\" data-toggle=\"modal\" data-target=\"#record-modal\">Edit</button></td>"; // TODO move CSS to stylesheet
-        final String DELETE_BUTTON = "<td><button type=\"button\" class=\"btn btn-danger btn-sm\" style=\"margin:5px\">Delete</button></td>";
+        final String EDIT_BUTTON = "<td><button type=\"button\" class=\"btn btn-warning btn-sm button-edit\" style=\"margin:5px\" data-toggle=\"modal\" data-target=\"#record-modal\">Edit</button></td>"; // TODO move CSS to stylesheet
+        final String DELETE_BUTTON = "<td><button type=\"button\" class=\"btn btn-danger btn-sm button-delete\" style=\"margin:5px\">Delete</button></td>";
         List<TableCell> tableCells = new ArrayList<TableCell>();
         private String rowId = "id=";
 
