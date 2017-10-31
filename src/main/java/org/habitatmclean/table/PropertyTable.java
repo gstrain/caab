@@ -17,7 +17,9 @@ public class PropertyTable<P> extends Table {
         tableCells.add(new TableRow.TableCell("" + property.getProperty_no()));
         tableCells.add(new TableRow.TableCell("" + property.getOwner().getActor_id()));
         tableCells.add(new TableRow.TableCell(property.getProperty_status().getPstatus_desc()));
-        rows.add(new TableRow(tableCells));
+        TableRow tr = new TableRow(tableCells);
+        tr.setRowId("" + ((Property) entity).getProperty_no());
+        rows.add(tr);
     }
 
     @Override

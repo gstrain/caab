@@ -6,8 +6,8 @@ import org.habitatmclean.entity.RetrievableProperties;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PeopleTable extends Table {
-    public PeopleTable() {
+public class PersonTable extends Table {
+    public PersonTable() {
         super(new String[]{"first", "middle", "last"}); // adjust this to determine table columns
     }
     @Override
@@ -17,7 +17,9 @@ public class PeopleTable extends Table {
         tableCells.add(new TableRow.TableCell(person.getFirst()));
         tableCells.add(new TableRow.TableCell(person.getMiddle()));
         tableCells.add(new TableRow.TableCell(person.getLast()));
-        rows.add(new TableRow(tableCells));
+        TableRow tr = new TableRow(tableCells);
+        tr.setRowId("" + ((Person) entity).getActor_id());
+        rows.add(tr);
     }
 
     @Override
