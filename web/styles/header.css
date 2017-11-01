@@ -81,16 +81,16 @@
     float: left;
     padding-right: 50px;
 }
+/* TODO this looks terrible */
+/*.table, th, td{*/
+    /*display: inline;*/
+    /*margin:10px;*/
+/*}*/
 
-.table, th, td{
-    display: inline;
-    margin:10px;
-}
-
-.table th, td
-{
-    border: 10px solid black;
-}
+/*.table th, td*/
+/*{*/
+    /*border: 5px solid black;*/
+/*}*/
 
 #addButton{
     /*float:left;*/

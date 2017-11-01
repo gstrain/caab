@@ -71,13 +71,13 @@ public abstract class Table {
         StringBuilder table = new StringBuilder();
 //        table.append(BOOTSTRAP);
 //        table.append(SCRIPT);
+        table.append(ADD_BUTTON);
         table.append(TABLE_BEGIN);
         table.append(headers);
         for(TableRow row : rows) {
             table.append(row);
         }
         table.append(TABLE_END);
-        table.append(ADD_BUTTON);
         table.append(modal.toString());
         return table.toString();
     }
