@@ -17,8 +17,6 @@ import java.io.IOException;
 
 @WebServlet(name = "DeleteServlet", value="/delete")
 public class DeleteServlet extends HttpServlet {
-    private static TTLCache cache = new TTL();
-    private final Long TIME_TO_LIVE =10000L;    // objects are valid in the cache for 10 seconds
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int pk = Integer.parseInt(request.getParameter("primary_k"));
