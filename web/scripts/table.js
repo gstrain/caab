@@ -11,6 +11,7 @@
 
             add:function(){
                 this.$recordAction.html('Add ');
+                this.$modal.find('.')
             },
 
             edit:function(){

@@ -8,6 +8,7 @@ import java.util.List;
 public abstract class Modal {
     private String title;
     private String id = "<input type=\"hidden\" name=\"id\" value=\"\">";
+    private String action = "<input type='hidden' name='action' value='write'>";
     protected List<Form> forms;
 
     Modal(String title){
