@@ -4,6 +4,7 @@ import org.habitatmclean.dao.CreateUpdateDeleteDAO;
 import org.habitatmclean.dao.PersonDAO;
 import org.habitatmclean.dao.ReadDAO;
 import org.habitatmclean.entity.Person;
+import org.habitatmclean.hibernate.HibernateAdapter;
 import org.habitatmclean.hibernate.HibernateUtil;
 import org.hibernate.SessionFactory;
 
@@ -40,10 +41,8 @@ public class DeleteServlet extends HttpServlet {
                     sessionFactory.getCurrentSession().getTransaction().commit();
                     break;
                 case "undo":
-                    sessionFactory.getCurrentSession().beginTransaction();
-                    CreateUpdateDeleteDAO save = new PersonDAO(sessionFactory);
-                    save.save(cache.get(pk + ""));
-                    sessionFactory.getCurrentSession().getTransaction().commit();
+                    CreateUpdateDeleteDAO dao = new HibernateAdapter();
+                    dao.save(cache.get(pk + ""));
                     break;
             }
     }

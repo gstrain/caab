@@ -37,13 +37,17 @@
     }
 
     function deleteRow(pk) {
+        try {
+            iziToast.hide($('#deleteDialogue'));
+        } catch (exc) {};   // forcibly close the last toast b/c sometimes it would linger
         iziToast.show({
             timeout: 6000,
             close: true,
             overlay: false,
             //toastOnce: true,
-            id: 'deleteDialogue',
+            id: 'undoDialogue',
             color: 'red',
+            drag: false,
             title: 'Row Deleted',
             icon: 'fa fa-trash',
             message: '',
@@ -87,6 +91,7 @@
                 id: 'deleteDialogue',
                 color: 'yellow',
                 layout: 2,
+                drag: false,
                 title: 'Deleting Row',
                 icon: 'fa fa-question',
                 message: 'Are you sure?',
