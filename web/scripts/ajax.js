@@ -52,7 +52,6 @@
     function addDeleteListener() {
         $('.button-delete').click(function() {
             var pk = $(this).parent().parent().attr('id').substring(7);
-            var checked = false;
             // TODO apply styling to selected row to show which will be deleted
             iziToast.show({
                 timeout: 6000,
@@ -65,7 +64,7 @@
                 drag: false,
                 title: 'Deleting Row',
                 icon: 'fa fa-question',
-                message: 'Are you sure? <b>This cannot be undone!</b><br/><input type="checkbox" class="form-check-input" id="deleteCheck"><label for="deleteCheck">I understand</label>',
+                message: 'Are you sure? <b>This cannot be undone!</b><br/><input type="checkbox" class="form-check-input" id="deleteCheck"><label for="deleteCheck">&nbsp;&nbsp;&nbsp;I understand</label>',
                 position: 'center',
                 closeOnEscape: true,
                 buttons: [
