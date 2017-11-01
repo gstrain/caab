@@ -16,7 +16,9 @@ public class ZoneTable extends Table {
         List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
         tableCells.add(new TableRow.TableCell(zone.getZone_info()));
         tableCells.add(new TableRow.TableCell(zone.getZone_desc()));
-        rows.add(new TableRow(tableCells));
+        TableRow tr = new TableRow(tableCells);
+        tr.setRowId("" + ((Zone) entity).getZone_id());
+        rows.add(tr);
     }
 
     @Override
