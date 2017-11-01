@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PeopleTable extends Table {
     public PeopleTable() {
-        super(new String[]{"first", "middle", "last"}); // adjust this to determine table columns
+        super(new String[]{"first", "middle", "last"}, new PeopleModal()); // adjust this to determine table columns
     }
     @Override
     public void addRow(RetrievableProperties entity) {
@@ -20,8 +20,4 @@ public class PeopleTable extends Table {
         rows.add(new TableRow(tableCells));
     }
 
-    @Override
-    public void buildModal(){
-        modal = new Modal ("Person");
-    }
 }

@@ -14,21 +14,25 @@ public abstract class Table {
     TableRow headers;
     private final String[] HEADERS;
 
-    // do not include default constructor so a table cannot be created without headers
+    // do not include default constructor so a table cannot be created without headers, or a modal //TODO potentially remove dependancy for modal and add boolean for editable, addable, etc.
 
-    Table(String[] HEADERS) {
+    /**
+     * @param HEADERS the headers of the table column to create
+     * @param modal a modal object to add to the table
+     */
+    Table(String[] HEADERS, Modal modal) {
         rows = new ArrayList<Table.TableRow>();
         this.HEADERS = HEADERS;
         addHeaders();
-        buildModal();
+        this.modal = modal;
     }
 
     /**
      * @param HEADERS the headers of the table column to create
-     * @param entities a list of entities to add to the table, contents MUST implement RetrievableProperties
+     * @param modal a modal object to add to the table
      */
-    Table(String[] HEADERS, List entities) {
-        this(HEADERS);
+    Table(String[] HEADERS, Modal modal, List entities) {
+        this(HEADERS,modal);
         addData(entities);
     }
 
@@ -48,11 +52,6 @@ public abstract class Table {
      * @param entity the entity to add data from
      */
     public abstract void addRow(RetrievableProperties entity);
-
-    /**
-     * builds this tables modal
-     */
-    public abstract void buildModal();
 
     /**
      * adds the entire list of entities as rows to the table

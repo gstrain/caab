@@ -8,7 +8,7 @@ import java.util.List;
 
 public class VendorTable extends Table {
     public VendorTable() {
-        super(new String[]{"name", "contact"}); // adjust this to determine table columns
+        super(new String[]{"name", "contact"}, new VendorModal()); // adjust this to determine table columns
     }
     @Override
     public void addRow(RetrievableProperties entity) {
@@ -19,8 +19,4 @@ public class VendorTable extends Table {
         rows.add(new TableRow(tableCells));
     }
 
-    @Override
-    public void buildModal(){
-        modal = new Modal ("Vendors");
-    }
 }
