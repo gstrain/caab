@@ -80,12 +80,12 @@ public class DBServlet extends HttpServlet {
 //        s = gson.toJson(toInsert); // the newly inserted property
 //        out.println(s);
 
-        // bye
+          /* bye */
 //        sessionFactory.getCurrentSession().beginTransaction();
 //        Property toDelete = (Property) dao.findByPrimaryKey(12L);
 //        saveDao.delete(toDelete);
 //        sessionFactory.getCurrentSession().getTransaction().commit();
-
+        HibernateUtil.openSession();
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         ReadDAO dao = new PersonDAO(sessionFactory);
         sessionFactory.getCurrentSession().beginTransaction();
@@ -97,39 +97,8 @@ public class DBServlet extends HttpServlet {
             e.printStackTrace();
         }
         table.addData(persons);
-
-//        String bootstrap = "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css\" integrity=\"sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb\" crossorigin=\"anonymous\">" +
-//                "<script src=\"https://code.jquery.com/jquery-3.2.1.slim.min.js\" integrity=\"sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN\" crossorigin=\"anonymous\"></script>\n" +
-//                "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js\" integrity=\"sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh\" crossorigin=\"anonymous\"></script>\n" +
-//                "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js\" integrity=\"sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ\" crossorigin=\"anonymous\"></script>";
-//        String jscript = "<script src=\"/scripts/table.js\"></script>";
-
-//        response.getWriter().println("<!DOCTYPE html><html><head>" + bootstrap +"</head><body>");
+        sessionFactory.getCurrentSession().getTransaction().commit();
         response.getWriter().println(table);
-//        response.getWriter().println(jscript + "</body></html>");
     }
-
-    /*
-     * turns objects returned by a hibernate query into real objects. those returned by a
-     * lazy fetch query are technically of type HibernateProxy. Useful if we want to serialize something
-     * returned by a query, but it MUST be used DURING the session (see above example)
-     */
-    private static <T> T initializeAndUnproxy(T entity) {
-        if (entity == null) {
-            throw new
-                    NullPointerException("Entity passed for initialization is null");
-        }
-
-        Hibernate.initialize(entity);
-        if (entity instanceof HibernateProxy) {
-            entity = (T) ((HibernateProxy) entity).getHibernateLazyInitializer()
-                    .getImplementation();
-        }
-        return entity;
-    }
-
-
-//      toInsert.setProperty_no(null); // remove primary key so we can test a save instead of update
-    // hibernate throws an exception if we do this in the middle of a transaction
 
 }

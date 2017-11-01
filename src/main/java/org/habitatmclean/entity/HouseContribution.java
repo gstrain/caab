@@ -76,7 +76,7 @@ public class HouseContribution implements Serializable, RetrievableProperties {
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
-            case "contribution_id":
+            case "id":
                 return "" + getContribution_id();
             case "actor_id":
                 return "" + getActor().getActor_id();

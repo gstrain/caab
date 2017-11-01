@@ -52,7 +52,7 @@ public class ConstructionStatus implements Serializable, RetrievableProperties {
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
-            case "cstatus_id":
+            case "id":
                 return "" + getCstatus_id();
             case "cstatus":
                 return "" + getCstatus();

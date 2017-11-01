@@ -62,7 +62,7 @@ public class Property implements Serializable, RetrievableProperties {
         this.owner = owner;
         this.address = address;
     }
-    @Column(name="property_no")
+    @Column(name="id")
     public Long getProperty_no() {
         return property_no;
     }

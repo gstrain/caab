@@ -9,7 +9,7 @@ public abstract class Table {
     private final String SEARCH = "<div id=\"left\">\n" + "<form class=\"navbar-form navbar-left\" role=\"search\" autocomplete=\"on\">\n" + "<div class=\"form-group\">\n" + "<input type=\"text\" class=\"form-control\" placeholder=\"Search\">\n" + "<span id=\"search-button\" class=\"glyphicon glyphicon-search\"></span>\n" + "</div>\n" + "</form>\n" + "</div>";
     private final String TABLE_BEGIN = "<table class=\"table\">\n";
     private final String TABLE_END = "\n</table>";
-    private final String BUTTON = "<button id=\"addButton\" type=\"button\" class=\"btn btn-success btn-lg btn-add\" data-toggle=\"modal\" data-target=\"#record-modal\">Add</button>";
+    private final String ADD_BUTTON = "<button id=\"addButton\" type=\"button\" class=\"btn btn-success btn-lg button-add\" data-toggle=\"modal\" data-target=\"#record-modal\">Add</button>";
     Modal modal;
     List<TableRow> rows;
     TableRow headers;
@@ -67,10 +67,10 @@ public abstract class Table {
 
     public String toString() {
         StringBuilder table = new StringBuilder();
-        table.append(BUTTON);
         for (int i = 0; i < HEADERS.length; i++) {
             table.append(SEARCH);
         }
+        table.append(ADD_BUTTON);
         table.append(TABLE_BEGIN);
         table.append(headers);
         for(TableRow row : rows) {
@@ -84,8 +84,8 @@ public abstract class Table {
     static class TableRow {
         final String LINE_BEGIN = "\t<tr ";
         final String LINE_END = "\n\t</tr>\n";
-        final String EDIT_BUTTON = "<td><button id=\"editButton\" type=\"button\" class=\"btn btn-warning btn-sm btn-edit\" data-toggle=\"modal\" data-target=\"#record-modal\">Edit</button></td>";
-        final String DELETE_BUTTON = "<td><button id=\"deleteButton\" type=\"button\" class=\"btn btn-danger btn-sm\">Delete</button></td>";
+        final String EDIT_BUTTON = "<td><button id=\"editButton\" type=\"button\" class=\"btn btn-warning btn-sm button-edit\" data-toggle=\"modal\" data-target=\"#record-modal\">Edit</button></td>";
+        final String DELETE_BUTTON = "<td><button id=\"deleteButton\" type=\"button\" class=\"btn btn-danger btn-sm button-delete\">Delete</button></td>";
         List<TableCell> tableCells = new ArrayList<TableCell>();
         private String rowId = "id=";
 

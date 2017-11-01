@@ -73,7 +73,7 @@ public class Actor implements Serializable, RetrievableProperties {
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
-            case "actor_id":
+            case "id":
                 return "" + getActor_id();
             case "address_id":
                 return "" + getAddress().getAddress_id();
