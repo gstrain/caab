@@ -82,3 +82,30 @@
     padding-right: 50px;
 }
 
+.table, th, td{
+    display: inline;
+    margin:10px;
+}
+
+.table th, td
+{
+    border: 10px solid black;
+}
+
+#addButton{
+    /*float:left;*/
+}
+
+#editButton{
+    margin:5px;
+}
+
+#deleteButton{
+    margin:5px;
+}
+
+.selected {
+    background-color:  rgba(1,174,216,1);;
+    color: #FFF;
+}
+

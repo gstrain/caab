@@ -20,7 +20,7 @@ public class Person extends Actor implements Serializable, RetrievableProperties
     private String cell_phone;
     private String work_phone;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name="family_id")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Family family;

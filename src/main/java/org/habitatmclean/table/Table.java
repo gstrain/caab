@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Table {
-    private final String TABLE_BEGIN = "<table class=\"table\" style=\"display:inline; margin:10px\">\n"; // TODO move inline display to CSS
+//    private final String BOOTSTRAP = "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">\n";
+//    private final String CSS = "<link rel=\"stylesheet\" href=\"TableStyles.css\">";
+//    private final String SCRIPT = "<script type=\"text/javascript\" src=\"../../../../highlight.js\">";
+    private final String TABLE_BEGIN = "<table class=\"table\">\n";
     private final String TABLE_END = "\n</table>";
-    private final String BUTTON = "<button type=\"button\" class=\"btn btn-success btn-lg btn-add\" data-toggle=\"modal\" data-target=\"#record-modal\">Add</button>";
+    private final String BUTTON = "<button id=\"addButton\" type=\"button\" class=\"btn btn-success btn-lg btn-add\" data-toggle=\"modal\" data-target=\"#record-modal\">Add</button>";
     Modal modal;
     List<TableRow> rows;
     TableRow headers;
@@ -66,13 +69,15 @@ public abstract class Table {
 
     public String toString() {
         StringBuilder table = new StringBuilder();
+//        table.append(BOOTSTRAP);
+//        table.append(SCRIPT);
+        table.append(BUTTON);
         table.append(TABLE_BEGIN);
         table.append(headers);
         for(TableRow row : rows) {
             table.append(row);
         }
         table.append(TABLE_END);
-        table.append(BUTTON);
         table.append(modal.toString());
         return table.toString();
     }
@@ -80,8 +85,8 @@ public abstract class Table {
     static class TableRow {
         final String LINE_BEGIN = "\t<tr>\n\t\t";
         final String LINE_END = "\n\t</tr>\n";
-        final String EDIT_BUTTON = "<td><button type=\"button\" class=\"btn btn-warning btn-sm btn-edit\" style=\"margin:5px\" data-toggle=\"modal\" data-target=\"#record-modal\">Edit</button></td>"; // TODO move CSS to stylesheet
-        final String DELETE_BUTTON = "<td><button type=\"button\" class=\"btn btn-danger btn-sm\" style=\"margin:5px\">Delete</button></td>";
+        final String EDIT_BUTTON = "<td><button id=\"editButton\" type=\"button\" class=\"btn btn-warning btn-sm btn-edit\" data-toggle=\"modal\" data-target=\"#record-modal\">Edit</button></td>";
+        final String DELETE_BUTTON = "<td><button id=\"deleteButton\" type=\"button\" class=\"btn btn-danger btn-sm\">Delete</button></td>";
         List<TableCell> tableCells = new ArrayList<TableCell>();
 
         String[] toArray() {
