@@ -56,7 +56,7 @@ public class Milestone implements Serializable, RetrievableProperties {
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
-            case "milestone_id":
+            case "id":
                 return "" + getMilestone_id();
             case "milestone":
                 return "" + getMilestone();

@@ -159,7 +159,7 @@ public class Address implements Serializable, RetrievableProperties{ // to be se
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
-            case "address_id":
+            case "id":
                 return "" + getAddress_id();
             case "street":
                 return "" + getStreet();

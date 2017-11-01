@@ -56,7 +56,7 @@ public class Zone implements Serializable, RetrievableProperties {
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
-            case "zone_id":
+            case "id":
                 return "" + getZone_id();
             case "zone_info":
                 return "" + getZone_info();

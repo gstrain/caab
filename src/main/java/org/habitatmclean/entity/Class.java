@@ -51,7 +51,7 @@ public class Class implements Serializable, RetrievableProperties {
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
-            case "class_id":
+            case "id":
                 return "" + getClass_id();
             case "class_name":
                 return "" + getClass_name();

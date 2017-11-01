@@ -124,7 +124,7 @@ public class Person extends Actor implements Serializable, RetrievableProperties
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
-            case "person_id":
+            case "id":
                 return "" + getActor_id();
             case "family_id":
                 return "" + getFamily();

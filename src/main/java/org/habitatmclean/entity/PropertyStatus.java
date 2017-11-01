@@ -56,7 +56,7 @@ public class PropertyStatus implements Serializable, RetrievableProperties {
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
-            case "pstatus_id":
+            case "id":
                 return "" + getPstatus_id();
             case "pstatus":
                 return "" + getPstatus();

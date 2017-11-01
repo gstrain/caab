@@ -21,29 +21,25 @@ public class DeleteServlet extends HttpServlet {
     private final Long TIME_TO_LIVE =10000L;    // objects are valid in the cache for 10 seconds
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int pk = Integer.parseInt(request.getParameter("primary_k"));
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
         switch(request.getParameter("data_type")) {
-                case "person":
-                    sessionFactory.getCurrentSession().beginTransaction();
-                    ReadDAO reader = new PersonDAO(sessionFactory);
-                    CreateUpdateDeleteDAO deleter = (CreateUpdateDeleteDAO) reader;
-                    Person toDelete = (Person) reader.findByPrimaryKey(new Long(pk));
-                    Person cached = HibernateUtil.initializeAndUnproxy(toDelete);
-                    cache.put(cached.getActor_id() + "", cached, TIME_TO_LIVE);
-                    deleter.delete(toDelete);
-                    cached.setActor_id(null);
-                    sessionFactory.getCurrentSession().getTransaction().commit();
-                    break;
-                case "undo":
-                    CreateUpdateDeleteDAO dao = new HibernateAdapter();
-                    dao.save(cache.get(pk + ""));
-                    break;
-            }
+            case "person":
+                sessionFactory.getCurrentSession().beginTransaction();
+                ReadDAO reader = new PersonDAO(sessionFactory);
+                Person toDelete = (Person) reader.findByPrimaryKey(new Long(pk));
+                Person actual = HibernateUtil.initializeAndUnproxy(toDelete);
+                sessionFactory.getCurrentSession().getTransaction().commit();
+                CreateUpdateDeleteDAO deleter = new HibernateAdapter();
+                deleter.delete(actual);
+                break;
+            default:
+
+        }
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     }
 }

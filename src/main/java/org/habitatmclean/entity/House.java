@@ -155,7 +155,7 @@ public class House implements Serializable, RetrievableProperties {
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
-            case "house_id":
+            case "id":
                 return "" + getHouse_id();
             case "address_id":
                 return "" + getAddress().getAddress_id();
