@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Table {
-    private final String TABLE_BEGIN = "<table id=\"table\" class=\"table\" style=\"display:inline; margin:10px\">\n"; // TODO move inline display to CSS
+//    private final String BOOTSTRAP = "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">\n";
+//    private final String CSS = "<link rel=\"stylesheet\" href=\"TableStyles.css\">";
+//    private final String SCRIPT = "<script type=\"text/javascript\" src=\"../../../../highlight.js\">";
+    private final String TABLE_BEGIN = "<table id=\"table\" class=\"table\">\n";
     private final String TABLE_END = "\n</table>";
     private final String ADD_BUTTON = "<button id=\"addButton\" type=\"button\" class=\"btn btn-success btn-lg button-add\" data-toggle=\"modal\" data-target=\"#record-modal\">Add</button>";
     Modal modal;
@@ -66,6 +69,8 @@ public abstract class Table {
 
     public String toString() {
         StringBuilder table = new StringBuilder();
+//        table.append(BOOTSTRAP);
+//        table.append(SCRIPT);
         table.append(TABLE_BEGIN);
         table.append(headers);
         for(TableRow row : rows) {
@@ -80,8 +85,8 @@ public abstract class Table {
     static class TableRow {
         final String LINE_BEGIN = "\t<tr ";
         final String LINE_END = "\n\t</tr>\n";
-        final String EDIT_BUTTON = "<td><button type=\"button\" class=\"btn btn-warning btn-sm button-edit\" style=\"margin:5px\" data-toggle=\"modal\" data-target=\"#record-modal\">Edit</button></td>"; // TODO move CSS to stylesheet
-        final String DELETE_BUTTON = "<td><button type=\"button\" class=\"btn btn-danger btn-sm button-delete\" style=\"margin:5px\">Delete</button></td>";
+        final String EDIT_BUTTON = "<td><button id=\"editButton\" type=\"button\" class=\"btn btn-warning btn-sm button-edit\" data-toggle=\"modal\" data-target=\"#record-modal\">Edit</button></td>";
+        final String DELETE_BUTTON = "<td><button id=\"deleteButton\" type=\"button\" class=\"btn btn-danger btn-sm button-delete\">Delete</button></td>";
         List<TableCell> tableCells = new ArrayList<TableCell>();
         private String rowId = "id=";
 
