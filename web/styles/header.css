@@ -1,8 +1,8 @@
 #left
 {
-    float:right;
-    padding-top: 60px;
-    padding-botton: none;
+    /*float:right;*/
+    /*padding-top: 60px;*/
+    /*padding-botton: none;*/
 }
 
 #nav
@@ -81,31 +81,47 @@
     float: left;
     padding-right: 50px;
 }
-/* TODO this looks terrible */
+
+.body {
+    margin: 50px;
+}
+
+.table {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    overflow-x: scroll;
+}
+
+/*.table td, tr {*/
+    /**/
+/*}*/
+
+/*.table thead {*/
+    /*border-top: 1px solid #dddddd;*/
+/*}*/
+
+/*.table tr {*/
+    /*margin: 20px;*/
+/*}*/
+
 /*.table, th, td{*/
-    /*display: inline;*/
+    /*!*display: inline;*!*/
     /*margin:10px;*/
 /*}*/
 
-/*.table th, td*/
-/*{*/
-    /*border: 5px solid black;*/
+#addButton{
+}
+
+/*#editButton{*/
+    /*margin:5px;*/
 /*}*/
 
-#addButton{
-    /*float:left;*/
-}
+/*#deleteButton{*/
+    /*margin:5px;*/
+/*}*/
 
-#editButton{
-    margin:5px;
-}
-
-#deleteButton{
-    margin:5px;
-}
-
-.selected {
-    background-color:  rgba(1,174,216,1);;
-    color: #FFF;
-}
+/*.selected {*/
+    /*background-color:  rgba(1,174,216,1);;*/
+    /*color: #FFF;*/
+/*}*/
 
