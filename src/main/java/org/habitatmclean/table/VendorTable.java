@@ -16,7 +16,9 @@ public class VendorTable extends Table {
         List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
         tableCells.add(new TableRow.TableCell(organization.getName()));
         tableCells.add(new TableRow.TableCell(organization.getPerson().getFirst()));
-        rows.add(new TableRow(tableCells));
+        TableRow tr = new TableRow(tableCells);
+        tr.setRowId( "" + ((Organization) entity).getActor_id());
+        rows.add(tr);
     }
 
     static public class VendorModal extends Modal{

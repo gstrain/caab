@@ -77,11 +77,12 @@ public abstract class Table {
     }
 
     static class TableRow {
-        final String LINE_BEGIN = "\t<tr>\n\t\t";
+        final String LINE_BEGIN = "\t<tr ";
         final String LINE_END = "\n\t</tr>\n";
         final String EDIT_BUTTON = "<td><button type=\"button\" class=\"btn btn-warning btn-sm btn-edit\" style=\"margin:5px\" data-toggle=\"modal\" data-target=\"#record-modal\">Edit</button></td>"; // TODO move CSS to stylesheet
         final String DELETE_BUTTON = "<td><button type=\"button\" class=\"btn btn-danger btn-sm\" style=\"margin:5px\">Delete</button></td>";
         List<TableCell> tableCells = new ArrayList<TableCell>();
+        private String rowId = "id=";
 
         String[] toArray() {
             String[] data = new String[tableCells.size()];
@@ -100,14 +101,20 @@ public abstract class Table {
             return tableCells;
         }
 
+        /* make sure this is used in implementations of the Table addRow() method */
         void setTableCells(List<TableCell> tableCells) {
             this.tableCells = tableCells;
+        }
+
+        public void setRowId(String rowId) {
+            this.rowId += "\"primary" + rowId + "\">\n\t\t";
         }
 
         public String toString() {
             boolean first = true;
             StringBuilder row = new StringBuilder();
             row.append(LINE_BEGIN);
+            row.append(rowId);
             for(TableCell tableCell : tableCells) {
                 row.append(tableCell);
             }

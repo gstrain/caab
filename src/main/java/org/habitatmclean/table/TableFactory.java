@@ -12,7 +12,7 @@ public class TableFactory {
             case "vendor":
                 return new VendorTable();
             case "person":
-                return new PeopleTable();
+                return new PersonTable();
             case "zone":
                 return new ZoneTable();
             default:

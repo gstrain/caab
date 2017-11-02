@@ -22,7 +22,9 @@ public class HouseTable extends Table {
         tableCells.add(new TableRow.TableCell("" + house.getConstruction_cost()));
         tableCells.add(new TableRow.TableCell("" + house.getBedrooms()));
         tableCells.add(new TableRow.TableCell("" + house.getBathrooms()));
-        rows.add(new TableRow(tableCells));
+        TableRow tr = new TableRow(tableCells);
+        tr.setRowId("" + ((House) entity).getHouse_id());
+        rows.add(tr);
     }
 
     static public class HouseModal extends Modal{
