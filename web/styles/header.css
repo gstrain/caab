@@ -112,13 +112,13 @@
 #addButton{
 }
 
-/*#editButton{*/
-    /*margin:5px;*/
-/*}*/
+#editButton{
+    margin:5px;
+}
 
-/*#deleteButton{*/
-    /*margin:5px;*/
-/*}*/
+#deleteButton{
+    margin:5px;
+}
 
 /*.selected {*/
     /*background-color:  rgba(1,174,216,1);;*/
