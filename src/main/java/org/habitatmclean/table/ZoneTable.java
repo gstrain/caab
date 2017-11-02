@@ -19,4 +19,13 @@ public class ZoneTable extends Table {
         rows.add(new TableRow(tableCells));
     }
 
+    static public class ZoneModal extends Modal{
+        public ZoneModal(){
+            super("Zone");
+        }
+
+        public void buildModal(){
+
+        }
+    }
 }

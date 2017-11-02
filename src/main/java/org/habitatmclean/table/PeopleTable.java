@@ -20,19 +20,20 @@ public class PeopleTable extends Table {
         rows.add(new TableRow(tableCells));
     }
 
+    static class PeopleModal extends Modal{
+
+        public PeopleModal(){
+            super("Person");
+        }
+
+        public void buildModal(){
+            //we JQuery now
+            forms.add(Form.builder().setType("text").setName("firstName").setLabel("First Name").build());
+            forms.add(Form.builder().setType("text").setName("middleName").setLabel("Middle Name").setRequired(false).build());
+            forms.add(Form.builder().setType("text").setName("lastName").setLabel("Last Name").build());
+        }
+    }
 }
 
-class PeopleModal extends Modal{
 
-    public PeopleModal(){
-        super("Person");
-    }
-
-    public void buildModal(){
-        //we JQuery now
-        forms.add(Form.builder().setType("text").setName("firstName").setLabel("First Name").build());
-        forms.add(Form.builder().setType("text").setName("middleName").setLabel("Middle Name").setRequired(false).build());
-        forms.add(Form.builder().setType("text").setName("lastName").setLabel("Last Name").build());
-    }
-}
 

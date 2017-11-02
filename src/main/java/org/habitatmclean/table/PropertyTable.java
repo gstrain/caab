@@ -20,4 +20,13 @@ public class PropertyTable<P> extends Table {
         rows.add(new TableRow(tableCells));
     }
 
+    static public class PropertyModal extends Modal {
+        public PropertyModal(){
+            super("Property");
+        }
+
+        public void buildModal(){
+
+        }
+    }
 }

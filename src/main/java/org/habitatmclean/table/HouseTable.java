@@ -25,4 +25,14 @@ public class HouseTable extends Table {
         rows.add(new TableRow(tableCells));
     }
 
+    static public class HouseModal extends Modal{
+        public HouseModal(){
+            super("House");
+        }
+
+        public void buildModal(){
+
+        }
+    }
+
 }

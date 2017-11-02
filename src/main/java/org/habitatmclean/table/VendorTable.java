@@ -19,4 +19,13 @@ public class VendorTable extends Table {
         rows.add(new TableRow(tableCells));
     }
 
+    static public class VendorModal extends Modal{
+        public VendorModal(){
+            super("Vendor");
+        }
+
+        public void buildModal(){
+
+        }
+    }
 }
