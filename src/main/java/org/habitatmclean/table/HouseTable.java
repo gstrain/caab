@@ -1,7 +1,7 @@
 package org.habitatmclean.table;
 
+import org.habitatmclean.entity.GenericEntity;
 import org.habitatmclean.entity.House;
-import org.habitatmclean.entity.RetrievableProperties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ public class HouseTable extends Table {
         super(new String[]{"address", "construction cost", "bedrooms", "bathrooms"}, new HouseModal()); // adjust this to determine table columns
     }
     @Override
-    public void addRow(RetrievableProperties entity) {
+    public void addRow(GenericEntity entity) {
         House house = (House) entity;
         List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
         tableCells.add(new TableRow.TableCell(house.getAddress().getNumber() + " " +
@@ -23,7 +23,7 @@ public class HouseTable extends Table {
         tableCells.add(new TableRow.TableCell("" + house.getBedrooms()));
         tableCells.add(new TableRow.TableCell("" + house.getBathrooms()));
         TableRow tr = new TableRow(tableCells);
-        tr.setRowId("" + ((House) entity).getHouse_id());
+        tr.setRowId("" + entity.getId());
         rows.add(tr);
     }
 

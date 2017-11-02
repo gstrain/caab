@@ -1,6 +1,6 @@
 package org.habitatmclean.table;
 
-import org.habitatmclean.entity.RetrievableProperties;
+import org.habitatmclean.entity.GenericEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,14 +52,14 @@ public abstract class Table {
      * adds a row to a table
      * @param entity the entity to add data from
      */
-    public abstract void addRow(RetrievableProperties entity);
+    public abstract void addRow(GenericEntity entity);
 
     /**
      * adds the entire list of entities as rows to the table
-     * @param entities a list of entities to add to the table, contents MUST implement RetrievableProperties
+     * @param entities a list of entities to add to the table, contents MUST implement GenericEntity
      */
-    public void addData(List<RetrievableProperties> entities) {
-        for(RetrievableProperties entity : entities) {
+    public void addData(List<GenericEntity> entities) {
+        for(GenericEntity entity : entities) {
             addRow(entity);
         }
     }

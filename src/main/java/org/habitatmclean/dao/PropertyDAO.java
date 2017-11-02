@@ -36,10 +36,10 @@ public class PropertyDAO implements ReadDAO<Property, Long>, CreateUpdateDeleteD
         Address foundAddress = null;
 
         // updating an address
-        if(entity.getAddress().getAddress_id() != null) {
+        if(entity.getAddress().getId() != null) {
             try {
-                foundAddress = (Address) dao.findByPrimaryKey(propertyAddress.getAddress_id());
-                System.out.println("address found with id: " + foundAddress.getAddress_id());
+                foundAddress = (Address) dao.findByPrimaryKey(propertyAddress.getId());
+                System.out.println("address found with id: " + foundAddress.getId());
                 if(!foundAddress.equals(propertyAddress)) { // check if we made an update to a property's address
                     // we did, so force add a new address
                     sessionFactory.getCurrentSession().evict(foundAddress); // this needs to happen before we can cascade save a property
@@ -54,7 +54,7 @@ public class PropertyDAO implements ReadDAO<Property, Long>, CreateUpdateDeleteD
             }
         }
         saveDao.save(propertyAddress);
-        System.out.println("saved address with address_id: " + propertyAddress.getAddress_id());
+        System.out.println("saved address with address_id: " + propertyAddress.getId());
 
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(entity); // regular cascade save b/c new address

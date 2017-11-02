@@ -5,29 +5,18 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="class")
-public class Class implements Serializable, RetrievableProperties {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long class_id;
+@AttributeOverride(name="id", column = @Column(name="class_id"))
+public class Class extends GenericEntity implements Serializable {
 
     private String class_name;
     private String class_desc;
 
     public Class() { }
 
-    public Class(Long class_id, String class_name, String class_desc) {
-        this.class_id = class_id;
+    public Class(Long id, String class_name, String class_desc) {
+        this.id = id;
         this.class_name = class_name;
         this.class_desc = class_desc;
-    }
-
-    @Column(name="class_id")
-    public Long getClass_id() {
-        return class_id;
-    }
-
-    public void setClass_id(Long class_id) {
-        this.class_id = class_id;
     }
 
     @Column(name="class_name")
@@ -46,20 +35,6 @@ public class Class implements Serializable, RetrievableProperties {
 
     public void setClass_desc(String class_desc) {
         this.class_desc = class_desc;
-    }
-
-    @Override
-    public String getValueByPropertyName(String property) {
-        switch(property) {
-            case "id":
-                return "" + getClass_id();
-            case "class_name":
-                return "" + getClass_name();
-            case "class_desc":
-                return "" + getClass_desc();
-            default:
-                return "invalid property specifier";
-        }
     }
 
 }
