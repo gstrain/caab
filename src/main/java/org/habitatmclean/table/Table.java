@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class Table {
     private final String SEARCH = "<div id=\"left\">\n" + "<form class=\"navbar-form navbar-left\" role=\"search\" autocomplete=\"on\">\n" + "<div class=\"form-group\">\n" + "<input type=\"text\" class=\"form-control\" placeholder=\"Search\">\n" + "<span id=\"search-button\" class=\"glyphicon glyphicon-search\"></span>\n" + "</div>\n" + "</form>\n" + "</div>";
-    private final String TABLE_BEGIN = "<table class=\"table\">\n";
+    private final String TABLE_BEGIN = "<table id=\"table\" class=\"table\">\n";
     private final String TABLE_END = "\n</table>";
     private final String ADD_BUTTON = "<button id=\"addButton\" type=\"button\" class=\"btn btn-success btn-lg button-add\" data-toggle=\"modal\" data-target=\"#record-modal\">Add</button>";
     Modal modal;
