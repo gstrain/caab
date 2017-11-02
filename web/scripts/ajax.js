@@ -18,8 +18,9 @@
             }
         });
     }
-
+    //we need to talk about this
     function clearTable() {
+        $('#record-modal').remove();// the modal
         $('#table').remove();       // entire table
         $('#addButton').remove();   // large add button
         $('.filter-box').remove();  // filter search boxes
