@@ -20,8 +20,9 @@
     }
 
     function clearTable() {
-        $('#table').remove();
-        $('#addButton').remove();
+        $('#table').remove();       // entire table
+        $('#addButton').remove();   // large add button
+        $('.filter-box').remove();  // filter search boxes
     }
 
     function deleteRow(pk, checked) {
