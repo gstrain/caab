@@ -14,6 +14,7 @@
                 console.log('success');
                 $('#nav').after(data);
                 addDeleteListener();
+                new Table($('.table'))
             }
         });
     }
@@ -57,7 +58,6 @@
                 timeout: 6000,
                 close: false,
                 overlay: true,
-                //toastOnce: true,
                 id: 'deleteDialogue',
                 color: 'red',
                 layout: 2,
@@ -84,7 +84,6 @@
                 },
                 onClosed: function(instance, toast, closedBy){
                     console.info('Closed | closedBy: ' + closedBy);
-                    $('deleteCheck').remove();
                 }
             });
         });

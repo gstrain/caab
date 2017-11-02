@@ -32,7 +32,11 @@ public class PersonTable extends Table {
             //we JQuery now
             forms.add(Form.builder().setType("text").setName("firstName").setLabel("First Name").build());
             forms.add(Form.builder().setType("text").setName("middleName").setLabel("Middle Name").setRequired(false).build());
-            forms.add(Form.builder().setType("text").setName("lastName").setLabel("Last Name").build());
+            forms.add(Form.builder().setType("text").setName("firstName").setLabel("Last Name").build());
+            forms.add(Form.builder().setType("text").setName("address").setLabel("Address").build());
+            forms.add(Form.builder().setType("text").setName("state").setLabel("State").build());
+            forms.add(Form.builder().setType("text").setName("zip").setLabel("Zip").build());
+            forms.add(Form.builder().setType("text").setName("home-phone").setLabel("Phone Number").build());
         }
     }
 }

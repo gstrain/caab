@@ -99,6 +99,7 @@ public class DBServlet extends HttpServlet {
         table.addData(persons);
         sessionFactory.getCurrentSession().getTransaction().commit();
         response.getWriter().println(table);
+
     }
 
 }

@@ -8,7 +8,7 @@ public class Form {
     private boolean required = true;
     private int maxLength = 0;
     //for select types only:
-    String[] options;
+    private String[] options;
     boolean labelAsValue = true;
 
     public Form(){

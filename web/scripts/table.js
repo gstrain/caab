@@ -10,11 +10,12 @@
             $modal: $modal,
 
             add:function(){
+                this.$modal.modal('show');
                 this.$recordAction.html('Add ');
-                this.$modal.find('.')
             },
 
             edit:function(){
+                this.$modal.modal('show');
                 this.$recordAction.html('Edit ');
             },
             init:function(){
@@ -34,6 +35,6 @@
         this.init();
     };
 
-    new Table($('table'));
+    //new Table($('.table'));
 
 })();
