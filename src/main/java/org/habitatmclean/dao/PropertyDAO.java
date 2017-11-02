@@ -2,6 +2,7 @@ package org.habitatmclean.dao;
 
 import org.habitatmclean.entity.Address;
 import org.habitatmclean.entity.Property;
+import org.habitatmclean.hibernate.HibernateAdapter;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -29,8 +30,8 @@ public class PropertyDAO implements ReadDAO<Property, Long>, CreateUpdateDeleteD
 
     @Override
     public Property save(Property entity) {
-        ReadDAO dao = new AddressDAO(sessionFactory);
-        CreateUpdateDeleteDAO saveDao = (CreateUpdateDeleteDAO) dao;
+        ReadDAO dao = HibernateAdapter.getDaoByEntityName("Address");
+        CreateUpdateDeleteDAO saveDao = new HibernateAdapter();
 
         Address propertyAddress = entity.getAddress();
         Address foundAddress = null;
