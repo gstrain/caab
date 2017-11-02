@@ -7,10 +7,8 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="house")
-public class House implements Serializable, RetrievableProperties {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long house_id;
+@AttributeOverride(name="id", column = @Column(name="house_id"))
+public class House extends GenericEntity implements Serializable {
 
     private double construction_cost;
     private int size;
@@ -39,8 +37,8 @@ public class House implements Serializable, RetrievableProperties {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Address address;
 
-    public House(Long house_id, Family family, double construction_cost, int size, int bedrooms, double bathrooms, ConstructionStatus construction_status, HouseStyle house_style, Property property, Address address) {
-        this.house_id = house_id;
+    public House(Long id, Family family, double construction_cost, int size, int bedrooms, double bathrooms, ConstructionStatus construction_status, HouseStyle house_style, Property property, Address address) {
+        this.id = id;
         this.family = family;
         this.construction_cost = construction_cost;
         this.size = size;
@@ -107,15 +105,6 @@ public class House implements Serializable, RetrievableProperties {
         this.property = property;
     }
 
-    @Column(name="house_id")
-    public Long getHouse_id() {
-        return house_id;
-    }
-
-    public void setHouse_id(Long house_id) {
-        this.house_id = house_id;
-    }
-
     @Column(name="construction_cost")
     public double getConstruction_cost() {
         return construction_cost;
@@ -150,34 +139,6 @@ public class House implements Serializable, RetrievableProperties {
 
     public void setBathrooms(double bathrooms) {
         this.bathrooms = bathrooms;
-    }
-
-    @Override
-    public String getValueByPropertyName(String property) {
-        switch(property) {
-            case "id":
-                return "" + getHouse_id();
-            case "address_id":
-                return "" + getAddress().getAddress_id();
-            case "property_id":
-                return "" + getProperty().getProperty_no();
-            case "family_id":
-                return "" + getFamily().getFamily_id();
-            case "construction_cost":
-                return "" + getConstruction_cost();
-            case "size":
-                return "" + getSize();
-            case "bedrooms":
-                return "" + getBedrooms();
-            case "bathrooms":
-                return "" + getBathrooms();
-            case "cstatus_id":
-                return "" + getConstruction_status().getCstatus_id();
-            case "house_style":
-                return "" + getHouse_style().getStyle_id();
-            default:
-                return "invalid property specifier";
-        }
     }
 
 }

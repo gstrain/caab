@@ -1,7 +1,5 @@
 package org.habitatmclean.table;
 
-import org.habitatmclean.entity.RetrievableProperties;
-
 import java.util.ArrayList;
 import java.util.List;
 

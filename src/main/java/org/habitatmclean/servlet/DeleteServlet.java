@@ -1,9 +1,8 @@
 package org.habitatmclean.servlet;
 
 import org.habitatmclean.dao.CreateUpdateDeleteDAO;
-import org.habitatmclean.dao.PersonDAO;
 import org.habitatmclean.dao.ReadDAO;
-import org.habitatmclean.entity.Person;
+import org.habitatmclean.entity.GenericEntity;
 import org.habitatmclean.hibernate.HibernateAdapter;
 import org.habitatmclean.hibernate.HibernateUtil;
 import org.hibernate.SessionFactory;
@@ -21,19 +20,15 @@ public class DeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int pk = Integer.parseInt(request.getParameter("primary_k"));
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        ReadDAO reader = HibernateAdapter.getDaoByEntityName(request.getParameter("data_type"));
 
-        switch(request.getParameter("data_type")) {
-            case "person":
-                sessionFactory.getCurrentSession().beginTransaction();
-                ReadDAO reader = new PersonDAO(sessionFactory);
-                Person toDelete = (Person) reader.findByPrimaryKey(new Long(pk));
-                Person actual = HibernateUtil.initializeAndUnproxy(toDelete);
-                sessionFactory.getCurrentSession().getTransaction().commit();
-                CreateUpdateDeleteDAO deleter = new HibernateAdapter();
-                deleter.delete(actual);
-                break;
-            default:
-
+        if (reader != null) {
+            sessionFactory.getCurrentSession().beginTransaction();
+            GenericEntity toDelete = (GenericEntity) reader.findByPrimaryKey(new Long(pk));
+            GenericEntity actual = HibernateUtil.initializeAndUnproxy(toDelete);
+            sessionFactory.getCurrentSession().getTransaction().commit();
+            CreateUpdateDeleteDAO deleter = new HibernateAdapter();
+            deleter.delete(actual);
         }
     }
 

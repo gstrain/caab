@@ -4,11 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="address")                        // serializable must be included if this object needs
-public class Address implements Serializable, RetrievableProperties{ // to be sent over a network and reconstructed elsewhere
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long address_id;
+@Table(name="address")
+@AttributeOverride(name="id", column = @Column(name="address_id"))  // serializable must be included if this object needs
+public class Address extends GenericEntity implements Serializable { // to be sent over a network and reconstructed elsewhere
 
     private String street;
     private String number;
@@ -20,8 +18,8 @@ public class Address implements Serializable, RetrievableProperties{ // to be se
     public Address() { }
 
     // PK + all
-    public Address(Long address_id, String street, String number, String apartment_no, String city, String state, String zipcode) {
-        this.address_id = address_id;
+    public Address(Long id, String street, String number, String apartment_no, String city, String state, String zipcode) {
+        this.id = id;
         this.street = street;
         this.number = number;
         this.apartment_no = apartment_no;
@@ -31,8 +29,8 @@ public class Address implements Serializable, RetrievableProperties{ // to be se
     }
 
     // PK + all - apartment number
-    public Address(Long address_id, String street, String number, String city, String state, String zipcode) {
-        this.address_id = address_id;
+    public Address(Long id, String street, String number, String city, String state, String zipcode) {
+        this.id = id;
         this.street = street;
         this.number = number;
         this.city = city;
@@ -57,15 +55,6 @@ public class Address implements Serializable, RetrievableProperties{ // to be se
         this.city = city;
         this.state = state;
         this.zipcode = zipcode;
-    }
-
-    @Column(name="address_id")
-    public Long getAddress_id() {
-        return address_id;
-    }
-
-    public void setAddress_id(Long address_id) {
-        this.address_id = address_id;
     }
 
     @Column(name="street")
@@ -154,27 +143,5 @@ public class Address implements Serializable, RetrievableProperties{ // to be se
         result = 31 * result + state.hashCode();
         result = 31 * result + zipcode.hashCode();
         return result;
-    }
-
-    @Override
-    public String getValueByPropertyName(String property) {
-        switch(property) {
-            case "id":
-                return "" + getAddress_id();
-            case "street":
-                return "" + getStreet();
-            case "number":
-                return "" + getNumber();
-            case "apartment_no":
-                return "" + getApartment_no();
-            case "city":
-                return "" + getState();
-            case "state":
-                return "" + getState();
-            case "zipcode":
-                return "" + getZipcode();
-            default:
-                return "invalid property specifier";
-        }
     }
 }

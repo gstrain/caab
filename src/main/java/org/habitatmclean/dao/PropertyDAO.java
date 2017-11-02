@@ -2,6 +2,7 @@ package org.habitatmclean.dao;
 
 import org.habitatmclean.entity.Address;
 import org.habitatmclean.entity.Property;
+import org.habitatmclean.hibernate.HibernateAdapter;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -29,17 +30,17 @@ public class PropertyDAO implements ReadDAO<Property, Long>, CreateUpdateDeleteD
 
     @Override
     public Property save(Property entity) {
-        ReadDAO dao = new AddressDAO(sessionFactory);
-        CreateUpdateDeleteDAO saveDao = (CreateUpdateDeleteDAO) dao;
+        ReadDAO dao = HibernateAdapter.getDaoByEntityName("Address");
+        CreateUpdateDeleteDAO saveDao = new HibernateAdapter();
 
         Address propertyAddress = entity.getAddress();
         Address foundAddress = null;
 
         // updating an address
-        if(entity.getAddress().getAddress_id() != null) {
+        if(entity.getAddress().getId() != null) {
             try {
-                foundAddress = (Address) dao.findByPrimaryKey(propertyAddress.getAddress_id());
-                System.out.println("address found with id: " + foundAddress.getAddress_id());
+                foundAddress = (Address) dao.findByPrimaryKey(propertyAddress.getId());
+                System.out.println("address found with id: " + foundAddress.getId());
                 if(!foundAddress.equals(propertyAddress)) { // check if we made an update to a property's address
                     // we did, so force add a new address
                     sessionFactory.getCurrentSession().evict(foundAddress); // this needs to happen before we can cascade save a property
@@ -54,7 +55,7 @@ public class PropertyDAO implements ReadDAO<Property, Long>, CreateUpdateDeleteD
             }
         }
         saveDao.save(propertyAddress);
-        System.out.println("saved address with address_id: " + propertyAddress.getAddress_id());
+        System.out.println("saved address with address_id: " + propertyAddress.getId());
 
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(entity); // regular cascade save b/c new address

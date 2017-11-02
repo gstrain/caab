@@ -2,14 +2,13 @@ package org.habitatmclean.servlet;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.habitatmclean.dao.*;
+import org.habitatmclean.dao.ReadDAO;
+import org.habitatmclean.hibernate.HibernateAdapter;
 import org.habitatmclean.hibernate.HibernateUtil;
 import org.habitatmclean.table.Table;
 import org.habitatmclean.table.TableFactory;
 import org.habitatmclean.table.TableTypeNotFoundException;
-import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
-import org.hibernate.proxy.HibernateProxy;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -87,7 +86,7 @@ public class DBServlet extends HttpServlet {
 //        sessionFactory.getCurrentSession().getTransaction().commit();
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        ReadDAO dao = new PersonDAO(sessionFactory);
+        ReadDAO dao = HibernateAdapter.getDaoByEntityName("Person");
         sessionFactory.getCurrentSession().beginTransaction();
         List persons = dao.findAll();
         Table table = null;

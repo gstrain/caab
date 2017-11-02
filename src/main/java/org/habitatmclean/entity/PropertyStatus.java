@@ -5,18 +5,16 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="property_status")
-public class PropertyStatus implements Serializable, RetrievableProperties {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long pstatus_id;
+@AttributeOverride(name="id", column = @Column(name="pstatus_id"))
+public class PropertyStatus extends GenericEntity implements Serializable {
 
     private String pstatus;
     private String pstatus_desc;
 
     public PropertyStatus() { }
 
-    public PropertyStatus(Long pstatus_id, String pstatus, String pstatus_desc) {
-        this.pstatus_id = pstatus_id;
+    public PropertyStatus(Long id, String pstatus, String pstatus_desc) {
+        this.id = id;
         this.pstatus = pstatus;
         this.pstatus_desc = pstatus_desc;
     }
@@ -24,15 +22,6 @@ public class PropertyStatus implements Serializable, RetrievableProperties {
     public PropertyStatus(String pstatus, String pstatus_desc) {
         this.pstatus = pstatus;
         this.pstatus_desc = pstatus_desc;
-    }
-
-    @Column(name="pstatus_id")
-    public Long getPstatus_id() {
-        return pstatus_id;
-    }
-
-    public void setPstatus_id(Long pstatus_id) {
-        this.pstatus_id = pstatus_id;
     }
 
     @Column(name="pstatus")
@@ -51,19 +40,5 @@ public class PropertyStatus implements Serializable, RetrievableProperties {
 
     public void setPstatus_desc(String pstatus_description) {
         this.pstatus_desc = pstatus_description;
-    }
-
-    @Override
-    public String getValueByPropertyName(String property) {
-        switch(property) {
-            case "id":
-                return "" + getPstatus_id();
-            case "pstatus":
-                return "" + getPstatus();
-            case "pstatus_desc":
-                return "" + getPstatus_desc();
-            default:
-                return "invalid property specifier";
-        }
     }
 }

@@ -8,10 +8,8 @@ import java.util.Date;
 
 @Entity
 @Table(name="property")
-public class Property implements Serializable, RetrievableProperties {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long property_no;
+@AttributeOverride(name="id", column = @Column(name="property_no"))
+public class Property extends GenericEntity implements Serializable {
 
     private double appraised_value;
     private Date appraised_date;
@@ -40,8 +38,8 @@ public class Property implements Serializable, RetrievableProperties {
 
     public Property() { }
 
-    public Property(Long property_no, double appraised_value, Date appraised_date, double taxes, String notes, PropertyStatus property_status, Zone zone, Actor owner, Address address) {
-        this.property_no = property_no;
+    public Property(Long id, double appraised_value, Date appraised_date, double taxes, String notes, PropertyStatus property_status, Zone zone, Actor owner, Address address) {
+        this.id = id;
         this.appraised_value = appraised_value;
         this.appraised_date = appraised_date;
         this.taxes = taxes;
@@ -61,14 +59,6 @@ public class Property implements Serializable, RetrievableProperties {
         this.zone = zone;
         this.owner = owner;
         this.address = address;
-    }
-    @Column(name="id")
-    public Long getProperty_no() {
-        return property_no;
-    }
-
-    public void setProperty_no(Long property_no) {
-        this.property_no = property_no;
     }
 
     @Column(name="appraised_value")
@@ -138,31 +128,5 @@ public class Property implements Serializable, RetrievableProperties {
 
     public void setAddress(Address address) {
         this.address = address;
-    }
-
-    @Override
-    public String getValueByPropertyName(String property) {
-        switch(property) {
-            case "property_no":
-                return "" + getProperty_no();
-            case "address_id":
-                return "" + getAddress().getAddress_id();
-            case "zone_id":
-                return "" + getZone().getZone_id();
-            case "owner_id":
-                return "" + getOwner().getActor_id();
-            case "property_status":
-                return "" + getProperty_status().getPstatus_id();
-            case "appraised_value":
-                return "" + getAppraised_value();
-            case "appraised_date":
-                return "" + getAppraised_date();
-            case "taxes":
-                return "" + getTaxes();
-            case "notes":
-                return "" + getNotes();
-            default:
-                return "invalid property specifier";
-        }
     }
 }
