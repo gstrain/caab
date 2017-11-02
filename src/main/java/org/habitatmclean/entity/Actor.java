@@ -13,10 +13,8 @@ import java.io.Serializable;
         name = "actor_type",
         discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("A")
-public class Actor implements Serializable, RetrievableProperties {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long actor_id;
+@AttributeOverride(name="id", column = @Column(name="actor_id"))
+public class Actor extends GenericEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name="relation_id")
@@ -30,28 +28,18 @@ public class Actor implements Serializable, RetrievableProperties {
 
     public Actor() { }
 
-    public Actor(Long actor_id) {
-        this.actor_id = actor_id;
+    public Actor(Long id) {
+        this.id = id;
     }
-
     public Actor(RelationType relationType, Address address) {
         this.relationType = relationType;
         this.address = address;
     }
 
-    public Actor(Long actor_id, RelationType relationType, Address address) {
-        this.actor_id = actor_id;
+    public Actor(Long id, RelationType relationType, Address address) {
+        this.id = id;
         this.relationType = relationType;
         this.address = address;
-    }
-
-    @Column(name="actor_id")
-    public Long getActor_id() {
-        return actor_id;
-    }
-
-    public void setActor_id(Long actor_id) {
-        this.actor_id = actor_id;
     }
 
     public RelationType getRelationType() {
@@ -70,19 +58,4 @@ public class Actor implements Serializable, RetrievableProperties {
         this.address = address;
     }
 
-    @Override
-    public String getValueByPropertyName(String property) {
-        switch(property) {
-            case "id":
-                return "" + getActor_id();
-            case "address_id":
-                return "" + getAddress().getAddress_id();
-            case "relation_id":
-                return "" + getRelationType().getRelation_id();
-            case "actor_type":
-                return "" + getActor_id();
-            default:
-                return "invalid property specifier";
-        }
-    }
 }

@@ -8,10 +8,8 @@ import java.util.Date;
 
 @Entity
 @Table(name="log")
-public class Log implements Serializable, RetrievableProperties {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long log_id;
+@AttributeOverride(name="id", column = @Column(name="log_id"))
+public class Log extends GenericEntity implements Serializable {
 
     private String reason;
     @Temporal(TemporalType.TIMESTAMP) // saves date and time
@@ -41,8 +39,8 @@ public class Log implements Serializable, RetrievableProperties {
 
     public Log() { }
 
-    public Log(Long log_id, String reason, Date date, String notes, String status, Family family, Actor actor, House house, Property property) {
-        this.log_id = log_id;
+    public Log(Long id, String reason, Date date, String notes, String status, Family family, Actor actor, House house, Property property) {
+        this.id = id;
         this.reason = reason;
         this.date = date;
         this.notes = notes;
@@ -62,15 +60,6 @@ public class Log implements Serializable, RetrievableProperties {
         this.actor = actor;
         this.house = house;
         this.property = property;
-    }
-
-    @Column(name="log_id")
-    public Long getLog_id() {
-        return log_id;
-    }
-
-    public void setLog_id(Long log_id) {
-        this.log_id = log_id;
     }
 
     @Column(name="reason")
@@ -140,31 +129,4 @@ public class Log implements Serializable, RetrievableProperties {
     public void setProperty(Property property) {
         this.property = property;
     }
-
-    @Override
-    public String getValueByPropertyName(String property) {
-        switch(property) {
-            case "id":
-                return "" + getLog_id();
-            case "family_id":
-                return "" + getFamily().getFamily_id();
-            case "contact_id":
-                return "" + getActor().getActor_id();
-            case "house_id":
-                return "" + getHouse().getHouse_id();
-            case "property_id":
-                return "" + getProperty().getProperty_no();
-            case "reason":
-                return "" + getReason();
-            case "date":
-                return "" + getDate();
-            case "notes":
-                return "" + getNotes();
-            case "status":
-                return getStatus();
-            default:
-                return "invalid property specifier";
-        }
-    }
 }
-

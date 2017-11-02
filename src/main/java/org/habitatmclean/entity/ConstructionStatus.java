@@ -5,30 +5,18 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="construction_status")
-public class ConstructionStatus implements Serializable, RetrievableProperties {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cstatus_id;
+@AttributeOverride(name="id", column = @Column(name="cstatus_id"))
+public class ConstructionStatus extends GenericEntity implements Serializable {
 
     private String cstatus;
     private String cstatus_description;
 
     public ConstructionStatus() { }
 
-    public ConstructionStatus(Long cstatus_id, String cstatus, String cstatus_description) {
-        this.cstatus_id = cstatus_id;
+    public ConstructionStatus(Long id, String cstatus, String cstatus_description) {
+        this.id = id;
         this.cstatus = cstatus;
         this.cstatus_description = cstatus_description;
-    }
-
-    @Column(name="cstatus_id")
-    public Long getCstatus_id() {
-        return cstatus_id;
-    }
-
-    public void setCstatus_id(Long cstatus_id) {
-        this.cstatus_id = cstatus_id;
     }
 
     @Column(name="cstatus")
@@ -49,17 +37,4 @@ public class ConstructionStatus implements Serializable, RetrievableProperties {
         this.cstatus_description = cstatus_description;
     }
 
-    @Override
-    public String getValueByPropertyName(String property) {
-        switch(property) {
-            case "id":
-                return "" + getCstatus_id();
-            case "cstatus":
-                return "" + getCstatus();
-            case "cstatus_description":
-                return "" + getCstatus_description();
-            default:
-                return "invalid property specifier";
-        }
-    }
 }
