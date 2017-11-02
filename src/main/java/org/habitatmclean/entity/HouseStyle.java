@@ -56,7 +56,7 @@ public class HouseStyle implements Serializable, RetrievableProperties {
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
-            case "style_id":
+            case "id":
                 return "" + getStyle_id();
             case "style":
                 return "" + getStyle();

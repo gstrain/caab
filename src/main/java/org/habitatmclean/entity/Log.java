@@ -144,7 +144,7 @@ public class Log implements Serializable, RetrievableProperties {
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
-            case "log_id":
+            case "id":
                 return "" + getLog_id();
             case "family_id":
                 return "" + getFamily().getFamily_id();

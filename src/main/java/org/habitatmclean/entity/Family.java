@@ -84,7 +84,7 @@ public class Family implements Serializable, RetrievableProperties {
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
-            case "family_id":
+            case "id":
                 return "" + getFamily_id();
             case "class_id":
                 return "" + getClassType().getClass_id();

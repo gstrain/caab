@@ -52,7 +52,7 @@ public class Organization extends Actor implements Serializable, RetrievableProp
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
-            case "organization_id":
+            case "id":
                 return "" + getActor_id();
             case "name":
                 return "" + getName();

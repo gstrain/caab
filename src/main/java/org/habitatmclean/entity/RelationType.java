@@ -55,7 +55,7 @@ public class RelationType implements Serializable, RetrievableProperties {
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
-            case "relation_id":
+            case "id":
                 return "" + getRelation_id();
             case "relation_name":
                 return "" + getRelation_name();
