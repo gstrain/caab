@@ -6,37 +6,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Table {
-    private final String SEARCH = "<div id=\"left\">\n" + "<form class=\"navbar-form navbar-left\" role=\"search\" autocomplete=\"on\">\n" + "<div class=\"form-group\">\n" + "<input type=\"text\" class=\"form-control\" placeholder=\"Search\">\n" + "<span id=\"search-button\" class=\"glyphicon glyphicon-search\"></span>\n" + "</div>\n" + "</form>\n" + "</div>";
-    private final String TABLE_BEGIN = "<table class=\"table\">\n";
+    private final String SEARCH = "<div id=\"left\">\n" + "<form class=\"filter-box navbar-form navbar-left\" role=\"search\" autocomplete=\"on\">\n" + "<div class=\"form-group\">\n" + "<input type=\"text\" class=\"form-control\" placeholder=\"Search\">\n" + "<span id=\"search-button\" class=\"glyphicon glyphicon-search\"></span>\n" + "</div>\n" + "</form>\n" + "</div>";
+    private final String TABLE_BEGIN = "<table id='table' class=\"table\">\n";
     private final String TABLE_END = "\n</table>";
-    private final String ADD_BUTTON = "<button id=\"addButton\" type=\"button\" class=\"btn btn-success btn-lg button-add\" data-toggle=\"modal\" data-target=\"#record-modal\">Add</button>";
+    private final String ADD_BUTTON = "<button id=\"addButton\" type=\"button\" class=\"btn btn-success btn-lg btn-add\">Add</button>";
     Modal modal;
     List<TableRow> rows;
-    TableRow headers;
+    private TableRow headers;
     private final String[] HEADERS;
 
-    // do not include default constructor so a table cannot be created without headers
+    // do not include default constructor so a table cannot be created without headers, or a modal //TODO potentially remove dependancy for modal and add boolean for editable, addable, etc.
 
-    Table(String[] HEADERS) {
+    /**
+     * @param HEADERS the headers of the table column to create
+     * @param modal a modal object to add to the table
+     */
+    Table(String[] HEADERS, Modal modal) {
         rows = new ArrayList<Table.TableRow>();
         this.HEADERS = HEADERS;
         addHeaders();
-        buildModal();
+        this.modal = modal;
     }
 
     /**
      * @param HEADERS the headers of the table column to create
-     * @param entities a list of entities to add to the table, contents MUST implement RetrievableProperties
+     * @param modal a modal object to add to the table
      */
-    Table(String[] HEADERS, List entities) {
-        this(HEADERS);
+    Table(String[] HEADERS, Modal modal, List entities) {
+        this(HEADERS,modal);
         addData(entities);
     }
 
     /**
      * adds an array of column names to be the column headers of the table
      */
-    public void addHeaders()  {
+    private void addHeaders()  {
         List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
         for(String header : HEADERS) {
             tableCells.add(new TableRow.TableCell(header));
@@ -49,11 +53,6 @@ public abstract class Table {
      * @param entity the entity to add data from
      */
     public abstract void addRow(RetrievableProperties entity);
-
-    /**
-     * builds this tables modal
-     */
-    public abstract void buildModal();
 
     /**
      * adds the entire list of entities as rows to the table
@@ -84,8 +83,8 @@ public abstract class Table {
     static class TableRow {
         final String LINE_BEGIN = "\t<tr ";
         final String LINE_END = "\n\t</tr>\n";
-        final String EDIT_BUTTON = "<td><button id=\"editButton\" type=\"button\" class=\"btn btn-warning btn-sm button-edit\" data-toggle=\"modal\" data-target=\"#record-modal\">Edit</button></td>";
-        final String DELETE_BUTTON = "<td><button id=\"deleteButton\" type=\"button\" class=\"btn btn-danger btn-sm button-delete\">Delete</button></td>";
+        final String EDIT_BUTTON = "<td><button id=\"editButton\" type=\"button\" class=\"btn btn-warning btn-sm btn-edit\">Edit</button>";
+        final String DELETE_BUTTON = "<button id=\"deleteButton\" type=\"button\" class=\"btn btn-danger btn-sm button-delete\">Delete</button></td>";
         List<TableCell> tableCells = new ArrayList<TableCell>();
         private String rowId = "id=";
 

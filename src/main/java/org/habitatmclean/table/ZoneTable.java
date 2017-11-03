@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ZoneTable extends Table {
     public ZoneTable() {
-        super(new String[]{"zone_info", "zone_desc"}); // adjust this to determine table columns
+        super(new String[]{"zone_info", "zone_desc"}, new ZoneModal()); // adjust this to determine table columns
     }
     @Override
     public void addRow(RetrievableProperties entity) {
@@ -21,8 +21,13 @@ public class ZoneTable extends Table {
         rows.add(tr);
     }
 
-    @Override
-    public void buildModal(){
-        modal = new Modal ("Zone");
+    static public class ZoneModal extends Modal{
+        public ZoneModal(){
+            super("Zone");
+        }
+
+        public void buildModal(){
+
+        }
     }
 }

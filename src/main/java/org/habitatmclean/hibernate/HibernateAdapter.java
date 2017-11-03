@@ -5,6 +5,22 @@ import org.hibernate.SessionFactory;
 
 
 public class HibernateAdapter implements CreateUpdateDeleteDAO {
+    private static ActorDAO actorDAO = new ActorDAO(HibernateUtil.getSessionFactory());
+    private static AddressDAO addressDAO = new AddressDAO(HibernateUtil.getSessionFactory());
+    private static ClassDAO classDAO = new ClassDAO(HibernateUtil.getSessionFactory());
+    private static ConstructionStatusDAO constructionStatusDAO = new ConstructionStatusDAO(HibernateUtil.getSessionFactory());
+    private static FamilyDAO familyDAO = new FamilyDAO(HibernateUtil.getSessionFactory());
+    private static HouseContributionDAO houseContributionDAO = new HouseContributionDAO(HibernateUtil.getSessionFactory());
+    private static HouseDAO houseDAO = new HouseDAO(HibernateUtil.getSessionFactory());
+    private static HouseStyleDAO houseStyleDAO = new HouseStyleDAO(HibernateUtil.getSessionFactory());
+    private static LogDAO logDAO = new LogDAO(HibernateUtil.getSessionFactory());
+    private static MilestoneDAO milestoneDAO = new MilestoneDAO(HibernateUtil.getSessionFactory());
+    private static OrganizationDAO organizationDAO = new OrganizationDAO(HibernateUtil.getSessionFactory());
+    private static PersonDAO personDAO = new PersonDAO(HibernateUtil.getSessionFactory());
+    private static PropertyDAO propertyDAO = new PropertyDAO(HibernateUtil.getSessionFactory());
+    private static PropertyStatusDAO propertyStatusDAO = new PropertyStatusDAO(HibernateUtil.getSessionFactory());
+    private static RelationTypeDAO relationTypeDAO = new RelationTypeDAO(HibernateUtil.getSessionFactory());
+    private static ZoneDAO zoneDAO = new ZoneDAO(HibernateUtil.getSessionFactory());
 
     @Override
     public Object save(Object entity) {
@@ -25,62 +41,46 @@ public class HibernateAdapter implements CreateUpdateDeleteDAO {
         sessionFactory.getCurrentSession().getTransaction().commit();
     }
 
-//    @Override
-//    public Object findByPrimaryKey(Serializable serializable) {
-//        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-//        ReadDAO dao = (ReadDAO) getDaoByEntity(, sessionFactory);
-//    }
-
-//    @Override
-//    public List findAll() {
-//        return null;
-//    }
-
     private CreateUpdateDeleteDAO getDaoByEntity(Object entity, SessionFactory sessionFactory) {
         String objName = entity.getClass().getCanonicalName();
-        if (objName.indexOf(".") != -1) {
+        if (objName.contains(".")) {
             objName = objName.substring(objName.lastIndexOf(".")+1);
         }
         switch(objName) {
             case "Actor":
-                return new ActorDAO(sessionFactory);
+                return actorDAO;
             case "Address":
-                return new AddressDAO(sessionFactory);
+                return addressDAO;
             case "Class":
-                return new ClassDAO(sessionFactory);
+                return classDAO;
             case "ConstructionStatus":
-                return new ConstructionStatusDAO(sessionFactory);
+                return constructionStatusDAO;
             case "Family":
-                return new FamilyDAO(sessionFactory);
+                return familyDAO;
             case "House":
-                return new HouseDAO(sessionFactory);
+                return houseDAO;
             case "HouseContribution":
-                return new HouseContributionDAO(sessionFactory);
+                return houseContributionDAO;
             case "HouseStyle":
-                return new HouseStyleDAO(sessionFactory);
+                return houseStyleDAO;
             case "Log":
-                return new LogDAO(sessionFactory);
+                return logDAO;
             case "Milestone":
-                return new MilestoneDAO(sessionFactory);
+                return milestoneDAO;
             case "Organization":
-                return new OrganizationDAO(sessionFactory);
+                return organizationDAO;
             case "Person":
-                return new PersonDAO(sessionFactory);
+                return personDAO;
             case "Property":
-                return new PropertyDAO(sessionFactory);
+                return propertyDAO;
             case "PropertyStatus":
-                return new PropertyStatusDAO(sessionFactory);
+                return propertyStatusDAO;
             case "RelationType":
-                return new RelationTypeDAO(sessionFactory);
+                return relationTypeDAO;
 //            case "Zone":                      // Zone currently does not implement CreateUpdateDeleteDAO because the specifications at this time did not have zones being editable
 //                return new ZoneDAO(sessionFactory);
         }
         return null;
     }
-
-//    private ReadDAO getDaoByEntity(String type, SessionFactory sessionFactory) {
-//
-//        return null;
-//    }
 
 }

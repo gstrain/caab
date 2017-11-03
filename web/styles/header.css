@@ -61,9 +61,6 @@
 #footer
 {
     width: 100%;
-    overflow: hidden;
-    bottom: 0;
-    position: fixed;
     color: #FFFFFF;
     background-color: rgba(1,174,216,1);
 }
@@ -92,6 +89,15 @@
     overflow-x: scroll;
 }
 
+.site {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.site-content {
+    flex: 1;
+}
 /*.table td, tr {*/
     /**/
 /*}*/
@@ -112,13 +118,13 @@
 #addButton{
 }
 
-/*#editButton{*/
-    /*margin:5px;*/
-/*}*/
+#editButton{
+    margin:5px;
+}
 
-/*#deleteButton{*/
-    /*margin:5px;*/
-/*}*/
+#deleteButton{
+    margin:5px;
+}
 
 /*.selected {*/
     /*background-color:  rgba(1,174,216,1);;*/

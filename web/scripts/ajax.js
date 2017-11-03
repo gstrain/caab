@@ -14,13 +14,16 @@
                 console.log('success');
                 $('#nav').after(data);
                 addDeleteListener();
+                new Table($('.table'))
             }
         });
     }
-
+    //we need to talk about this
     function clearTable() {
-        $('#table').remove();
-        $('#addButton').remove();
+        $('#record-modal').remove();// the modal
+        $('#table').remove();       // entire table
+        $('#addButton').remove();   // large add button
+        $('.filter-box').remove();  // filter search boxes
     }
 
     function deleteRow(pk, checked) {
@@ -52,20 +55,18 @@
     function addDeleteListener() {
         $('.button-delete').click(function() {
             var pk = $(this).parent().parent().attr('id').substring(7);
-            var checked = false;
             // TODO apply styling to selected row to show which will be deleted
             iziToast.show({
                 timeout: 6000,
                 close: false,
                 overlay: true,
-                //toastOnce: true,
                 id: 'deleteDialogue',
                 color: 'red',
                 layout: 2,
                 drag: false,
                 title: 'Deleting Row',
                 icon: 'fa fa-question',
-                message: 'Are you sure? <b>This cannot be undone!</b><br/><input type="checkbox" class="form-check-input" id="deleteCheck"><label for="deleteCheck">I understand</label>',
+                message: 'Are you sure? <b>This cannot be undone!</b><br/><input type="checkbox" class="form-check-input" id="deleteCheck"><label for="deleteCheck">&nbsp;&nbsp;&nbsp;I understand</label>',
                 position: 'center',
                 closeOnEscape: true,
                 buttons: [
@@ -85,7 +86,6 @@
                 },
                 onClosed: function(instance, toast, closedBy){
                     console.info('Closed | closedBy: ' + closedBy);
-                    $('deleteCheck').remove();
                 }
             });
         });

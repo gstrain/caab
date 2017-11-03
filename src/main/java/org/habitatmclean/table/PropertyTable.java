@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PropertyTable<P> extends Table {
     public PropertyTable() {
-        super(new String[]{"property_no", "owner", "property status"}); // adjust this to determine table columns
+        super(new String[]{"property_no", "owner", "property status"},new PropertyModal() ); // adjust this to determine table columns
     }
     @Override
     public void addRow(RetrievableProperties entity) {
@@ -22,8 +22,13 @@ public class PropertyTable<P> extends Table {
         rows.add(tr);
     }
 
-    @Override
-    public void buildModal(){
-        modal = new Modal ("Property");
+    static public class PropertyModal extends Modal {
+        public PropertyModal(){
+            super("Property");
+        }
+
+        public void buildModal(){
+
+        }
     }
 }

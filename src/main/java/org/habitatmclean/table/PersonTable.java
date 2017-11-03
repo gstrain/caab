@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PersonTable extends Table {
     public PersonTable() {
-        super(new String[]{"first", "middle", "last"}); // adjust this to determine table columns
+        super(new String[]{"first", "middle", "last"}, new PersonModal()); // adjust this to determine table columns
     }
     @Override
     public void addRow(RetrievableProperties entity) {
@@ -22,8 +22,24 @@ public class PersonTable extends Table {
         rows.add(tr);
     }
 
-    @Override
-    public void buildModal(){
-        modal = new Modal ("Person");
+    static class PersonModal extends Modal{
+
+        public PersonModal(){
+            super("Person");
+        }
+
+        public void buildModal(){
+            //we JQuery now
+            forms.add(Form.builder().setType("text").setName("firstName").setLabel("First Name").build());
+            forms.add(Form.builder().setType("text").setName("middleName").setLabel("Middle Name").setRequired(false).build());
+            forms.add(Form.builder().setType("text").setName("firstName").setLabel("Last Name").build());
+            forms.add(Form.builder().setType("text").setName("address").setLabel("Address").build());
+            forms.add(Form.builder().setType("text").setName("state").setLabel("State").build());
+            forms.add(Form.builder().setType("text").setName("zip").setLabel("Zip").build());
+            forms.add(Form.builder().setType("text").setName("home-phone").setLabel("Phone Number").build());
+        }
     }
 }
+
+
+

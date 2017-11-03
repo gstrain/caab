@@ -85,7 +85,7 @@ public class DBServlet extends HttpServlet {
 //        Property toDelete = (Property) dao.findByPrimaryKey(12L);
 //        saveDao.delete(toDelete);
 //        sessionFactory.getCurrentSession().getTransaction().commit();
-        HibernateUtil.openSession();
+
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         ReadDAO dao = new PersonDAO(sessionFactory);
         sessionFactory.getCurrentSession().beginTransaction();
@@ -99,6 +99,7 @@ public class DBServlet extends HttpServlet {
         table.addData(persons);
         sessionFactory.getCurrentSession().getTransaction().commit();
         response.getWriter().println(table);
+
     }
 
 }
