@@ -5,10 +5,8 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="family")
-public class Family implements Serializable, RetrievableProperties {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long family_id;
+@AttributeOverride(name="id", column = @Column(name="family_id"))
+public class Family extends GenericEntity implements Serializable {
 
     private double equity_hrs;
     private double income;
@@ -30,21 +28,12 @@ public class Family implements Serializable, RetrievableProperties {
         this.classType = classType;
     }
 
-    public Family(Long family_id, int equity_hrs, double income, Milestone milestone, Class classType) {
-        this.family_id = family_id;
+    public Family(Long id, int equity_hrs, double income, Milestone milestone, Class classType) {
+        this.id = id;
         this.equity_hrs = equity_hrs;
         this.income = income;
         this.milestone = milestone;
         this.classType = classType;
-    }
-
-    @Column(name="family_id")
-    public Long getFamily_id() {
-        return family_id;
-    }
-
-    public void setFamily_id(Long family_id) {
-        this.family_id = family_id;
     }
 
     @Column(name="equity_hrs")
@@ -79,23 +68,5 @@ public class Family implements Serializable, RetrievableProperties {
 
     public void setClassType(Class classType) {
         this.classType = classType;
-    }
-
-    @Override
-    public String getValueByPropertyName(String property) {
-        switch(property) {
-            case "id":
-                return "" + getFamily_id();
-            case "class_id":
-                return "" + getClassType().getClass_id();
-            case "milestone_id":
-                return "" + getMilestone().getMilestone_id();
-            case "equity_hrs":
-                return "" + getEquity_hrs();
-            case "income":
-                return "" + getIncome();
-            default:
-                return "invalid property specifier";
-        }
     }
 }

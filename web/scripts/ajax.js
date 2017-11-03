@@ -33,7 +33,7 @@
             $.ajax({
                 type: 'POST',
                 url: '/delete',
-                data: $.param({data_type: 'person', primary_k: pk}),    // TODO globablize data type better?
+                data: $.param({data_type: 'Person', primary_k: pk}),    // TODO globablize data type better?
                 success: function (response) {
                     console.log(' ' + pk);
                     getData(); // reload table after deletion

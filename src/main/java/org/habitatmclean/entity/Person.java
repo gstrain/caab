@@ -10,7 +10,7 @@ import java.io.Serializable;
 @DiscriminatorValue("P")
 @Inheritance(strategy = InheritanceType.JOINED)
 @PrimaryKeyJoinColumn(name = "person_id", referencedColumnName = "actor_id")
-public class Person extends Actor implements Serializable, RetrievableProperties {
+public class Person extends Actor implements Serializable {
 
     private String first;
     private String middle;
@@ -119,31 +119,5 @@ public class Person extends Actor implements Serializable, RetrievableProperties
 
     public void setFamily(Family family) {
         this.family = family;
-    }
-
-    @Override
-    public String getValueByPropertyName(String property) {
-        switch(property) {
-            case "id":
-                return "" + getActor_id();
-            case "family_id":
-                return "" + getFamily();
-            case "first":
-                return "" + getFirst();
-            case "middle":
-                return "" + getMiddle();
-            case "last":
-                return "" + getLast();
-            case "email":
-                return "" + getEmail();
-            case "home_phone":
-                return "" + getHome_phone();
-            case "cell_phone":
-                return "" + getCell_phone();
-            case "work_phone":
-                return "" + getWork_phone();
-            default:
-                return "invalid property specifier";
-        }
     }
 }

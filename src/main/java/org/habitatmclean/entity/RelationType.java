@@ -5,17 +5,16 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="relation_type")
-public class RelationType implements Serializable, RetrievableProperties {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long relation_id;
+@AttributeOverride(name="id", column = @Column(name="relation_id"))
+public class RelationType extends GenericEntity implements Serializable {
+
     private String relation_name;
     private String relation_desc;
 
     public RelationType() { }
 
-    public RelationType(Long relation_id, String relation_name, String relation_desc) {
-        this.relation_id = relation_id;
+    public RelationType(Long id, String relation_name, String relation_desc) {
+        this.id = id;
         this.relation_name = relation_name;
         this.relation_desc = relation_desc;
     }
@@ -23,15 +22,6 @@ public class RelationType implements Serializable, RetrievableProperties {
     public RelationType(String relation_name, String relation_desc) {
         this.relation_name = relation_name;
         this.relation_desc = relation_desc;
-    }
-
-    @Column(name="relation_id")
-    public Long getRelation_id() {
-        return relation_id;
-    }
-
-    public void setRelation_id(Long relation_id) {
-        this.relation_id = relation_id;
     }
 
     @Column(name="relation_name")
@@ -52,17 +42,4 @@ public class RelationType implements Serializable, RetrievableProperties {
         this.relation_desc = relation_desc;
     }
 
-    @Override
-    public String getValueByPropertyName(String property) {
-        switch(property) {
-            case "id":
-                return "" + getRelation_id();
-            case "relation_name":
-                return "" + getRelation_name();
-            case "relation_desc":
-                return "" + getRelation_desc();
-            default:
-                return "invalid property specifier";
-        }
-    }
 }
