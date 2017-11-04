@@ -2,9 +2,9 @@ package org.habitatmclean.entity;
 
 import org.hibernate.annotations.Cascade;
 
-import javax.management.relation.Relation;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name="actor")
@@ -26,6 +26,15 @@ public class Actor extends GenericEntity implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Address address;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "actor")
+    private List<Log> logs;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "actor")
+    private List<HouseContribution> contributions;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
+    private List<Property> properties;
+
     public Actor() { }
 
     public Actor(Long id) {
@@ -40,6 +49,30 @@ public class Actor extends GenericEntity implements Serializable {
         this.id = id;
         this.relationType = relationType;
         this.address = address;
+    }
+
+    public List<HouseContribution> getContributions() {
+        return contributions;
+    }
+
+    public void setContributions(List<HouseContribution> contributions) {
+        this.contributions = contributions;
+    }
+
+    public List<Property> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(List<Property> properties) {
+        this.properties = properties;
+    }
+
+    public List<Log> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(List<Log> logs) {
+        this.logs = logs;
     }
 
     public RelationType getRelationType() {

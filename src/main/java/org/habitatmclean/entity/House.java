@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name="house")
@@ -27,7 +28,6 @@ public class House extends GenericEntity implements Serializable {
     @JoinColumn(name = "property_id")
     private Property property;
 
-
     @ManyToOne(optional = true)
     @JoinColumn(name="family_id")
     private Family family;
@@ -36,6 +36,12 @@ public class House extends GenericEntity implements Serializable {
     @JoinColumn(name="address_id")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Address address;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "house")
+    private List<HouseContribution> contributions;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "house")
+    private List<Log> logs;
 
     public House(Long id, Family family, double construction_cost, int size, int bedrooms, double bathrooms, ConstructionStatus construction_status, HouseStyle house_style, Property property, Address address) {
         this.id = id;
@@ -60,6 +66,22 @@ public class House extends GenericEntity implements Serializable {
         this.house_style = house_style;
         this.property = property;
         this.address = address;
+    }
+
+    public List<Log> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(List<Log> logs) {
+        this.logs = logs;
+    }
+
+    public List<HouseContribution> getContributions() {
+        return contributions;
+    }
+
+    public void setContributions(List<HouseContribution> contributions) {
+        this.contributions = contributions;
     }
 
     public Family getFamily() {

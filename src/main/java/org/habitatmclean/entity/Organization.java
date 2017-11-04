@@ -17,19 +17,19 @@ public class Organization extends Actor implements Serializable {
     @ManyToOne(optional = false)
     @JoinColumn(name="contact_id")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    private Person person;
+    private Person contact;
 
     public Organization() { }
 
-    public Organization(String name, Person person) {
+    public Organization(String name, Person contact) {
         this.name = name;
-        this.person = person;
+        this.contact = contact;
     }
 
-    public Organization(Long actor_id, String name, Person person) {
+    public Organization(Long actor_id, String name, Person contact) {
         super(actor_id);
         this.name = name;
-        this.person = person;
+        this.contact = contact;
     }
 
     @Column(name="name")
@@ -41,11 +41,11 @@ public class Organization extends Actor implements Serializable {
         this.name = name;
     }
 
-    public Person getPerson() {
-        return person;
+    public Person getContact() {
+        return contact;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setContact(Person person) {
+        this.contact = person;
     }
 }

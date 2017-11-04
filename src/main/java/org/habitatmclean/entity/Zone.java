@@ -2,6 +2,7 @@ package org.habitatmclean.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name="zone")
@@ -10,6 +11,9 @@ public class Zone extends GenericEntity implements Serializable {
 
     private String zone_info;
     private String zone_desc;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "zone")
+    private List<Property> properties;
 
     public Zone() { }
 
@@ -22,6 +26,14 @@ public class Zone extends GenericEntity implements Serializable {
     public Zone(String zone_info, String zone_desc) {
         this.zone_info = zone_info;
         this.zone_desc = zone_desc;
+    }
+
+    public List<Property> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(List<Property> properties) {
+        this.properties = properties;
     }
 
     @Column(name="zone_info")
