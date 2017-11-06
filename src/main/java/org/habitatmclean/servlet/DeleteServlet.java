@@ -20,7 +20,7 @@ public class DeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int pk = Integer.parseInt(request.getParameter("primary_k"));
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        ReadDAO reader = HibernateAdapter.getDaoByEntityName(request.getParameter("data_type"));
+        ReadDAO reader = HibernateAdapter.getBoByEntityName(request.getParameter("data_type"));
 
         if (reader != null) {
             sessionFactory.getCurrentSession().beginTransaction();

@@ -6,27 +6,27 @@ import org.hibernate.SessionFactory;
 
 
 public class HibernateAdapter implements CreateUpdateDeleteDAO<GenericEntity, Long> {
-    private static final ActorDAO ACTOR_DAO = new ActorDAO(HibernateUtil.getSessionFactory());
-    private static final AddressDAO ADDRESS_DAO= new AddressDAO(HibernateUtil.getSessionFactory());
-    private static final ClassDAO CLASS_DAO = new ClassDAO(HibernateUtil.getSessionFactory());
-    private static final ConstructionStatusDAO CONSTRUCTION_STATUS_DAO = new ConstructionStatusDAO(HibernateUtil.getSessionFactory());
-    private static final FamilyDAO FAMILY_DAO = new FamilyDAO(HibernateUtil.getSessionFactory());
-    private static final HouseContributionDAO HOUSE_CONTRIBUTION_DAO = new HouseContributionDAO(HibernateUtil.getSessionFactory());
-    private static final HouseDAO HOUSE_DAO = new HouseDAO(HibernateUtil.getSessionFactory());
-    private static final HouseStyleDAO HOUSE_STYLE_DAO = new HouseStyleDAO(HibernateUtil.getSessionFactory());
-    private static final LogDAO LOG_DAO = new LogDAO(HibernateUtil.getSessionFactory());
-    private static final MilestoneDAO MILESTONE_DAO = new MilestoneDAO(HibernateUtil.getSessionFactory());
-    private static final OrganizationDAO ORGANIZATION_DAO = new OrganizationDAO(HibernateUtil.getSessionFactory());
-    private static final PersonDAO PERSON_DAO = new PersonDAO(HibernateUtil.getSessionFactory());
-    private static final PropertyDAO PROPERTY_DAO = new PropertyDAO(HibernateUtil.getSessionFactory());
-    private static final PropertyStatusDAO PROPERTY_STATUS_DAO = new PropertyStatusDAO(HibernateUtil.getSessionFactory());
-    private static final RelationTypeDAO RELATION_TYPE_DAO = new RelationTypeDAO(HibernateUtil.getSessionFactory());
-    private static final ZoneDAO ZONE_DAO = new ZoneDAO(HibernateUtil.getSessionFactory());
+    private static final ActorBO ACTOR_DAO = new ActorBO();
+    private static final AddressBO ADDRESS_DAO= new AddressBO();
+    private static final ClassBO CLASS_DAO = new ClassBO();
+    private static final ConstructionStatusBO CONSTRUCTION_STATUS_DAO = new ConstructionStatusBO();
+    private static final FamilyBO FAMILY_DAO = new FamilyBO();
+    private static final HouseContributionBO HOUSE_CONTRIBUTION_DAO = new HouseContributionBO();
+    private static final HouseBO HOUSE_DAO = new HouseBO();
+    private static final HouseStyleBO HOUSE_STYLE_DAO = new HouseStyleBO();
+    private static final LogBO LOG_DAO = new LogBO();
+    private static final MilestoneBO MILESTONE_DAO = new MilestoneBO();
+    private static final OrganizationBO ORGANIZATION_DAO = new OrganizationBO();
+    private static final PersonBO PERSON_DAO = new PersonBO();
+    private static final PropertyBO PROPERTY_DAO = new PropertyBO();
+    private static final PropertyStatusBO PROPERTY_STATUS_DAO = new PropertyStatusBO();
+    private static final RelationTypeBO RELATION_TYPE_DAO = new RelationTypeBO();
+    private static final ZoneBO ZONE_DAO = new ZoneBO();
 
     @Override
     public GenericEntity save(GenericEntity entity) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        CreateUpdateDeleteDAO dao = getDaoByEntity(entity);
+        CreateUpdateDeleteDAO dao = getBoByEntity(entity);
         sessionFactory.getCurrentSession().beginTransaction();
         dao.save(entity);
         sessionFactory.getCurrentSession().getTransaction().commit();
@@ -36,7 +36,7 @@ public class HibernateAdapter implements CreateUpdateDeleteDAO<GenericEntity, Lo
     @Override
     public void delete(GenericEntity entity) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        CreateUpdateDeleteDAO dao = getDaoByEntity(entity);
+        CreateUpdateDeleteDAO dao = getBoByEntity(entity);
         sessionFactory.getCurrentSession().beginTransaction();
         dao.delete(entity);
         sessionFactory.getCurrentSession().getTransaction().commit();
@@ -47,7 +47,7 @@ public class HibernateAdapter implements CreateUpdateDeleteDAO<GenericEntity, Lo
      * @param className the case-sensitive class name of the object
      * @return the DAO that implements ReadDAO or null if not found
      */
-    public static ReadDAO getDaoByEntityName(String className) {
+    public static ReadDAO getBoByEntityName(String className) {
         switch(className) {
             case "Actor":
                 return ACTOR_DAO;
@@ -85,13 +85,13 @@ public class HibernateAdapter implements CreateUpdateDeleteDAO<GenericEntity, Lo
         return null;
 
     }
-    private CreateUpdateDeleteDAO getDaoByEntity(GenericEntity entity) {
+    private CreateUpdateDeleteDAO getBoByEntity(GenericEntity entity) {
         String objName = entity.getClass().getCanonicalName();
         if (objName.contains(".")) {
             objName = objName.substring(objName.lastIndexOf(".")+1);
         }
         if(objName.equals("Zone")) return null; // Zone does not implement CreateUpdateDeleteDAO as of 11/2/17
-        return (CreateUpdateDeleteDAO) getDaoByEntityName(objName);
+        return (CreateUpdateDeleteDAO) getBoByEntityName(objName);
 
     }
 

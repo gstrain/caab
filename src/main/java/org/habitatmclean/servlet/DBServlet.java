@@ -86,7 +86,7 @@ public class DBServlet extends HttpServlet {
 //        sessionFactory.getCurrentSession().getTransaction().commit();
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        ReadDAO dao = HibernateAdapter.getDaoByEntityName("Person");
+        ReadDAO dao = HibernateAdapter.getBoByEntityName("Person");
         sessionFactory.getCurrentSession().beginTransaction();
         List persons = dao.findAll();
         Table table = null;

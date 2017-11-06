@@ -3,21 +3,10 @@ package org.habitatmclean.dao;
 import org.habitatmclean.entity.Zone;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 import java.util.List;
 
-public class ZoneDAO implements ReadDAO<Zone, Long> {
-    private SessionFactory sessionFactory = null;
-
-    public ZoneDAO() {}
-    public ZoneDAO(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+public class ZoneBO extends GenericDao implements ReadDAO<Zone, Long> {
 
     @Override
     public Zone findByPrimaryKey(Long id) {
@@ -32,4 +21,5 @@ public class ZoneDAO implements ReadDAO<Zone, Long> {
         Query result = session.createQuery("from Zone");
         return result.list();
     }
+
 }
