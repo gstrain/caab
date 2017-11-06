@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="property")
@@ -36,6 +37,12 @@ public class Property extends GenericEntity implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Address address;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "property")
+    private List<Log> logs;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "property")
+    private List<House> houses;
+
     public Property() { }
 
     public Property(Long id, double appraised_value, Date appraised_date, double taxes, String notes, PropertyStatus property_status, Zone zone, Actor owner, Address address) {
@@ -59,6 +66,22 @@ public class Property extends GenericEntity implements Serializable {
         this.zone = zone;
         this.owner = owner;
         this.address = address;
+    }
+
+    public List<Log> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(List<Log> logs) {
+        this.logs = logs;
+    }
+
+    public List<House> getHouses() {
+        return houses;
+    }
+
+    public void setHouses(List<House> houses) {
+        this.houses = houses;
     }
 
     @Column(name="appraised_value")

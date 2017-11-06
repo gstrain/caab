@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name="person")
@@ -24,6 +25,9 @@ public class Person extends Actor implements Serializable {
     @JoinColumn(name="family_id")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Family family;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contact")
+    private List<Organization> organizations;
 
     public Person() { }
 
@@ -48,6 +52,14 @@ public class Person extends Actor implements Serializable {
         this.cell_phone = cell_phone;
         this.work_phone = work_phone;
         this.family = family;
+    }
+
+    public List<Organization> getOrganizations() {
+        return organizations;
+    }
+
+    public void setOrganizations(List<Organization> organizations) {
+        this.organizations = organizations;
     }
 
     @Column(name="first")

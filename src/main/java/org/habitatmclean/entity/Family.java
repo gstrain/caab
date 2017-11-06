@@ -2,6 +2,7 @@ package org.habitatmclean.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name="family")
@@ -18,6 +19,12 @@ public class Family extends GenericEntity implements Serializable {
     @ManyToOne(optional = false)
     @JoinColumn(name="class_id")
     private Class classType;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "family")
+    private List<Person> people;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "family")
+    private List<Log> logs;
 
     public Family() { }
 
@@ -68,5 +75,21 @@ public class Family extends GenericEntity implements Serializable {
 
     public void setClassType(Class classType) {
         this.classType = classType;
+    }
+
+    public List<Person> getPeople() {
+        return people;
+    }
+
+    public void setPeople(List<Person> people) {
+        this.people = people;
+    }
+
+    public List<Log> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(List<Log> logs) {
+        this.logs = logs;
     }
 }

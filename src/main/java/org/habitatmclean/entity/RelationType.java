@@ -2,6 +2,7 @@ package org.habitatmclean.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name="relation_type")
@@ -10,6 +11,9 @@ public class RelationType extends GenericEntity implements Serializable {
 
     private String relation_name;
     private String relation_desc;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "relationType")
+    private List<Actor> actors;
 
     public RelationType() { }
 
@@ -22,6 +26,14 @@ public class RelationType extends GenericEntity implements Serializable {
     public RelationType(String relation_name, String relation_desc) {
         this.relation_name = relation_name;
         this.relation_desc = relation_desc;
+    }
+
+    public List<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
     }
 
     @Column(name="relation_name")

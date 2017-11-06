@@ -1,10 +1,11 @@
 package org.habitatmclean.hibernate;
 
 import org.habitatmclean.dao.*;
+import org.habitatmclean.entity.GenericEntity;
 import org.hibernate.SessionFactory;
 
 
-public class HibernateAdapter implements CreateUpdateDeleteDAO {
+public class HibernateAdapter implements CreateUpdateDeleteDAO<GenericEntity, Long> {
     private static final ActorDAO ACTOR_DAO = new ActorDAO(HibernateUtil.getSessionFactory());
     private static final AddressDAO ADDRESS_DAO= new AddressDAO(HibernateUtil.getSessionFactory());
     private static final ClassDAO CLASS_DAO = new ClassDAO(HibernateUtil.getSessionFactory());
@@ -23,7 +24,7 @@ public class HibernateAdapter implements CreateUpdateDeleteDAO {
     private static final ZoneDAO ZONE_DAO = new ZoneDAO(HibernateUtil.getSessionFactory());
 
     @Override
-    public Object save(Object entity) {
+    public GenericEntity save(GenericEntity entity) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         CreateUpdateDeleteDAO dao = getDaoByEntity(entity);
         sessionFactory.getCurrentSession().beginTransaction();
@@ -33,7 +34,7 @@ public class HibernateAdapter implements CreateUpdateDeleteDAO {
     }
 
     @Override
-    public void delete(Object entity) {
+    public void delete(GenericEntity entity) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         CreateUpdateDeleteDAO dao = getDaoByEntity(entity);
         sessionFactory.getCurrentSession().beginTransaction();
@@ -84,7 +85,7 @@ public class HibernateAdapter implements CreateUpdateDeleteDAO {
         return null;
 
     }
-    private CreateUpdateDeleteDAO getDaoByEntity(Object entity) {
+    private CreateUpdateDeleteDAO getDaoByEntity(GenericEntity entity) {
         String objName = entity.getClass().getCanonicalName();
         if (objName.contains(".")) {
             objName = objName.substring(objName.lastIndexOf(".")+1);
