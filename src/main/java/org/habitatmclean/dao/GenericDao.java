@@ -4,24 +4,38 @@ import org.habitatmclean.entity.GenericEntity;
 import org.habitatmclean.hibernate.HibernateUtil;
 import org.hibernate.SessionFactory;
 
-public class GenericDao implements CreateUpdateDeleteDAO<GenericEntity, Long> {
-    SessionFactory sessionFactory;
+import java.util.List;
+
+public class GenericDao<T extends GenericEntity> implements CreateUpdateDeleteDAO<T, Long>, ReadDAO<T, Long> {
+    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    private Class<T> clazz;
 
     public GenericDao() {
         this.sessionFactory = HibernateUtil.getSessionFactory();
     }
-    public GenericDao(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public GenericDao(Class<T> clazz) {
+        this();
+        this.clazz = clazz;
     }
 
     @Override
-    public GenericEntity save(GenericEntity entity) {
+    public T save(T entity) {
         sessionFactory.getCurrentSession().saveOrUpdate(entity);
         return entity;
     }
 
     @Override
-    public void delete(GenericEntity entity) {
+    public void delete(T entity) {
         sessionFactory.getCurrentSession().delete(entity);
+    }
+
+    @Override
+    public T findByPrimaryKey(Long aLong) {
+        return sessionFactory.getCurrentSession().load(clazz, aLong);
+    }
+
+    @Override
+    public List<T> findAll() {
+        return sessionFactory.getCurrentSession().createCriteria(clazz).list();
     }
 }
