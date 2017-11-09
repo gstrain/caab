@@ -83,10 +83,14 @@
     margin: 50px;
 }
 
-.table {
+#table {
     margin-top: 20px;
     margin-bottom: 20px;
     overflow-x: scroll;
+}
+thead {
+    text-transform: capitalize;
+    font-size: 1.5em;
 }
 
 .site {
@@ -98,22 +102,6 @@
 .site-content {
     flex: 1;
 }
-/*.table td, tr {*/
-    /**/
-/*}*/
-
-/*.table thead {*/
-    /*border-top: 1px solid #dddddd;*/
-/*}*/
-
-/*.table tr {*/
-    /*margin: 20px;*/
-/*}*/
-
-/*.table, th, td{*/
-    /*!*display: inline;*!*/
-    /*margin:10px;*/
-/*}*/
 
 #addButton{
 }
@@ -121,13 +109,20 @@
 #editButton{
     margin:5px;
 }
-
+#reportButton {
+    float:right;
+}
 #deleteButton{
     margin:5px;
 }
-
-/*.selected {*/
-    /*background-color:  rgba(1,174,216,1);;*/
-    /*color: #FFF;*/
-/*}*/
+.btn {
+    margin: 10px;
+}
+#reportHeader {
+    display:inline;
+}
+#reportTime {
+    display:inline;
+    float:right;
+}
 

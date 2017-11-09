@@ -3,9 +3,11 @@
     Table = function($table){
         const $modal = $table.nextAll('#record-modal');
         const $addBtn = $('.btn-add');
+        const $reportBtn = $('.btn-report');
         const thing = this;
         $.extend(this,{
             $addBtn:$addBtn,
+            $reportBtn:$reportBtn,
             $recordAction: $modal.find('.record-action'),
             $modal: $modal,
 
@@ -79,6 +81,9 @@
                     progressBar: false
                 });
             },
+            downloadReport:function() {
+                window.location='/pdfgen?page=' + $('#page-type').val();
+            },
             init:function(){
                 this.initButtons();
                 //any other things to init
@@ -87,7 +92,15 @@
                 this.$addBtn.on('click',function(){
                     thing.add();
                 });
-
+                this.$reportBtn.on('click', function() {
+                    thing.downloadReport();
+                    $reportBtn.toggleClass('disabled');
+                    $reportBtn.html('Generating...');
+                    setTimeout(function() {
+                        $reportBtn.toggleClass('disabled');
+                        $reportBtn.html('Generate Report From Table');
+                    }, 1500); // prevent spamming report generation button
+                });
                 $table.find('.btn-edit').on('click',function(){
                     thing.edit();
                 });

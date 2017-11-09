@@ -35,28 +35,34 @@ public class PdfGenServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long ts = System.currentTimeMillis();
         String type = request.getParameter("page");
-        String option = "";
-        String[] cmdArr = { };
-        if(type.equals("log")) {
-            option = request.getParameter("options");
-            String url = "http://localhost:8085/" + type + ".html?type=" + option; // TODO change this whenever logs are made
-
-            cmdArr = new String[]{installDirectory + "/bin/wkhtmltopdf.exe", "--viewport-size", "1280x1024", "-O", "landscape", url, tempDirectory + ts + ".pdf"};
-        } else {
-            cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--viewport-size", "1280x1024", "-O", "landscape", "http://localhost:8085/" + type + ".html", tempDirectory + ts + ".pdf"};
+        System.out.println(type);
+        String option;
+        String[] cmdArr;
+        switch (type) {
+            case "log":
+                //TODO log case
+                option = request.getParameter("options");
+                String url = "http://localhost:8085/" + type + ".html?type=" + option;
+                cmdArr = new String[]{installDirectory + "/bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", url, tempDirectory + ts + ".pdf"};
+                break;
+            case "people":
+                cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", "http://localhost:8085/" + type + ".html", tempDirectory + ts + ".pdf"};
+                break;
+            default:
+                cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", "http://localhost:8085/pages/" + type + ".html", tempDirectory + ts + ".pdf"};
+                break;
         }
         Process p = new ProcessBuilder(cmdArr).start();
         try {
             System.out.println(Arrays.toString(cmdArr));
             p.waitFor();
         } catch (InterruptedException e) {
-            System.err.println(e.getStackTrace().toString());
+            System.err.println(e.getStackTrace());
         }
 
         OutputStream out = response.getOutputStream();
@@ -81,6 +87,8 @@ public class PdfGenServlet extends HttpServlet {
                 File f = new File(tempDirectory + ts + ".pdf");
                 if(!f.delete()) System.err.println("error cleaning up files in:\n" + tempDirectory + ts + ".pdf");
             } catch (Exception e) {
+                System.err.println("exception while deleteing file");
+                e.printStackTrace();
             }
         }
     }

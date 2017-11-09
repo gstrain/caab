@@ -8,9 +8,8 @@
     <meta name="description" content="">
     <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
 
-    <link rel="manifest" href="site.webmanifest">
+    <!--<link rel="manifest" href="site.webmanifest">-->
     <!--<link rel="apple-touch-icon" href="icon.png">-->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>-->
 
     <link rel="stylesheet" href="styles/lib/iziToast.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -19,7 +18,7 @@
 </head>
 <body class="site">
 <main class="site-content">
-<nav id="nav" class="navbar navbar-default">
+<nav id="nav" class="navbar navbar-default hidden-print">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -36,20 +35,23 @@
 
         <div id="collapse" class="collapse navbar-collapse">
             <ul id="list" class="nav navbar-nav">
-                <button type="button"><a href="pages/properties.html">Properties</a></button>
-                <button type="button"><a href="pages/houses.html">Houses</a></button>
-                <button type="button"><a href="pages/vendors.html">Vendors</a></button>
-                <button type="button"><a href="pages/people.html">People</a></button>
-                <button type="button"><a href="pages/zone.html">Zone</a></button>
+                <button type="button"><a href="./pages/properties.html">Properties</a></button>
+                <button type="button"><a href="./pages/houses.html">Houses</a></button>
+                <button type="button"><a href="./pages/vendors.html">Vendors</a></button>
+                <button type="button"><a href="#">People</a></button>
+                <button type="button"><a href="./pages/zone.html">Zone</a></button>
             </ul>
          </div>
     </div>
 </nav>
+    <input id="page-type" type="hidden" value="people">
+    <h2 id="reportHeader" class="visible-print">Habitat For Humanity, McClean County</h2>
+    <p id="reportTime" class="visible-print">People Table Report, generated:  </p>
     <div id="tableContent">
 
     </div>
 </main>
-<footer id="footer" class="mdl-mega-footer">
+<footer id="footer" class="mdl-mega-footer hidden-print">
     <ul id="footer-list" class="mdl-mega-footer--link-list">
         <li><a href="https://www.facebook.com/HabitatMcLean/"> <i class="fa fa-facebook-official" style="font-size:36px;color: #ffffff;" ></i> </a> </li>
         <li><a href="https://twitter.com/HabitatMcLean"> <i class="fa fa-twitter-square" aria-hidden="true" style="font-size: 36px;color: #ffffff"></i></a></li>
