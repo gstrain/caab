@@ -31,11 +31,17 @@ public class GenericDao<T extends GenericEntity> implements CreateUpdateDeleteDA
 
     @Override
     public T findByPrimaryKey(Long aLong) {
-        return sessionFactory.getCurrentSession().load(clazz, aLong);
+        sessionFactory.getCurrentSession().beginTransaction();
+        T obj = sessionFactory.getCurrentSession().load(clazz, aLong);
+        sessionFactory.getCurrentSession().getTransaction().commit();
+        return obj;
     }
 
     @Override
     public List<T> findAll() {
-        return sessionFactory.getCurrentSession().createCriteria(clazz).list();
+        sessionFactory.getCurrentSession().beginTransaction();
+        List<T> objects = sessionFactory.getCurrentSession().createCriteria(clazz).list();
+        sessionFactory.getCurrentSession().getTransaction().commit();
+        return objects;
     }
 }

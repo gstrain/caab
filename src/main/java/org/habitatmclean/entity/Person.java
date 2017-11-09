@@ -27,11 +27,15 @@ public class Person extends Actor implements Serializable {
     private Family family;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "contact")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<Organization> organizations;
 
-    public Person() { }
+    public Person() {
+        super();
+    }
 
-    public Person(String first, String middle, String last, String email, String home_phone, String cell_phone, String work_phone, Family family) {
+    public Person(String first, String middle, String last, String email, String home_phone, String cell_phone, String work_phone, Family family, RelationType relationType, Address address) {
+        super(relationType, address);
         this.first = first;
         this.middle = middle;
         this.last = last;
@@ -42,8 +46,8 @@ public class Person extends Actor implements Serializable {
         this.family = family;
     }
 
-    public Person(Long actor_id, String first, String middle, String last, String email, String home_phone, String cell_phone, String work_phone, Family family) {
-        super(actor_id);
+    public Person(Long actor_id, String first, String middle, String last, String email, String home_phone, String cell_phone, String work_phone, Family family, RelationType relationType, Address address) {
+        super(relationType, address);
         this.first = first;
         this.middle = middle;
         this.last = last;
