@@ -1,27 +1,27 @@
-#left
+#list
 {
-    /*float:right;*/
-    /*padding-top: 60px;*/
-    /*padding-botton: none;*/
+    float:right;
+    padding-top: 60px;
+    padding-botton: 0px;
 }
 
 #nav
 {
     background-color: rgba(1,174,216,1);
+    padding-bottom: 0px;
 }
-
-#collapse
-{
-    height: 115px;
+/* navbar buttons */
+nav div div form button {
+    margin-bottom: 0px;
 }
 
 #list
 {
-    padding-top: 75px;
-    padding-botton: 75px;
+    /*padding-top: 75px;*/
+    /*padding-botton: 75px;*/
 }
 
-#list button
+#list form button
 {
     background-color: rgba(1,174,216,1);
     border: none;
@@ -35,28 +35,19 @@
     transition-duration: 0.4s;
 }
 
-#list button a
+#list form button a
 {
     color: white;
     text-decoration: none;
 }
 
-#list button:hover
+#list form button:hover
 {
     background-color: #01b7ff;
     color: white;
 }
 
-#search-button
-{
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    position: relative;
-    left: -22px;
-    top: 3px;
-    color: rgba(0, 0, 0, 0.33);
-}
+
 
 #footer
 {
@@ -64,7 +55,6 @@
     color: #FFFFFF;
     background-color: rgba(1,174,216,1);
 }
-
 #footer-list {
     width: 60%;
     float: right;
@@ -82,17 +72,6 @@
 .body {
     margin: 50px;
 }
-
-#table {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    overflow-x: scroll;
-}
-thead {
-    text-transform: capitalize;
-    font-size: 1.5em;
-}
-
 .site {
     display: flex;
     min-height: 100vh;
@@ -101,28 +80,5 @@ thead {
 
 .site-content {
     flex: 1;
-}
-
-#addButton{
-}
-
-#editButton{
-    margin:5px;
-}
-#reportButton {
-    float:right;
-}
-#deleteButton{
-    margin:5px;
-}
-.btn {
-    margin: 10px;
-}
-#reportHeader {
-    display:inline;
-}
-#reportTime {
-    display:inline;
-    float:right;
 }
 

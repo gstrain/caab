@@ -37,19 +37,16 @@ public class Actor extends GenericEntity implements Serializable {
 
     public Actor() { }
 
-    public Actor(Long id) {
-        this.id = id;
-    }
     public Actor(RelationType relationType, Address address) {
         this.relationType = relationType;
         this.address = address;
     }
-
     public Actor(Long id, RelationType relationType, Address address) {
         this.id = id;
         this.relationType = relationType;
         this.address = address;
     }
+
 
     public List<HouseContribution> getContributions() {
         return contributions;

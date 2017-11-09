@@ -21,13 +21,13 @@ public class Organization extends Actor implements Serializable {
 
     public Organization() { }
 
-    public Organization(String name, Person contact) {
+    public Organization(String name, Person contact, RelationType relationType, Address address) {
         this.name = name;
         this.contact = contact;
     }
 
-    public Organization(Long actor_id, String name, Person contact) {
-        super(actor_id);
+    public Organization(Long actor_id, String name, Person contact, Address address, RelationType relationType) {
+        super(relationType, address);
         this.name = name;
         this.contact = contact;
     }

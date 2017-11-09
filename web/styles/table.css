@@ -1,0 +1,47 @@
+#search-button
+{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    left: -32px;
+    color: rgba(0, 0, 0, 0.33);
+}
+
+#searchForm {
+    display:inline;
+    margin-left: 10px;
+}
+
+#table {
+    /*margin-top: 20px;*/
+    margin-bottom: 20px;
+    overflow-x: scroll;
+}
+thead {
+    text-transform: capitalize;
+    font-size: 1.5em;
+}
+
+#reportButton {
+    float:right;
+}
+#deleteButton{
+    margin:5px;
+}
+#addButton, #reportButton {
+    margin: 10px;
+}
+#reportHeader {
+    display:inline;
+}
+#reportTime {
+    display:inline;
+    float:right;
+}
+
+@media print {
+    #table {
+        margin-top:10px;
+    }
+}
