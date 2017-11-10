@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PropertyTable<P> extends Table {
     public PropertyTable() {
-        super(new String[]{"property_no", "owner", "property status"},new PropertyModal() ); // adjust this to determine table columns
+        super(new String[]{"property_no", "owner", "property status"},new PropertyModal(), true); // adjust this to determine table columns
     }
     @Override
     public void addRow(GenericEntity entity) {
