@@ -23,7 +23,7 @@ public class Actor extends GenericEntity implements Serializable {
 
     @OneToOne(optional = false)
     @JoinColumn(name="address_id")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
     private Address address;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "actor")

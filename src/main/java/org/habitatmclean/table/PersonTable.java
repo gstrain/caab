@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PersonTable extends Table {
     public PersonTable() {
-        super(new String[]{"first", "middle", "last"}, new PersonModal()); // adjust this to determine table columns
+        super(new String[]{"first", "middle", "last", "email"}, new PersonModal()); // adjust this to determine table columns
     }
     @Override
     public void addRow(GenericEntity entity) {
@@ -17,6 +17,7 @@ public class PersonTable extends Table {
         tableCells.add(new TableRow.TableCell(person.getFirst()));
         tableCells.add(new TableRow.TableCell(person.getMiddle()));
         tableCells.add(new TableRow.TableCell(person.getLast()));
+        tableCells.add(new TableRow.TableCell(person.getEmail()));
         TableRow tr = new TableRow(tableCells);
         tr.setRowId("" + entity.getId());
         rows.add(tr);

@@ -10,12 +10,6 @@ public abstract class Table {
     private final String TABLE_END = "\n</table>";
     private final String ADD_BUTTON = "<button id=\"addButton\" type=\"button\" class=\"btn btn-success btn-lg btn-add d-print-none\">Add</button>";
     private final String REPORT_BUTTON = "<button id=\"reportButton\" type=\"button\" class=\"btn btn-info` btn-lg btn-report d-print-none\">Generate Report From Table</button>";
-    private final String SEARCH_FORM_BEGIN = "<form id=\"searchForm\" class=\"filter-box form-inline d-print-none\" role=\"search\" autocomplete=\"on\">\n";
-    private final String SEARCH_BOX = "<input type=\"search\" class=\"form-control mr-sm-2\" placeholder=\"Search\">\n" +
-                                         "<span id=\"search-button\" class=\"fa fa-search\"></span>\n" +
-                                      "</input>\n";
-//                    "</div>\n" +
-    private final String SEARCH_FORM_END = "</form>\n";
     Modal modal;
     List<TableRow> rows;
     private TableRow headers;
@@ -49,7 +43,7 @@ public abstract class Table {
     private void addHeaders()  {
         List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
         for(String header : HEADERS) {
-            tableCells.add(new TableRow.TableCell(header));
+            tableCells.add(new TableRow.TableCell.HeaderCell(header));
         }
         this.headers = new TableRow.TableHeaders(tableCells);
     }
@@ -74,11 +68,11 @@ public abstract class Table {
         StringBuilder table = new StringBuilder();
 
         table.append(REPORT_BUTTON);
-        table.append(SEARCH_FORM_BEGIN);
-        for(int i=0; i< HEADERS.length; i++) {
-            table.append(SEARCH_BOX);
-        }
-        table.append(SEARCH_FORM_END);
+//        table.append(SEARCH_FORM_BEGIN);
+//        for(int i=0; i< HEADERS.length; i++) {
+//            table.append(SEARCH_BOX);
+//        }
+//        table.append(SEARCH_FORM_END);
         table.append(ADD_BUTTON);
         table.append(TABLE_BEGIN);
         table.append(headers);
@@ -87,7 +81,6 @@ public abstract class Table {
         }
         table.append(TABLE_END);
         table.append(modal.toString());
-        System.out.println(table.toString());
         return table.toString();
     }
 
@@ -140,8 +133,9 @@ public abstract class Table {
         }
 
         static class TableHeaders extends TableRow {
-            private final String HEADER_BEGIN = "\t<thead>\n\t\t";
-            private final String HEADER_END = "</thead>";
+            private final String HEADER_BEGIN = "\t<thead><tr>\n\t\t";
+            private final String HEADER_END = "</tr></thead>";
+
             TableHeaders(List<TableCell> tableCells) {
                 super(tableCells);
             }
@@ -160,9 +154,9 @@ public abstract class Table {
         }
 
         static class TableCell {
-            private final String CELL_BEGIN = "<td>"; // if these change, make sure to also change the .toArray() method
-            private final String CELL_END = "</td>";  // in TableRow
-            private String value;
+            final String CELL_BEGIN = "<td>"; // if these change, make sure to also change the .toArray() method
+            final String CELL_END = "</td>";  // in TableRow
+            String value;
 
             TableCell(String value) {
                  setValue(value);
@@ -185,6 +179,29 @@ public abstract class Table {
                 cell.append(value);
                 cell.append(CELL_END);
                 return cell.toString();
+            }
+
+            static class HeaderCell extends TableCell {
+                private final String SEARCH_FORM_BEGIN = "<th><form class=\"filter-box form-inline d-print-none searchForm\" role=\"search\" autocomplete=\"on\">\n";
+                private final String SEARCH_BOX = "<input type=\"search\" class=\"form-control mr-sm-2\" placeholder=\"";
+                private final String SEARCH_FORM_END = "\">\n" +
+                        "                        <span class=\"fa fa-search search-button\"></span>\n" +
+                        "                        </input>\n" +
+                        "                        </form>\n" +
+                        "                        </th>";
+
+                public HeaderCell(String value) {
+                    super(value);
+                }
+
+                public String toString() {
+                    StringBuilder header = new StringBuilder();
+                    header.append(SEARCH_FORM_BEGIN);
+                    header.append(SEARCH_BOX);
+                    header.append(value);
+                    header.append(SEARCH_FORM_END);
+                    return header.toString();
+                }
             }
         }
     }

@@ -83,6 +83,12 @@
             },
             downloadReport:function() {
                 window.location='/pdfgen?page=' + $('#page-type').val();
+                $reportBtn.toggleClass('disabled');
+                $reportBtn.html('Generating...');
+                setTimeout(function() {
+                    $reportBtn.toggleClass('disabled');
+                    $reportBtn.html('Generate Report From Table');
+                }, 1500); // prevent spamming report generation button
             },
             init:function(){
                 this.initButtons();
@@ -94,12 +100,6 @@
                 });
                 this.$reportBtn.on('click', function() {
                     thing.downloadReport();
-                    $reportBtn.toggleClass('disabled');
-                    $reportBtn.html('Generating...');
-                    setTimeout(function() {
-                        $reportBtn.toggleClass('disabled');
-                        $reportBtn.html('Generate Report From Table');
-                    }, 1500); // prevent spamming report generation button
                 });
                 $table.find('.btn-edit').on('click',function(){
                     thing.edit();

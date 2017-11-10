@@ -1,4 +1,5 @@
-#search-button
+/* the search icon within each box */
+.search-button
 {
     display: inline-block;
     width: 16px;
@@ -6,42 +7,52 @@
     position: relative;
     left: -32px;
     color: rgba(0, 0, 0, 0.33);
+    display: none;
 }
 
-#searchForm {
+/* each search box */
+.searchForm {
     display:inline;
     margin-left: 10px;
 }
-
+form.filter-box input.form-control {
+    max-width:100%;
+}
 #table {
     /*margin-top: 20px;*/
     margin-bottom: 20px;
     overflow-x: scroll;
+    table-layout: fixed;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
 }
+/* the table headers */
 thead {
     text-transform: capitalize;
     font-size: 1.5em;
 }
-
+td {
+    vertical-align: middle !important;
+    padding: .5rem !important;
+}
 #reportButton {
     float:right;
-}
-#deleteButton{
-    margin:5px;
 }
 #addButton, #reportButton {
     margin: 10px;
 }
+.btn-delete, .btn-edit {
+    margin: 5px;
+}
 #reportHeader {
-    display:inline;
+    display:inline-block;
 }
 #reportTime {
     display:inline;
     float:right;
 }
-
 @media print {
-    #table {
-        margin-top:10px;
+    #tableContent {
+        margin-top:40px;
     }
 }
