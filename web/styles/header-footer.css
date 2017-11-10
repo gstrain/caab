@@ -1,27 +1,21 @@
-#left
+#list
 {
-    /*float:right;*/
-    /*padding-top: 60px;*/
-    /*padding-botton: none;*/
+    float:right;
+    padding-top: 60px;
+    padding-botton: 0px;
 }
 
 #nav
 {
     background-color: rgba(1,174,216,1);
+    padding-bottom: 0px;
+}
+/* navbar buttons */
+nav div div form button {
+    margin-bottom: 0px;
 }
 
-#collapse
-{
-    height: 115px;
-}
-
-#list
-{
-    padding-top: 75px;
-    padding-botton: 75px;
-}
-
-#list button
+#list form button
 {
     background-color: rgba(1,174,216,1);
     border: none;
@@ -35,28 +29,19 @@
     transition-duration: 0.4s;
 }
 
-#list button a
+#list form button a
 {
     color: white;
     text-decoration: none;
 }
 
-#list button:hover
+#list form button:hover
 {
     background-color: #01b7ff;
     color: white;
 }
 
-#search-button
-{
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    position: relative;
-    left: -22px;
-    top: 3px;
-    color: rgba(0, 0, 0, 0.33);
-}
+
 
 #footer
 {
@@ -64,7 +49,6 @@
     color: #FFFFFF;
     background-color: rgba(1,174,216,1);
 }
-
 #footer-list {
     width: 60%;
     float: right;
@@ -82,13 +66,6 @@
 .body {
     margin: 50px;
 }
-
-.table {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    overflow-x: scroll;
-}
-
 .site {
     display: flex;
     min-height: 100vh;
@@ -98,36 +75,4 @@
 .site-content {
     flex: 1;
 }
-/*.table td, tr {*/
-    /**/
-/*}*/
-
-/*.table thead {*/
-    /*border-top: 1px solid #dddddd;*/
-/*}*/
-
-/*.table tr {*/
-    /*margin: 20px;*/
-/*}*/
-
-/*.table, th, td{*/
-    /*!*display: inline;*!*/
-    /*margin:10px;*/
-/*}*/
-
-#addButton{
-}
-
-#editButton{
-    margin:5px;
-}
-
-#deleteButton{
-    margin:5px;
-}
-
-/*.selected {*/
-    /*background-color:  rgba(1,174,216,1);;*/
-    /*color: #FFF;*/
-/*}*/
 

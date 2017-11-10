@@ -23,6 +23,11 @@ public class Class extends GenericEntity implements Serializable {
         this.class_desc = class_desc;
     }
 
+    public Class(String class_name, String class_desc) {
+        this.class_name = class_name;
+        this.class_desc = class_desc;
+    }
+
     public List<Family> getFamilies() {
         return families;
     }

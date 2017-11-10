@@ -23,7 +23,7 @@ public class Actor extends GenericEntity implements Serializable {
 
     @OneToOne(optional = false)
     @JoinColumn(name="address_id")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
     private Address address;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "actor")
@@ -37,19 +37,16 @@ public class Actor extends GenericEntity implements Serializable {
 
     public Actor() { }
 
-    public Actor(Long id) {
-        this.id = id;
-    }
     public Actor(RelationType relationType, Address address) {
         this.relationType = relationType;
         this.address = address;
     }
-
     public Actor(Long id, RelationType relationType, Address address) {
         this.id = id;
         this.relationType = relationType;
         this.address = address;
     }
+
 
     public List<HouseContribution> getContributions() {
         return contributions;

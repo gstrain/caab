@@ -86,8 +86,7 @@ public class DBServlet extends HttpServlet {
 //        sessionFactory.getCurrentSession().getTransaction().commit();
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        ReadDAO dao = HibernateAdapter.getDaoByEntityName("Person");
-        sessionFactory.getCurrentSession().beginTransaction();
+        ReadDAO dao = HibernateAdapter.getBoByEntityName("Person");
         List persons = dao.findAll();
         Table table = null;
         try {
@@ -96,9 +95,18 @@ public class DBServlet extends HttpServlet {
             e.printStackTrace();
         }
         table.addData(persons);
-        sessionFactory.getCurrentSession().getTransaction().commit();
         response.getWriter().println(table);
 
+//        Family family = (Family) HibernateAdapter.getBoByEntityName("Family").findByPrimaryKey(1L);
+//        RelationType relationType = (RelationType) HibernateAdapter.getBoByEntityName("RelationType").findByPrimaryKey(1L);
+//        Address address = (Address) HibernateAdapter.getBoByEntityName("Address").findByPrimaryKey(1L);
+//        Person person = new Person("jim", "jose", "garcia", "jmg123@garcia.net", "1235559111", "2223579873", "6859534848",
+//                family, relationType, address);
+//
+//        GenericDao daos = new HibernateAdapter();
+//
+//        person = (Person) daos.save(person);
+//        System.out.println(person.getId());
     }
 
 }

@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Table {
-    private final String SEARCH = "<div id=\"left\">\n" + "<form class=\"filter-box navbar-form navbar-left\" role=\"search\" autocomplete=\"on\">\n" + "<div class=\"form-group\">\n" + "<input type=\"text\" class=\"form-control\" placeholder=\"Search\">\n" + "<span id=\"search-button\" class=\"glyphicon glyphicon-search\"></span>\n" + "</div>\n" + "</form>\n" + "</div>";
-    private final String TABLE_BEGIN = "<table id='table' class=\"table\">\n";
+    private final String TABLE_BEGIN = "<table id='table' class=\"table table-hover\">\n";
     private final String TABLE_END = "\n</table>";
-    private final String ADD_BUTTON = "<button id=\"addButton\" type=\"button\" class=\"btn btn-success btn-lg btn-add\">Add</button>";
+    private final String ADD_BUTTON = "<button id=\"addButton\" type=\"button\" class=\"btn btn-success btn-lg btn-add d-print-none\">Add</button>";
+    private final String REPORT_BUTTON = "<button id=\"reportButton\" type=\"button\" class=\"btn btn-info` btn-lg btn-report d-print-none\">Generate Report From Table</button>";
     Modal modal;
     List<TableRow> rows;
     private TableRow headers;
@@ -43,7 +43,7 @@ public abstract class Table {
     private void addHeaders()  {
         List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
         for(String header : HEADERS) {
-            tableCells.add(new TableRow.TableCell(header));
+            tableCells.add(new TableRow.TableCell.HeaderCell(header));
         }
         this.headers = new TableRow.TableHeaders(tableCells);
     }
@@ -66,9 +66,13 @@ public abstract class Table {
 
     public String toString() {
         StringBuilder table = new StringBuilder();
-        for (int i = 0; i < HEADERS.length; i++) {
-            table.append(SEARCH);
-        }
+
+        table.append(REPORT_BUTTON);
+//        table.append(SEARCH_FORM_BEGIN);
+//        for(int i=0; i< HEADERS.length; i++) {
+//            table.append(SEARCH_BOX);
+//        }
+//        table.append(SEARCH_FORM_END);
         table.append(ADD_BUTTON);
         table.append(TABLE_BEGIN);
         table.append(headers);
@@ -83,8 +87,8 @@ public abstract class Table {
     static class TableRow {
         final String LINE_BEGIN = "\t<tr ";
         final String LINE_END = "\n\t</tr>\n";
-        final String EDIT_BUTTON = "<td><button id=\"editButton\" type=\"button\" class=\"btn btn-warning btn-sm btn-edit\">Edit</button>";
-        final String DELETE_BUTTON = "<button id=\"deleteButton\" type=\"button\" class=\"btn btn-danger btn-sm btn-delete\">Delete</button></td>";
+        final String EDIT_BUTTON = "<td><button id=\"editButton\" type=\"button\" class=\"btn btn-warning btn-sm btn-edit d-print-none\">Edit</button>";
+        final String DELETE_BUTTON = "<button id=\"deleteButton\" type=\"button\" class=\"btn btn-danger btn-sm btn-delete d-print-none\">Delete</button></td>";
         List<TableCell> tableCells = new ArrayList<TableCell>();
         private String rowId = "id=";
 
@@ -129,16 +133,17 @@ public abstract class Table {
         }
 
         static class TableHeaders extends TableRow {
-            private final String HEADER_BEGIN = "\t<thead>\n\t\t";
-            private final String HEADER_END = "</thead>";
+            private final String HEADER_BEGIN = "\t<thead><tr>\n\t\t";
+            private final String HEADER_END = "</tr></thead>";
+
             TableHeaders(List<TableCell> tableCells) {
                 super(tableCells);
             }
 
             @Override
             public String toString() {
-                boolean first = true;
                 StringBuilder row = new StringBuilder();
+
                 row.append(HEADER_BEGIN);
                 for(TableCell tableCell : tableCells) {
                     row.append(tableCell);
@@ -149,9 +154,9 @@ public abstract class Table {
         }
 
         static class TableCell {
-            private final String CELL_BEGIN = "<td>"; // if these change, make sure to also change the .toArray() method
-            private final String CELL_END = "</td>";  // in TableRow
-            private String value;
+            final String CELL_BEGIN = "<td>"; // if these change, make sure to also change the .toArray() method
+            final String CELL_END = "</td>";  // in TableRow
+            String value;
 
             TableCell(String value) {
                  setValue(value);
@@ -174,6 +179,29 @@ public abstract class Table {
                 cell.append(value);
                 cell.append(CELL_END);
                 return cell.toString();
+            }
+
+            static class HeaderCell extends TableCell {
+                private final String SEARCH_FORM_BEGIN = "<th><form class=\"filter-box form-inline d-print-none searchForm\" role=\"search\" autocomplete=\"on\">\n";
+                private final String SEARCH_BOX = "<input type=\"search\" class=\"form-control mr-sm-2\" placeholder=\"";
+                private final String SEARCH_FORM_END = "\">\n" +
+                        "                        <span class=\"fa fa-search search-button\"></span>\n" +
+                        "                        </input>\n" +
+                        "                        </form>\n" +
+                        "                        </th>";
+
+                public HeaderCell(String value) {
+                    super(value);
+                }
+
+                public String toString() {
+                    StringBuilder header = new StringBuilder();
+                    header.append(SEARCH_FORM_BEGIN);
+                    header.append(SEARCH_BOX);
+                    header.append(value);
+                    header.append(SEARCH_FORM_END);
+                    return header.toString();
+                }
             }
         }
     }
