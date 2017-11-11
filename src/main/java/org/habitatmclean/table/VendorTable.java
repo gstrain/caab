@@ -8,7 +8,7 @@ import java.util.List;
 
 public class VendorTable extends Table {
     public VendorTable() {
-        super(new String[]{"name", "contact"}, new VendorModal()); // adjust this to determine table columns
+        super(new String[]{"name", "contact"}, new VendorModal(), false); // adjust this to determine table columns
     }
     @Override
     public void addRow(GenericEntity entity) {
