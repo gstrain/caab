@@ -83,6 +83,40 @@ public abstract class Table {
         }
         table.append(TABLE_END);
         table.append(modal.toString());
+        if (flag) {
+            table.append("<div class=\"container\">\n" +
+                    "  <!-- Modal -->\n" +
+                    "  <div class=\"modal fade\" id=\"myModal\" role=\"dialog\">\n" +
+                    "    <div class=\"modal-dialog\">\n" +
+                    "    \n" +
+                    "      <!-- Modal content-->\n" +
+                    "      <div class=\"modal-content\">\n" +
+                    "        <div class=\"modal-header\">\n" +
+                    "          <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n" +
+                    "          <h4 class=\"modal-title\">Modal Header</h4>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"modal-body\">\n" +
+                    "          <p>Some text in the modal.</p>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"modal-footer\">\n" +
+                    "          <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\n" +
+                    "        </div>\n" +
+                    "      </div>\n" +
+                    "      \n" +
+                    "    </div>\n" +
+                    "  </div>\n" +
+                    "  \n" +
+                    "</div>");
+//            table.append("<div id=\"myModal\" class=\"modal\">\n" +
+//                    "\n" +
+//                    "  <!-- Modal content -->\n" +
+//                    "  <div class=\"modal-content\">\n" +
+//                    "    <span class=\"close\">&times;</span>\n" +
+//                    "    <p>Some text in the Modal..</p>\n" +
+//                    "  </div>\n" +
+//                    "\n" +
+//                    "</div>");
+        }
         return table.toString();
     }
 
@@ -91,15 +125,8 @@ public abstract class Table {
         final String LINE_END = "\n\t</tr>\n";
         final String EDIT_BUTTON = "<td><button id=\"editButton\" type=\"button\" class=\"btn btn-warning btn-sm btn-edit d-print-none\">Edit</button>";
         final String DELETE_BUTTON = "<button id=\"deleteButton\" type=\"button\" class=\"btn btn-danger btn-sm btn-delete d-print-none\">Delete</button>";
-        final String LOG_DROPDOWN = "<div class=\"dropdown\">\n" +
-                "  <button id=\"dropdown_button\" class=\"btn btn-secondary btn-sm d-print-none dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
-                "    Logs\n" +
-                "  </button>\n" +
-                "  <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n" +
-                "    <a class=\"dropdown-item\" href=\"#\">Add Log</a>\n" +
-                "    <a class=\"dropdown-item\" href=\"#\">View Log</a>\n" +
-                "  </div>\n" +
-                "</div>";
+        final String LOG = "<button id=\"logButton\" class=\"btn btn-info btn-sm\" data-toggle=\"modal\" data-target=\"#myModal\" d-print-none\">Log</button></td>";
+//                "type=\"button\" class=\"btn btn-info btn-sm btn-log data-toggle=\"modal\" data-target=\"#myModal\" d-print-none\">Log</button></td>";
 
         List<TableCell> tableCells = new ArrayList<TableCell>();
         private String rowId = "id=";
@@ -141,7 +168,7 @@ public abstract class Table {
             row.append(EDIT_BUTTON);
             row.append(DELETE_BUTTON);
             if (flag) {
-                row.append(LOG_DROPDOWN);
+                row.append(LOG);
             }
             row.append(LINE_END);
             return row.toString();

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PersonTable extends Table {
     public PersonTable() {
-        super(new String[]{"first", "middle", "last", "email"}, new PersonModal(), false); // adjust this to determine table columns
+        super(new String[]{"first", "middle", "last", "email"}, new PersonModal(), true); // adjust this to determine table columns
     }
     @Override
     public void addRow(GenericEntity entity) {

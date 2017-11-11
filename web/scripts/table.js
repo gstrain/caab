@@ -15,11 +15,14 @@
                 this.$modal.modal('show');
                 this.$recordAction.html('Add ');
             },
-
             edit:function(){
                 this.$modal.modal('show');
                 this.$recordAction.html('Edit ');
             },
+            // log:function() {
+            //    this.$modal.modal('show');
+            //    this.$recordAction.html('Log ');
+            // },
             confirmDelete:function(button){
                 var pk = $(button).parent().parent().attr('id').substring(7);
                 // TODO apply styling to selected row to show which will be deleted
@@ -104,7 +107,9 @@
                 $table.find('.btn-edit').on('click',function(){
                     thing.edit();
                 });
-
+                // $table.find('#logButton').on('click', function() {
+                //     thing.log();
+                // });
                 $table.find('.btn-delete').on('click', function() {
                     thing.confirmDelete(this);
                 });

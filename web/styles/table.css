@@ -41,9 +41,11 @@ td {
 #addButton, #reportButton {
     margin: 10px;
 }
-.btn-delete, .btn-edit {
+.btn-delete, .btn-edit{
     margin: 5px;
-    float: left;
+}
+.btn-log {
+    margin: 10px;
 }
 #dropdown_button {
     margin: 5px;
