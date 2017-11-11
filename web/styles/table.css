@@ -13,7 +13,6 @@
 /* each search box */
 .searchForm {
     display:inline;
-    margin-left: 10px;
 }
 form.filter-box input.form-control {
     max-width:100%;

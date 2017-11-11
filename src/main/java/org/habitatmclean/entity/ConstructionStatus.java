@@ -1,8 +1,12 @@
 package org.habitatmclean.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.SortNatural;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.SortedSet;
 
 @Entity
 @Table(name="construction_status")
@@ -12,8 +16,10 @@ public class ConstructionStatus extends GenericEntity implements Serializable {
     private String cstatus;
     private String cstatus_description;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "construction_status")
-    private List<House> houses;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "construction_status")
+    @SortNatural
+    @Fetch(FetchMode.SUBSELECT)
+    private SortedSet<House> houses;
 
     public ConstructionStatus() { }
 
@@ -23,11 +29,11 @@ public class ConstructionStatus extends GenericEntity implements Serializable {
         this.cstatus_description = cstatus_description;
     }
 
-    public List<House> getHouses() {
+    public SortedSet<House> getHouses() {
         return houses;
     }
 
-    public void setHouses(List<House> houses) {
+    public void setHouses(SortedSet<House> houses) {
         this.houses = houses;
     }
 
@@ -48,5 +54,6 @@ public class ConstructionStatus extends GenericEntity implements Serializable {
     public void setCstatus_description(String cstatus_description) {
         this.cstatus_description = cstatus_description;
     }
+
 
 }

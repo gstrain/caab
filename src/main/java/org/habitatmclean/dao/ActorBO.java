@@ -1,22 +1,19 @@
 package org.habitatmclean.dao;
 
 import org.habitatmclean.entity.Actor;
+import org.habitatmclean.hibernate.HibernateUtil;
+import org.hibernate.SessionFactory;
 
-public class ActorBO extends GenericDao {
+public class ActorBO extends GenericDao<Actor> {
     public ActorBO() {
         super(Actor.class);
     }
-    //    @Override
-//    public Actor findByPrimaryKey(Long id) {
-//        Session session = sessionFactory.getCurrentSession();
-//        Object obj = session.load(Actor.class, id);
-//        return (Actor) obj;
-//    }
-//
-//    @Override
-//    public List<Actor> findAll() {
-//        Session session = sessionFactory.getCurrentSession();
-//        Query result = session.createQuery("from Actor");
-//        return result.list();
-//    }
+
+    @Override
+    public Actor save(Actor entity) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        entity.getAddress().setId(null);
+        sessionFactory.getCurrentSession().saveOrUpdate(entity);
+        return entity;
+    }
 }

@@ -1,10 +1,13 @@
 package org.habitatmclean.entity;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.SortNatural;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.SortedSet;
 
 @Entity
 @Table(name="house")
@@ -16,32 +19,42 @@ public class House extends GenericEntity implements Serializable {
     private int bedrooms;
     private double bathrooms;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="cstatus_id")
+    @Fetch(FetchMode.JOIN)
     private ConstructionStatus construction_status;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="house_style")
+    @Fetch(FetchMode.JOIN)
     private HouseStyle house_style;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "property_id")
+    @Fetch(FetchMode.JOIN)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Property property;
 
-    @ManyToOne(optional = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name="family_id")
+    @Fetch(FetchMode.JOIN)
     private Family family;
 
     @OneToOne(optional = false)
     @JoinColumn(name="address_id")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Fetch(FetchMode.JOIN)
     private Address address;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "house")
-    private List<HouseContribution> contributions;
+    @SortNatural
+    @Fetch(FetchMode.SUBSELECT)
+    private SortedSet<HouseContribution> contributions;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "house")
-    private List<Log> logs;
+    @SortNatural
+    @Fetch(FetchMode.SUBSELECT)
+    private SortedSet<Log> logs;
 
     public House(Long id, Family family, double construction_cost, int size, int bedrooms, double bathrooms, ConstructionStatus construction_status, HouseStyle house_style, Property property, Address address) {
         this.id = id;
@@ -68,19 +81,19 @@ public class House extends GenericEntity implements Serializable {
         this.address = address;
     }
 
-    public List<Log> getLogs() {
+    public SortedSet<Log> getLogs() {
         return logs;
     }
 
-    public void setLogs(List<Log> logs) {
+    public void setLogs(SortedSet<Log> logs) {
         this.logs = logs;
     }
 
-    public List<HouseContribution> getContributions() {
+    public SortedSet<HouseContribution> getContributions() {
         return contributions;
     }
 
-    public void setContributions(List<HouseContribution> contributions) {
+    public void setContributions(SortedSet<HouseContribution> contributions) {
         this.contributions = contributions;
     }
 

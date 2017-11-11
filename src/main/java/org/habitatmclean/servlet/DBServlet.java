@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+import java.util.SortedSet;
 
 @WebServlet(name = "DBServlet", value="/dbservlet")
 public class DBServlet extends HttpServlet {
@@ -87,7 +87,7 @@ public class DBServlet extends HttpServlet {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         ReadDAO dao = HibernateAdapter.getBoByEntityName("Person");
-        List persons = dao.findAll();
+        SortedSet persons = dao.findAll();
         Table table = null;
         try {
             table = TableFactory.getTable("person");
@@ -96,7 +96,17 @@ public class DBServlet extends HttpServlet {
         }
         table.addData(persons);
         response.getWriter().println(table);
+//        Iterator itr = persons.iterator();
+//        System.out.println(((Person)itr.next()).getOrganizations().size());
 
+//        System.out.println(((Property)HibernateAdapter.getBoByEntityName("Property").findAll().get(0)).getHouses().size());
+//        System.out.println(((House)HibernateAdapter.getBoByEntityName("House").findAll().get(0)).getContributions().size());
+//        Family family = (Family) HibernateAdapter.getBoByEntityName("Family").findByPrimaryKey(1L);
+//        System.out.println(((Family)HibernateAdapter.getBoByEntityName("Family").findByPrimaryKey(1L)));
+//        HibernateUtil.openSession();
+//        sessionFactory.getCurrentSession().beginTransaction();
+
+//        sessionFactory.getCurrentSession().getTransaction().commit();
 //        Family family = (Family) HibernateAdapter.getBoByEntityName("Family").findByPrimaryKey(1L);
 //        RelationType relationType = (RelationType) HibernateAdapter.getBoByEntityName("RelationType").findByPrimaryKey(1L);
 //        Address address = (Address) HibernateAdapter.getBoByEntityName("Address").findByPrimaryKey(1L);

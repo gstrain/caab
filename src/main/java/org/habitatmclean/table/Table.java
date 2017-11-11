@@ -4,6 +4,7 @@ import org.habitatmclean.entity.GenericEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedSet;
 
 public abstract class Table {
     private final String TABLE_BEGIN = "<table id='table' class=\"table table-hover\">\n";
@@ -32,7 +33,7 @@ public abstract class Table {
      * @param HEADERS the headers of the table column to create
      * @param modal a modal object to add to the table
      */
-    Table(String[] HEADERS, Modal modal, List entities) {
+    Table(String[] HEADERS, Modal modal, SortedSet entities) {
         this(HEADERS,modal);
         addData(entities);
     }
@@ -58,7 +59,7 @@ public abstract class Table {
      * adds the entire list of entities as rows to the table
      * @param entities a list of entities to add to the table, contents MUST implement GenericEntity
      */
-    public void addData(List<GenericEntity> entities) {
+    public void addData(SortedSet<GenericEntity> entities) {
         for(GenericEntity entity : entities) {
             addRow(entity);
         }
