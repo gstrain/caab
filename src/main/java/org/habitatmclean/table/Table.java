@@ -4,12 +4,14 @@ import org.habitatmclean.entity.GenericEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedSet;
 
 public abstract class Table {
     private final String TABLE_BEGIN = "<table id='table' class=\"table table-hover\">\n";
     private final String TABLE_END = "\n</table>";
     private final String ADD_BUTTON = "<button id=\"addButton\" type=\"button\" class=\"btn btn-success btn-lg btn-add d-print-none\">Add</button>";
     private final String REPORT_BUTTON = "<button id=\"reportButton\" type=\"button\" class=\"btn btn-info` btn-lg btn-report d-print-none\">Generate Report From Table</button>";
+    private static boolean flag;
     Modal modal;
     List<TableRow> rows;
     private TableRow headers;
@@ -21,20 +23,20 @@ public abstract class Table {
      * @param HEADERS the headers of the table column to create
      * @param modal a modal object to add to the table
      */
-    Table(String[] HEADERS, Modal modal) {
+    Table(String[] HEADERS, Modal modal, boolean flag) {
         rows = new ArrayList<Table.TableRow>();
         this.HEADERS = HEADERS;
         addHeaders();
         this.modal = modal;
+        Table.flag = flag;
     }
 
     /**
      * @param HEADERS the headers of the table column to create
      * @param modal a modal object to add to the table
      */
-    Table(String[] HEADERS, Modal modal, List entities) {
-        this(HEADERS,modal);
-        addData(entities);
+    Table(String[] HEADERS, Modal modal, boolean flag, SortedSet entities) {
+        this(HEADERS,modal, flag);
     }
 
     /**
@@ -58,7 +60,7 @@ public abstract class Table {
      * adds the entire list of entities as rows to the table
      * @param entities a list of entities to add to the table, contents MUST implement GenericEntity
      */
-    public void addData(List<GenericEntity> entities) {
+    public void addData(SortedSet<GenericEntity> entities) {
         for(GenericEntity entity : entities) {
             addRow(entity);
         }
@@ -101,7 +103,17 @@ public abstract class Table {
         final String LINE_BEGIN = "\t<tr ";
         final String LINE_END = "\n\t</tr>\n";
         final String EDIT_BUTTON = "<td><button id=\"editButton\" type=\"button\" class=\"btn btn-warning btn-sm btn-edit d-print-none\">Edit</button>";
-        final String DELETE_BUTTON = "<button id=\"deleteButton\" type=\"button\" class=\"btn btn-danger btn-sm btn-delete d-print-none\">Delete</button></td>";
+        final String DELETE_BUTTON = "<button id=\"deleteButton\" type=\"button\" class=\"btn btn-danger btn-sm btn-delete d-print-none\">Delete</button>";
+        final String LOG_DROPDOWN = "<div class=\"dropdown\">\n" +
+                "  <button id=\"dropdown_button\" class=\"btn btn-secondary btn-sm d-print-none dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
+                "    Logs\n" +
+                "  </button>\n" +
+                "  <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n" +
+                "    <a class=\"dropdown-item\" href=\"#\">Add Log</a>\n" +
+                "    <a class=\"dropdown-item\" href=\"#\">View Log</a>\n" +
+                "  </div>\n" +
+                "</div>";
+
         List<TableCell> tableCells = new ArrayList<TableCell>();
         private String rowId = "id=";
 
@@ -141,6 +153,9 @@ public abstract class Table {
             }
             row.append(EDIT_BUTTON);
             row.append(DELETE_BUTTON);
+            if (flag) {
+                row.append(LOG_DROPDOWN);
+            }
             row.append(LINE_END);
             return row.toString();
         }
@@ -195,13 +210,15 @@ public abstract class Table {
             }
 
             static class HeaderCell extends TableCell {
-                private final String SEARCH_FORM_BEGIN = "<th><form class=\"filter-box form-inline d-print-none searchForm\" role=\"search\" autocomplete=\"on\">\n";
-                private final String SEARCH_BOX = "<input type=\"search\" class=\"form-control mr-sm-2\" placeholder=\"";
-                private final String SEARCH_FORM_END = "\">\n" +
-                        "                        <span class=\"fa fa-search search-button\"></span>\n" +
-                        "                        </input>\n" +
-                        "                        </form>\n" +
-                        "                        </th>";
+//                private final String SEARCH_FORM_BEGIN = "<th><form class=\"filter-box form-inline d-print-none searchForm\" role=\"search\" autocomplete=\"on\">\n";
+//                private final String SEARCH_BOX = "<input type=\"search\" class=\"form-control mr-sm-2\" placeholder=\"";
+//                private final String SEARCH_FORM_END = "\">\n" +
+//                        "                        <span class=\"fa fa-search search-button\"></span>\n" +
+//                        "                        </input>\n" +
+//                        "                        </form>\n" +
+//                        "                        </th>";
+                private final String HEAD = "<th>";
+                private final String END = "</th>";
 
                 public HeaderCell(String value) {
                     super(value);
@@ -209,10 +226,12 @@ public abstract class Table {
 
                 public String toString() {
                     StringBuilder header = new StringBuilder();
-                    header.append(SEARCH_FORM_BEGIN);
-                    header.append(SEARCH_BOX);
+//                    header.append(SEARCH_FORM_BEGIN);
+//                    header.append(SEARCH_BOX);
+                    header.append(HEAD);
                     header.append(value);
-                    header.append(SEARCH_FORM_END);
+                    header.append(END);
+//                    header.append(SEARCH_FORM_END);
                     return header.toString();
                 }
             }

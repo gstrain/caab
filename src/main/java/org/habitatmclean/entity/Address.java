@@ -1,6 +1,9 @@
 package org.habitatmclean.entity;
 
-import javax.persistence.*;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
@@ -144,4 +147,5 @@ public class Address extends GenericEntity implements Serializable { // to be se
         result = 31 * result + zipcode.hashCode();
         return result;
     }
+
 }

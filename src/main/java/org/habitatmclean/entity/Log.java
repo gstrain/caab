@@ -1,6 +1,8 @@
 package org.habitatmclean.entity;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,24 +19,28 @@ public class Log extends GenericEntity implements Serializable {
     private String notes;
     private String status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="family_id")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Fetch(FetchMode.JOIN)
     private Family family;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="contact_id")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Fetch(FetchMode.JOIN)
     private Actor actor;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="house_id")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Fetch(FetchMode.JOIN)
     private House house;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="property_id")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Fetch(FetchMode.JOIN)
     private Property property;
 
     public Log() { }
