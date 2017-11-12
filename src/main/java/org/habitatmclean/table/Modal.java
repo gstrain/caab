@@ -5,8 +5,7 @@ import java.util.List;
 
 public abstract class Modal {
     private String title;
-    private String id = "<input type=\"hidden\" name=\"id\" value=\"\">";
-    private String action = "<input type='hidden' name='action' value='write'>";
+    private String id = "<input type=\"hidden\" name=\"item-id\" value=\"\">";
     protected List<Form> forms;
 
     Modal(String title){
@@ -19,10 +18,18 @@ public abstract class Modal {
 
     //public abstract void getResponse(); //access DB to fill modals
 
+    public List<String> returnFields() {
+        List<String> fields = new ArrayList<String>();
+        for(Form i : forms){
+            fields.add(i.getName());
+        }
+        return fields;
+    }
+
     public String toString(){
         String head = "<div class=\"modal fade\" id=\"record-modal\">\n" +
                 "  <div class=\"modal-dialog\">\n" +
-                "    <div class=\"modal-content\" action method=\"post\" novalidate>\n" +
+                "    <form class=\"modal-content\" action='/dbservlet' method=\"post\">\n" +
                 "      <div class=\"modal-header\">\n" +
                 "        <h5 class=\"modal-title\">\n" +
                 "           <span class=\"record-action\"></span>" + title +
@@ -34,7 +41,8 @@ public abstract class Modal {
         String foot = " </div>\n" +
                 "      <div class=\"modal-footer\">\n" +
                 "        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n" +
-                "        <button type=\"submit\" class=\"btn btn-primary save\">Save changes</button>\n" +
+                "        <button type=\"submit\" class=\"btn btn-primary save\" id='modal-submit'>Save changes</button>\n" +
+                "           " + id +
                 "        </form>\n" +
                 "      </div>\n" +
                 "    </div>\n" +
@@ -48,7 +56,6 @@ public abstract class Modal {
         for (Form form : forms) {
             sb.append(form.toString());
         }
-        sb.append(id);
         sb.append(foot);
         return sb.toString();
     }

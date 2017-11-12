@@ -24,17 +24,15 @@ public class DBServlet extends HttpServlet {
             .create();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("firstName");
-        if(name != null)
-            System.out.println("name: " + name);
-        else
-            System.out.println("name = null");
-
-        int id = Integer.parseInt(request.getParameter("id"));
-        if(name != null)
-            System.out.println("id: "+ id);
-        else
-            System.out.println("id = null");
+        try {
+           List<String> fields = TableFactory.getTable("person").returnModalFields();
+           for(String field : fields){
+               if(request.getParameter(field) != null)
+               System.out.println(field + ": " + request.getParameter(field));
+           }
+        } catch (TableTypeNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

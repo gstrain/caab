@@ -19,6 +19,7 @@
     };
 
     function clearTable() {
+
         $('#tableContent').empty(); // everything
     }
 

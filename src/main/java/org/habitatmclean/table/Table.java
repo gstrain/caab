@@ -23,9 +23,12 @@ public abstract class Table {
      */
     Table(String[] HEADERS, Modal modal) {
         rows = new ArrayList<Table.TableRow>();
+        this.modal = modal;
         this.HEADERS = HEADERS;
         addHeaders();
-        this.modal = modal;
+    }
+    public List<String> returnModalFields(){
+        return modal.returnFields();
     }
 
     /**

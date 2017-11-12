@@ -3,23 +3,52 @@
     Table = function($table){
         const $modal = $table.nextAll('#record-modal');
         const $addBtn = $('.btn-add');
-        const thing = this;
+        const table = this;
         $.extend(this,{
             $addBtn:$addBtn,
             $recordAction: $modal.find('.record-action'),
+            $modalBtn: $modal.find('#modal-submit'),
             $modal: $modal,
+            $Form: $modal.find('.modal-content'),
+            $modalForms: $modal.find('.form-control'),
+            $recordId: $modal.find('input[name="item-id"]'),
 
             add:function(){
                 this.$modal.modal('show');
                 this.$recordAction.html('Add ');
             },
 
-            edit:function(){
+            edit:function(id){
                 this.$modal.modal('show');
                 this.$recordAction.html('Edit ');
+                this.$recordId.val(id);
             },
-            confirmDelete:function(button){
-                var pk = $(button).parent().parent().attr('id').substring(7);
+            submit:function(){
+                var data = {
+                    id: this.$recordId.val()
+                };
+
+                var name;
+                this.$modalForms.each(function(index){
+                    name = $(this).attr("name");
+                    data[name] = $(this).val();
+                });
+
+                table.$modal.modal('hide').one('hidden.bs.modal',function(){
+                    $.ajax({
+                        type: 'POST',
+                        url: '/dbservlet',
+                        data:data,
+                        success: function () {
+                            // console.log( );
+                            console.log('returned');
+                            getData(); // reload table after deletion
+                        }
+                    });
+                });
+
+            },
+            confirmDelete:function(pk){
                 // TODO apply styling to selected row to show which will be deleted
                 iziToast.show({
                     timeout: 6000,
@@ -38,7 +67,7 @@
                         ['<button><b>YES</b></button>', function (instance, toast) {
 
                             instance.hide(toast, { transitionOut: 'fadeOut' }, 'button');
-                            thing.deleteRow(pk, $('#deleteCheck').prop("checked"));
+                            table.deleteRow(pk, $('#deleteCheck').prop("checked"));
                         }, true],
                         ['<button id="no">NO</button>', function (instance, toast) {
 
@@ -82,21 +111,31 @@
             init:function(){
                 this.initButtons();
                 //any other things to init
+                this.$Form.submit(function(e){
+                    table.submit();
+                    return false;
+                });
             },
             initButtons: function (){
                 this.$addBtn.on('click',function(){
-                    thing.add();
+                    table.add();
                 });
 
                 $table.find('.btn-edit').on('click',function(){
-                    thing.edit();
+                    table.edit(getId(this));
                 });
 
                 $table.find('.btn-delete').on('click', function() {
-                    thing.confirmDelete(this);
+                    table.confirmDelete(getId(this));
                 });
+
+
             }
         });
         this.init();
+    };
+
+    function getId(button){
+        return $(button).parent().parent().attr('id').substring(7);
     };
 })();
