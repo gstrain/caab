@@ -8,7 +8,7 @@ import java.util.List;
 
 public class HouseTable extends Table {
     public HouseTable() {
-        super(new String[]{"address", "construction cost", "bedrooms", "bathrooms"}, new HouseModal()); // adjust this to determine table columns
+        super(new String[]{"address", "construction cost", "bedrooms", "bathrooms"}, new HouseModal(), true); // adjust this to determine table columns
     }
     @Override
     public void addRow(GenericEntity entity) {

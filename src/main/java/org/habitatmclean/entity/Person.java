@@ -1,10 +1,13 @@
 package org.habitatmclean.entity;
 
-import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
+import java.util.SortedSet;
 
 @Entity
 @Table(name="person")
@@ -21,17 +24,23 @@ public class Person extends Actor implements Serializable {
     private String cell_phone;
     private String work_phone;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="family_id")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Cascade({CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
+    @Fetch(FetchMode.JOIN)
     private Family family;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "contact")
-    private List<Organization> organizations;
+    @Fetch(FetchMode.SUBSELECT)
+    @SortNatural
+    private SortedSet<Organization> organizations;
 
-    public Person() { }
+    public Person() {
+        super();
+    }
 
-    public Person(String first, String middle, String last, String email, String home_phone, String cell_phone, String work_phone, Family family) {
+    public Person(String first, String middle, String last, String email, String home_phone, String cell_phone, String work_phone, Family family, RelationType relationType, Address address) {
+        super(relationType, address);
         this.first = first;
         this.middle = middle;
         this.last = last;
@@ -42,8 +51,8 @@ public class Person extends Actor implements Serializable {
         this.family = family;
     }
 
-    public Person(Long actor_id, String first, String middle, String last, String email, String home_phone, String cell_phone, String work_phone, Family family) {
-        super(actor_id);
+    public Person(Long actor_id, String first, String middle, String last, String email, String home_phone, String cell_phone, String work_phone, Family family, RelationType relationType, Address address) {
+        super(relationType, address);
         this.first = first;
         this.middle = middle;
         this.last = last;
@@ -54,11 +63,11 @@ public class Person extends Actor implements Serializable {
         this.family = family;
     }
 
-    public List<Organization> getOrganizations() {
+    public SortedSet<Organization> getOrganizations() {
         return organizations;
     }
 
-    public void setOrganizations(List<Organization> organizations) {
+    public void setOrganizations(SortedSet<Organization> organizations) {
         this.organizations = organizations;
     }
 

@@ -1,8 +1,7 @@
 (function() {
     $( document ).ready(function() {
-        console.log( "ready!" );
+        $('#reportTime').html($('#reportTime').html() + new Date());
         getData();
-
     });
 
     getData = function() {

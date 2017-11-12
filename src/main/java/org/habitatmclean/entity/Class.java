@@ -1,8 +1,12 @@
 package org.habitatmclean.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.SortNatural;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.SortedSet;
 
 @Entity
 @Table(name="class")
@@ -12,8 +16,10 @@ public class Class extends GenericEntity implements Serializable {
     private String class_name;
     private String class_desc;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "classType")
-    private List<Family> families;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "classType")
+    @SortNatural
+    @Fetch(FetchMode.SUBSELECT)
+    private SortedSet<Family> families;
 
     public Class() { }
 
@@ -23,11 +29,16 @@ public class Class extends GenericEntity implements Serializable {
         this.class_desc = class_desc;
     }
 
-    public List<Family> getFamilies() {
+    public Class(String class_name, String class_desc) {
+        this.class_name = class_name;
+        this.class_desc = class_desc;
+    }
+
+    public SortedSet<Family> getFamilies() {
         return families;
     }
 
-    public void setFamilies(List<Family> families) {
+    public void setFamilies(SortedSet<Family> families) {
         this.families = families;
     }
 

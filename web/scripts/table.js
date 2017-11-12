@@ -3,9 +3,11 @@
     Table = function($table){
         const $modal = $table.nextAll('#record-modal');
         const $addBtn = $('.btn-add');
+        const $reportBtn = $('.btn-report');
         const table = this;
         $.extend(this,{
             $addBtn:$addBtn,
+            $reportBtn:$reportBtn,
             $recordAction: $modal.find('.record-action'),
             $modalBtn: $modal.find('#modal-submit'),
             $modal: $modal,
@@ -108,6 +110,15 @@
                     progressBar: false
                 });
             },
+            downloadReport:function() {
+                window.location='/pdfgen?page=' + $('#page-type').val();
+                $reportBtn.toggleClass('disabled');
+                $reportBtn.html('Generating...');
+                setTimeout(function() {
+                    $reportBtn.toggleClass('disabled');
+                    $reportBtn.html('Generate Report From Table');
+                }, 1500); // prevent spamming report generation button
+            },
             init:function(){
                 this.initButtons();
                 //any other things to init
@@ -120,7 +131,9 @@
                 this.$addBtn.on('click',function(){
                     table.add();
                 });
-
+                this.$reportBtn.on('click', function() {
+                    table.downloadReport();
+                });
                 $table.find('.btn-edit').on('click',function(){
                     table.edit(getId(this));
                 });
@@ -128,8 +141,6 @@
                 $table.find('.btn-delete').on('click', function() {
                     table.confirmDelete(getId(this));
                 });
-
-
             }
         });
         this.init();

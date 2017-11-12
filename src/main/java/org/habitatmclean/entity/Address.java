@@ -1,6 +1,11 @@
 package org.habitatmclean.entity;
 
-import javax.persistence.*;
+import org.habitatmclean.hibernate.HibernateUtil;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
@@ -63,6 +68,8 @@ public class Address extends GenericEntity implements Serializable { // to be se
     }
 
     public void setStreet(String street) {
+        HibernateUtil.getSessionFactory().getCurrentSession().evict(this);
+        this.id = null;
         this.street = street;
     }
 
@@ -111,10 +118,6 @@ public class Address extends GenericEntity implements Serializable { // to be se
         this.zipcode = zipcode;
     }
 
-    public boolean equalsPropertyAddress(Address other) {
-        return true;
-    }
-
     /*
      * comparing
      */
@@ -144,4 +147,5 @@ public class Address extends GenericEntity implements Serializable { // to be se
         result = 31 * result + zipcode.hashCode();
         return result;
     }
+
 }

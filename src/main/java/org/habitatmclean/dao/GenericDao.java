@@ -5,9 +5,11 @@ import org.habitatmclean.hibernate.HibernateUtil;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class GenericDao<T extends GenericEntity> implements CreateUpdateDeleteDAO<T, Long>, ReadDAO<T, Long> {
-    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     private Class<T> clazz;
 
     public GenericDao() {
@@ -31,11 +33,15 @@ public class GenericDao<T extends GenericEntity> implements CreateUpdateDeleteDA
 
     @Override
     public T findByPrimaryKey(Long aLong) {
-        return sessionFactory.getCurrentSession().load(clazz, aLong);
+        T obj = sessionFactory.getCurrentSession().get(clazz, aLong);
+        return obj;
     }
 
     @Override
-    public List<T> findAll() {
-        return sessionFactory.getCurrentSession().createCriteria(clazz).list();
+    public SortedSet<T> findAll() {
+        List<T> objects = sessionFactory.getCurrentSession().createCriteria(clazz).list();
+        SortedSet actual = new TreeSet();
+        actual.addAll(objects);
+        return actual;
     }
 }

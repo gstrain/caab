@@ -1,8 +1,12 @@
 package org.habitatmclean.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.SortNatural;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.SortedSet;
 
 @Entity
 @Table(name="family")
@@ -12,19 +16,25 @@ public class Family extends GenericEntity implements Serializable {
     private double equity_hrs;
     private double income;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="milestone_id")
+    @Fetch(FetchMode.JOIN)
     private Milestone milestone;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="class_id")
+    @Fetch(FetchMode.JOIN)
     private Class classType;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "family")
-    private List<Person> people;
+    @SortNatural
+    @Fetch(FetchMode.SUBSELECT)
+    private SortedSet<Person> people;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "family")
-    private List<Log> logs;
+    @SortNatural
+    @Fetch(FetchMode.SUBSELECT)
+    private SortedSet<Log> logs;
 
     public Family() { }
 
@@ -77,19 +87,20 @@ public class Family extends GenericEntity implements Serializable {
         this.classType = classType;
     }
 
-    public List<Person> getPeople() {
+    public SortedSet<Person> getPeople() {
         return people;
     }
 
-    public void setPeople(List<Person> people) {
+    public void setPeople(SortedSet<Person> people) {
         this.people = people;
     }
 
-    public List<Log> getLogs() {
+    public SortedSet<Log> getLogs() {
         return logs;
     }
 
-    public void setLogs(List<Log> logs) {
+    public void setLogs(SortedSet<Log> logs) {
         this.logs = logs;
     }
+
 }

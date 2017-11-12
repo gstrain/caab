@@ -8,7 +8,6 @@ import java.lang.Class;
 
 
 public class HibernateAdapter extends GenericDao {
-    private static final ActorBO ACTOR_BO = new ActorBO();
     private static final AddressBO ADDRESS_BO = new AddressBO();
     private static final ClassBO CLASS_BO = new ClassBO();
     private static final ConstructionStatusBO CONSTRUCTION_STATUS_BO = new ConstructionStatusBO();
@@ -28,19 +27,16 @@ public class HibernateAdapter extends GenericDao {
     @Override
     public GenericEntity save(GenericEntity entity) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        CreateUpdateDeleteDAO dao = new GenericDao();
-        sessionFactory.getCurrentSession().beginTransaction();
+        CreateUpdateDeleteDAO dao = getBoByEntity(entity);
         dao.save(entity);
-        sessionFactory.getCurrentSession().getTransaction().commit();
         return entity;
     }
+
     @Override
     public void delete(GenericEntity entity) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         CreateUpdateDeleteDAO dao = new GenericDao();
-        sessionFactory.getCurrentSession().beginTransaction();
         dao.delete(entity);
-        sessionFactory.getCurrentSession().getTransaction().commit();
     }
 
     /**
@@ -50,8 +46,6 @@ public class HibernateAdapter extends GenericDao {
      */
     public static GenericDao getBoByEntityName(String className) {
         switch(className) {
-//            case "Actor":
-//                return ACTOR_BO;
             case "Address":
                 return ADDRESS_BO;
             case "Class":
@@ -95,9 +89,7 @@ public class HibernateAdapter extends GenericDao {
     }
 
     public static GenericDao getBoByEntityName(Class<?> clazz) {
-        if(clazz == Actor.class) {
-            return ACTOR_BO;
-        } else if (clazz == Address.class){
+        if (clazz == Address.class){
             return ADDRESS_BO;
         } else if (clazz == Class.class){
             return CLASS_BO;

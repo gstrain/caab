@@ -2,7 +2,10 @@ package org.habitatmclean.servlet;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.habitatmclean.dao.GenericDao;
 import org.habitatmclean.dao.ReadDAO;
+import org.habitatmclean.entity.Organization;
+import org.habitatmclean.entity.Person;
 import org.habitatmclean.hibernate.HibernateAdapter;
 import org.habitatmclean.hibernate.HibernateUtil;
 import org.habitatmclean.table.Table;
@@ -16,7 +19,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+import java.util.Iterator;
+import java.util.SortedSet;
 
 @WebServlet(name = "DBServlet", value="/dbservlet")
 public class DBServlet extends HttpServlet {
@@ -96,7 +100,7 @@ public class DBServlet extends HttpServlet {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         ReadDAO dao = HibernateAdapter.getBoByEntityName("Person");
         sessionFactory.getCurrentSession().beginTransaction();
-        List persons = dao.findAll();
+        SortedSet persons = dao.findAll();
         Table table = null;
         try {
             table = TableFactory.getTable("person");
@@ -104,9 +108,34 @@ public class DBServlet extends HttpServlet {
             e.printStackTrace();
         }
         table.addData(persons);
-        sessionFactory.getCurrentSession().getTransaction().commit();
         response.getWriter().println(table);
 
+        // we're using iterators here because these are sets
+        /* perform update on person */
+        Iterator itr = persons.iterator();
+        Person onePerson = (Person)itr.next();
+        onePerson.getAddress().setCity("Northbrook");
+        GenericDao saver = new HibernateAdapter();
+        saver.save(onePerson);
+
+        /* test oneToMany set */
+        HibernateUtil.initializeAndUnproxy(onePerson.getOrganizations());   // must be done before call to commit();
+        Iterator<Organization> orgs = onePerson.getOrganizations().iterator();
+        System.out.println(orgs.next().getName());
+        sessionFactory.getCurrentSession().getTransaction().commit();
+
+//        Family family = (Family) HibernateAdapter.getBoByEntityName("Family").findByPrimaryKey(1L);
+//        System.out.println(((Family)HibernateAdapter.getBoByEntityName("Family").findByPrimaryKey(1L)));
+//        Family family = (Family) HibernateAdapter.getBoByEntityName("Family").findByPrimaryKey(1L);
+//        RelationType relationType = (RelationType) HibernateAdapter.getBoByEntityName("RelationType").findByPrimaryKey(1L);
+//        Address address = (Address) HibernateAdapter.getBoByEntityName("Address").findByPrimaryKey(1L);
+//        Person person = new Person("jim", "jose", "garcia", "jmg123@garcia.net", "1235559111", "2223579873", "6859534848",
+//                family, relationType, address);
+//
+//        GenericDao daos = new HibernateAdapter();
+//
+//        person = (Person) daos.save(person);
+//        System.out.println(person.getId());
     }
 
 }
