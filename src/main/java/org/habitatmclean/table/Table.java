@@ -69,13 +69,26 @@ public abstract class Table {
     public String toString() {
         StringBuilder table = new StringBuilder();
 
-        table.append(REPORT_BUTTON);
+//        table.append(REPORT_BUTTON);
 //        table.append(SEARCH_FORM_BEGIN);
 //        for(int i=0; i< HEADERS.length; i++) {
 //            table.append(SEARCH_BOX);
 //        }
 //        table.append(SEARCH_FORM_END);
-        table.append(ADD_BUTTON);
+//        table.append(ADD_BUTTON);
+        table.append("<span style=\"font-size:30px;cursor:pointer\" onclick=\"openNav()\">&#9776; open</span>");
+        table.append("<div id=\"drawer\" class=\"sidenav\"> <!-- The drawer -->\n" +
+                "        <a href=\"javascript:void(0)\" class=\"closebtn\" onclick=\"closeNav()\">&times;</a>\n" +
+                "        <button id=\"addButton\" type=\"button\" class=\"btn btn-success btn-lg btn-add d-print-none\">Add</button>\">" +
+                "        <button id=\"reportButton\" type=\"button\" class=\"btn btn-info` btn-lg btn-report d-print-none\">Generate Report</button>" +
+                "        \"<form class=\"filter-box form-inline d-print-none searchForm\" role=\"search\" autocomplete=\"on\"> \"\n" +
+                "        + \"<input type=\"search\" class=\"form-control mr-sm-2\" placeholder=\"\"\n" +
+                "        + \"\">\\n\" +\n" +
+                "                \"                        <span class=\"fa fa-search search-button\"></span>\n\" +\n" +
+                "                \"                        </input>\n\" +\n" +
+                "                \"                        </form>\n\"" +
+                "        <a href=\"#\">Contact</a>\n" +
+                "    </div>");
         table.append(TABLE_BEGIN);
         table.append(headers);
         for(TableRow row : rows) {
