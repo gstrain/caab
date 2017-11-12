@@ -20,25 +20,25 @@ public class Property extends GenericEntity implements Serializable {
     private double taxes;
     private String notes;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="pstatus_id")
     @Fetch(FetchMode.JOIN)
     private PropertyStatus property_status;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="zone_id")
     @Fetch(FetchMode.JOIN)
     private Zone zone;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="owner_id")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
     @Fetch(FetchMode.JOIN)
     private Actor owner;
 
     @OneToOne(optional = false)
     @JoinColumn(name="address_id")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
     @Fetch(FetchMode.JOIN)
     private Address address;
 

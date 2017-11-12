@@ -19,30 +19,30 @@ public class House extends GenericEntity implements Serializable {
     private int bedrooms;
     private double bathrooms;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="cstatus_id")
     @Fetch(FetchMode.JOIN)
     private ConstructionStatus construction_status;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="house_style")
     @Fetch(FetchMode.JOIN)
     private HouseStyle house_style;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "property_id")
     @Fetch(FetchMode.JOIN)
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
     private Property property;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name="family_id")
     @Fetch(FetchMode.JOIN)
     private Family family;
 
     @OneToOne(optional = false)
     @JoinColumn(name="address_id")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
     @Fetch(FetchMode.JOIN)
     private Address address;
 

@@ -16,12 +16,12 @@ public class Family extends GenericEntity implements Serializable {
     private double equity_hrs;
     private double income;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="milestone_id")
     @Fetch(FetchMode.JOIN)
     private Milestone milestone;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="class_id")
     @Fetch(FetchMode.JOIN)
     private Class classType;
