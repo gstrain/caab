@@ -2,6 +2,7 @@ package org.habitatmclean.table;
 
 import org.habitatmclean.entity.GenericEntity;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,31 @@ public abstract class Table {
      */
     public abstract void addRow(GenericEntity entity);
 
-    public abstract void write(HttpServletRequest request);
+    public void write(HttpServletRequest request){
+        int id;
+        //try catch works like an if. If there is an id, it will do the try, else the catch.
+        try{id = Integer.parseInt(request.getParameter("id"));}
+        catch(Exception e){ id = 0;}
+
+        if(id != 0) { // edit functionality
+            System.out.println("Edit: " + id);
+            recordEdit(request);
+        }
+        else {//add functionality
+            System.out.println("Add");
+            recordAdd(request);
+        }
+        //print all data retrieved for debugging and viability
+        List<String> fields = this.returnModalFields();
+        for(String field : fields){
+            if(request.getParameter(field) != null)
+                System.out.println(field + ": " + request.getParameter(field));
+        }
+    }
+
+    public abstract void recordEdit(HttpServletRequest request);
+    public abstract void recordAdd(HttpServletRequest request);
+
     /**
      * adds the entire list of entities as rows to the table
      * @param entities a list of entities to add to the table, contents MUST implement GenericEntity

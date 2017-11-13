@@ -28,12 +28,9 @@ public class HouseTable extends Table {
         rows.add(tr);
     }
 
-    public void write(HttpServletRequest request){
-        List<String> fields = this.returnModalFields();
-        for(String field : fields){
-            if(request.getParameter(field) != null)
-                System.out.println(field + ": " + request.getParameter(field));
-        }
+    public void recordEdit(HttpServletRequest request){
+    }
+    public void recordAdd(HttpServletRequest request){
     }
 
     static public class HouseModal extends Modal{

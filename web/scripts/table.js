@@ -19,6 +19,7 @@
             add:function(){
                 this.$modal.modal('show');
                 this.$recordAction.html('Add ');
+                this.$recordId.val("");
             },
 
             edit:function(id){
