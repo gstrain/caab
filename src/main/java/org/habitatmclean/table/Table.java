@@ -139,17 +139,11 @@ public abstract class Table {
     static class TableRow {
         final String LINE_BEGIN = "\t<tr ";
         final String LINE_END = "\n\t</tr>\n";
-        final String EDIT_BUTTON = "<td><button id='editButton' type='button' class='btn btn-warning btn-sm btn-edit d-print-none'>View</button>";
-        final String DELETE_BUTTON = "<button id='deleteButton' type='button' class='btn btn-danger btn-sm btn-delete d-print-none'>Delete</button>";
-        final String LOG_DROPDOWN = "<div class='dropdown'>\n" +
-                "  <button id='dropdown_button' class='btn btn-secondary btn-sm d-print-none dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>\n" +
-                "    Logs\n" +
-                "  </button>\n" +
-                "  <div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>\n" +
-                "    <a class='dropdown-item' href='#'>Add Log</a>\n" +
-                "    <a class='dropdown-item' href='#'>View Log</a>\n" +
-                "  </div>\n" +
-                "</div>";
+
+        final String EDIT_BUTTON = "<td><button id=\"editButton\" type=\"button\" class=\"btn btn-warning btn-sm btn-edit d-print-none\">Edit</button>";
+        final String DELETE_BUTTON = "<button id=\"deleteButton\" type=\"button\" class=\"btn btn-danger btn-sm btn-delete d-print-none\">Delete</button>";
+        final String LOG = "<button type=\"button\" class=\"btn btn-info btn-sm btn-log d-print-none\" href=\"pages/logs.html\">Logs</button></td>";
+
 
         List<TableCell> tableCells = new ArrayList<TableCell>();
         private String rowId = "id=";
@@ -191,7 +185,7 @@ public abstract class Table {
             row.append(EDIT_BUTTON);
             row.append(DELETE_BUTTON);
             if (flag) {
-                row.append(LOG_DROPDOWN);
+                row.append(LOG);
             }
             row.append(LINE_END);
             return row.toString();
