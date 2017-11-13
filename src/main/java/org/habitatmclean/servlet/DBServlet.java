@@ -109,21 +109,26 @@ public class DBServlet extends HttpServlet {
         table.addData(persons);
         response.getWriter().println(table);
 
+
+
+
+
+
         // we're using iterators here because these are sets
         /* perform update on person */
-        /*
-        Iterator itr = persons.iterator();
-        Person onePerson = (Person)itr.next();
-        onePerson.getAddress().setCity("Northbrook");
-        GenericDao saver = new HibernateAdapter();
-        saver.save(onePerson);
 
-        /* test oneToMany set */
-        /*
-        HibernateUtil.initializeAndUnproxy(onePerson.getOrganizations());   // must be done before call to commit();
-        Iterator<Organization> orgs = onePerson.getOrganizations().iterator();
-        System.out.println(orgs.next().getName());
-        sessionFactory.getCurrentSession().getTransaction().commit();
+//        Iterator itr = persons.iterator();
+//        Person onePerson = (Person)itr.next();
+//        onePerson.getAddress().setCity("Northbrook");
+//        GenericDao saver = new HibernateAdapter();
+//        saver.save(onePerson);
+//
+//        /* test oneToMany set */
+//
+//        HibernateUtil.initializeAndUnproxy(onePerson.getOrganizations());   // must be done before call to commit();
+//        Iterator<Organization> orgs = onePerson.getOrganizations().iterator();
+//        System.out.println(orgs.next().getName());
+//        sessionFactory.getCurrentSession().getTransaction().commit();
 
 //        Family family = (Family) HibernateAdapter.getBoByEntityName("Family").findByPrimaryKey(1L);
 //        System.out.println(((Family)HibernateAdapter.getBoByEntityName("Family").findByPrimaryKey(1L)));
@@ -137,7 +142,7 @@ public class DBServlet extends HttpServlet {
 //
 //        person = (Person) daos.save(person);
 //        System.out.println(person.getId());
-        */
+
     }
 
 }

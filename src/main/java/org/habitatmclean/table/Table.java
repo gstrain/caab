@@ -1,6 +1,8 @@
 package org.habitatmclean.table;
 
 import org.habitatmclean.entity.GenericEntity;
+import org.habitatmclean.hibernate.HibernateUtil;
+import org.hibernate.SessionFactory;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +57,12 @@ public abstract class Table {
         this.headers = new TableRow.TableHeaders(tableCells);
     }
 
+    private void fill(){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        sessionFactory.getCurrentSession().beginTransaction();
+
+    }
+
     /**
      * adds a row to a table
      * @param entity the entity to add data from
@@ -69,7 +77,7 @@ public abstract class Table {
 
         if(id != 0) { // edit functionality
             System.out.println("Edit: " + id);
-            recordEdit(request);
+            recordEdit(request, id);
         }
         else {//add functionality
             System.out.println("Add");
@@ -83,7 +91,7 @@ public abstract class Table {
         }
     }
 
-    public abstract void recordEdit(HttpServletRequest request);
+    public abstract void recordEdit(HttpServletRequest request, int id);
     public abstract void recordAdd(HttpServletRequest request);
 
     /**
@@ -132,7 +140,7 @@ public abstract class Table {
     static class TableRow {
         final String LINE_BEGIN = "\t<tr ";
         final String LINE_END = "\n\t</tr>\n";
-        final String EDIT_BUTTON = "<td><button id=\"editButton\" type=\"button\" class=\"btn btn-warning btn-sm btn-edit d-print-none\">Edit</button>";
+        final String EDIT_BUTTON = "<td><button id=\"editButton\" type=\"button\" class=\"btn btn-warning btn-sm btn-edit d-print-none\">View</button>";
         final String DELETE_BUTTON = "<button id=\"deleteButton\" type=\"button\" class=\"btn btn-danger btn-sm btn-delete d-print-none\">Delete</button>";
         final String LOG_DROPDOWN = "<div class=\"dropdown\">\n" +
                 "  <button id=\"dropdown_button\" class=\"btn btn-secondary btn-sm d-print-none dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +

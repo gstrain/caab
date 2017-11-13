@@ -22,7 +22,7 @@ public class VendorTable extends Table {
         rows.add(tr);
     }
 
-    public void recordEdit(HttpServletRequest request){
+    public void recordEdit(HttpServletRequest request, int id){
     }
     public void recordAdd(HttpServletRequest request){
     }
