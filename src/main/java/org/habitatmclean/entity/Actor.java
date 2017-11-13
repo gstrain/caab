@@ -1,10 +1,13 @@
 package org.habitatmclean.entity;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.SortNatural;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.SortedSet;
 
 @Entity
 @Table(name="actor")
@@ -16,24 +19,32 @@ import java.util.List;
 @AttributeOverride(name="id", column = @Column(name="actor_id"))
 public class Actor extends GenericEntity implements Serializable {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="relation_id")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
+    @Fetch(FetchMode.JOIN)
     private RelationType relationType;
 
     @OneToOne(optional = false)
     @JoinColumn(name="address_id")
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
+    @Fetch(FetchMode.JOIN)
     private Address address;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "actor")
-    private List<Log> logs;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "actor")
+    @SortNatural
+    @Fetch(FetchMode.SUBSELECT)
+    private SortedSet<Log> logs;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "actor")
-    private List<HouseContribution> contributions;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "actor")
+    @SortNatural
+    @Fetch(FetchMode.SUBSELECT)
+    private SortedSet<HouseContribution> contributions;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
-    private List<Property> properties;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "owner")
+    @SortNatural
+    @Fetch(FetchMode.SUBSELECT)
+    private SortedSet<Property> properties;
 
     public Actor() { }
 
@@ -48,27 +59,27 @@ public class Actor extends GenericEntity implements Serializable {
     }
 
 
-    public List<HouseContribution> getContributions() {
+    public SortedSet<HouseContribution> getContributions() {
         return contributions;
     }
 
-    public void setContributions(List<HouseContribution> contributions) {
+    public void setContributions(SortedSet<HouseContribution> contributions) {
         this.contributions = contributions;
     }
 
-    public List<Property> getProperties() {
+    public SortedSet<Property> getProperties() {
         return properties;
     }
 
-    public void setProperties(List<Property> properties) {
+    public void setProperties(SortedSet<Property> properties) {
         this.properties = properties;
     }
 
-    public List<Log> getLogs() {
+    public SortedSet<Log> getLogs() {
         return logs;
     }
 
-    public void setLogs(List<Log> logs) {
+    public void setLogs(SortedSet<Log> logs) {
         this.logs = logs;
     }
 

@@ -1,5 +1,7 @@
 package org.habitatmclean.servlet;
 
+import org.habitatmclean.table.functions;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,7 +41,7 @@ public class PdfGenServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long ts = System.currentTimeMillis();
-        String type = request.getParameter("page");
+        String type = functions.hiddenInputToHTML(request.getParameter("page"));
         System.out.println(type);
         String option;
         String[] cmdArr;

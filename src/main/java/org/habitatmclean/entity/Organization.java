@@ -1,6 +1,8 @@
 package org.habitatmclean.entity;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,9 +16,10 @@ public class Organization extends Actor implements Serializable {
 
     private String name;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="contact_id")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
+    @Fetch(FetchMode.JOIN)
     private Person contact;
 
     public Organization() { }

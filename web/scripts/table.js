@@ -4,26 +4,65 @@
         const $modal = $table.nextAll('#record-modal');
         const $addBtn = $('.btn-add');
         const $reportBtn = $('.btn-report');
-        const thing = this;
+        const table = this;
         $.extend(this,{
             $addBtn:$addBtn,
             $reportBtn:$reportBtn,
+            page:$('#page-type').val(), // if we ever want more than one table per page, we'll need to remove this from the page and mase it specific to table
             $recordAction: $modal.find('.record-action'),
+            $modalBtn: $modal.find('#modal-submit'),
             $modal: $modal,
+            $Form: $modal.find('.modal-content'),
+            $modalForms: $modal.find('.form-control'),
+            $recordId: $modal.find('input[name="item-id"]'),
+
+            clearModal:function(){
+                this.$modalForms.each(function(index){
+                    $(this).val("");
+                });
+            },
 
             add:function(){
+                table.clearModal();
                 this.$modal.modal('show');
                 this.$recordAction.html('Add ');
+                this.$recordId.val("");
             },
-            edit:function(){
+
+            edit:function(id){
+                table.clearModal();
                 this.$modal.modal('show');
                 this.$recordAction.html('Edit ');
+                this.$recordId.val(id);
             },
-            log: function() {
-              window.location.href = '/pages/logs.html';
+            submit:function(){
+                var data = {
+                    id: this.$recordId.val(),
+                    table: this.page
+                };
+
+                var name;
+                this.$modalForms.each(function(index){
+                    name = $(this).attr("name");
+                    data[name] = $(this).val();
+                });
+
+                table.$modal.modal('hide').one('hidden.bs.modal',function(){
+                    $.ajax({
+                        type: 'POST',
+                        url: '/write-servlet',
+                        data: data,
+                        cache: false,
+                        success: function () {
+                            // console.log( );
+                            console.log('returned');
+                            getData(); // reload table after deletion
+                        }
+                    });
+                });
+
             },
-            confirmDelete:function(button){
-                var pk = $(button).parent().parent().attr('id').substring(7);
+            confirmDelete:function(pk){
                 // TODO apply styling to selected row to show which will be deleted
                 iziToast.show({
                     timeout: 6000,
@@ -42,7 +81,7 @@
                         ['<button><b>YES</b></button>', function (instance, toast) {
 
                             instance.hide(toast, { transitionOut: 'fadeOut' }, 'button');
-                            thing.deleteRow(pk, $('#deleteCheck').prop("checked"));
+                            table.deleteRow(pk, $('#deleteCheck').prop("checked"));
                         }, true],
                         ['<button id="no">NO</button>', function (instance, toast) {
 
@@ -65,6 +104,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '/delete',
+                        cache: false,
                         data: $.param({data_type: 'Person', primary_k: pk}),    // TODO globablize data type better?
                         success: function () {
                             console.log(' ' + pk);
@@ -95,25 +135,31 @@
             init:function(){
                 this.initButtons();
                 //any other things to init
+                this.$Form.submit(function(e){
+                    table.submit();
+                    return false;
+                });
             },
             initButtons: function (){
                 this.$addBtn.on('click',function(){
-                    thing.add();
+                    table.add();
                 });
                 this.$reportBtn.on('click', function() {
-                    thing.downloadReport();
+                    table.downloadReport();
                 });
                 $table.find('.btn-edit').on('click',function(){
-                    thing.edit();
+                    table.edit(getId(this));
                 });
+
                 $table.find('.btn-delete').on('click', function() {
-                    thing.confirmDelete(this);
-                });
-                $table.find('.btn-log').on('click', function() {
-                    thing.log();
+                    table.confirmDelete(getId(this));
                 });
             }
         });
         this.init();
     };
+
+    function getId(button){
+        return $(button).parent().parent().attr('id').substring(7);
+    }
 })();

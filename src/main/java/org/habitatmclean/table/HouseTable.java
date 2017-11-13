@@ -3,6 +3,7 @@ package org.habitatmclean.table;
 import org.habitatmclean.entity.GenericEntity;
 import org.habitatmclean.entity.House;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,11 @@ public class HouseTable extends Table {
         TableRow tr = new TableRow(tableCells);
         tr.setRowId("" + entity.getId());
         rows.add(tr);
+    }
+
+    public void recordEdit(HttpServletRequest request, int id){
+    }
+    public void recordAdd(HttpServletRequest request){
     }
 
     static public class HouseModal extends Modal{

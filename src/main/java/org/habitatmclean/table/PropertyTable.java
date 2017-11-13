@@ -3,6 +3,7 @@ package org.habitatmclean.table;
 import org.habitatmclean.entity.GenericEntity;
 import org.habitatmclean.entity.Property;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +19,13 @@ public class PropertyTable<P> extends Table {
         tableCells.add(new TableRow.TableCell("" + property.getOwner().getId()));
         tableCells.add(new TableRow.TableCell(property.getProperty_status().getPstatus_desc()));
         TableRow tr = new TableRow(tableCells);
-        tr.setRowId("" + ((Property) entity).getId());
+        tr.setRowId("" + entity.getId());
         rows.add(tr);
+    }
+
+    public void recordEdit(HttpServletRequest request, int id){
+    }
+    public void recordAdd(HttpServletRequest request){
     }
 
     static public class PropertyModal extends Modal {

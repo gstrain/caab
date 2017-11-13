@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class GenericEntity {
+public abstract class GenericEntity implements Comparable<GenericEntity> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
@@ -17,5 +17,10 @@ public abstract class GenericEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public int compareTo(GenericEntity other) {
+        return (id > other.getId()) ? 1 : -1;
     }
 }

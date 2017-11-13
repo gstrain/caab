@@ -3,6 +3,7 @@ package org.habitatmclean.table;
 import org.habitatmclean.entity.GenericEntity;
 import org.habitatmclean.entity.Organization;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,11 @@ public class VendorTable extends Table {
         TableRow tr = new TableRow(tableCells);
         tr.setRowId( "" + entity.getId());
         rows.add(tr);
+    }
+
+    public void recordEdit(HttpServletRequest request, int id){
+    }
+    public void recordAdd(HttpServletRequest request){
     }
 
     static public class VendorModal extends Modal{

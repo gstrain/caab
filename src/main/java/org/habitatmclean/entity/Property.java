@@ -1,11 +1,14 @@
 package org.habitatmclean.entity;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.SortNatural;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.SortedSet;
 
 @Entity
 @Table(name="property")
@@ -17,33 +20,39 @@ public class Property extends GenericEntity implements Serializable {
     private double taxes;
     private String notes;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="pstatus_id")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Fetch(FetchMode.JOIN)
     private PropertyStatus property_status;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="zone_id")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Fetch(FetchMode.JOIN)
     private Zone zone;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="owner_id")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
+    @Fetch(FetchMode.JOIN)
     private Actor owner;
 
     @OneToOne(optional = false)
     @JoinColumn(name="address_id")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
+    @Fetch(FetchMode.JOIN)
     private Address address;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "property")
-    private List<Log> logs;
+    @SortNatural
+    @Fetch(FetchMode.SUBSELECT)
+    private SortedSet<Log> logs;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "property")
-    private List<House> houses;
+    @SortNatural
+    @Fetch(FetchMode.SUBSELECT)
+    private SortedSet<House> houses;
 
-    public Property() { }
+    public Property() {}
 
     public Property(Long id, double appraised_value, Date appraised_date, double taxes, String notes, PropertyStatus property_status, Zone zone, Actor owner, Address address) {
         this.id = id;
@@ -68,19 +77,19 @@ public class Property extends GenericEntity implements Serializable {
         this.address = address;
     }
 
-    public List<Log> getLogs() {
+    public SortedSet<Log> getLogs() {
         return logs;
     }
 
-    public void setLogs(List<Log> logs) {
+    public void setLogs(SortedSet<Log> logs) {
         this.logs = logs;
     }
 
-    public List<House> getHouses() {
+    public SortedSet<House> getHouses() {
         return houses;
     }
 
-    public void setHouses(List<House> houses) {
+    public void setHouses(SortedSet<House> houses) {
         this.houses = houses;
     }
 

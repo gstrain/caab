@@ -1,10 +1,13 @@
 package org.habitatmclean.entity;
 
-import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
+import java.util.SortedSet;
 
 @Entity
 @Table(name="person")
@@ -21,14 +24,16 @@ public class Person extends Actor implements Serializable {
     private String cell_phone;
     private String work_phone;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="family_id")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Cascade({CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
+    @Fetch(FetchMode.JOIN)
     private Family family;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "contact")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    private List<Organization> organizations;
+    @Fetch(FetchMode.SUBSELECT)
+    @SortNatural
+    private SortedSet<Organization> organizations;
 
     public Person() {
         super();
@@ -58,11 +63,11 @@ public class Person extends Actor implements Serializable {
         this.family = family;
     }
 
-    public List<Organization> getOrganizations() {
+    public SortedSet<Organization> getOrganizations() {
         return organizations;
     }
 
-    public void setOrganizations(List<Organization> organizations) {
+    public void setOrganizations(SortedSet<Organization> organizations) {
         this.organizations = organizations;
     }
 

@@ -16,15 +16,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+import java.util.SortedSet;
 
-@WebServlet(name = "DBServlet", value="/dbservlet")
-public class DBServlet extends HttpServlet {
+@WebServlet(name = "PersonServlet", value="/person-servlet")
+public class PersonServlet extends HttpServlet {
     private static Gson gson = new GsonBuilder().setPrettyPrinting()
             .create();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -87,7 +86,8 @@ public class DBServlet extends HttpServlet {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         ReadDAO dao = HibernateAdapter.getBoByEntityName("Person");
-        List persons = dao.findAll();
+        sessionFactory.getCurrentSession().beginTransaction();
+        SortedSet persons = dao.findAll();
         Table table = null;
         try {
             table = TableFactory.getTable("person");
@@ -96,7 +96,30 @@ public class DBServlet extends HttpServlet {
         }
         table.addData(persons);
         response.getWriter().println(table);
+        sessionFactory.getCurrentSession().getTransaction().commit();
 
+
+
+
+
+        // we're using iterators here because these are sets
+        /* perform update on person */
+
+//        Iterator itr = persons.iterator();
+//        Person onePerson = (Person)itr.next();
+//        onePerson.getAddress().setCity("Northbrook");
+//        GenericDao saver = new HibernateAdapter();
+//        saver.save(onePerson);
+//
+//        /* test oneToMany set */
+//
+//        HibernateUtil.initializeAndUnproxy(onePerson.getOrganizations());   // must be done before call to commit();
+//        Iterator<Organization> orgs = onePerson.getOrganizations().iterator();
+//        System.out.println(orgs.next().getName());
+//        sessionFactory.getCurrentSession().getTransaction().commit();
+
+//        Family family = (Family) HibernateAdapter.getBoByEntityName("Family").findByPrimaryKey(1L);
+//        System.out.println(((Family)HibernateAdapter.getBoByEntityName("Family").findByPrimaryKey(1L)));
 //        Family family = (Family) HibernateAdapter.getBoByEntityName("Family").findByPrimaryKey(1L);
 //        RelationType relationType = (RelationType) HibernateAdapter.getBoByEntityName("RelationType").findByPrimaryKey(1L);
 //        Address address = (Address) HibernateAdapter.getBoByEntityName("Address").findByPrimaryKey(1L);
@@ -107,6 +130,7 @@ public class DBServlet extends HttpServlet {
 //
 //        person = (Person) daos.save(person);
 //        System.out.println(person.getId());
+
     }
 
 }
