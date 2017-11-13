@@ -22,7 +22,7 @@ public class LogServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         ReadDAO dao = HibernateAdapter.getBoByEntityName("Log");
-        List logs = dao.findAll();
+        /*List logs = dao.findAll();
         Table table = null;
         try {
             table = TableFactory.getTable("log");
@@ -31,5 +31,6 @@ public class LogServlet extends HttpServlet{
         }
         table.addData(logs);
         response.getWriter().println(table);
+        */
     }
 }

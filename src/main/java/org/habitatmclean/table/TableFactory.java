@@ -16,9 +16,9 @@ public class TableFactory {
             case "zone":
                 return new ZoneTable();
             case "log":
-                return new LogTable();
+               // return new LogTable();
             default:
-                throw new TableTypeNotFoundException(); // TODO maybe get rid of this
+                throw new TableTypeNotFoundException();
         }
     }
 }

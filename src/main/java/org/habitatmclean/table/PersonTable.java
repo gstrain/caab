@@ -36,15 +36,15 @@ public class PersonTable extends Table {
         GenericDao personDao = HibernateAdapter.getBoByEntityName("Person");
         Person person = (Person) personDao.findByPrimaryKey(new Long(id));
         Address newAddress = person.getAddress();
-        newAddress.setStreet(request.getParameter("address"));
+        newAddress.setStreet(request.getParameter("street"));
         newAddress.setCity(request.getParameter("city"));
         newAddress.setState(request.getParameter("state"));
-        newAddress.setZipcode(request.getParameter("zip"));
+        newAddress.setZipcode(request.getParameter("zipcode"));
 
-        person.setFirst(request.getParameter("firstName"));
-        person.setMiddle(request.getParameter("middleName"));
-        person.setLast(request.getParameter("lastName"));
-        person.setHome_phone(request.getParameter("home-phone"));
+        person.setFirst(request.getParameter("first"));
+        person.setMiddle(request.getParameter("middle"));
+        person.setLast(request.getParameter("last"));
+        person.setHome_phone(request.getParameter("home_phone"));
         person.setEmail(request.getParameter("email"));
 
         GenericDao relationDao = HibernateAdapter.getBoByEntityName("RelationType");
@@ -60,16 +60,16 @@ public class PersonTable extends Table {
 
         //make address
         Address newAddress = new Address();
-        newAddress.setStreet(request.getParameter("address"));
+        newAddress.setStreet(request.getParameter("street"));
         newAddress.setCity(request.getParameter("city"));
         newAddress.setState(request.getParameter("state"));
-        newAddress.setZipcode(request.getParameter("zip"));
+        newAddress.setZipcode(request.getParameter("zipcode"));
 
         Person newPerson = new Person();
-        newPerson.setFirst(request.getParameter("firstName"));
-        newPerson.setMiddle(request.getParameter("middleName"));
-        newPerson.setLast(request.getParameter("lastName"));
-        newPerson.setHome_phone(request.getParameter("home-phone"));
+        newPerson.setFirst(request.getParameter("first"));
+        newPerson.setMiddle(request.getParameter("middle"));
+        newPerson.setLast(request.getParameter("last"));
+        newPerson.setHome_phone(request.getParameter("home_phone"));
         newPerson.setEmail(request.getParameter("email"));
 
         GenericDao dao = HibernateAdapter.getBoByEntityName("RelationType");
@@ -89,18 +89,18 @@ public class PersonTable extends Table {
             super("Person");
         }
         public void buildModal(){
-            //we JQuery now
             //name and type are the required fields. name will be used for grabbing the value. Type will be used to determine the type
             //text is currently the only supported type. more will be supported soon!
             //maxLength is important for fields that could be complained about in the database.
-            forms.add(Form.builder().setType("text").setName("firstName").setLabel("First Name").build());
-            forms.add(Form.builder().setType("text").setName("middleName").setLabel("Middle Name").setRequired(false).build());
-            forms.add(Form.builder().setType("text").setName("lastName").setLabel("Last Name").build());
-            forms.add(Form.builder().setType("text").setName("address").setLabel("Address Line 1").setMaxLength(120).build());
+            //make sure to name the name EXACTLY
+            forms.add(Form.builder().setType("text").setName("first").setLabel("First Name").build());
+            forms.add(Form.builder().setType("text").setName("middle").setLabel("Middle Name").setRequired(false).build());
+            forms.add(Form.builder().setType("text").setName("last").setLabel("Last Name").build());
+            forms.add(Form.builder().setType("text").setName("street").setLabel("Address Line 1").setMaxLength(120).build());
             forms.add(Form.builder().setType("text").setName("city").setLabel("City").setMaxLength(120).build());
             forms.add(Form.builder().setType("text").setName("state").setLabel("State").setMaxLength(20).build());
-            forms.add(Form.builder().setType("text").setName("zip").setLabel("Zip").setMaxLength(9).build());
-            forms.add(Form.builder().setType("text").setName("home-phone").setLabel("Phone Number").setMaxLength(20).build());
+            forms.add(Form.builder().setType("text").setName("zipcode").setLabel("Zip").setMaxLength(9).build());
+            forms.add(Form.builder().setType("text").setName("home_phone").setLabel("Phone Number").setMaxLength(20).build());
             forms.add(Form.builder().setType("text").setName("email").setLabel("Email").setMaxLength(120).build());
         }
     }
