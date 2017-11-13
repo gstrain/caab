@@ -2,10 +2,7 @@ package org.habitatmclean.servlet;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.habitatmclean.dao.GenericDao;
 import org.habitatmclean.dao.ReadDAO;
-import org.habitatmclean.entity.Organization;
-import org.habitatmclean.entity.Person;
 import org.habitatmclean.hibernate.HibernateAdapter;
 import org.habitatmclean.hibernate.HibernateUtil;
 import org.habitatmclean.table.Table;
@@ -19,8 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
 import java.util.SortedSet;
 
 @WebServlet(name = "PersonServlet", value="/person-servlet")
@@ -101,7 +96,7 @@ public class PersonServlet extends HttpServlet {
         }
         table.addData(persons);
         response.getWriter().println(table);
-
+        sessionFactory.getCurrentSession().getTransaction().commit();
 
 
 

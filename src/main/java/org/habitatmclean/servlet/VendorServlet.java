@@ -40,7 +40,7 @@ public class VendorServlet extends HttpServlet {
         }
         table.addData(persons);
         response.getWriter().println(table);
-
+        sessionFactory.getCurrentSession().getTransaction().commit();
     }
 
 }

@@ -40,6 +40,7 @@ public class HouseServlet extends HttpServlet {
         }
         table.addData(persons);
         response.getWriter().println(table);
+        sessionFactory.getCurrentSession().getTransaction().commit();
 
     }
 

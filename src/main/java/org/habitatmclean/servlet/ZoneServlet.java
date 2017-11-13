@@ -40,7 +40,7 @@ public class ZoneServlet extends HttpServlet {
         }
         table.addData(persons);
         response.getWriter().println(table);
-
+        sessionFactory.getCurrentSession().getTransaction().commit();
     }
 
 }

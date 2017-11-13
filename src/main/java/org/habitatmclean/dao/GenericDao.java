@@ -29,19 +29,22 @@ public class GenericDao<T extends GenericEntity> implements CreateUpdateDeleteDA
 
     @Override
     public void delete(T entity) {
-        sessionFactory.getCurrentSession().delete(entity);
+        if (entity != null)
+            sessionFactory.getCurrentSession().delete(entity);
         sessionFactory.getCurrentSession().flush();
     }
 
     @Override
     public T findByPrimaryKey(Long aLong) {
-        T obj = sessionFactory.getCurrentSession().get(clazz, aLong);
+        T obj = null;
+        if(aLong != null)
+            obj = sessionFactory.getCurrentSession().get(clazz, aLong);
         return obj;
     }
 
     @Override
     public SortedSet<T> findAll() {
-        List<T> objects = sessionFactory.getCurrentSession().createCriteria(clazz).list();
+        List<T> objects = sessionFactory.getCurrentSession().createCriteria(clazz).setCacheable(false).list();
         SortedSet actual = new TreeSet();
         actual.addAll(objects);
         return actual;
