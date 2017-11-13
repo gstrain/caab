@@ -1,6 +1,12 @@
 package org.habitatmclean.table;
 
+import com.google.gson.*;
+import org.habitatmclean.dao.GenericDao;
 import org.habitatmclean.entity.GenericEntity;
+import org.habitatmclean.entity.Person;
+import org.habitatmclean.entity.RelationType;
+import org.habitatmclean.entity.Zone;
+import org.habitatmclean.hibernate.HibernateAdapter;
 import org.habitatmclean.hibernate.HibernateUtil;
 import org.hibernate.SessionFactory;
 

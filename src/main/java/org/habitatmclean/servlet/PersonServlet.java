@@ -91,6 +91,8 @@ public class PersonServlet extends HttpServlet {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         ReadDAO dao = HibernateAdapter.getBoByEntityName("Person");
+
+
         sessionFactory.getCurrentSession().beginTransaction();
         SortedSet persons = dao.findAll();
         Table table = null;
@@ -99,9 +101,9 @@ public class PersonServlet extends HttpServlet {
         } catch (TableTypeNotFoundException e) {
             e.printStackTrace();
         }
+
         table.addData(persons);
         response.getWriter().println(table);
-
 
 
 
@@ -121,7 +123,7 @@ public class PersonServlet extends HttpServlet {
 //        HibernateUtil.initializeAndUnproxy(onePerson.getOrganizations());   // must be done before call to commit();
 //        Iterator<Organization> orgs = onePerson.getOrganizations().iterator();
 //        System.out.println(orgs.next().getName());
-//        sessionFactory.getCurrentSession().getTransaction().commit();
+          sessionFactory.getCurrentSession().getTransaction().commit();
 
 //        Family family = (Family) HibernateAdapter.getBoByEntityName("Family").findByPrimaryKey(1L);
 //        System.out.println(((Family)HibernateAdapter.getBoByEntityName("Family").findByPrimaryKey(1L)));
