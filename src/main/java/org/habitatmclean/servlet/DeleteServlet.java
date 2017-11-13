@@ -4,6 +4,7 @@ import org.habitatmclean.dao.GenericDao;
 import org.habitatmclean.entity.GenericEntity;
 import org.habitatmclean.hibernate.HibernateAdapter;
 import org.habitatmclean.hibernate.HibernateUtil;
+import org.habitatmclean.hibernate.functions;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +18,8 @@ public class DeleteServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int pk = Integer.parseInt(request.getParameter("primary_k"));
-        GenericDao reader = HibernateAdapter.getBoByEntityName(request.getParameter("data_type"));
+        String type = functions.hiddenInputToClass(request.getParameter("page"));
+        GenericDao reader = HibernateAdapter.getBoByEntityName(type);
 
         if (reader != null) {
             HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();

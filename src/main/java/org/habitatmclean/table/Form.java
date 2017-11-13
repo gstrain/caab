@@ -1,5 +1,7 @@
 package org.habitatmclean.table;
 
+import org.habitatmclean.hibernate.functions;
+
 public class Form {
     private String type; //the type of form group, text, select //TODO email, date, maybe checkbox and radio?
     private String name; //name of form as well as label

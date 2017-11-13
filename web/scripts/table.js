@@ -105,7 +105,7 @@
                         type: 'POST',
                         url: '/delete',
                         cache: false,
-                        data: $.param({data_type: 'Person', primary_k: pk}),    // TODO globablize data type better?
+                        data: $.param({page: this.page, primary_k: pk}),
                         success: function () {
                             console.log(' ' + pk);
                             getData(); // reload table after deletion

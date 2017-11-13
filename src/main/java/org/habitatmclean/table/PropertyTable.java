@@ -11,7 +11,6 @@ public class PropertyTable<P> extends Table {
     public PropertyTable() {
         super(new String[]{"property_no", "owner", "property status"},new PropertyModal(), true); // adjust this to determine table columns
     }
-    @Override
     public void addRow(GenericEntity entity) {
         Property property = (Property) entity;
         List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
@@ -28,7 +27,7 @@ public class PropertyTable<P> extends Table {
     public void recordAdd(HttpServletRequest request){
     }
 
-    static public class PropertyModal extends Modal {
+    static class PropertyModal extends Modal {
         public PropertyModal(){
             super("Property");
         }
