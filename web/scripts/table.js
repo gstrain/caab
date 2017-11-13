@@ -50,7 +50,7 @@
                 table.$modal.modal('hide').one('hidden.bs.modal',function(){
                     $.ajax({
                         type: 'POST',
-                        url: '/dbservlet',
+                        url: '/write-servlet',
                         data:data,
                         success: function () {
                             // console.log( );

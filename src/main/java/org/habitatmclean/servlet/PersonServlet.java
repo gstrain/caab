@@ -23,19 +23,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
 
-@WebServlet(name = "DBServlet", value="/dbservlet")
-public class DBServlet extends HttpServlet {
+@WebServlet(name = "PersonServlet", value="/person-servlet")
+public class PersonServlet extends HttpServlet {
     private static Gson gson = new GsonBuilder().setPrettyPrinting()
             .create();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            String table = request.getParameter("table");
-            if(table!= null)
-                 TableFactory.getTable(table).write(request);
-        } catch (TableTypeNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -102,7 +95,7 @@ public class DBServlet extends HttpServlet {
         SortedSet persons = dao.findAll();
         Table table = null;
         try {
-            table = TableFactory.getTable("person");
+            table = TableFactory.getTable("Person");
         } catch (TableTypeNotFoundException e) {
             e.printStackTrace();
         }

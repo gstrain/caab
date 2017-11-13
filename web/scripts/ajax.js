@@ -5,10 +5,32 @@
     });
 
     getData = function() {
+        const page = $('#page-type').val();
+        var url;
+        switch(page){
+            case "person":
+                url = '/person-servlet';
+                break;
+            case "house":
+                url = '/house-servlet';
+                break;
+            case "property":
+                url = '/property-servlet';
+                break;
+            case "vendor":
+                url = '/vendor-servlet';
+                break;
+            case "zone":
+                url = '/zone-servlet';
+                break;
+            default:
+                url = '/person-servlet';
+        }
+
         clearTable();
         $.ajax({
             type: 'GET',
-            url: '/dbservlet',
+            url: url,
             success: function (data) {
                 console.log('success');
                 $('#tableContent').append(data);
