@@ -5,11 +5,18 @@ import org.habitatmclean.entity.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Log Table class, extends Table functionality
+ */
 public class LogTable extends Table {
     public LogTable() {
         super(new String[]{"Reason", "Date", "Notes", "Status"}, new LogModal(), false);
     }
 
+    /**
+     * Extends Table addRow. Builds table rows from the log object
+     * @param entity the entity to add data from
+     */
     @Override
     public void addRow(GenericEntity entity) {
         Log log = (Log) entity;

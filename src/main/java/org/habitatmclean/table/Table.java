@@ -92,7 +92,7 @@ public abstract class Table {
         final String LINE_END = "\n\t</tr>\n";
         final String EDIT_BUTTON = "<td><button id=\"editButton\" type=\"button\" class=\"btn btn-warning btn-sm btn-edit d-print-none\">Edit</button>";
         final String DELETE_BUTTON = "<button id=\"deleteButton\" type=\"button\" class=\"btn btn-danger btn-sm btn-delete d-print-none\">Delete</button>";
-        final String LOG = "<button type=\"button\" class=\"btn btn-info btn-sm btn-log d-print-none\">Logs</button></td>";
+        final String LOG = "<button type=\"button\" class=\"btn btn-info btn-sm btn-log d-print-none\" href=\"pages/logs.html\">Logs</button></td>";
 
         List<TableCell> tableCells = new ArrayList<TableCell>();
         private String rowId = "id=";
