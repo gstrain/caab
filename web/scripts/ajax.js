@@ -31,6 +31,7 @@
         $.ajax({
             type: 'GET',
             url: url,
+            cache: false,
             success: function (data) {
                 console.log('success');
                 $('#tableContent').append(data);

@@ -4,17 +4,16 @@ import org.habitatmclean.entity.GenericEntity;
 import org.habitatmclean.hibernate.HibernateUtil;
 import org.hibernate.SessionFactory;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedSet;
 
 public abstract class Table {
-    private final String TABLE_BEGIN = "<table id='table' class=\"table table-hover\">\n";
+    private final String TABLE_BEGIN = "<table id='table' class='table table-hover'>\n";
     private final String TABLE_END = "\n</table>";
-    private final String ADD_BUTTON = "<button id=\"addButton\" type=\"button\" class=\"btn btn-success btn-lg btn-add d-print-none\">Add</button>";
-    private final String REPORT_BUTTON = "<button id=\"reportButton\" type=\"button\" class=\"btn btn-info` btn-lg btn-report d-print-none\">Generate Report From Table</button>";
+    private final String ADD_BUTTON = "<button id='addButton' type='button' class='btn btn-success btn-lg btn-add d-print-none'>Add</button>";
+    private final String REPORT_BUTTON = "<button id='reportButton' type='button' class='btn btn-info` btn-lg btn-report d-print-none'>Generate Report From Table</button>";
     private static boolean flag;
     Modal modal;
     List<TableRow> rows;
@@ -114,18 +113,18 @@ public abstract class Table {
 //        }
 //        table.append(SEARCH_FORM_END);
 //        table.append(ADD_BUTTON);
-        table.append("<span style=\"font-size:30px;cursor:pointer\" onclick=\"openNav()\">&#9776; open</span>");
-        table.append("<div id=\"drawer\" class=\"sidenav\"> <!-- The drawer -->\n" +
-                "        <a href=\"javascript:void(0)\" class=\"closebtn\" onclick=\"closeNav()\">&times;</a>\n" +
-                "        <button id=\"addButton\" type=\"button\" class=\"btn btn-success btn-lg btn-add d-print-none\">Add</button>\">" +
-                "        <button id=\"reportButton\" type=\"button\" class=\"btn btn-info` btn-lg btn-report d-print-none\">Generate Report</button>" +
-                "        \"<form class=\"filter-box form-inline d-print-none searchForm\" role=\"search\" autocomplete=\"on\"> \"\n" +
-                "        + \"<input type=\"search\" class=\"form-control mr-sm-2\" placeholder=\"\"\n" +
-                "        + \"\">\\n\" +\n" +
-                "                \"                        <span class=\"fa fa-search search-button\"></span>\n\" +\n" +
-                "                \"                        </input>\n\" +\n" +
-                "                \"                        </form>\n\"" +
-                "        <a href=\"#\">Contact</a>\n" +
+        table.append("<span style='font-size:30px;cursor:pointer' onclick='openNav()'>&#9776; open</span>");
+        table.append("<div id='drawer' class='sidenav'> <!-- The drawer -->\n" +
+                "        <a href='javascript:void(0)' class='closebtn' onclick='closeNav()'>&times;</a>\n" +
+                "        <button id='addButton' type='button' class='btn btn-success btn-lg btn-add d-print-none'>Add</button>'>" +
+                "        <button id='reportButton' type='button' class='btn btn-info` btn-lg btn-report d-print-none'>Generate Report</button>" +
+                "        '<form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'> '\n" +
+                "        + '<input type='search' class='form-control mr-sm-2' placeholder=''\n" +
+                "        + ''>\\n' +\n" +
+                "                '                        <span class='fa fa-search search-button'></span>\n' +\n" +
+                "                '                        </input>\n' +\n" +
+                "                '                        </form>\n'" +
+                "        <a href='#'>Contact</a>\n" +
                 "    </div>");
         table.append(TABLE_BEGIN);
         table.append(headers);
@@ -140,15 +139,15 @@ public abstract class Table {
     static class TableRow {
         final String LINE_BEGIN = "\t<tr ";
         final String LINE_END = "\n\t</tr>\n";
-        final String EDIT_BUTTON = "<td><button id=\"editButton\" type=\"button\" class=\"btn btn-warning btn-sm btn-edit d-print-none\">View</button>";
-        final String DELETE_BUTTON = "<button id=\"deleteButton\" type=\"button\" class=\"btn btn-danger btn-sm btn-delete d-print-none\">Delete</button>";
-        final String LOG_DROPDOWN = "<div class=\"dropdown\">\n" +
-                "  <button id=\"dropdown_button\" class=\"btn btn-secondary btn-sm d-print-none dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
+        final String EDIT_BUTTON = "<td><button id='editButton' type='button' class='btn btn-warning btn-sm btn-edit d-print-none'>View</button>";
+        final String DELETE_BUTTON = "<button id='deleteButton' type='button' class='btn btn-danger btn-sm btn-delete d-print-none'>Delete</button>";
+        final String LOG_DROPDOWN = "<div class='dropdown'>\n" +
+                "  <button id='dropdown_button' class='btn btn-secondary btn-sm d-print-none dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>\n" +
                 "    Logs\n" +
                 "  </button>\n" +
-                "  <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n" +
-                "    <a class=\"dropdown-item\" href=\"#\">Add Log</a>\n" +
-                "    <a class=\"dropdown-item\" href=\"#\">View Log</a>\n" +
+                "  <div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>\n" +
+                "    <a class='dropdown-item' href='#'>Add Log</a>\n" +
+                "    <a class='dropdown-item' href='#'>View Log</a>\n" +
                 "  </div>\n" +
                 "</div>";
 
@@ -178,7 +177,7 @@ public abstract class Table {
         }
 
         public void setRowId(String rowId) {
-            this.rowId += "\"primary" + rowId + "\">\n\t\t";
+            this.rowId += "'primary" + rowId + "'>\n\t\t";
         }
 
         public String toString() {
@@ -248,10 +247,10 @@ public abstract class Table {
             }
 
             static class HeaderCell extends TableCell {
-//                private final String SEARCH_FORM_BEGIN = "<th><form class=\"filter-box form-inline d-print-none searchForm\" role=\"search\" autocomplete=\"on\">\n";
-//                private final String SEARCH_BOX = "<input type=\"search\" class=\"form-control mr-sm-2\" placeholder=\"";
-//                private final String SEARCH_FORM_END = "\">\n" +
-//                        "                        <span class=\"fa fa-search search-button\"></span>\n" +
+//                private final String SEARCH_FORM_BEGIN = "<th><form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n";
+//                private final String SEARCH_BOX = "<input type='search' class='form-control mr-sm-2' placeholder='";
+//                private final String SEARCH_FORM_END = "'>\n" +
+//                        "                        <span class='fa fa-search search-button'></span>\n" +
 //                        "                        </input>\n" +
 //                        "                        </form>\n" +
 //                        "                        </th>";

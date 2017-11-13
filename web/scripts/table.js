@@ -51,7 +51,8 @@
                     $.ajax({
                         type: 'POST',
                         url: '/write-servlet',
-                        data:data,
+                        data: data,
+                        cache: false,
                         success: function () {
                             // console.log( );
                             console.log('returned');
@@ -103,6 +104,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '/delete',
+                        cache: false,
                         data: $.param({data_type: 'Person', primary_k: pk}),    // TODO globablize data type better?
                         success: function () {
                             console.log(' ' + pk);
@@ -159,5 +161,5 @@
 
     function getId(button){
         return $(button).parent().parent().attr('id').substring(7);
-    };
+    }
 })();

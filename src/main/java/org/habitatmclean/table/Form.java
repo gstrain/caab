@@ -70,28 +70,28 @@ public class Form {
     public String toString() {
         if (functions.checkfor(name, type)) {
             StringBuilder html = new StringBuilder();
-            html.append("<div class=\"form-group\">\n");
+            html.append("<div class='form-group'>\n");
 
             if(functions.checkfor(label)){
-                html.append("<label for=\""+name+"\">");
+                html.append("<label for='"+name+"'>");
                 html.append(label);
                 html.append("</label>\n");
             }
 
             if(type.equals("text")) {
-                html.append("<input type=\"" + type + "\" ");
-                html.append("class=\"form-control\" ");
-                html.append("id=\"" + name + "\" ");
+                html.append("<input type='" + type + "' ");
+                html.append("class='form-control' ");
+                html.append("id='" + name + "' ");
                 html.append("name='" + name + "' ");
                 if (required)
                     html.append("required ");
                 html.append("value ");
                 if (maxLength > 0)
-                    html.append("maxlength=\"" + maxLength + "\" ");
+                    html.append("maxlength='" + maxLength + "' ");
                 html.append(">\n");
 
                 if (functions.checkfor(extraText))
-                    html.append("<small id=\"" + name + "-extra" + "\" class=\"form-text text-muted\">" + extraText + "</small>");
+                    html.append("<small id='" + name + "-extra" + "' class='form-text text-muted'>" + extraText + "</small>");
             }
             else if(type.equals("select")){
                 html.append("select is not ready yet");
