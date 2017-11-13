@@ -6,15 +6,17 @@
         const $reportBtn = $('.btn-report');
         const table = this;
         $.extend(this,{
+            page:$('#page-type').val(), // if we ever want more than one table per page, we'll need to remove this from the page and mase it specific to table
+            pageTarget: findTarget(this.page),
             $addBtn:$addBtn,
             $reportBtn:$reportBtn,
-            page:$('#page-type').val(), // if we ever want more than one table per page, we'll need to remove this from the page and mase it specific to table
             $recordAction: $modal.find('.record-action'),
             $modalBtn: $modal.find('#modal-submit'),
             $modal: $modal,
             $Form: $modal.find('.modal-content'),
             $modalForms: $modal.find('.form-control'),
             $recordId: $modal.find('input[name="item-id"]'),
+
 
             clearModal:function(){
                 this.$modalForms.each(function(index){
@@ -31,6 +33,16 @@
 
             edit:function(id){
                 table.clearModal();
+
+                $.ajax({
+                    type:'GET',
+                    url: '/fill-servlet',//table.pageTarget,
+                    data: {id:id},
+                    success: function(response){
+                        console.log(response);
+                    }
+                })
+
                 this.$modal.modal('show');
                 this.$recordAction.html('Edit ');
                 this.$recordId.val(id);
@@ -161,5 +173,22 @@
 
     function getId(button){
         return $(button).parent().parent().attr('id').substring(7);
+    }
+
+    function findTarget(page){
+        switch(page){
+            case "person":
+                return '/person-servlet';
+            case "house":
+                return '/house-servlet';
+            case "property":
+                return '/property-servlet';
+            case "vendor":
+                return '/vendor-servlet';
+            case "zone":
+                return '/zone-servlet';
+            default:
+                return '';
+        }
     }
 })();
