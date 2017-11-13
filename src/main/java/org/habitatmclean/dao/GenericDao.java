@@ -23,12 +23,14 @@ public class GenericDao<T extends GenericEntity> implements CreateUpdateDeleteDA
     @Override
     public T save(T entity) {
         sessionFactory.getCurrentSession().saveOrUpdate(entity);
+        sessionFactory.getCurrentSession().flush();
         return entity;
     }
 
     @Override
     public void delete(T entity) {
         sessionFactory.getCurrentSession().delete(entity);
+        sessionFactory.getCurrentSession().flush();
     }
 
     @Override
