@@ -1,7 +1,13 @@
 package org.habitatmclean.table;
 
+import org.habitatmclean.dao.CreateUpdateDeleteDAO;
+import org.habitatmclean.dao.ReadDAO;
+import org.habitatmclean.entity.Address;
 import org.habitatmclean.entity.GenericEntity;
 import org.habitatmclean.entity.Person;
+import org.habitatmclean.hibernate.HibernateAdapter;
+import org.habitatmclean.hibernate.HibernateUtil;
+import org.hibernate.SessionFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -28,7 +34,20 @@ public class PersonTable extends Table {
         System.out.println("person Edit");
     }
     public void recordAdd(HttpServletRequest request){
-        System.out.println("person Add");
+       /* SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        sessionFactory.getCurrentSession().beginTransaction();
+
+        //make address
+        Address newAddress = new Address();
+        newAddress.setStreet(request.getParameter("address"));
+        newAddress.setCity(request.getParameter("city"));
+        newAddress.setState(request.getParameter("state"));
+        newAddress.setZipcode(request.getParameter("zip"));
+
+
+        I dont get it. I need to talk to Abe. I'll just put in the other stuff That makes sense to me
+        */
+
     }
 
     static class PersonModal extends Modal{
@@ -38,12 +57,16 @@ public class PersonTable extends Table {
         }
         public void buildModal(){
             //we JQuery now
+            //name and type are the required fields. name will be used for grabbing the value. Type will be used to determine the type
+            //text is currently the only supported type. more will be supported soon!
+            //maxLength is important for fields that could be complained about in the database.
             forms.add(Form.builder().setType("text").setName("firstName").setLabel("First Name").build());
             forms.add(Form.builder().setType("text").setName("middleName").setLabel("Middle Name").setRequired(false).build());
             forms.add(Form.builder().setType("text").setName("lastName").setLabel("Last Name").build());
-            forms.add(Form.builder().setType("text").setName("address").setLabel("Address").build());
-            forms.add(Form.builder().setType("text").setName("state").setLabel("State").build());
-            forms.add(Form.builder().setType("text").setName("zip").setLabel("Zip").build());
+            forms.add(Form.builder().setType("text").setName("address").setLabel("Address Line 1").setMaxLength(120).build());
+            forms.add(Form.builder().setType("text").setName("city").setLabel("City").setMaxLength(120).build());
+            forms.add(Form.builder().setType("text").setName("state").setLabel("State").setMaxLength(20).build());
+            forms.add(Form.builder().setType("text").setName("zip").setLabel("Zip").setMaxLength(9).build());
             forms.add(Form.builder().setType("text").setName("home-phone").setLabel("Phone Number").build());
         }
     }

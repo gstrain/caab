@@ -16,13 +16,21 @@
             $modalForms: $modal.find('.form-control'),
             $recordId: $modal.find('input[name="item-id"]'),
 
+            clearModal:function(){
+                this.$modalForms.each(function(index){
+                    $(this).val("");
+                });
+            },
+
             add:function(){
+                table.clearModal();
                 this.$modal.modal('show');
                 this.$recordAction.html('Add ');
                 this.$recordId.val("");
             },
 
             edit:function(id){
+                table.clearModal();
                 this.$modal.modal('show');
                 this.$recordAction.html('Edit ');
                 this.$recordId.val(id);

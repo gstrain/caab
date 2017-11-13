@@ -52,8 +52,7 @@ public class Property extends GenericEntity implements Serializable {
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<House> houses;
 
-    public Property() {
-    }
+    public Property() {}
 
     public Property(Long id, double appraised_value, Date appraised_date, double taxes, String notes, PropertyStatus property_status, Zone zone, Actor owner, Address address) {
         this.id = id;

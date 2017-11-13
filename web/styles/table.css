@@ -17,6 +17,13 @@
 form.filter-box input.form-control {
     max-width:100%;
 }
+
+/*Change text in autofill textbox
+    especially important for clearing modals
+ */
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset;
+}
 /*!* each search box *!*/
 /*.searchForm {*/
     /*display:inline;*/
