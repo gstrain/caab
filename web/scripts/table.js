@@ -19,6 +19,9 @@
                 this.$modal.modal('show');
                 this.$recordAction.html('Edit ');
             },
+            log: function() {
+              window.location.href = '/pages/logs.html';
+            },
             confirmDelete:function(button){
                 var pk = $(button).parent().parent().attr('id').substring(7);
                 // TODO apply styling to selected row to show which will be deleted
@@ -105,6 +108,9 @@
                 });
                 $table.find('.btn-delete').on('click', function() {
                     thing.confirmDelete(this);
+                });
+                $table.find('.btn-log').on('click', function() {
+                    thing.log();
                 });
             }
         });
