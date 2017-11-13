@@ -3,6 +3,7 @@ package org.habitatmclean.servlet;
 import org.habitatmclean.dao.GenericDao;
 import org.habitatmclean.entity.GenericEntity;
 import org.habitatmclean.hibernate.HibernateAdapter;
+import org.habitatmclean.hibernate.HibernateUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,9 +20,11 @@ public class DeleteServlet extends HttpServlet {
         GenericDao reader = HibernateAdapter.getBoByEntityName(request.getParameter("data_type"));
 
         if (reader != null) {
+            HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
             GenericEntity toDelete = reader.findByPrimaryKey(new Long(pk));
             GenericDao deleter = new HibernateAdapter();
             deleter.delete(toDelete);
+            HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
         }
     }
 
