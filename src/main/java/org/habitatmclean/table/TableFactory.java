@@ -5,15 +5,15 @@ import org.habitatmclean.entity.Property;
 public class TableFactory {
     public static Table getTable(String tableType) throws TableTypeNotFoundException {
         switch(tableType) {
-            case "Property":
+            case "property":
                 return new PropertyTable<Property>();
-            case "House":
+            case "house":
                 return new HouseTable();
-            case "Vendor":
+            case "vendor":
                 return new VendorTable();
-            case "Person":
+            case "person":
                 return new PersonTable();
-            case "Zone":
+            case "zone":
                 return new ZoneTable();
             default:
                 throw new TableTypeNotFoundException(); // TODO maybe get rid of this

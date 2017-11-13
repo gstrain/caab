@@ -34,7 +34,7 @@ public class ZoneServlet extends HttpServlet {
         SortedSet persons = dao.findAll();
         Table table = null;
         try {
-            table = TableFactory.getTable("Zone");
+            table = TableFactory.getTable("zone");
         } catch (TableTypeNotFoundException e) {
             e.printStackTrace();
         }

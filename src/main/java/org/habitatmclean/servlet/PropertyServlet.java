@@ -34,7 +34,7 @@ public class PropertyServlet extends HttpServlet {
         SortedSet persons = dao.findAll();
         Table table = null;
         try {
-            table = TableFactory.getTable("Property");
+            table = TableFactory.getTable("property");
         } catch (TableTypeNotFoundException e) {
             e.printStackTrace();
         }

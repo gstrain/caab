@@ -34,7 +34,7 @@ public class VendorServlet extends HttpServlet {
         SortedSet persons = dao.findAll();
         Table table = null;
         try {
-            table = TableFactory.getTable("Vendor");
+            table = TableFactory.getTable("vendor");
         } catch (TableTypeNotFoundException e) {
             e.printStackTrace();
         }

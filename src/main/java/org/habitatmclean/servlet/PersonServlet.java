@@ -95,7 +95,7 @@ public class PersonServlet extends HttpServlet {
         SortedSet persons = dao.findAll();
         Table table = null;
         try {
-            table = TableFactory.getTable("Person");
+            table = TableFactory.getTable("person");
         } catch (TableTypeNotFoundException e) {
             e.printStackTrace();
         }
