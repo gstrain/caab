@@ -8,6 +8,7 @@
         $.extend(this,{
             $addBtn:$addBtn,
             $reportBtn:$reportBtn,
+            page:$('#page-type').val(), // if we ever want more than one table per page, we'll need to remove this from the page and mase it specific to table
             $recordAction: $modal.find('.record-action'),
             $modalBtn: $modal.find('#modal-submit'),
             $modal: $modal,
@@ -27,7 +28,8 @@
             },
             submit:function(){
                 var data = {
-                    id: this.$recordId.val()
+                    id: this.$recordId.val(),
+                    table: this.page
                 };
 
                 var name;

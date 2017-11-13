@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.SortedSet;
 
 @WebServlet(name = "DBServlet", value="/dbservlet")
@@ -29,11 +30,9 @@ public class DBServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-           List<String> fields = TableFactory.getTable("person").returnModalFields();
-           for(String field : fields){
-               if(request.getParameter(field) != null)
-               System.out.println(field + ": " + request.getParameter(field));
-           }
+            String table = request.getParameter("table");
+            if(table!= null)
+                 TableFactory.getTable(table).write(request);
         } catch (TableTypeNotFoundException e) {
             e.printStackTrace();
         }
@@ -112,6 +111,7 @@ public class DBServlet extends HttpServlet {
 
         // we're using iterators here because these are sets
         /* perform update on person */
+        /*
         Iterator itr = persons.iterator();
         Person onePerson = (Person)itr.next();
         onePerson.getAddress().setCity("Northbrook");
@@ -119,6 +119,7 @@ public class DBServlet extends HttpServlet {
         saver.save(onePerson);
 
         /* test oneToMany set */
+        /*
         HibernateUtil.initializeAndUnproxy(onePerson.getOrganizations());   // must be done before call to commit();
         Iterator<Organization> orgs = onePerson.getOrganizations().iterator();
         System.out.println(orgs.next().getName());
@@ -136,6 +137,7 @@ public class DBServlet extends HttpServlet {
 //
 //        person = (Person) daos.save(person);
 //        System.out.println(person.getId());
+        */
     }
 
 }
