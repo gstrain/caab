@@ -15,7 +15,7 @@ public class Form {
     private int maxLength = 0;
     //for select types only:
     private Map<String,String> options = new HashMap<>();
-    boolean labelAsValue = true; //label and value of select will be the same.
+    boolean labelAsValue = false; //label and value of select will be the same. false by default
 
     public Form(){
     }
@@ -109,8 +109,8 @@ public class Form {
                     html.append("<small id='" + name + "-extra" + "' class='form-text text-muted'>" + extraText + "</small>");
             }
             else if(type.equals("select")){
-                html.append("<select class='form-control' id='" + name + "'>\n");
-                html.append("<option selected> Choose a "+label.toLowerCase()+"</option>\n");
+                html.append("<select class='form-control' id='" + name + "' name='"+name+"'"+(required ? " required " : "") + ">\n");
+                html.append("<option selected value disabled> Choose a "+label.toLowerCase()+"</option>\n");
                 if(!options.isEmpty()) {
                     for (Map.Entry<String, String> entry : options.entrySet()) {
                         String key = entry.getKey();
@@ -119,7 +119,7 @@ public class Form {
                             value = key;
                         else
                             value = entry.getValue();
-                        html.append("<option value='"+value+"'>"+label+"</option>");
+                        html.append("<option value='"+value+"'>"+key+"</option>");
                     }
                 }
                 html.append("</select>");

@@ -48,7 +48,7 @@ public class PersonTable extends Table {
         person.setEmail(request.getParameter("email"));
 
         GenericDao relationDao = HibernateAdapter.getBoByEntityName("RelationType");
-        RelationType rt = (RelationType) relationDao.findByPrimaryKey(new Long(3));
+        RelationType rt = (RelationType) relationDao.findByPrimaryKey(new Long(request.getParameter("relationType")));
         person.setRelationType(rt);
 
         personDao.save(person);
@@ -73,7 +73,7 @@ public class PersonTable extends Table {
         newPerson.setEmail(request.getParameter("email"));
 
         GenericDao dao = HibernateAdapter.getBoByEntityName("RelationType");
-        RelationType rt = (RelationType) dao.findByPrimaryKey(new Long(3)); //TODO
+        RelationType rt = (RelationType) dao.findByPrimaryKey(new Long(request.getParameter("relationType"))); //TODO
 
         newPerson.setRelationType(rt);
         newPerson.setAddress(newAddress);
@@ -102,6 +102,8 @@ public class PersonTable extends Table {
             forms.add(Form.builder().setType("text").setName("zipcode").setLabel("Zip").setMaxLength(9).build());
             forms.add(Form.builder().setType("tel").setName("home_phone").setLabel("Phone Number").setMaxLength(20).build());
             forms.add(Form.builder().setType("email").setName("email").setLabel("Email").setMaxLength(120).build());
+            forms.add(Form.builder().setType("select").setName("relationType").setLabel("Relation Type")
+                    .addOption("Tennant","1").addOption("Volunteer","5").build());
         }
     }
 }
