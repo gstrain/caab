@@ -101,8 +101,7 @@ public class PersonTable extends Table {
             forms.add(Form.builder().setType("text").setName("zipcode").setLabel("Zip").setMaxLength(9).build());
             forms.add(Form.builder().setType("tel").setName("home_phone").setLabel("Phone Number").setMaxLength(20).build());
             forms.add(Form.builder().setType("email").setName("email").setLabel("Email").setMaxLength(120).build());
-            forms.add(Form.builder().setType("select").setName("relationType").setLabel("Relation Type")
-                    .addOption("Tennant","1").addOption("Volunteer","5").build());
+            forms.add(Form.builder().setType("select").setName("relationType").setLabel("Relation Type").setFromTable("RelationType","relation_name").build());
         }
     }
 }

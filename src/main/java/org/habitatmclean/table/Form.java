@@ -21,8 +21,8 @@ public class Form {
     private int maxLength = 0;
     private boolean fromTable = false;
     private String fillTable;
-    private String selectValue;
-    private String selectKey;
+    private String selectLabel;
+    private String selectValue = "id";
     //for select types only:
     private Map<String,String> options = new HashMap<>();
     boolean labelAsValue = false; //label and value of select will be the same. false by default
@@ -72,16 +72,11 @@ public class Form {
     }
 
     // name it according to class names
-    public void setFromTable(String table, String key, String value){
+    public void setFromTable(String table, String label, String value){
         fillTable = table;
         fromTable = true;
+        selectLabel = label;
         selectValue = value;
-        selectKey = key;
-    }
-
-    //default to id
-    public void setFromTable(String table, String value){
-        setFromTable(table, "id",value);
     }
 
     public void addOption(String label, String value){
@@ -134,6 +129,8 @@ public class Form {
             else if(type.equals("select")){
                 html.append("<select class='form-control' id='" + name + "' name='"+name+"'"+(required ? " required " : "") + ">\n");
                 html.append("<option selected value disabled> Choose a "+label.toLowerCase()+"</option>\n");
+                if(fromTable)
+                    fillTable();
                 if(!options.isEmpty()) {
                     for (Map.Entry<String, String> entry : options.entrySet()) {
                         String key = entry.getKey();
@@ -154,14 +151,17 @@ public class Form {
     }
 
     private void fillTable(){
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        sessionFactory.getCurrentSession().beginTransaction();
+        //SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        //sessionFactory.getCurrentSession().beginTransaction();
 
         GenericDao dao = HibernateAdapter.getBoByEntityName(fillTable);
         SortedSet<GenericEntity> records = dao.findAll();
         for(GenericEntity record : records) {
-
+            String label = record.getValueByPropertyName(selectLabel);
+            String value = record.getValueByPropertyName(selectValue);
+            addOption(label,value);
         }
-        sessionFactory.getCurrentSession().getTransaction().commit();
+        // we are already in a transaction.
+        //sessionFactory.getCurrentSession().getTransaction().commit();
     }
 }

@@ -126,7 +126,7 @@ public abstract class Table {
                 "                '                        <span class='fa fa-search search-button'></span>\n' +\n" +
                 "                '                        </input>\n' +\n" +
                 "                '                        </form>\n'" +
-                "        <a href='#'>Contact</a>\n" +
+                "        <a href='tel:9284999833'>Contact</a>\n" +
                 "    </div>");
         table.append(TABLE_BEGIN);
         table.append(headers);
