@@ -2,13 +2,10 @@ package org.habitatmclean.table;
 
 import org.habitatmclean.dao.GenericDao;
 import org.habitatmclean.entity.GenericEntity;
+import org.habitatmclean.hibernate.Functions;
 import org.habitatmclean.hibernate.HibernateAdapter;
-import org.habitatmclean.hibernate.HibernateUtil;
-import org.habitatmclean.hibernate.functions;
-import org.hibernate.SessionFactory;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 
@@ -101,11 +98,11 @@ public class Form {
     }
 
     public String toString() {
-        if (functions.checkfor(name, type)) {
+        if (Functions.checkfor(name, type)) {
             StringBuilder html = new StringBuilder();
             html.append("<div class='form-group'>\n");
 
-            if(functions.checkfor(label)){
+            if(Functions.checkfor(label)){
                 html.append("<label for='"+name+"'>");
                 html.append(label);
                 html.append("</label>\n");
@@ -123,7 +120,7 @@ public class Form {
                     html.append("maxlength='" + maxLength + "' ");
                 html.append(">\n");
 
-                if (functions.checkfor(extraText))
+                if (Functions.checkfor(extraText))
                     html.append("<small id='" + name + "-extra" + "' class='form-text text-muted'>" + extraText + "</small>");
             }
             else if(type.equals("select")){

@@ -1,6 +1,6 @@
 package org.habitatmclean.servlet;
 
-import org.habitatmclean.hibernate.functions;
+import org.habitatmclean.hibernate.Functions;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,7 +41,7 @@ public class PdfGenServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long ts = System.currentTimeMillis();
-        String type = functions.hiddenInputToHTMLPage(request.getParameter("page"));
+        String type = Functions.hiddenInputToHTMLPage(request.getParameter("page"));
         String option;
         String[] cmdArr;
         if(type != null) {

@@ -1,6 +1,6 @@
 package org.habitatmclean.hibernate;
 
-public class functions {
+public class Functions {
     public static boolean checkfor(String ... strings){
         boolean filled = true;
         for(String s : strings){
