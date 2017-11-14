@@ -56,12 +56,6 @@ public abstract class Table {
         this.headers = new TableRow.TableHeaders(tableCells);
     }
 
-    private void fill(){
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        sessionFactory.getCurrentSession().beginTransaction();
-
-    }
-
     /**
      * adds a row to a table
      * @param entity the entity to add data from
@@ -87,6 +81,8 @@ public abstract class Table {
         for(String field : fields){
             if(request.getParameter(field) != null)
                 System.out.println(field + ": " + request.getParameter(field));
+            else
+                System.out.println(field + ": " + "not retrieved");
         }
     }
 
@@ -124,7 +120,7 @@ public abstract class Table {
                 "                '                        <span class='fa fa-search search-button'></span>\n' +\n" +
                 "                '                        </input>\n' +\n" +
                 "                '                        </form>\n'" +
-                "        <a href='#'>Contact</a>\n" +
+                "        <a href='tel:9284999833'>Contact</a>\n" +
                 "    </div>");
         table.append(TABLE_BEGIN);
         table.append(headers);
@@ -142,7 +138,7 @@ public abstract class Table {
 
         final String EDIT_BUTTON = "<td><button id=\"editButton\" type=\"button\" class=\"btn btn-warning btn-sm btn-edit d-print-none\">Edit</button>";
         final String DELETE_BUTTON = "<button id=\"deleteButton\" type=\"button\" class=\"btn btn-danger btn-sm btn-delete d-print-none\">Delete</button>";
-        final String LOG = "<button type=\"button\" class=\"btn btn-info btn-sm btn-log d-print-none\" href=\"pages/logs.html\">Logs</button></td>";
+        final String LOG = "<a href=\"logs.html\" class=\"btn btn-info btn-sm btn-log d-print-none\">Logs</a></td>";
 
 
         List<TableCell> tableCells = new ArrayList<TableCell>();

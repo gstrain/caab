@@ -25,9 +25,9 @@ public class Actor extends GenericEntity implements Serializable {
     @Fetch(FetchMode.JOIN)
     private RelationType relationType;
 
-    @OneToOne(optional = false)
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="address_id")
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @Fetch(FetchMode.JOIN)
     private Address address;
 
@@ -99,4 +99,18 @@ public class Actor extends GenericEntity implements Serializable {
         this.address = address;
     }
 
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch (property) {
+            case "actor_id":
+            case "id":
+                return "" + getId();
+            case "address_id":
+                return "" + getAddress().getId();
+            case "relation_id":
+                return "" + getRelationType().getId();
+            default:
+                return "invalid property specifier";
+        }
+    }
 }

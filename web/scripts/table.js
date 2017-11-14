@@ -24,6 +24,23 @@
                 });
             },
 
+            searchObject:function(obj, name,index){
+                var result = null;
+                for(var key in obj){
+                    if("object" == typeof(obj[key]))
+                        if(key == name)
+                            result = table.searchObject(obj[key], table.$modalForms.eq(index).attr('data-value-type'),index);
+                        else
+                        result = table.searchObject(obj[key], name, index);
+                    else if(key == name)
+                        result = obj[key];
+
+                    if(result != null)
+                        return result;
+                }
+                return null;
+            },
+
             add:function(){
                 table.clearModal();
                 this.$modal.modal('show');
@@ -36,10 +53,18 @@
 
                 $.ajax({
                     type:'GET',
-                    url: '/fill-servlet',//table.pageTarget,
-                    data: {id:id},
+                    url: '/fill-servlet',
+                    data: {id:id, table:this.page},
+                    dataType: 'json',
                     success: function(response){
                         console.log(response);
+                        var value;
+                        table.$modalForms.each(function(index){
+                            name = $(this).attr("name");
+                            value = table.searchObject(response,name,index);
+                            if(value != null)
+                                $(this).val(value);
+                        });
                     }
                 });
 
@@ -47,6 +72,7 @@
                 this.$recordAction.html('Edit ');
                 this.$recordId.val(id);
             },
+
             submit:function(){
                 var data = {
                     id: this.$recordId.val(),

@@ -51,4 +51,19 @@ public class Organization extends Actor implements Serializable {
     public void setContact(Person person) {
         this.contact = person;
     }
+
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "organization_id":
+            case "id":
+                return "" + getId();
+            case "name":
+                return "" + getName();
+            case "contact_id":
+                return "" + getContact().getId();
+            default:
+                return "invalid property specifier";
+        }
+    }
 }

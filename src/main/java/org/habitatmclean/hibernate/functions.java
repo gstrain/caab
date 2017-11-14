@@ -42,7 +42,7 @@ public class functions {
             case "person":
                 return "Person";
             case "vendor":
-                return "Vendor";
+                return "Organization";
             case "property":
                 return "Property";
             case "zone":

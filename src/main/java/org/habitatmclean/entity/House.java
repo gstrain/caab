@@ -40,9 +40,9 @@ public class House extends GenericEntity implements Serializable {
     @Fetch(FetchMode.JOIN)
     private Family family;
 
-    @OneToOne(optional = false)
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="address_id")
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @Fetch(FetchMode.JOIN)
     private Address address;
 
@@ -176,4 +176,31 @@ public class House extends GenericEntity implements Serializable {
         this.bathrooms = bathrooms;
     }
 
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "id":
+                return "" + getId();
+            case "address_id":
+                return "" + getAddress().getId();
+            case "property_id":
+                return "" + getProperty().getId();
+            case "family_id":
+                return "" + getFamily().getId();
+            case "construction_cost":
+                return "" + getConstruction_cost();
+            case "size":
+                return "" + getSize();
+            case "bedrooms":
+                return "" + getBedrooms();
+            case "bathrooms":
+                return "" + getBathrooms();
+            case "cstatus_id":
+                return "" + getConstruction_status().getId();
+            case "house_style":
+                return "" + getHouse_style().getId();
+            default:
+                return "invalid property specifier";
+        }
+    }
 }

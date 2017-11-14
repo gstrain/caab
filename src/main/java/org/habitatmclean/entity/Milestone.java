@@ -60,4 +60,18 @@ public class Milestone extends GenericEntity implements Serializable {
         this.mileStone_desc = mileStone_desc;
     }
 
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "milestone_id":
+            case "id":
+                return "" + getId();
+            case "milestone":
+                return "" + getMilestone();
+            case "milestone_desc":
+                return "" + getMileStone_desc();
+            default:
+                return "invalid property specifier";
+        }
+    }
 }

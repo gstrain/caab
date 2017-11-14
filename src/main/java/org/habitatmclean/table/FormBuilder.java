@@ -37,6 +37,27 @@ public class FormBuilder {
         return this;
     }
 
+    //for select types only
+    public FormBuilder addOption(String label,String value ){
+        form.addOption(label,value);
+        return this;
+    }
+
+    public FormBuilder addOption(String label){
+        form.addOption(label);
+        return this;
+    }
+
+    public FormBuilder setFromTable(String table,String label,String value){
+        form.setFromTable(table, label, value);
+        return this;
+    }
+
+    public FormBuilder setFromTable(String table,String label){
+        form.setFromTable(table, label, "id");
+        return this;
+    }
+
     public FormBuilder setMaxLength(int maxLength){
         form.setMaxLength(maxLength);
         return this;

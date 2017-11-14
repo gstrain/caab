@@ -2,12 +2,14 @@ package org.habitatmclean.table;
 import org.habitatmclean.entity.GenericEntity;
 import org.habitatmclean.entity.Log;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Log Table class, extends Table functionality
  */
+/*
 public class LogTable extends Table {
     public LogTable() {
         super(new String[]{"Reason", "Date", "Notes", "Status"}, new LogModal(), false);
@@ -17,6 +19,7 @@ public class LogTable extends Table {
      * Extends Table addRow. Builds table rows from the log object
      * @param entity the entity to add data from
      */
+/*
     @Override
     public void addRow(GenericEntity entity) {
         Log log = (Log) entity;
@@ -24,6 +27,7 @@ public class LogTable extends Table {
 
         tableCells.add(new TableRow.TableCell("" + log.getId()));
         /*TODO get the ids for contact and property from the servlet */
+/*
         tableCells.add(new TableRow.TableCell(log.getReason()));
         tableCells.add(new TableRow.TableCell(log.getDate().toString()));
         tableCells.add(new TableRow.TableCell(log.getNotes()));
@@ -32,6 +36,16 @@ public class LogTable extends Table {
         TableRow tr = new TableRow(tableCells);
         tr.setRowId("" + entity.getId());
         rows.add(tr);
+    }
+
+    @Override
+    public void recordEdit(HttpServletRequest request, int id) {
+
+    }
+
+    @Override
+    public void recordAdd(HttpServletRequest request) {
+
     }
 
     static class LogModal extends Modal {
@@ -49,3 +63,4 @@ public class LogTable extends Table {
         }
     }
 }
+*/
