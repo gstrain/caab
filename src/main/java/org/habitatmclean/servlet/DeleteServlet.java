@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.SortedSet;
 
 @WebServlet(name = "DeleteServlet", value="/delete")
@@ -40,7 +42,9 @@ public class DeleteServlet extends HttpServlet {
             case "validate":    // returns a string of rows that will be affected by the deletion
                 boolean safe = true;
                 StringBuilder responseText = new StringBuilder("");
-                for (Field field : toDelete.getClass().getDeclaredFields()) {
+                List<Field> fields = new ArrayList<>();
+                Functions.getAllFields(fields, toDelete.getClass());
+                for (Field field : fields) {
                     try {
                         field.setAccessible(true);
                         // found a sorted set, check it for foreign keys
@@ -65,7 +69,6 @@ public class DeleteServlet extends HttpServlet {
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {    }
 
-    }
 }

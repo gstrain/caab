@@ -116,13 +116,13 @@
                         //check true or false
                         if(safe) {
                             iziToast.show({
-                                timeout: 6000,
                                 close: false,
                                 overlay: true,
                                 id: 'deleteDialogue',
                                 color: 'red',
                                 layout: 2,
                                 drag: false,
+                                resetOnHover:true,
                                 title: 'Deleting Row',
                                 icon: 'fa fa-question',
                                 message: 'Are you sure? <b>This cannot be undone!</b><br/><input type="checkbox" class="form-check-input" id="deleteCheck"><label for="deleteCheck">&nbsp;&nbsp;&nbsp;I understand</label>',
@@ -152,13 +152,13 @@
                             for(var i=1; i < arr.length; i++)
                                 message += arr[i] + '<br/>';
                             iziToast.show({
-                                timeout: 6000,
                                 close: false,
                                 overlay: true,
                                 id: 'deleteErrorDialogue',
                                 color: 'red',
                                 layout: 2,
                                 drag: false,
+                                resetOnHover:true,
                                 title: 'Cannot Delete Row',
                                 icon: 'fa fa-exclamation',
                                 message: message,
