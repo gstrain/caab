@@ -24,11 +24,14 @@
                 });
             },
 
-            searchObject:function(obj, name){
+            searchObject:function(obj, name,index){
                 var result = null;
                 for(var key in obj){
                     if("object" == typeof(obj[key]))
-                        result = table.searchObject(obj[key], name);
+                        if(key == name)
+                            result = table.searchObject(obj[key], table.$modalForms.eq(index).attr('data-value-type'),index);
+                        else
+                        result = table.searchObject(obj[key], name, index);
                     else if(key == name)
                         result = obj[key];
 
@@ -58,7 +61,7 @@
                         var value;
                         table.$modalForms.each(function(index){
                             name = $(this).attr("name");
-                            value = table.searchObject(response,name);
+                            value = table.searchObject(response,name,index);
                             if(value != null)
                                 $(this).val(value);
                         });

@@ -127,7 +127,7 @@ public class Form {
                     html.append("<small id='" + name + "-extra" + "' class='form-text text-muted'>" + extraText + "</small>");
             }
             else if(type.equals("select")){
-                html.append("<select class='form-control' id='" + name + "' name='"+name+"'"+(required ? " required " : "") + ">\n");
+                html.append("<select class='form-control' id='" + name + "' name='"+name+"'"+ (fromTable ? "data-value-type='" + selectValue+"'":"") +(required ? " required " : "") + ">\n");
                 html.append("<option selected value disabled> Choose a "+label.toLowerCase()+"</option>\n");
                 if(fromTable)
                     fillTable();
