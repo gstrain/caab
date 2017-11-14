@@ -63,6 +63,7 @@ td {
 }
 .btn-log {
     margin: 5px;
+    cursor: default;
 }
 #dropdown_button {
     margin: 5px;

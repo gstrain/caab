@@ -2,6 +2,7 @@ package org.habitatmclean.table;
 import org.habitatmclean.entity.GenericEntity;
 import org.habitatmclean.entity.Log;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,16 @@ public class LogTable extends Table {
         TableRow tr = new TableRow(tableCells);
         tr.setRowId("" + entity.getId());
         rows.add(tr);
+    }
+
+    @Override
+    public void recordEdit(HttpServletRequest request, int id) {
+
+    }
+
+    @Override
+    public void recordAdd(HttpServletRequest request) {
+
     }
 
     static class LogModal extends Modal {

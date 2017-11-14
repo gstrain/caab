@@ -23,6 +23,9 @@
             case "zone":
                 url = '/zone-servlet';
                 break;
+            case "log":
+                url = '/log-servlet'
+                break;
             default:
                 url = '/person-servlet';
         }
