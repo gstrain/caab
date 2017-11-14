@@ -1,6 +1,6 @@
 package org.habitatmclean.servlet;
 
-import org.habitatmclean.table.functions;
+import org.habitatmclean.hibernate.functions;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,30 +41,31 @@ public class PdfGenServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long ts = System.currentTimeMillis();
-        String type = functions.hiddenInputToHTML(request.getParameter("page"));
-        System.out.println(type);
+        String type = functions.hiddenInputToHTMLPage(request.getParameter("page"));
         String option;
         String[] cmdArr;
-        switch (type) {
-            case "log":
-                //TODO log case
-                option = request.getParameter("options");
-                String url = "http://localhost:8085/" + type + ".html?type=" + option;
-                cmdArr = new String[]{installDirectory + "/bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", url, tempDirectory + ts + ".pdf"};
-                break;
-            case "people":
-                cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", "http://localhost:8085/" + type + ".html", tempDirectory + ts + ".pdf"};
-                break;
-            default:
-                cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", "http://localhost:8085/pages/" + type + ".html", tempDirectory + ts + ".pdf"};
-                break;
-        }
-        Process p = new ProcessBuilder(cmdArr).start();
-        try {
-            System.out.println(Arrays.toString(cmdArr));
-            p.waitFor();
-        } catch (InterruptedException e) {
-            System.err.println(e.getStackTrace());
+        if(type != null) {
+            switch (type) {
+                case "log":
+                    //TODO log case
+                    option = request.getParameter("options");
+                    String url = "http://localhost:8085/" + type + ".html?type=" + option;
+                    cmdArr = new String[]{installDirectory + "/bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", url, tempDirectory + ts + ".pdf"};
+                    break;
+                case "people":
+                    cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", "http://localhost:8085/" + type + ".html", tempDirectory + ts + ".pdf"};
+                    break;
+                default:
+                    cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", "http://localhost:8085/pages/" + type + ".html", tempDirectory + ts + ".pdf"};
+                    break;
+            }
+            Process p = new ProcessBuilder(cmdArr).start();
+            try {
+                System.out.println(Arrays.toString(cmdArr));
+                p.waitFor();
+            } catch (InterruptedException e) {
+                System.err.println(e.getStackTrace());
+            }
         }
 
         OutputStream out = response.getOutputStream();

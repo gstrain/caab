@@ -1,8 +1,6 @@
 package org.habitatmclean.table;
 
-import org.habitatmclean.dao.CreateUpdateDeleteDAO;
 import org.habitatmclean.dao.GenericDao;
-import org.habitatmclean.dao.ReadDAO;
 import org.habitatmclean.entity.Address;
 import org.habitatmclean.entity.GenericEntity;
 import org.habitatmclean.entity.Person;
@@ -19,7 +17,6 @@ public class PersonTable extends Table {
     public PersonTable() {
         super(new String[]{"first", "middle", "last", "home phone", "email"}, new PersonModal(), true); // adjust this to determine table columns
     }
-    @Override
     public void addRow(GenericEntity entity) {
         Person person = (Person) entity;
         List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
@@ -32,7 +29,6 @@ public class PersonTable extends Table {
         tr.setRowId("" + entity.getId());
         rows.add(tr);
     }
-
     public void recordEdit(HttpServletRequest request, int id){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         sessionFactory.getCurrentSession().beginTransaction();
@@ -77,7 +73,7 @@ public class PersonTable extends Table {
         newPerson.setEmail(request.getParameter("email"));
 
         GenericDao dao = HibernateAdapter.getBoByEntityName("RelationType");
-        RelationType rt = (RelationType) dao.findByPrimaryKey(new Long(3));
+        RelationType rt = (RelationType) dao.findByPrimaryKey(new Long(3)); //TODO
 
         newPerson.setRelationType(rt);
         newPerson.setAddress(newAddress);

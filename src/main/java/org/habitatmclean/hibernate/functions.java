@@ -1,4 +1,4 @@
-package org.habitatmclean.table;
+package org.habitatmclean.hibernate;
 
 public class functions {
     public static boolean checkfor(String ... strings){
@@ -15,7 +15,7 @@ public class functions {
      * @param hiddenInput
      * @return
      */
-    public static String hiddenInputToHTML(String hiddenInput) {
+    public static String hiddenInputToHTMLPage(String hiddenInput) {
         switch (hiddenInput) {
             case "person":
                 return"people";
@@ -28,7 +28,29 @@ public class functions {
             case "house":
                 return "houses";
             default:
-                return hiddenInput;
+                return null;
+        }
+    }
+
+    /**
+     * returns the class name that a hidden input refers to
+     * @param hiddenInput
+     * @return
+     */
+    public static String hiddenInputToClass(String hiddenInput) {
+        switch (hiddenInput) {
+            case "person":
+                return "Person";
+            case "vendor":
+                return "Vendor";
+            case "property":
+                return "Property";
+            case "zone":
+                return "Zone";
+            case "house":
+                return "House";
+            default:
+                return null;
         }
     }
 }
