@@ -48,11 +48,12 @@ public class DeleteServlet extends HttpServlet {
                             HibernateUtil.initializeAndUnproxy(field.get(toDelete));
                             Iterator<GenericEntity> itr = ((SortedSet) field.get(toDelete)).iterator();    // cast is safe b/c of if statement
                             if(itr.hasNext()) safe = false;
-                                // iterate through set and add it's fields to response
-                                while(itr.hasNext()) {
-                                    GenericEntity obj = itr.next();
-                                    responseText.append(obj + "\n");
-                                }
+
+                            // iterate through set and add it's fields to response
+                            while (itr.hasNext()) {
+                                GenericEntity obj = itr.next();
+                                responseText.append(obj.toString() + "\n");
+                            }
                         }
                         field.setAccessible(false);
                     } catch (IllegalAccessException e) { }

@@ -1,5 +1,6 @@
 package org.habitatmclean.entity;
 
+import org.habitatmclean.hibernate.Functions;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -191,9 +192,9 @@ public class Property extends GenericEntity implements Serializable {
     @Override
     public String toString() {
         return "Property: " +
-                "Property #" + id + "\n\t" +
-                "taxes: " + taxes +
-                "zone: " + zone.getZone_desc() + " \n\t" +
+                "Property #" + id + Functions.NEWLINE_TAB +
+                "taxes: " + String.format("$%.2f", taxes) +
+                ", zone: " + zone.getZone_info() + Functions.NEWLINE_TAB +
                 address.toString();
     }
 }

@@ -1,6 +1,9 @@
 package org.habitatmclean.hibernate;
 
 public class Functions {
+    public static final String TAB = "&nbsp;&nbsp;&nbsp;&nbsp;";
+    public static final String NEWLINE_TAB = "<br/>" + TAB;
+
     public static boolean checkfor(String ... strings){
         boolean filled = true;
         for(String s : strings){

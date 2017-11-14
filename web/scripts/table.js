@@ -164,7 +164,7 @@
                                 message: message,
                                 position: 'center',
                                 buttons: [
-                                    ['<button>Ok</button>', function (instance, toast) {
+                                    ['<button><strong>OK</strong></button>', function (instance, toast) {
 
                                         instance.hide(toast, { transitionOut: 'fadeOut' }, 'button');
                                     }, true]

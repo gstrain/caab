@@ -1,5 +1,6 @@
 package org.habitatmclean.entity;
 
+import org.habitatmclean.hibernate.Functions;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -165,8 +166,7 @@ public class Log extends GenericEntity implements Serializable {
     @Override
     public String toString() {
         return "Log: " +
-                date.toString() + " " +
-                notes + "; " +
-                reason + " ";
+                date.toString() + Functions.NEWLINE_TAB +
+                "notes: " + notes;
     }
 }

@@ -1,5 +1,6 @@
 package org.habitatmclean.entity;
 
+import org.habitatmclean.hibernate.Functions;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -206,12 +207,12 @@ public class House extends GenericEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "House:\n\t" +
-                "Property #: " + getProperty().getId() + "\n\t" +
-                "Style: " + getHouse_style().getStyle() + "\n\t" +
+        return "House:" + Functions.NEWLINE_TAB +
+                "Property #: " + getProperty().getId() + Functions.NEWLINE_TAB +
+                "Style: " + getHouse_style().getStyle() + Functions.NEWLINE_TAB +
                 size + " sq ft., " +
                 bedrooms + "  bedrooms, " +
-                bathrooms + "  bathrooms\n\t" +
+                bathrooms + "  bathrooms" + Functions.NEWLINE_TAB +
                 address.toString();
     }
 }
