@@ -187,4 +187,13 @@ public class Property extends GenericEntity implements Serializable {
                 return "invalid property specifier";
         }
     }
+
+    @Override
+    public String toString() {
+        return "Property: " +
+                "Property #" + id + "\n\t" +
+                "taxes: " + taxes +
+                "zone: " + zone.getZone_desc() + " \n\t" +
+                address.toString();
+    }
 }

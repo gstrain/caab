@@ -161,4 +161,12 @@ public class Log extends GenericEntity implements Serializable {
                 return "invalid property specifier";
         }
     }
+
+    @Override
+    public String toString() {
+        return "Log: " +
+                date.toString() + " " +
+                notes + "; " +
+                reason + " ";
+    }
 }

@@ -167,4 +167,12 @@ public class Person extends Actor implements Serializable {
                 return "invalid property specifier";
         }
     }
+
+    @Override
+    public String toString() {
+        return "Person: " +
+                first + " " +
+                middle + " " +
+                last;
+    }
 }

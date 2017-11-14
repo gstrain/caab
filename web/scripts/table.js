@@ -170,12 +170,9 @@
                                     }, true]
                                 ]
                             });
-
                         }
-
                     }
                 });
-
             },
             deleteRow:function(pk, checked) {
                 var toastMessage = 'Operation aborted by not giving consent.';

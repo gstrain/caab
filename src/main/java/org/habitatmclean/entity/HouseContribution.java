@@ -83,4 +83,13 @@ public class HouseContribution extends GenericEntity implements Serializable {
                 return "invalid property specifier";
         }
     }
+
+    @Override
+    public String toString() {
+        return "Contribution:" +
+                "involvementDescription='" + involvementDescription + '\'' +
+                ", actor=" + actor +
+                ", house=" + house +
+                '}';
+    }
 }

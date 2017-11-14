@@ -120,4 +120,12 @@ public class Family extends GenericEntity implements Serializable {
                 return "invalid property specifier";
         }
     }
+
+    @Override
+    public String toString() {
+        return "Family: " +
+                equity_hrs + " " +
+                income + " " +
+                milestone;
+    }
 }

@@ -203,4 +203,15 @@ public class House extends GenericEntity implements Serializable {
                 return "invalid property specifier";
         }
     }
+
+    @Override
+    public String toString() {
+        return "House:\n\t" +
+                "Property #: " + getProperty().getId() + "\n\t" +
+                "Style: " + getHouse_style().getStyle() + "\n\t" +
+                size + " sq ft., " +
+                bedrooms + "  bedrooms, " +
+                bathrooms + "  bathrooms\n\t" +
+                address.toString();
+    }
 }
