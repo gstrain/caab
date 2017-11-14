@@ -113,7 +113,6 @@ public abstract class Table {
         table.append("<div id=\"drawer\" class=\"sidenav\"> <!-- The drawer -->" +
                 "        <a href=\"javascript:void(0)\" class=\"closebtn\" onclick=\"closeNav()\">&times;</a>" +
                 "        <button id=\"addButton\" type=\"button\" class=\"btn btn-success btn-lg btn-add d-print-none\">Add</button>" +
-                "        <button id=\"reportButton\" type=\"button\" class=\"btn btn-info btn-lg btn-report d-print-none\">Generate Report</button>" +
                 "        <form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
                 "<input type='search' class='form-control mr-sm-2' placeholder=\"search\"" +
                 "'>\n </input>\n" +
@@ -134,6 +133,7 @@ public abstract class Table {
                 "<input type='search' class='form-control mr-sm-2' placeholder=\"search\"" +
                 "'>\n </input>\n" +
                 "                        </form>\n" +
+                "<button id=\"reportButton\" type=\"button\" class=\"btn btn-info btn-lg btn-report d-print-none\">Generate Report</button>" +
                 "    </div>");
         table.append(TABLE_BEGIN);
         table.append(headers);

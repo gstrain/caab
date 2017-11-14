@@ -1,16 +1,17 @@
 .sidenav {
-    height: 100%;
-    margin-top: 118px;
-    margin-bottom: 97px;
+    /*height: 100%;*/
+    /*margin-top: 118px;*/
+    margin-bottom: 100px;
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 0;
+    /*top: 0;*/
     left: 0;
+    /*bottom: 100px;*/
     background-color: #a5a5a5;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
+    /*padding-top: 60px;*/
 }
 
 .sidenav a {
@@ -37,6 +38,14 @@
 #site {
     transition: margin-left .5s;
     padding: 16px;
+}
+
+#nav {
+    z-index: 0;
+}
+
+#footer {
+    z-index: 2;
 }
 
 @media screen and (max-height: 450px) {

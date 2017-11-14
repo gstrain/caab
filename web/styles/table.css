@@ -42,9 +42,12 @@ td {
     padding: .5rem !important;
 }
 #reportButton {
-    /*float:right;*/
+    margin: 25px 10px;
+    width: 80%;
+    display:block;
+    /*float: left;*/
 }
-#addButton, #reportButton {
+#addButton {
     margin: 10px;
     width: 80%;
     display:block;
