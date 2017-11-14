@@ -176,4 +176,31 @@ public class House extends GenericEntity implements Serializable {
         this.bathrooms = bathrooms;
     }
 
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "id":
+                return "" + getId();
+            case "address_id":
+                return "" + getAddress().getId();
+            case "property_id":
+                return "" + getProperty().getId();
+            case "family_id":
+                return "" + getFamily().getId();
+            case "construction_cost":
+                return "" + getConstruction_cost();
+            case "size":
+                return "" + getSize();
+            case "bedrooms":
+                return "" + getBedrooms();
+            case "bathrooms":
+                return "" + getBathrooms();
+            case "cstatus_id":
+                return "" + getConstruction_status().getId();
+            case "house_style":
+                return "" + getHouse_style().getId();
+            default:
+                return "invalid property specifier";
+        }
+    }
 }

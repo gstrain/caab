@@ -99,4 +99,18 @@ public class Actor extends GenericEntity implements Serializable {
         this.address = address;
     }
 
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch (property) {
+            case "actor_id":
+            case "id":
+                return "" + getId();
+            case "address_id":
+                return "" + getAddress().getId();
+            case "relation_id":
+                return "" + getRelationType().getId();
+            default:
+                return "invalid property specifier";
+        }
+    }
 }

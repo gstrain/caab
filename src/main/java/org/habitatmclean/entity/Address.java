@@ -144,4 +144,25 @@ public class Address extends GenericEntity implements Serializable { // to be se
         return result;
     }
 
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "id":
+                return "" + getId();
+            case "street":
+                return "" + getStreet();
+            case "number":
+                return "" + getNumber();
+            case "apartment_no":
+                return "" + getApartment_no();
+            case "city":
+                return "" + getState();
+            case "state":
+                return "" + getState();
+            case "zipcode":
+                return "" + getZipcode();
+            default:
+                return "invalid property specifier";
+        }
+    }
 }

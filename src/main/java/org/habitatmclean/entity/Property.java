@@ -161,4 +161,30 @@ public class Property extends GenericEntity implements Serializable {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "property_no":
+                return "" + getId();
+            case "address_id":
+                return "" + getAddress().getId();
+            case "zone_id":
+                return "" + getZone().getId();
+            case "owner_id":
+                return "" + getOwner().getId();
+            case "property_status":
+                return "" + getProperty_status().getId();
+            case "appraised_value":
+                return "" + getAppraised_value();
+            case "appraised_date":
+                return "" + getAppraised_date();
+            case "taxes":
+                return "" + getTaxes();
+            case "notes":
+                return "" + getNotes();
+            default:
+                return "invalid property specifier";
+        }
+    }
 }

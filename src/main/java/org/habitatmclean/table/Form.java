@@ -1,10 +1,16 @@
 package org.habitatmclean.table;
 
+import org.habitatmclean.dao.GenericDao;
+import org.habitatmclean.entity.GenericEntity;
+import org.habitatmclean.hibernate.HibernateAdapter;
+import org.habitatmclean.hibernate.HibernateUtil;
 import org.habitatmclean.hibernate.functions;
+import org.hibernate.SessionFactory;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
 
 public class Form {
     private String type; //the type of form group: text, tel, email, date. //TODO SELECT
@@ -13,6 +19,10 @@ public class Form {
     private String extraText;
     private boolean required = true;
     private int maxLength = 0;
+    private boolean fromTable = false;
+    private String fillTable;
+    private String selectValue;
+    private String selectKey;
     //for select types only:
     private Map<String,String> options = new HashMap<>();
     boolean labelAsValue = false; //label and value of select will be the same. false by default
@@ -59,6 +69,19 @@ public class Form {
 
     public boolean isRequired() {
         return required;
+    }
+
+    // name it according to class names
+    public void setFromTable(String table, String key, String value){
+        fillTable = table;
+        fromTable = true;
+        selectValue = value;
+        selectKey = key;
+    }
+
+    //default to id
+    public void setFromTable(String table, String value){
+        setFromTable(table, "id",value);
     }
 
     public void addOption(String label, String value){
@@ -128,5 +151,17 @@ public class Form {
             return html.toString();
         }
         else return "not ready yet! name and type required!";
+    }
+
+    private void fillTable(){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        sessionFactory.getCurrentSession().beginTransaction();
+
+        GenericDao dao = HibernateAdapter.getBoByEntityName(fillTable);
+        SortedSet<GenericEntity> records = dao.findAll();
+        for(GenericEntity record : records) {
+
+        }
+        sessionFactory.getCurrentSession().getTransaction().commit();
     }
 }

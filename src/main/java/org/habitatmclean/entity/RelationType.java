@@ -60,4 +60,18 @@ public class RelationType extends GenericEntity implements Serializable {
         this.relation_desc = relation_desc;
     }
 
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "relation_id":
+            case "id":
+                return "" + getId();
+            case "relation_name":
+                return "" + getRelation_name();
+            case "relation_desc":
+                return "" + getRelation_desc();
+            default:
+                return "invalid property specifier";
+        }
+    }
 }
