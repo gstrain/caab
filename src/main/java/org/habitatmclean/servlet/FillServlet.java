@@ -9,6 +9,7 @@ import org.habitatmclean.dao.ReadDAO;
 import org.habitatmclean.entity.GenericEntity;
 import org.habitatmclean.hibernate.HibernateAdapter;
 import org.habitatmclean.hibernate.HibernateUtil;
+import org.habitatmclean.hibernate.functions;
 import org.habitatmclean.table.Table;
 import org.habitatmclean.table.TableFactory;
 import org.habitatmclean.table.TableTypeNotFoundException;
@@ -32,12 +33,20 @@ public class FillServlet extends HttpServlet {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         sessionFactory.getCurrentSession().beginTransaction();
-        response.getWriter().println(fillResponse(Integer.parseInt(request.getParameter("id"))));
+
+        try{
+            int id = Integer.parseInt(request.getParameter("id"));
+            String table = request.getParameter("table");
+            table = functions.hiddenInputToClass(table);
+            response.getWriter().println(fillResponse(id, table));
+        }
+        catch(Exception e){}
+
         sessionFactory.getCurrentSession().getTransaction().commit();
 
     }
 
-    public String fillResponse(int id){
+    public String fillResponse(int id, String table){
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .setExclusionStrategies(new ExclusionStrategy() {
@@ -51,7 +60,7 @@ public class FillServlet extends HttpServlet {
                         return aClass == SortedSet.class;
                     }
                 }).create();
-        GenericDao dao = HibernateAdapter.getBoByEntityName("Person");
+        GenericDao dao = HibernateAdapter.getBoByEntityName(table);
         GenericEntity responseObj = dao.findByPrimaryKey((long)id);
         return gson.toJson(responseObj);
     }

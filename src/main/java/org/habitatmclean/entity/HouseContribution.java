@@ -67,4 +67,20 @@ public class HouseContribution extends GenericEntity implements Serializable {
         this.house = house;
     }
 
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch (property) {
+            case "contribution_id":
+            case "id":
+                return "" + getId();
+            case "actor_id":
+                return "" + getActor().getId();
+            case "house_id":
+                return "" + getHouse().getId();
+            case "involvement_desc":
+                return "" + getInvolvementDescription();
+            default:
+                return "invalid property specifier";
+        }
+    }
 }

@@ -103,4 +103,21 @@ public class Family extends GenericEntity implements Serializable {
         this.logs = logs;
     }
 
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "id":
+                return "" + getId();
+            case "class_id":
+                return "" + getClassType().getId();
+            case "milestone_id":
+                return "" + getMilestone().getId();
+            case "equity_hrs":
+                return "" + getEquity_hrs();
+            case "income":
+                return "" + getIncome();
+            default:
+                return "invalid property specifier";
+        }
+    }
 }

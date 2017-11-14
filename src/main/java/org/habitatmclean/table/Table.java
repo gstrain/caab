@@ -62,12 +62,6 @@ public abstract class Table {
         this.headers = new TableRow.TableHeaders(tableCells);
     }
 
-    private void fill(){
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        sessionFactory.getCurrentSession().beginTransaction();
-
-    }
-
     /**
      * adds a row to a table
      * @param entity the entity to add data from
@@ -93,6 +87,8 @@ public abstract class Table {
         for(String field : fields){
             if(request.getParameter(field) != null)
                 System.out.println(field + ": " + request.getParameter(field));
+            else
+                System.out.println(field + ": " + "not retrieved");
         }
     }
 
@@ -130,7 +126,7 @@ public abstract class Table {
                 "                '                        <span class='fa fa-search search-button'></span>\n' +\n" +
                 "                '                        </input>\n' +\n" +
                 "                '                        </form>\n'" +
-                "        <a href='#'>Contact</a>\n" +
+                "        <a href='tel:9284999833'>Contact</a>\n" +
                 "    </div>");
         table.append(TABLE_BEGIN);
         table.append(headers);

@@ -135,4 +135,30 @@ public class Log extends GenericEntity implements Serializable {
     public void setProperty(Property property) {
         this.property = property;
     }
+
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "id":
+                return "" + getId();
+            case "family_id":
+                return "" + getFamily().getId();
+            case "contact_id":
+                return "" + getActor().getId();
+            case "house_id":
+                return "" + getHouse().getId();
+            case "property_id":
+                return "" + getProperty().getId();
+            case "reason":
+                return "" + getReason();
+            case "date":
+                return "" + getDate();
+            case "notes":
+                return "" + getNotes();
+            case "status":
+                return getStatus();
+            default:
+                return "invalid property specifier";
+        }
+    }
 }

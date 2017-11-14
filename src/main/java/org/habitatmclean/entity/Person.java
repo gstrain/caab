@@ -141,4 +141,30 @@ public class Person extends Actor implements Serializable {
     public void setFamily(Family family) {
         this.family = family;
     }
+
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "id":
+                return "" + getId();
+            case "family_id":
+                return "" + getFamily();
+            case "first":
+                return "" + getFirst();
+            case "middle":
+                return "" + getMiddle();
+            case "last":
+                return "" + getLast();
+            case "email":
+                return "" + getEmail();
+            case "home_phone":
+                return "" + getHome_phone();
+            case "cell_phone":
+                return "" + getCell_phone();
+            case "work_phone":
+                return "" + getWork_phone();
+            default:
+                return "invalid property specifier";
+        }
+    }
 }

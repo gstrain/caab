@@ -59,4 +59,19 @@ public class PropertyStatus extends GenericEntity implements Serializable {
     public void setPstatus_desc(String pstatus_description) {
         this.pstatus_desc = pstatus_description;
     }
+
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "pstatus_id":
+            case "id":
+                return "" + getId();
+            case "pstatus":
+                return "" + getPstatus();
+            case "pstatus_desc":
+                return "" + getPstatus_desc();
+            default:
+                return "invalid property specifier";
+        }
+    }
 }
