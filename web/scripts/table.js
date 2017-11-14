@@ -41,7 +41,7 @@
                     success: function(response){
                         console.log(response);
                     }
-                })
+                });
 
                 this.$modal.modal('show');
                 this.$recordAction.html('Edit ');
@@ -66,9 +66,12 @@
                         data: data,
                         cache: false,
                         success: function () {
-                            // console.log( );
                             console.log('returned');
-                            getData(); // reload table after deletion
+                            getData();
+                            iziToast.success({
+                                title: 'OK',
+                                message: 'Successfully ' + (data.id == 0 ? 'Added' : 'Edited') + ' Record'
+                            });
                         }
                     });
                 });
@@ -141,7 +144,7 @@
                 $reportBtn.html('Generating...');
                 setTimeout(function() {
                     $reportBtn.toggleClass('disabled');
-                    $reportBtn.html('Generate Report From Table');
+                    $reportBtn.html('Generate Report');
                 }, 1500); // prevent spamming report generation button
             },
             init:function(){
