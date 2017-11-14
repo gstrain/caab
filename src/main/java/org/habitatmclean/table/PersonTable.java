@@ -51,7 +51,6 @@ public class PersonTable extends Table {
         RelationType rt = (RelationType) relationDao.findByPrimaryKey(new Long(request.getParameter("relationType")));
         person.setRelationType(rt);
 
-        personDao.save(person);
         sessionFactory.getCurrentSession().getTransaction().commit();
     }
     public void recordAdd(HttpServletRequest request){

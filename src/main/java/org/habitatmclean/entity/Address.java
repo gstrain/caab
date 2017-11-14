@@ -1,7 +1,5 @@
 package org.habitatmclean.entity;
 
-import org.habitatmclean.hibernate.HibernateUtil;
-
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -68,8 +66,6 @@ public class Address extends GenericEntity implements Serializable { // to be se
     }
 
     public void setStreet(String street) {
-        HibernateUtil.getSessionFactory().getCurrentSession().evict(this);
-        this.id = null;
         this.street = street;
     }
 

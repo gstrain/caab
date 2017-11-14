@@ -36,9 +36,9 @@ public class Property extends GenericEntity implements Serializable {
     @Fetch(FetchMode.JOIN)
     private Actor owner;
 
-    @OneToOne(optional = false)
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="address_id")
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @Fetch(FetchMode.JOIN)
     private Address address;
 
