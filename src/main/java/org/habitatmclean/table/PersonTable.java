@@ -100,8 +100,8 @@ public class PersonTable extends Table {
             forms.add(Form.builder().setType("text").setName("city").setLabel("City").setMaxLength(120).build());
             forms.add(Form.builder().setType("text").setName("state").setLabel("State").setMaxLength(20).build());
             forms.add(Form.builder().setType("text").setName("zipcode").setLabel("Zip").setMaxLength(9).build());
-            forms.add(Form.builder().setType("text").setName("home_phone").setLabel("Phone Number").setMaxLength(20).build());
-            forms.add(Form.builder().setType("text").setName("email").setLabel("Email").setMaxLength(120).build());
+            forms.add(Form.builder().setType("tel").setName("home_phone").setLabel("Phone Number").setMaxLength(20).build());
+            forms.add(Form.builder().setType("email").setName("email").setLabel("Email").setMaxLength(120).build());
         }
     }
 }
