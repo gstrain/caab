@@ -2,8 +2,8 @@
  * Created by Commander Data on 11/10/2017.
  */
 function openNav() {
-    document.getElementById("drawer").style.width = "250px";
-    document.getElementById("tableContent").style.marginLeft = "250px";
+    document.getElementById("drawer").style.width = "235px";
+    document.getElementById("tableContent").style.marginLeft = "235px";
 }
 
 function closeNav() {

@@ -1,21 +1,10 @@
-/*!* the search icon within each box *!*/
-/*.search-button*/
-/*{*/
-    /*display: inline-block;*/
-    /*width: 16px;*/
-    /*height: 16px;*/
-    /*position: relative;*/
-    /*left: -32px;*/
-    /*color: rgba(0, 0, 0, 0.33);*/
-    /*display: none;*/
-/*}*/
-
-/* each search box */
 .searchForm {
     display:inline;
+    width: 150%;
 }
 form.filter-box input.form-control {
-    max-width:100%;
+    max-width:150%;
+    margin: 10px;
 }
 
 /*Change text in autofill textbox
@@ -53,10 +42,13 @@ td {
     padding: .5rem !important;
 }
 #reportButton {
-    float:right;
+    /*float:right;*/
 }
 #addButton, #reportButton {
     margin: 10px;
+    width: 80%;
+    display:block;
+    float: left;
 }
 .btn-delete, .btn-edit{
     margin: 2px;
@@ -64,9 +56,6 @@ td {
 .btn-log {
     margin: 5px;
     cursor: default;
-}
-#dropdown_button {
-    margin: 5px;
 }
 #reportHeader {
     display:inline-block;
@@ -77,6 +66,11 @@ td {
     display:inline;
     float:right;
 }
+
+#searchBar{
+ width: 90%;
+}
+
 @media print {
     #tableContent {
         margin-top:100px; /* Originally 40px */
