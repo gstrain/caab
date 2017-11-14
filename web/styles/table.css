@@ -70,13 +70,21 @@ td {
 }
 #reportHeader {
     display:inline-block;
+    margin-left:10px;
 }
 #reportTime {
+    text-align: right;
     display:inline;
     float:right;
 }
 @media print {
     #tableContent {
         margin-top:100px; /* Originally 40px */
+    }
+    th {
+        font-size: .8em;
+    }
+    #table {
+        margin: 10px;
     }
 }

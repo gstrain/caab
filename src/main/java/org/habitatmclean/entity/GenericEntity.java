@@ -19,6 +19,8 @@ public abstract class GenericEntity implements Comparable<GenericEntity> {
         this.id = id;
     }
 
+    public abstract String getValueByPropertyName(String property);
+
     @Override
     public int compareTo(GenericEntity other) {
         return (id > other.getId()) ? 1 : -1;

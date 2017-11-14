@@ -60,4 +60,18 @@ public class Zone extends GenericEntity implements Serializable {
         this.zone_desc = zone_description;
     }
 
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "zone_id":
+            case "id":
+                return "" + getId();
+            case "zone_info":
+                return "" + getZone_info();
+            case "zone_desc":
+                return "" + getZone_desc();
+            default:
+                return "invalid property specifier";
+        }
+    }
 }

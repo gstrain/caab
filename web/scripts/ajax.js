@@ -1,6 +1,10 @@
 (function() {
     $( document ).ready(function() {
-        $('#reportTime').html($('#reportTime').html() + new Date());
+        var date = new Date();
+        var dateString = ((date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear());
+        var meridian = date.getHours() > 12 ? 'PM' : 'AM';
+        var timeString = (((date.getHours() > 12) ? date.getHours()-12 : date.getHours()) + ":") + date.getMinutes() + ' ' + meridian;
+        $('#reportTime').html($('#reportTime').html() + timeString + '<br/>' + dateString);
         getData();
     });
 

@@ -14,21 +14,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.SortedSet;
+import java.util.List;
 
-@WebServlet(name = "LogServlet", value="/log-servlet")
+@WebServlet("/logservlet")
 public class LogServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         ReadDAO dao = HibernateAdapter.getBoByEntityName("Log");
-        sessionFactory.getCurrentSession().beginTransaction();
-        SortedSet logs = dao.findAll();
+        /*List logs = dao.findAll();
         Table table = null;
         try {
             table = TableFactory.getTable("log");
@@ -37,5 +31,6 @@ public class LogServlet extends HttpServlet{
         }
         table.addData(logs);
         response.getWriter().println(table);
+        */
     }
 }

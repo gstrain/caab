@@ -1,12 +1,6 @@
 package org.habitatmclean.table;
 
-import com.google.gson.*;
-import org.habitatmclean.dao.GenericDao;
 import org.habitatmclean.entity.GenericEntity;
-import org.habitatmclean.entity.Person;
-import org.habitatmclean.entity.RelationType;
-import org.habitatmclean.entity.Zone;
-import org.habitatmclean.hibernate.HibernateAdapter;
 import org.habitatmclean.hibernate.HibernateUtil;
 import org.hibernate.SessionFactory;
 
@@ -19,7 +13,7 @@ public abstract class Table {
     private final String TABLE_BEGIN = "<table id='table' class='table table-hover'>\n";
     private final String TABLE_END = "\n</table>";
     private final String ADD_BUTTON = "<button id='addButton' type='button' class='btn btn-success btn-lg btn-add d-print-none'>Add</button>";
-    private final String REPORT_BUTTON = "<button id='reportButton' type='button' class='btn btn-info` btn-lg btn-report d-print-none'>Generate Report From Table</button>";
+    private final String REPORT_BUTTON = "<button id='reportButton' type='button' class='btn btn-info` btn-lg btn-report d-print-none'>Generate Report</button>";
     private static boolean flag;
     Modal modal;
     List<TableRow> rows;
@@ -62,12 +56,6 @@ public abstract class Table {
         this.headers = new TableRow.TableHeaders(tableCells);
     }
 
-    private void fill(){
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        sessionFactory.getCurrentSession().beginTransaction();
-
-    }
-
     /**
      * adds a row to a table
      * @param entity the entity to add data from
@@ -93,6 +81,8 @@ public abstract class Table {
         for(String field : fields){
             if(request.getParameter(field) != null)
                 System.out.println(field + ": " + request.getParameter(field));
+            else
+                System.out.println(field + ": " + "not retrieved");
         }
     }
 
@@ -130,7 +120,7 @@ public abstract class Table {
                 "                '                        <span class='fa fa-search search-button'></span>\n' +\n" +
                 "                '                        </input>\n' +\n" +
                 "                '                        </form>\n'" +
-                "        <a href='#'>Contact</a>\n" +
+                "        <a href='tel:9284999833'>Contact</a>\n" +
                 "    </div>");
         table.append(TABLE_BEGIN);
         table.append(headers);

@@ -1,17 +1,31 @@
 package org.habitatmclean.table;
 
+import org.habitatmclean.dao.GenericDao;
+import org.habitatmclean.entity.GenericEntity;
+import org.habitatmclean.hibernate.HibernateAdapter;
+import org.habitatmclean.hibernate.HibernateUtil;
 import org.habitatmclean.hibernate.functions;
+import org.hibernate.SessionFactory;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
 
 public class Form {
-    private String type; //the type of form group, text, select //TODO email, date, maybe checkbox and radio?
-    private String name; //name of form as well as label
-    private String label;
+    private String type; //the type of form group: text, tel, email, date. //TODO SELECT
+    private String name; //name of form. If you want it to load form table, it MUST match the name of the entity value it connects to
+    private String label; // label for form control
     private String extraText;
     private boolean required = true;
     private int maxLength = 0;
+    private boolean fromTable = false;
+    private String fillTable;
+    private String selectLabel;
+    private String selectValue = "id";
     //for select types only:
-    private String[] options;
-    boolean labelAsValue = true;
+    private Map<String,String> options = new HashMap<>();
+    boolean labelAsValue = false; //label and value of select will be the same. false by default
 
     public Form(){
     }
@@ -57,6 +71,23 @@ public class Form {
         return required;
     }
 
+    // name it according to class names
+    public void setFromTable(String table, String label, String value){
+        fillTable = table;
+        fromTable = true;
+        selectLabel = label;
+        selectValue = value;
+    }
+
+    public void addOption(String label, String value){
+        options.put(label,value);
+    }
+
+    //when using label as value
+    public void addOption(String label){
+        options.put(label,label);
+    }
+
     public void setRequired(boolean required) {
         this.required = required;
     }
@@ -80,7 +111,7 @@ public class Form {
                 html.append("</label>\n");
             }
 
-            if(type.equals("text")) {
+            if(!type.equals("select")) {
                 html.append("<input type='" + type + "' ");
                 html.append("class='form-control' ");
                 html.append("id='" + name + "' ");
@@ -96,11 +127,41 @@ public class Form {
                     html.append("<small id='" + name + "-extra" + "' class='form-text text-muted'>" + extraText + "</small>");
             }
             else if(type.equals("select")){
-                html.append("select is not ready yet");
+                html.append("<select class='form-control' id='" + name + "' name='"+name+"'"+ (fromTable ? "data-value-type='" + selectValue+"'":"") +(required ? " required " : "") + ">\n");
+                html.append("<option selected value disabled> Choose a "+label.toLowerCase()+"</option>\n");
+                if(fromTable)
+                    fillTable();
+                if(!options.isEmpty()) {
+                    for (Map.Entry<String, String> entry : options.entrySet()) {
+                        String key = entry.getKey();
+                        String value;
+                        if(labelAsValue)
+                            value = key;
+                        else
+                            value = entry.getValue();
+                        html.append("<option value='"+value+"'>"+key+"</option>");
+                    }
+                }
+                html.append("</select>");
             }
             html.append("</div>\n");
             return html.toString();
         }
         else return "not ready yet! name and type required!";
+    }
+
+    private void fillTable(){
+        //SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        //sessionFactory.getCurrentSession().beginTransaction();
+
+        GenericDao dao = HibernateAdapter.getBoByEntityName(fillTable);
+        SortedSet<GenericEntity> records = dao.findAll();
+        for(GenericEntity record : records) {
+            String label = record.getValueByPropertyName(selectLabel);
+            String value = record.getValueByPropertyName(selectValue);
+            addOption(label,value);
+        }
+        // we are already in a transaction.
+        //sessionFactory.getCurrentSession().getTransaction().commit();
     }
 }

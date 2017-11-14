@@ -60,4 +60,18 @@ public class Class extends GenericEntity implements Serializable {
         this.class_desc = class_desc;
     }
 
+    @Override
+    public String getValueByPropertyName(String property) {
+        switch(property) {
+            case "class_id":
+            case "id":
+                return "" + getId();
+            case "class_name":
+                return "" + getClass_name();
+            case "class_desc":
+                return "" + getClass_desc();
+            default:
+                return "invalid property specifier";
+        }
+    }
 }

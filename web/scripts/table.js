@@ -24,6 +24,23 @@
                 });
             },
 
+            searchObject:function(obj, name,index){
+                var result = null;
+                for(var key in obj){
+                    if("object" == typeof(obj[key]))
+                        if(key == name)
+                            result = table.searchObject(obj[key], table.$modalForms.eq(index).attr('data-value-type'),index);
+                        else
+                        result = table.searchObject(obj[key], name, index);
+                    else if(key == name)
+                        result = obj[key];
+
+                    if(result != null)
+                        return result;
+                }
+                return null;
+            },
+
             add:function(){
                 table.clearModal();
                 this.$modal.modal('show');
@@ -36,17 +53,26 @@
 
                 $.ajax({
                     type:'GET',
-                    url: '/fill-servlet',//table.pageTarget,
-                    data: {id:id},
+                    url: '/fill-servlet',
+                    data: {id:id, table:this.page},
+                    dataType: 'json',
                     success: function(response){
                         console.log(response);
+                        var value;
+                        table.$modalForms.each(function(index){
+                            name = $(this).attr("name");
+                            value = table.searchObject(response,name,index);
+                            if(value != null)
+                                $(this).val(value);
+                        });
                     }
-                })
+                });
 
                 this.$modal.modal('show');
                 this.$recordAction.html('Edit ');
                 this.$recordId.val(id);
             },
+
             submit:function(){
                 var data = {
                     id: this.$recordId.val(),
@@ -66,9 +92,12 @@
                         data: data,
                         cache: false,
                         success: function () {
-                            // console.log( );
                             console.log('returned');
-                            getData(); // reload table after deletion
+                            getData();
+                            iziToast.success({
+                                title: 'OK',
+                                message: 'Successfully ' + (data.id == 0 ? 'Added' : 'Edited') + ' Record'
+                            });
                         }
                     });
                 });
@@ -141,7 +170,7 @@
                 $reportBtn.html('Generating...');
                 setTimeout(function() {
                     $reportBtn.toggleClass('disabled');
-                    $reportBtn.html('Generate Report From Table');
+                    $reportBtn.html('Generate Report');
                 }, 1500); // prevent spamming report generation button
             },
             init:function(){
