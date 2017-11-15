@@ -106,7 +106,7 @@ public abstract class Table {
         table.append(ADD_BUTTON);
 //        for (int i = 0; i < HEADERS.length; i++) {
             table.append("<form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
-            "<input type='search' id=\"search\" onkeyup=\"searchTable();\" class='form-control mr-sm-2' data-table=\"order-table\" placeholder=\"Search Table\">\n </input>\n");
+            "<input type='search' id=\"search\" onkeyup=\"searchTable();\" class='form-control mr-sm-2' data-table=\"order-table\" placeholder=\"Search Table\">\n </input> \n </form>\n");
 //        }
         table.append(REPORT_BUTTON + "</div>");
         table.append(TABLE_BEGIN);

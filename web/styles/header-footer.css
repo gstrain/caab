@@ -2,12 +2,11 @@
 {
     float:right;
     padding-top: 60px;
-    padding-botton: 0px;
+    padding-bottom: 0px;
 }
 
 #nav
 {
-    /*position:fixed; */
     background-color: rgba(1,174,216,1);
     padding-bottom: 0px;
     position: fixed;
