@@ -35,5 +35,6 @@ public class LogServlet extends HttpServlet{
         }
         table.addData(logs);
         response.getWriter().println(table);
+        sessionFactory.getCurrentSession().getTransaction().commit();
     }
 }
