@@ -1,5 +1,6 @@
 package org.habitatmclean.entity;
 
+import org.habitatmclean.hibernate.Functions;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -82,5 +83,12 @@ public class HouseContribution extends GenericEntity implements Serializable {
             default:
                 return "invalid property specifier";
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Contribution: " + Functions.NEWLINE_TAB +
+                involvementDescription + Functions.NEWLINE_TAB +
+                "House #: " + house.getId();
     }
 }

@@ -1,8 +1,6 @@
 package org.habitatmclean.table;
 
 import org.habitatmclean.entity.GenericEntity;
-import org.habitatmclean.hibernate.HibernateUtil;
-import org.hibernate.SessionFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -211,8 +209,8 @@ public abstract class Table {
             }
 
             void setValue(String value) {
-                if(value == null || value.equals("null"))
-                    this.value = "";
+                if(value == null || value.equals("null") || value.equals(""))
+                    this.value = "<div class='text-muted'>value not set</div>";
                 else
                     this.value = value;
             }

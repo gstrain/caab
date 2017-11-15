@@ -1,6 +1,13 @@
 package org.habitatmclean.hibernate;
 
-public class functions {
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
+
+public class Functions {
+    public static final String TAB = "&nbsp;&nbsp;&nbsp;&nbsp;";
+    public static final String NEWLINE_TAB = "<br/>" + TAB;
+
     public static boolean checkfor(String ... strings){
         boolean filled = true;
         for(String s : strings){
@@ -52,5 +59,15 @@ public class functions {
             default:
                 return null;
         }
+    }
+
+    public static List<Field> getAllFields(List<Field> fields, Class<?> type) {
+        fields.addAll(Arrays.asList(type.getDeclaredFields()));
+
+        if (type.getSuperclass() != null) {
+            getAllFields(fields, type.getSuperclass());
+        }
+
+        return fields;
     }
 }

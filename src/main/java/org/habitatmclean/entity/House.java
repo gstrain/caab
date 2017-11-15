@@ -1,5 +1,6 @@
 package org.habitatmclean.entity;
 
+import org.habitatmclean.hibernate.Functions;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -19,12 +20,12 @@ public class House extends GenericEntity implements Serializable {
     private int bedrooms;
     private double bathrooms;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="cstatus_id")
     @Fetch(FetchMode.JOIN)
     private ConstructionStatus construction_status;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="house_style")
     @Fetch(FetchMode.JOIN)
     private HouseStyle house_style;
@@ -36,6 +37,7 @@ public class House extends GenericEntity implements Serializable {
     private Property property;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinColumn(name="family_id")
     @Fetch(FetchMode.JOIN)
     private Family family;
@@ -46,12 +48,12 @@ public class House extends GenericEntity implements Serializable {
     @Fetch(FetchMode.JOIN)
     private Address address;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "house")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "house", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<HouseContribution> contributions;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "house")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "house", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<Log> logs;
@@ -202,5 +204,16 @@ public class House extends GenericEntity implements Serializable {
             default:
                 return "invalid property specifier";
         }
+    }
+
+    @Override
+    public String toString() {
+        return "House:" + Functions.NEWLINE_TAB +
+                "Property #: " + getProperty().getId() + Functions.NEWLINE_TAB +
+                "Style: " + getHouse_style().getStyle() + Functions.NEWLINE_TAB +
+                size + " sq ft., " +
+                bedrooms + "  bedrooms, " +
+                bathrooms + "  bathrooms" + Functions.NEWLINE_TAB +
+                address.toString();
     }
 }

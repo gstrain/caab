@@ -101,40 +101,91 @@
                         }
                     });
                 });
-
             },
             confirmDelete:function(pk){
                 // TODO apply styling to selected row to show which will be deleted
-                iziToast.show({
-                    timeout: 6000,
-                    close: false,
-                    overlay: true,
-                    id: 'deleteDialogue',
-                    color: 'red',
-                    layout: 2,
-                    drag: false,
-                    title: 'Deleting Row',
-                    icon: 'fa fa-question',
-                    message: 'Are you sure? <b>This cannot be undone!</b><br/><input type="checkbox" class="form-check-input" id="deleteCheck"><label for="deleteCheck">&nbsp;&nbsp;&nbsp;I understand</label>',
-                    position: 'center',
-                    closeOnEscape: true,
-                    buttons: [
-                        ['<button><b>YES</b></button>', function (instance, toast) {
 
-                            instance.hide(toast, { transitionOut: 'fadeOut' }, 'button');
-                            table.deleteRow(pk, $('#deleteCheck').prop("checked"));
-                        }, true],
-                        ['<button id="no">NO</button>', function (instance, toast) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/delete',
+                    cache: false,
+                    data: $.param({method:'validate', page: this.page, primary_k: pk}),
+                    success: function (response) {
+                        var arr = response.split('\n');
+                        var safe = (arr[0] == 'true');
+                        //check true or false
+                        if(safe) {
+                            iziToast.show({
+                                close: false,
+                                overlay: true,
+                                id: 'deleteDialogue',
+                                color: 'red',
+                                layout: 2,
+                                drag: false,
+                                resetOnHover:true,
+                                title: 'Deleting Row',
+                                icon: 'fa fa-question',
+                                message: 'Are you sure? <b>This cannot be undone!</b><br/><input type="checkbox" class="form-check-input" id="deleteCheck"><label for="deleteCheck">&nbsp;&nbsp;&nbsp;I understand</label>',
+                                position: 'center',
+                                buttons: [
+                                    ['<button><b>YES</b></button>', function (instance, toast) {
 
-                            instance.hide(toast, { transitionOut: 'fadeOut' }, 'button');
+                                        instance.hide(toast, { transitionOut: 'fadeOut' }, 'button');
+                                        table.deleteRow(pk, $('#deleteCheck').prop("checked"));
+                                    }, true],
+                                    ['<button>NO</button>', function (instance, toast) {
 
-                        }]
-                    ],
-                    onClosing: function(instance, toast, closedBy){
-                        console.info('Closing | closedBy: ' + closedBy);
-                    },
-                    onClosed: function(instance, toast, closedBy){
-                        console.info('Closed | closedBy: ' + closedBy);
+                                        instance.hide(toast, { transitionOut: 'fadeOut' }, 'button');
+
+                                    }]
+                                ],
+                                onClosing: function(instance, toast, closedBy){
+                                    console.info('Closing | closedBy: ' + closedBy);
+                                },
+                                onClosed: function(instance, toast, closedBy){
+                                    console.info('Closed | closedBy: ' + closedBy);
+                                }
+                            });
+                        }
+                        else {
+                            var references = '';
+                            for(var i=1; i < arr.length; i++)
+                                references += arr[i] + '<br/>';
+                            var open = false;
+
+                            iziToast.show({
+                                close: false,
+                                overlay: true,
+                                id: 'deleteErrorDialogue',
+                                color: 'red',
+                                timeout: 8000,
+                                drag: false,
+                                resetOnHover:true,
+                                title: 'TABLE REFERENCES FOUND',
+                                position: 'center',
+                                icon: 'fa fa-exclamation',
+                                message: 'The following table entries reference this row <strong> and WILL ALSO BE DELETED</strong> if this record is removed!<br/><br/>' +
+                                    // text section with references
+                                '<div id="references" style="display:none;">' + references +
+                                    '<input type="checkbox" class="" id="deleteCheck"><label for="deleteCheck">&nbsp;&nbsp;&nbsp;I understand</label>' +
+                                    '<button id="deleteEverythingButton" class="btn btn-sm" style="margin-left:15px;color:#000; background:rgba(0,0,0,.1);"><strong>DELETE EVERYTHING</strong></button>' +
+                                '</div>',
+                                buttons: [
+                                    ['<button>SHOW</button>', function (instance, toast) {
+                                        $('#references').slideToggle();
+                                        $('#deleteEverythingButton').on('click', function () {
+                                            instance.hide(toast, { transitionOut: 'fadeOut' }, 'button');
+                                            table.deleteRow(pk, $('#deleteCheck').prop("checked"));
+                                        });
+                                    }, true],
+                                    ['<button><strong>NO</strong></button>', function (instance, toast) {
+
+                                        instance.hide(toast, { transitionOut: 'fadeOut' }, 'button');
+
+                                    }]
+                                ]
+                            });
+                        }
                     }
                 });
             },
@@ -146,7 +197,7 @@
                         type: 'POST',
                         url: '/delete',
                         cache: false,
-                        data: $.param({page: this.page, primary_k: pk}),
+                        data: $.param({method:'delete', page: this.page, primary_k: pk}),
                         success: function () {
                             console.log(' ' + pk);
                             getData(); // reload table after deletion

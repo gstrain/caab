@@ -31,12 +31,12 @@ public class Actor extends GenericEntity implements Serializable {
     @Fetch(FetchMode.JOIN)
     private Address address;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "actor")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "actor", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<Log> logs;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "actor")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "actor", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<HouseContribution> contributions;

@@ -16,12 +16,12 @@ public class Family extends GenericEntity implements Serializable {
     private double equity_hrs;
     private double income;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="milestone_id")
     @Fetch(FetchMode.JOIN)
     private Milestone milestone;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="class_id")
     @Fetch(FetchMode.JOIN)
     private Class classType;
@@ -31,7 +31,7 @@ public class Family extends GenericEntity implements Serializable {
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<Person> people;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "family")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "family", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<Log> logs;
@@ -119,5 +119,13 @@ public class Family extends GenericEntity implements Serializable {
             default:
                 return "invalid property specifier";
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Family: " +
+                equity_hrs + " " +
+                income + " " +
+                milestone;
     }
 }

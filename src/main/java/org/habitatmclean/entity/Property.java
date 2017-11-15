@@ -1,5 +1,6 @@
 package org.habitatmclean.entity;
 
+import org.habitatmclean.hibernate.Functions;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -20,17 +21,17 @@ public class Property extends GenericEntity implements Serializable {
     private double taxes;
     private String notes;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="pstatus_id")
     @Fetch(FetchMode.JOIN)
     private PropertyStatus property_status;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="zone_id")
     @Fetch(FetchMode.JOIN)
     private Zone zone;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="owner_id")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
     @Fetch(FetchMode.JOIN)
@@ -42,12 +43,12 @@ public class Property extends GenericEntity implements Serializable {
     @Fetch(FetchMode.JOIN)
     private Address address;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "property")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "property", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<Log> logs;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "property")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "property", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<House> houses;
@@ -186,5 +187,14 @@ public class Property extends GenericEntity implements Serializable {
             default:
                 return "invalid property specifier";
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Property: " +
+                "Property #" + id + Functions.NEWLINE_TAB +
+                "taxes: " + String.format("$%.2f", taxes) +
+                ", zone: " + zone.getZone_info() + Functions.NEWLINE_TAB +
+                address.toString();
     }
 }

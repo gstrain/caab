@@ -39,9 +39,9 @@
             type: 'GET',
             url: url,
             cache: false,
-            success: function (data) {
+            success: function (response) {
                 console.log('success');
-                $('#tableContent').append(data);
+                $('#tableContent').append(response);
                 new Table($('.table'))
             }
         });

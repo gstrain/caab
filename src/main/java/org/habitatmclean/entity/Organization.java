@@ -66,4 +66,9 @@ public class Organization extends Actor implements Serializable {
                 return "invalid property specifier";
         }
     }
+
+    @Override
+    public String toString() {
+        return "Organization: " + name;
+    }
 }

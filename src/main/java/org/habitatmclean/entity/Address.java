@@ -165,4 +165,15 @@ public class Address extends GenericEntity implements Serializable { // to be se
                 return "invalid property specifier";
         }
     }
+
+    @Override
+    public String toString() {
+        return "Address: " +
+                "Apartment " + apartment_no + " - " +
+                number + " " +
+                street + " - " +
+                city + ", " +
+                state.toUpperCase() + " " +
+                zipcode;
+    }
 }
