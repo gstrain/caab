@@ -30,7 +30,7 @@ public class Person extends Actor implements Serializable {
     @Fetch(FetchMode.JOIN)
     private Family family;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contact")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contact", cascade = javax.persistence.CascadeType.REMOVE, orphanRemoval = true)
     @Fetch(FetchMode.SUBSELECT)
     @SortNatural
     private SortedSet<Organization> organizations;

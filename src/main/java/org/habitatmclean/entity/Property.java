@@ -43,12 +43,12 @@ public class Property extends GenericEntity implements Serializable {
     @Fetch(FetchMode.JOIN)
     private Address address;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "property")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "property", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<Log> logs;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "property")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "property", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<House> houses;

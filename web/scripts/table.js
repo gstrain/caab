@@ -133,7 +133,7 @@
                                         instance.hide(toast, { transitionOut: 'fadeOut' }, 'button');
                                         table.deleteRow(pk, $('#deleteCheck').prop("checked"));
                                     }, true],
-                                    ['<button id="no">NO</button>', function (instance, toast) {
+                                    ['<button>NO</button>', function (instance, toast) {
 
                                         instance.hide(toast, { transitionOut: 'fadeOut' }, 'button');
 
@@ -148,26 +148,41 @@
                             });
                         }
                         else {
-                            var message = 'The following table entries reference this row:<br/>';
+                            var references = '';
                             for(var i=1; i < arr.length; i++)
-                                message += arr[i] + '<br/>';
+                                references += arr[i] + '<br/>';
+                            var open = false;
+
                             iziToast.show({
                                 close: false,
                                 overlay: true,
                                 id: 'deleteErrorDialogue',
                                 color: 'red',
-                                layout: 2,
+                                timeout: 8000,
                                 drag: false,
                                 resetOnHover:true,
-                                title: 'Cannot Delete Row',
-                                icon: 'fa fa-exclamation',
-                                message: message,
+                                title: 'TABLE REFERENCES FOUND',
                                 position: 'center',
+                                icon: 'fa fa-exclamation',
+                                message: 'The following table entries reference this row <strong> and WILL ALSO BE DELETED</strong> if this record is removed!<br/><br/>' +
+                                    // text section with references
+                                '<div id="references" style="display:none;">' + references +
+                                    '<input type="checkbox" class="" id="deleteCheck"><label for="deleteCheck">&nbsp;&nbsp;&nbsp;I understand</label>' +
+                                    '<button id="deleteEverythingButton" class="btn btn-sm" style="margin-left:15px;color:#000; background:rgba(0,0,0,.1);"><strong>DELETE EVERYTHING</strong></button>' +
+                                '</div>',
                                 buttons: [
-                                    ['<button><strong>OK</strong></button>', function (instance, toast) {
+                                    ['<button>SHOW</button>', function (instance, toast) {
+                                        $('#references').slideToggle();
+                                        $('#deleteEverythingButton').on('click', function () {
+                                            instance.hide(toast, { transitionOut: 'fadeOut' }, 'button');
+                                            table.deleteRow(pk, $('#deleteCheck').prop("checked"));
+                                        });
+                                    }, true],
+                                    ['<button><strong>NO</strong></button>', function (instance, toast) {
 
                                         instance.hide(toast, { transitionOut: 'fadeOut' }, 'button');
-                                    }, true]
+
+                                    }]
                                 ]
                             });
                         }

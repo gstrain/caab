@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `actor` (
   `actor_id` int(9) NOT NULL,
   `address_id` int(9) NOT NULL,
-  `relation_id` int(9) NOT NULL,
+  `relation_id` int(9) DEFAULT NULL,
   `actor_type` enum('P','O') NOT NULL COMMENT 'P = person, O = Organization'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -53,12 +53,12 @@ INSERT INTO `actor` (`actor_id`, `address_id`, `relation_id`, `actor_type`) VALU
 
 CREATE TABLE `address` (
   `address_id` int(9) NOT NULL,
-  `street` varchar(120) DEFAULT NULL,
-  `number` varchar(10) DEFAULT NULL,
-  `apartment_no` varchar(6) DEFAULT NULL,
-  `city` varchar(120) DEFAULT NULL,
-  `state` varchar(20) DEFAULT NULL,
-  `zipcode` varchar(9) DEFAULT NULL
+  `street` varchar(120) DEFAULT '',
+  `number` varchar(10) DEFAULT '',
+  `apartment_no` varchar(6) DEFAULT '',
+  `city` varchar(120) NOT NULL,
+  `state` varchar(20) NOT NULL,
+  `zipcode` varchar(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -66,11 +66,11 @@ CREATE TABLE `address` (
 --
 
 INSERT INTO `address` (`address_id`, `street`, `number`, `apartment_no`, `city`, `state`, `zipcode`) VALUES
-(1, 'County rd 1300 N', '1443', NULL, 'roanoke', 'illinois', '61561'),
+(1, 'County rd 1300 N', '1443', '', 'roanoke', 'illinois', '61561'),
 (2, 'crossings drive', '124', '4', 'normal', 'il', '61760'),
-(3, 'candy lane', '12', 'b', 'London', NULL, NULL),
-(4, 'empty lot street', '', '', 'hiroshima', NULL, NULL),
-(5, 'candy lane', '', '', 'London', '', NULL);
+(3, 'candy lane', '12', 'b', 'London', 'MO', '23485'),
+(4, 'empty lot street', '', '', 'hiroshima', 'AR', '96248'),
+(5, 'candy lane', '', '', 'London', 'Maine', '00210');
 
 -- --------------------------------------------------------
 
@@ -128,8 +128,8 @@ INSERT INTO `construction_status` (`cstatus_id`, `cstatus`, `cstatus_description
 
 CREATE TABLE `family` (
   `family_id` int(9) NOT NULL,
-  `class_id` int(9) NOT NULL,
-  `milestone_id` int(9) NOT NULL,
+  `class_id` int(9) DEFAULT NULL,
+  `milestone_id` int(9) DEFAULT NULL,
   `equity_hrs` double NOT NULL,
   `income` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -139,7 +139,8 @@ CREATE TABLE `family` (
 --
 
 INSERT INTO `family` (`family_id`, `class_id`, `milestone_id`, `equity_hrs`, `income`) VALUES
-(1, 4, 2, 10, 26000);
+(1, 4, 2, 10, 26000),
+(2, 2, 3, 43, 12000);
 
 -- --------------------------------------------------------
 
@@ -156,8 +157,8 @@ CREATE TABLE `house` (
   `size` int(30) NOT NULL,
   `bedrooms` int(2) NOT NULL,
   `bathrooms` double NOT NULL,
-  `cstatus_id` int(9) NOT NULL,
-  `house_style` int(9) NOT NULL
+  `cstatus_id` int(9) DEFAULT NULL,
+  `house_style` int(9) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -177,7 +178,7 @@ CREATE TABLE `house_contribution` (
   `contribution_id` int(9) NOT NULL,
   `actor_id` int(9) NOT NULL,
   `house_id` int(9) NOT NULL,
-  `involvement_desc` varchar(120) DEFAULT NULL
+  `involvement_desc` varchar(120) DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -185,9 +186,9 @@ CREATE TABLE `house_contribution` (
 --
 
 INSERT INTO `house_contribution` (`contribution_id`, `actor_id`, `house_id`, `involvement_desc`) VALUES
-(1, 1, 1, NULL),
-(2, 2, 1, NULL),
-(3, 2, 2, NULL);
+(1, 1, 1, ''),
+(2, 2, 1, ''),
+(3, 2, 2, '');
 
 -- --------------------------------------------------------
 
@@ -198,7 +199,7 @@ INSERT INTO `house_contribution` (`contribution_id`, `actor_id`, `house_id`, `in
 CREATE TABLE `house_style` (
   `style_id` int(9) NOT NULL,
   `style` varchar(120) NOT NULL,
-  `style_desc` text
+  `style_desc` text DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -206,13 +207,13 @@ CREATE TABLE `house_style` (
 --
 
 INSERT INTO `house_style` (`style_id`, `style`, `style_desc`) VALUES
-(1, 'apartment', NULL),
-(2, 'duplex', NULL),
-(3, 'split level', NULL),
-(4, 'ranch', NULL),
-(5, 'mansion', NULL),
-(6, 'town house', NULL),
-(7, 'bungalo', NULL);
+(1, 'apartment', ''),
+(2, 'duplex', ''),
+(3, 'split level', ''),
+(4, 'ranch', ''),
+(5, 'mansion', ''),
+(6, 'town house', ''),
+(7, 'bungalo', '');
 
 -- --------------------------------------------------------
 
@@ -228,7 +229,7 @@ CREATE TABLE `log` (
   `property_id` int(9) DEFAULT NULL,
   `reason` varchar(120) NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `notes` text,
+  `notes` text DEFAULT '',
   `status` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -291,12 +292,12 @@ CREATE TABLE `person` (
   `person_id` int(9) NOT NULL,
   `family_id` int(9) DEFAULT NULL,
   `first` varchar(20) NOT NULL,
-  `middle` varchar(20) DEFAULT NULL,
+  `middle` varchar(20) DEFAULT '',
   `last` varchar(20) NOT NULL,
   `email` varchar(120) NOT NULL,
-  `home_phone` varchar(20) DEFAULT NULL,
-  `cell_phone` varchar(20) DEFAULT NULL,
-  `work_phone` varchar(20) DEFAULT NULL
+  `home_phone` varchar(20) DEFAULT '',
+  `cell_phone` varchar(20) DEFAULT '',
+  `work_phone` varchar(20) DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -304,10 +305,10 @@ CREATE TABLE `person` (
 --
 
 INSERT INTO `person` (`person_id`, `family_id`, `first`, `middle`, `last`, `email`, `home_phone`, `cell_phone`, `work_phone`) VALUES
-(1, NULL, 'Andrew', 'John', 'Fehr', 'ajfehr@ilstu.edu', '309-229-6771', NULL, NULL),
-(2, 1, 'Abe', NULL, 'Ramseyer', 'aramsey@ilstu.edu', NULL, NULL, NULL),
-(5, 2, 'Harry', 'and', 'Griffen', 'whatupwhatup@boo.com', NULL, '123-456-1223', NULL),
-(6, 1, 'Abe\'s', 'illegitimate', 'child', 'tuttut@gmail.com', NULL, NULL, NULL);
+(1, NULL, 'Andrew', 'John', 'Fehr', 'ajfehr@ilstu.edu', '309-229-6771', '', ''),
+(2, 1, 'Abe', '', 'Ramseyer', 'aramsey@ilstu.edu', '', '', ''),
+(5, 2, 'Harry', 'and', 'Griffen', 'whatupwhatup@boo.com', '', '123-456-1223', ''),
+(6, 1, 'Abe\'s', 'illegitimate', 'child', 'tuttut@gmail.com', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -318,13 +319,13 @@ INSERT INTO `person` (`person_id`, `family_id`, `first`, `middle`, `last`, `emai
 CREATE TABLE `property` (
   `property_no` int(9) NOT NULL,
   `address_id` int(9) NOT NULL,
-  `zone_id` int(9) NOT NULL,
-  `owner_id` int(9) NOT NULL COMMENT 'actor_id ',
-  `pstatus_id` int(9) NOT NULL DEFAULT '1',
+  `zone_id` int(9) DEFAULT NULL,
+  `owner_id` int(9)  DEFAULT NULL COMMENT 'actor_id ',
+  `pstatus_id` int(9) DEFAULT '1',
   `appraised_value` double DEFAULT NULL,
   `appraised_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `taxes` double DEFAULT NULL,
-  `notes` text
+  `notes` text DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -332,8 +333,8 @@ CREATE TABLE `property` (
 --
 
 INSERT INTO `property` (`property_no`, `address_id`, `zone_id`, `owner_id`, `pstatus_id`, `appraised_value`, `appraised_date`, `taxes`, `notes`) VALUES
-(1, 5, 1, 2, 2, 423000, '2017-10-12 19:15:27', 80000, NULL),
-(2, 4, 2, 4, 1, 46000.3, '2017-10-12 19:15:27', 12000, NULL);
+(1, 5, 1, 2, 2, 423000, '2017-10-12 19:15:27', 80000, ''),
+(2, 4, 2, 4, 1, 46000.3, '2017-10-12 19:15:27', 12000, '');
 
 -- --------------------------------------------------------
 
@@ -344,7 +345,7 @@ INSERT INTO `property` (`property_no`, `address_id`, `zone_id`, `owner_id`, `pst
 CREATE TABLE `property_status` (
   `pstatus_id` int(9) NOT NULL,
   `pstatus` varchar(120) NOT NULL,
-  `pstatus_desc` text
+  `pstatus_desc` text DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
@@ -352,9 +353,9 @@ CREATE TABLE `property_status` (
 --
 
 INSERT INTO `property_status` (`pstatus_id`, `pstatus`, `pstatus_desc`) VALUES
-(1, 'vacant', NULL),
-(2, 'filled', NULL),
-(3, 'processing', NULL);
+(1, 'vacant', ''),
+(2, 'filled', ''),
+(3, 'processing', '');
 
 -- --------------------------------------------------------
 
@@ -365,7 +366,7 @@ INSERT INTO `property_status` (`pstatus_id`, `pstatus`, `pstatus_desc`) VALUES
 CREATE TABLE `relation_type` (
   `relation_id` int(9) NOT NULL,
   `relation_name` varchar(120) NOT NULL,
-  `relation_desc` text
+  `relation_desc` text DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
@@ -373,11 +374,11 @@ CREATE TABLE `relation_type` (
 --
 
 INSERT INTO `relation_type` (`relation_id`, `relation_name`, `relation_desc`) VALUES
-(1, 'tennant', NULL),
-(2, 'private property owner', NULL),
-(3, 'vendor', NULL),
-(4, 'orginization', NULL),
-(5, 'volunteer', NULL);
+(1, 'tennant', ''),
+(2, 'private property owner', ''),
+(3, 'vendor', ''),
+(4, 'orginization', ''),
+(5, 'volunteer', '');
 
 -- --------------------------------------------------------
 
@@ -388,7 +389,7 @@ INSERT INTO `relation_type` (`relation_id`, `relation_name`, `relation_desc`) VA
 CREATE TABLE `zone` (
   `zone_id` int(9) NOT NULL,
   `zone_info` varchar(120) DEFAULT 'none',
-  `zone_desc` text
+  `zone_desc` text DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -396,9 +397,9 @@ CREATE TABLE `zone` (
 --
 
 INSERT INTO `zone` (`zone_id`, `zone_info`, `zone_desc`) VALUES
-(1, 'first zone', NULL),
-(2, 'second zone', NULL),
-(3, 'danger zone', NULL);
+(1, 'first zone', ''),
+(2, 'second zone', ''),
+(3, 'danger zone', '');
 
 --
 -- Indexes for dumped tables

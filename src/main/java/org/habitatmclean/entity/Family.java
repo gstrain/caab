@@ -31,7 +31,7 @@ public class Family extends GenericEntity implements Serializable {
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<Person> people;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "family")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "family", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<Log> logs;
