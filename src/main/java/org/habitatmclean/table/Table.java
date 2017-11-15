@@ -102,39 +102,15 @@ public abstract class Table {
     public String toString() {
         StringBuilder table = new StringBuilder();
 
-//        table.append(REPORT_BUTTON);
-//        table.append(SEARCH_FORM_BEGIN);
-//        for(int i=0; i< HEADERS.length; i++) {
-//            table.append(SEARCH_BOX);
-//        }
-//        table.append(SEARCH_FORM_END);
-//        table.append(ADD_BUTTON);
         table.append("<span style='font-size:30px;cursor:pointer' onclick='openNav()'>&#9776; open</span>");
         table.append("<div id=\"drawer\" class=\"sidenav\"> <!-- The drawer -->" +
-                "        <a href=\"javascript:void(0)\" class=\"closebtn\" onclick=\"closeNav()\">&times;</a>" +
-                "        <button id=\"addButton\" type=\"button\" class=\"btn btn-success btn-lg btn-add d-print-none\">Add</button>" +
-                "        <form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
-                "<input type='search' class='form-control mr-sm-2' placeholder=\"search\"" +
-                "'>\n </input>\n" +
-                "                        </form>\n" +
-                "        <form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
-                "<input type='search' class='form-control mr-sm-2' placeholder=\"search\"" +
-                "'>\n </input>\n" +
-                        "                        </form>\n" +
-                "        <form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
-                "<input type='search' class='form-control mr-sm-2' placeholder=\"search\"" +
-                "'>\n </input>\n" +
-                "                        </form>\n" +
-                "        <form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
-                "<input type='search' class='form-control mr-sm-2' placeholder=\"search\"" +
-                "'>\n </input>\n" +
-                "                        </form>\n" +
-                "        <form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
-                "<input type='search' class='form-control mr-sm-2' placeholder=\"search\"" +
-                "'>\n </input>\n" +
-                "                        </form>\n" +
-                "<button id=\"reportButton\" type=\"button\" class=\"btn btn-info btn-lg btn-report d-print-none\">Generate Report</button>" +
-                "    </div>");
+                "        <a href=\"javascript:void(0)\" class=\"closebtn\" onclick=\"closeNav()\">&times;</a>");
+        table.append(ADD_BUTTON);
+//        for (int i = 0; i < HEADERS.length; i++) {
+            table.append("<form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
+            "<input type='search' id=\"search\" onkeyup=\"myFunction()\" class='form-control mr-sm-2' data-table=\"order-table\" placeholder=\"filter\">\n </input>\n");
+//        }
+        table.append(REPORT_BUTTON + "</div>");
         table.append(TABLE_BEGIN);
         table.append(headers);
         for(TableRow row : rows) {
@@ -250,13 +226,6 @@ public abstract class Table {
             }
 
             static class HeaderCell extends TableCell {
-//                "<th><form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
-//                "<input type='search' class='form-control mr-sm-2' placeholder='" +
-//                "'>\n" +
-//                        "                        <span class='fa fa-search search-button'></span>\n" +
-//                        "                        </input>\n" +
-//                        "                        </form>\n" +
-//                        "                        </th>";
                 private final String HEAD = "<th>";
                 private final String END = "</th>";
 
@@ -266,12 +235,9 @@ public abstract class Table {
 
                 public String toString() {
                     StringBuilder header = new StringBuilder();
-//                    header.append(SEARCH_FORM_BEGIN);
-//                    header.append(SEARCH_BOX);
                     header.append(HEAD);
                     header.append(value);
                     header.append(END);
-//                    header.append(SEARCH_FORM_END);
                     return header.toString();
                 }
             }
