@@ -110,17 +110,30 @@ public abstract class Table {
 //        table.append(SEARCH_FORM_END);
 //        table.append(ADD_BUTTON);
         table.append("<span style='font-size:30px;cursor:pointer' onclick='openNav()'>&#9776; open</span>");
-        table.append("<div id='drawer' class='sidenav'> <!-- The drawer -->\n" +
-                "        <a href='javascript:void(0)' class='closebtn' onclick='closeNav()'>&times;</a>\n" +
-                "        <button id='addButton' type='button' class='btn btn-success btn-lg btn-add d-print-none'>Add</button>'>" +
-                "        <button id='reportButton' type='button' class='btn btn-info` btn-lg btn-report d-print-none'>Generate Report</button>" +
-                "        '<form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'> '\n" +
-                "        + '<input type='search' class='form-control mr-sm-2' placeholder=''\n" +
-                "        + ''>\\n' +\n" +
-                "                '                        <span class='fa fa-search search-button'></span>\n' +\n" +
-                "                '                        </input>\n' +\n" +
-                "                '                        </form>\n'" +
-                "        <a href='tel:9284999833'>Contact</a>\n" +
+        table.append("<div id=\"drawer\" class=\"sidenav\"> <!-- The drawer -->" +
+                "        <a href=\"javascript:void(0)\" class=\"closebtn\" onclick=\"closeNav()\">&times;</a>" +
+                "        <button id=\"addButton\" type=\"button\" class=\"btn btn-success btn-lg btn-add d-print-none\">Add</button>" +
+                "        <form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
+                "<input type='search' class='form-control mr-sm-2' placeholder=\"search\"" +
+                "'>\n </input>\n" +
+                "                        </form>\n" +
+                "        <form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
+                "<input type='search' class='form-control mr-sm-2' placeholder=\"search\"" +
+                "'>\n </input>\n" +
+                        "                        </form>\n" +
+                "        <form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
+                "<input type='search' class='form-control mr-sm-2' placeholder=\"search\"" +
+                "'>\n </input>\n" +
+                "                        </form>\n" +
+                "        <form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
+                "<input type='search' class='form-control mr-sm-2' placeholder=\"search\"" +
+                "'>\n </input>\n" +
+                "                        </form>\n" +
+                "        <form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
+                "<input type='search' class='form-control mr-sm-2' placeholder=\"search\"" +
+                "'>\n </input>\n" +
+                "                        </form>\n" +
+                "<button id=\"reportButton\" type=\"button\" class=\"btn btn-info btn-lg btn-report d-print-none\">Generate Report</button>" +
                 "    </div>");
         table.append(TABLE_BEGIN);
         table.append(headers);
@@ -237,9 +250,9 @@ public abstract class Table {
             }
 
             static class HeaderCell extends TableCell {
-//                private final String SEARCH_FORM_BEGIN = "<th><form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n";
-//                private final String SEARCH_BOX = "<input type='search' class='form-control mr-sm-2' placeholder='";
-//                private final String SEARCH_FORM_END = "'>\n" +
+//                "<th><form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
+//                "<input type='search' class='form-control mr-sm-2' placeholder='" +
+//                "'>\n" +
 //                        "                        <span class='fa fa-search search-button'></span>\n" +
 //                        "                        </input>\n" +
 //                        "                        </form>\n" +
