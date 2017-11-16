@@ -1,16 +1,21 @@
+/*!* the search icon within each box *!*/
+/*.search-button*/
+/*{*/
+    /*display: inline-block;*/
+    /*width: 16px;*/
+    /*height: 16px;*/
+    /*position: relative;*/
+    /*left: -32px;*/
+    /*color: rgba(0, 0, 0, 0.33);*/
+    /*display: none;*/
+/*}*/
+
+/* each search box */
 .searchForm {
     display:inline;
-    width: 150%;
 }
-form.filter-box input.form-control { /* The drawer search bar */
-    /*max-width:80%;*/
-    width: 80%;
-    height: 45px;
-    font-size: 20px;
-    margin-top: 30px;
-    margin-left: 20px;
-    padding: 3px 0px;
-    /*margin: 10px;*/
+form.filter-box input.form-control {
+    max-width:100%;
 }
 
 /*Change text in autofill textbox
@@ -34,7 +39,6 @@ input:-webkit-autofill {
     margin-left: auto;
     margin-right: auto;
     overflow-x: scroll;
-    overflow-y: scroll;
     table-layout: fixed;
     -ms-word-wrap: break-word;
     word-wrap: break-word;
@@ -49,23 +53,10 @@ td {
     padding: .5rem !important;
 }
 #reportButton {
-    /*margin: 10px;*/
-    margin-top: 30px;
-    margin-left: 20px;
-    width: 80%;
-    /*text-align: left;*/
-    display:block;
-    float: left;
-    padding-right: 40px;
+    float:right;
 }
-#addButton {
-    margin-top: 70px;
-    margin-left: 20px;
-    /*margin-right: 4px;*/
-    /*margin: 10px;*/
-    width: 80%;
-    display:block;
-    float: left;
+#addButton, #reportButton {
+    margin: 10px;
 }
 .btn-delete, .btn-edit{
     margin: 2px;
@@ -73,6 +64,9 @@ td {
 .btn-log {
     margin: 5px;
     cursor: default;
+}
+#dropdown_button {
+    margin: 5px;
 }
 #reportHeader {
     display:inline-block;
@@ -83,12 +77,6 @@ td {
     display:inline;
     float:right;
 }
-
-#searchBar{
-    margin-top: 50px;
- width: 90%;
-}
-
 @media print {
     #tableContent {
         margin-top:100px; /* Originally 40px */
