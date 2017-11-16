@@ -38,12 +38,12 @@ CREATE TABLE `actor` (
 --
 
 INSERT INTO `actor` (`actor_id`, `address_id`, `relation_id`, `actor_type`) VALUES
-(1, 2, 1, 'P'),
-(2, 3, 2, 'P'),
-(3, 2, 3, 'O'),
-(4, 3, 4, 'O'),
-(5, 1, 5, 'P'),
-(6, 3, 2, 'P');
+(1, 1, 1, 'P'),
+(2, 2, 2, 'P'),
+(3, 3, 3, 'O'),
+(4, 4, 4, 'O'),
+(5, 5, 5, 'P'),
+(6, 6, 2, 'P');
 
 -- --------------------------------------------------------
 
@@ -70,7 +70,11 @@ INSERT INTO `address` (`address_id`, `street`, `number`, `apartment_no`, `city`,
 (2, 'crossings drive', '124', '4', 'normal', 'il', '61760'),
 (3, 'candy lane', '12', 'b', 'London', 'MO', '23485'),
 (4, 'empty lot street', '', '', 'hiroshima', 'AR', '96248'),
-(5, 'candy lane', '', '', 'London', 'Maine', '00210');
+(5, 'candy lane', '', '', 'London', 'Maine', '00210'),
+(6, 'another empty lot', '54', '2', 'New York City', 'NY', '94854'),
+(7, 'this one is full', '65', '6', 'Phillidalphia', 'WA', '45321'),
+(8, 'qwert lane', '6328', '', 'Memphis', 'NJ', '30421'),
+(9, 'aoeu dr', '049', '', 'here', 'FA', '09200');
 
 -- --------------------------------------------------------
 
@@ -166,7 +170,7 @@ CREATE TABLE `house` (
 --
 
 INSERT INTO `house` (`house_id`, `address_id`, `property_id`, `family_id`, `construction_cost`, `size`, `bedrooms`, `bathrooms`, `cstatus_id`, `house_style`) VALUES
-(1, 3, 1, 1, 1200000, 23000, 12, 4, 6, 1);
+(1, 7, 1, 1, 1200000, 23000, 12, 4, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -333,8 +337,8 @@ CREATE TABLE `property` (
 --
 
 INSERT INTO `property` (`property_no`, `address_id`, `zone_id`, `owner_id`, `pstatus_id`, `appraised_value`, `appraised_date`, `taxes`, `notes`) VALUES
-(1, 5, 1, 2, 2, 423000, '2017-10-12 19:15:27', 80000, ''),
-(2, 4, 2, 4, 1, 46000.3, '2017-10-12 19:15:27', 12000, '');
+(1, 8, 1, 2, 2, 423000, '2017-10-12 19:15:27', 80000, ''),
+(2, 9, 2, 4, 1, 46000.3, '2017-10-12 19:15:27', 12000, '');
 
 -- --------------------------------------------------------
 

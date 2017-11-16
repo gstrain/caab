@@ -26,7 +26,7 @@ public class VendorTable extends Table {
     public void recordAdd(HttpServletRequest request){
     }
 
-    static class VendorModal extends Modal{
+    static class VendorModal extends Modal {
         public VendorModal(){
             super("Vendor");
         }

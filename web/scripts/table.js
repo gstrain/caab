@@ -166,7 +166,7 @@
                                 icon: 'fa fa-exclamation',
                                 message: 'The following table entries reference this row <strong> and WILL ALSO BE DELETED</strong> if this record is removed!<br/><br/>' +
                                     // text section with references
-                                '<div id="references" style="display:none;">' + references +
+                                '<div id="references">' + references +
                                     '<input type="checkbox" class="" id="deleteCheck"><label for="deleteCheck">&nbsp;&nbsp;&nbsp;I understand</label>' +
                                     '<button id="deleteEverythingButton" class="btn btn-sm" style="margin-left:15px;color:#000; background:rgba(0,0,0,.1);"><strong>DELETE EVERYTHING</strong></button>' +
                                 '</div>',

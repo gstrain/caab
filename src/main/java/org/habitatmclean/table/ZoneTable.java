@@ -26,7 +26,7 @@ public class ZoneTable extends Table {
     public void recordAdd(HttpServletRequest request){
     }
 
-    static class ZoneModal extends Modal{
+    static class ZoneModal extends Modal {
         public ZoneModal(){
             super("Zone");
         }

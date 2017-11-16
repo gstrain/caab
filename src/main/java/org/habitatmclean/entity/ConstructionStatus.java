@@ -65,8 +65,15 @@ public class ConstructionStatus extends GenericEntity implements Serializable {
                 return "" + getCstatus();
             case "cstatus_description":
                 return "" + getCstatus_description();
+            case "this":
+                return this.toString();
             default:
                 return "invalid property specifier";
         }
+    }
+
+    @Override
+    public String toString() {
+        return cstatus + ": " + cstatus_description;
     }
 }

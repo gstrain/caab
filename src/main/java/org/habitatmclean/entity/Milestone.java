@@ -74,4 +74,9 @@ public class Milestone extends GenericEntity implements Serializable {
                 return "invalid property specifier";
         }
     }
+
+    @Override
+    public String toString() {
+        return milestone;
+    }
 }

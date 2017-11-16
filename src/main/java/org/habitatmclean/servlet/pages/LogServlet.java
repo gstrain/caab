@@ -1,4 +1,4 @@
-package org.habitatmclean.servlet;
+package org.habitatmclean.servlet.pages;
 
 import org.habitatmclean.dao.ReadDAO;
 import org.habitatmclean.hibernate.HibernateAdapter;

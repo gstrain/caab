@@ -72,7 +72,7 @@ td {
     margin: 2px;
 }
 .btn-log {
-    margin: 5px;
+    margin: 2px;
     cursor: default;
 }
 #reportHeader {
@@ -100,4 +100,29 @@ td {
     #table {
         margin: 10px;
     }
+}
+
+/* izitoast expanded section*/
+#references {
+    display:none;
+    overflow-y:auto;
+    max-height:50vh;
+}
+/* scrollbar styling inside the izi toasts*/
+#references::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: rgba(245, 245, 245,0.4);
+}
+#references::-webkit-scrollbar
+{
+    width: 6px;
+    background-color: #F5F5F5;
+}
+#references::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
 }

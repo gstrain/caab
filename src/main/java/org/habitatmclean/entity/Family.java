@@ -116,6 +116,8 @@ public class Family extends GenericEntity implements Serializable {
                 return "" + getEquity_hrs();
             case "income":
                 return "" + getIncome();
+            case "this":
+                return this.toString();
             default:
                 return "invalid property specifier";
         }
@@ -123,9 +125,10 @@ public class Family extends GenericEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "Family: " +
-                equity_hrs + " " +
-                income + " " +
+        return "Family: #" +
+                id + ", " +
+                equity_hrs + " equity hrs, " +
+                String.format("$%.2f", income) + " income, " +
                 milestone;
     }
 }

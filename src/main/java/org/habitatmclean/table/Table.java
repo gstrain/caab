@@ -210,7 +210,7 @@ public abstract class Table {
             }
 
             void setValue(String value) {
-                if(value == null || value.equals("null") || value.equals(""))
+                if(value == null || value.equals("null"))
                     this.value = "<div class='text-muted'>value not set</div>";
                 else
                     this.value = value;

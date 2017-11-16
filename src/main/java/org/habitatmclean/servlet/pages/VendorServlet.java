@@ -1,4 +1,4 @@
-package org.habitatmclean.servlet;
+package org.habitatmclean.servlet.pages;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.SortedSet;
 
-@WebServlet(name = "HouseServlet", value="/house-servlet")
-public class HouseServlet extends HttpServlet {
+@WebServlet(name = "VendorServlet", value="/vendor-servlet")
+public class VendorServlet extends HttpServlet {
     private static Gson gson = new GsonBuilder().setPrettyPrinting()
             .create();
 
@@ -29,19 +29,18 @@ public class HouseServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        ReadDAO dao = HibernateAdapter.getBoByEntityName("House");
+        ReadDAO dao = HibernateAdapter.getBoByEntityName("Organization");
         sessionFactory.getCurrentSession().beginTransaction();
         SortedSet persons = dao.findAll();
         Table table = null;
         try {
-            table = TableFactory.getTable("house");
+            table = TableFactory.getTable("vendor");
         } catch (TableTypeNotFoundException e) {
             e.printStackTrace();
         }
         table.addData(persons);
         response.getWriter().println(table);
         sessionFactory.getCurrentSession().getTransaction().commit();
-
     }
 
 }

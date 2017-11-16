@@ -70,6 +70,8 @@ public class HouseStyle extends GenericEntity implements Serializable {
                 return "" + getStyle();
             case "style_desc":
                 return "" + getStyle_desc();
+            case "this":
+                return this.toString();
             default:
                 return "invalid property specifier";
         }

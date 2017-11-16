@@ -168,8 +168,11 @@ public class Address extends GenericEntity implements Serializable { // to be se
 
     @Override
     public String toString() {
+        String apartment = "";
+        if(!apartment_no.equals("") && !(apartment_no == null))
+            apartment = "Apartment " + apartment_no + " - ";
         return "Address: " +
-                "Apartment " + apartment_no + " - " +
+                apartment +
                 number + " " +
                 street + " - " +
                 city + ", " +

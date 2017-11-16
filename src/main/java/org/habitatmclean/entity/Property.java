@@ -168,14 +168,14 @@ public class Property extends GenericEntity implements Serializable {
         switch(property) {
             case "property_no":
                 return "" + getId();
-            case "address_id":
-                return "" + getAddress().getId();
-            case "zone_id":
-                return "" + getZone().getId();
-            case "owner_id":
-                return "" + getOwner().getId();
-            case "property_status":
-                return "" + getProperty_status().getId();
+            case "address":
+                return "" + getAddress();
+            case "zone":
+                return "" + getZone();
+            case "owner":
+                return "" + getOwner();
+            case "property":
+                return "" + getProperty_status();
             case "appraised_value":
                 return "" + getAppraised_value();
             case "appraised_date":
