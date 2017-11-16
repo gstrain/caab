@@ -1,6 +1,10 @@
 package org.habitatmclean.table;
+import org.habitatmclean.dao.GenericDao;
 import org.habitatmclean.entity.GenericEntity;
 import org.habitatmclean.entity.Log;
+import org.habitatmclean.hibernate.HibernateAdapter;
+import org.habitatmclean.hibernate.HibernateUtil;
+import org.hibernate.SessionFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -45,7 +49,18 @@ public class LogTable extends Table {
 
     @Override
     public void recordAdd(HttpServletRequest request) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        sessionFactory.getCurrentSession().beginTransaction();
 
+        Log log = new Log();
+        log.setReason(request.getParameter("reason"));
+//        log.setDate(request.getParameter("date"));
+        log.setNotes(request.getParameter("notes"));
+        log.setStatus(request.getParameter("status"));
+
+        GenericDao dao = new HibernateAdapter();
+        dao.save(log);
+        sessionFactory.getCurrentSession().getTransaction().commit();
     }
 
     static class LogModal extends Modal {
