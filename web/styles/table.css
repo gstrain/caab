@@ -28,14 +28,15 @@ input:-webkit-autofill {
     /*max-width:100%;*/
 /*}*/
 #table {
-    margin-top: 100px; /* Originally no margin. */
+    margin-top: 150px; /* Originally no margin. */
     margin-bottom: 20px;
     width: 93%;
-    margin-left: auto;
+    margin-left: 20px;
     margin-right: auto;
     overflow-x: scroll;
     overflow-y: scroll;
     table-layout: fixed;
+    float: left;
     -ms-word-wrap: break-word;
     word-wrap: break-word;
 }

@@ -42,6 +42,9 @@
 
 #open {
     position: relative;
+    display:block;
+    margin-top: 400px;
+    float:left;
     padding-top: 200px;
     padding-bottom: 0;
 }
