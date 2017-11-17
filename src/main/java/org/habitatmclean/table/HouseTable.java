@@ -37,6 +37,27 @@ public class HouseTable extends Table {
 
         House house = (House) HibernateAdapter.getBoByEntityName("House").findByPrimaryKey(new Long(id));
 
+        try {
+            house.setConstruction_cost(Double.parseDouble(request.getParameter("construction_cost").trim()));
+        } catch (NumberFormatException e) {
+            house.setConstruction_cost(0);
+        }
+        try {
+            house.setSize(Integer.parseInt(request.getParameter("size").trim()));
+        } catch (NumberFormatException e) {
+            house.setSize(0);
+        }
+        try {
+            house.setBedrooms(Integer.parseInt(request.getParameter("bedrooms").trim()));
+        } catch (NumberFormatException e) {
+            house.setSize(0);
+        }
+        try {
+            house.setBathrooms(Double.parseDouble(request.getParameter("bathrooms").trim()));
+        } catch (NumberFormatException e) {
+            house.setBathrooms(0);
+        }
+
         Address address = house.getHouseAddress();
         address.setApartment_no(request.getParameter("apartment_no"));
         address.setStreet(request.getParameter("street"));
@@ -45,15 +66,15 @@ public class HouseTable extends Table {
         address.setZipcode(request.getParameter("zipcode"));
 
         GenericDao dao = HibernateAdapter.getBoByEntityName("Property");
-        Property property = (Property) dao.findByPrimaryKey(new Long(request.getParameter("property")));
+        Property property = (Property) dao.findByPrimaryKey(new Long(request.getParameter("houseProperty")));
         house.setHouseProperty(property);
 
         dao = HibernateAdapter.getBoByEntityName("Family");
-        Family family = (Family) dao.findByPrimaryKey(new Long(request.getParameter("family")));
+        Family family = (Family) dao.findByPrimaryKey(new Long(request.getParameter("houseFamily")));
         house.setHouseFamily(family);
 
         dao = HibernateAdapter.getBoByEntityName("ConstructionStatus");
-        ConstructionStatus cs = (ConstructionStatus) dao.findByPrimaryKey(new Long(request.getParameter("construction_status")));
+        ConstructionStatus cs = (ConstructionStatus) dao.findByPrimaryKey(new Long(request.getParameter("houseConstructionStatus")));
         house.setHouseConstructionStatus(cs);
 
         dao = HibernateAdapter.getBoByEntityName("HouseStyle");
@@ -68,6 +89,27 @@ public class HouseTable extends Table {
         sessionFactory.getCurrentSession().beginTransaction();
 
         House house = new House();
+
+        try {
+            house.setConstruction_cost(Double.parseDouble(request.getParameter("construction_cost").trim()));
+        } catch (NumberFormatException e) {
+            house.setConstruction_cost(0);
+        }
+        try {
+            house.setSize(Integer.parseInt(request.getParameter("size").trim()));
+        } catch (NumberFormatException e) {
+            house.setSize(0);
+        }
+        try {
+            house.setBedrooms(Integer.parseInt(request.getParameter("bedrooms").trim()));
+        } catch (NumberFormatException e) {
+            house.setSize(0);
+        }
+        try {
+            house.setConstruction_cost(Double.parseDouble(request.getParameter("bathrooms").trim()));
+        } catch (NumberFormatException e) {
+            house.setBathrooms(0);
+        }
 
         Address address = new Address();
         address.setApartment_no(request.getParameter("apartment_no"));
@@ -86,7 +128,7 @@ public class HouseTable extends Table {
         house.setHouseFamily(family);
 
         dao = HibernateAdapter.getBoByEntityName("ConstructionStatus");
-        ConstructionStatus cs = (ConstructionStatus) dao.findByPrimaryKey(new Long(request.getParameter("construction_status")));
+        ConstructionStatus cs = (ConstructionStatus) dao.findByPrimaryKey(new Long(request.getParameter("houseConstructionStatus")));
         house.setHouseConstructionStatus(cs);
 
         dao = HibernateAdapter.getBoByEntityName("HouseStyle");
@@ -108,12 +150,12 @@ public class HouseTable extends Table {
             forms.add(Form.builder().setType("text").setName("size").setLabel("Square Ft").setMaxLength(30).build());
             forms.add(Form.builder().setType("text").setName("bedrooms").setLabel("Bedrooms").setMaxLength(2).build());
             forms.add(Form.builder().setType("text").setName("bathrooms").setLabel("Bathrooms").build());
-            forms.add(Form.builder().setType("text").setName("apartment_no").setLabel("Apartment #").setMaxLength(6).build());
+            forms.add(Form.builder().setType("text").setName("apartment_no").setLabel("Apartment #").setMaxLength(6).setRequired(false).build());
             forms.add(Form.builder().setType("text").setName("street").setLabel("Address").setMaxLength(120).build());
             forms.add(Form.builder().setType("text").setName("city").setLabel("City").setMaxLength(120).build());
             forms.add(Form.builder().setType("text").setName("state").setLabel("State").setMaxLength(20).build());
             forms.add(Form.builder().setType("text").setName("zipcode").setLabel("Zip").setMaxLength(9).build());
-            forms.add(Form.builder().setType("select").setName("houseProperty").setLabel("Property").setFromTable("Property","propertyAddress").build());
+            forms.add(Form.builder().setType("select").setName("houseProperty").setLabel("Property").setFromTable("Property","this").build());
             forms.add(Form.builder().setType("select").setName("houseFamily").setLabel("Family").setFromTable("Family","this").build());
             forms.add(Form.builder().setType("select").setName("house_style").setLabel("House Style").setFromTable("HouseStyle","style").build());
             forms.add(Form.builder().setType("select").setName("houseConstructionStatus").setLabel("Construction Status").setFromTable("ConstructionStatus","this").build());
