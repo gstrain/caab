@@ -183,12 +183,12 @@ public class House extends GenericEntity implements Serializable {
         switch(property) {
             case "id":
                 return "" + getId();
-            case "address_id":
-                return "" + getAddress().getId();
-            case "property_id":
-                return "" + getProperty().getId();
-            case "family_id":
-                return "" + getFamily().getId();
+            case "address":
+                return "" + getAddress();
+            case "property":
+                return "" + getProperty();
+            case "family":
+                return "" + getFamily();
             case "construction_cost":
                 return "" + getConstruction_cost();
             case "size":

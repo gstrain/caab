@@ -166,7 +166,7 @@ public class Property extends GenericEntity implements Serializable {
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
-            case "property_no":
+            case "id":
                 return "" + getId();
             case "address":
                 return "" + getAddress();

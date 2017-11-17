@@ -140,6 +140,7 @@ public class Log extends GenericEntity implements Serializable {
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
+            case "log_id":
             case "id":
                 return "" + getId();
             case "family_id":

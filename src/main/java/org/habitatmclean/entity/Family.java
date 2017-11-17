@@ -106,6 +106,7 @@ public class Family extends GenericEntity implements Serializable {
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
+            case "family_id":
             case "id":
                 return "" + getId();
             case "class_id":

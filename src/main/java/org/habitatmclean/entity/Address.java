@@ -147,6 +147,7 @@ public class Address extends GenericEntity implements Serializable { // to be se
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
+            case "address_id":
             case "id":
                 return "" + getId();
             case "street":
