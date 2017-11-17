@@ -70,6 +70,8 @@ public class Zone extends GenericEntity implements Serializable {
                 return "" + getZone_info();
             case "zone_desc":
                 return "" + getZone_desc();
+            case "this":
+                return toString();
             default:
                 return "invalid property specifier";
         }

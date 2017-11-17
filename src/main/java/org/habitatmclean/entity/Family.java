@@ -19,38 +19,38 @@ public class Family extends GenericEntity implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="milestone_id")
     @Fetch(FetchMode.JOIN)
-    private Milestone milestone;
+    private Milestone familyMilestone;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="class_id")
     @Fetch(FetchMode.JOIN)
-    private Class classType;
+    private Class familyClassType;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "family")
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<Person> people;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "family", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "logFamily", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<Log> logs;
 
     public Family() { }
 
-    public Family(double equity_hrs, double income, Milestone milestone, Class classType) {
+    public Family(double equity_hrs, double income, Milestone familyMilestone, Class familyClassType) {
         this.equity_hrs = equity_hrs;
         this.income = income;
-        this.milestone = milestone;
-        this.classType = classType;
+        this.familyMilestone = familyMilestone;
+        this.familyClassType = familyClassType;
     }
 
-    public Family(Long id, int equity_hrs, double income, Milestone milestone, Class classType) {
+    public Family(Long id, int equity_hrs, double income, Milestone familyMilestone, Class familyClassType) {
         this.id = id;
         this.equity_hrs = equity_hrs;
         this.income = income;
-        this.milestone = milestone;
-        this.classType = classType;
+        this.familyMilestone = familyMilestone;
+        this.familyClassType = familyClassType;
     }
 
     @Column(name="equity_hrs")
@@ -71,20 +71,20 @@ public class Family extends GenericEntity implements Serializable {
         this.income = income;
     }
 
-    public Milestone getMilestone() {
-        return milestone;
+    public Milestone getFamilyMilestone() {
+        return familyMilestone;
     }
 
-    public void setMilestone(Milestone milestone) {
-        this.milestone = milestone;
+    public void setFamilyMilestone(Milestone milestone) {
+        this.familyMilestone = milestone;
     }
 
-    public Class getClassType() {
-        return classType;
+    public Class getFamilyClassType() {
+        return familyClassType;
     }
 
-    public void setClassType(Class classType) {
-        this.classType = classType;
+    public void setFamilyClassType(Class classType) {
+        this.familyClassType = classType;
     }
 
     public SortedSet<Person> getPeople() {
@@ -109,10 +109,10 @@ public class Family extends GenericEntity implements Serializable {
             case "family_id":
             case "id":
                 return "" + getId();
-            case "class_id":
-                return "" + getClassType().getId();
-            case "milestone_id":
-                return "" + getMilestone().getId();
+            case "familyClassType":
+                return "" + getFamilyClassType();
+            case "familyMilestone":
+                return "" + getFamilyMilestone();
             case "equity_hrs":
                 return "" + getEquity_hrs();
             case "income":
@@ -130,6 +130,6 @@ public class Family extends GenericEntity implements Serializable {
                 id + ", " +
                 equity_hrs + " equity hrs, " +
                 String.format("$%.2f", income) + " income, " +
-                milestone;
+                familyMilestone;
     }
 }

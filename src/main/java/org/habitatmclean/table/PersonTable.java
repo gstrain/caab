@@ -43,15 +43,15 @@ public class PersonTable extends Table {
         person.setHome_phone(request.getParameter("home_phone"));
         person.setEmail(request.getParameter("email"));
 
-        Address newAddress = person.getAddress();
+        Address newAddress = person.getActorAddress();
         newAddress.setStreet(request.getParameter("street"));
         newAddress.setCity(request.getParameter("city"));
         newAddress.setState(request.getParameter("state"));
         newAddress.setZipcode(request.getParameter("zipcode"));
 
         GenericDao relationDao = HibernateAdapter.getBoByEntityName("RelationType");
-        RelationType rt = (RelationType) relationDao.findByPrimaryKey(new Long(request.getParameter("relationType")));
-        person.setRelationType(rt);
+        RelationType rt = (RelationType) relationDao.findByPrimaryKey(new Long(request.getParameter("actorRelationType")));
+        person.setActorRelationType(rt);
 
         sessionFactory.getCurrentSession().getTransaction().commit();
     }
@@ -67,7 +67,7 @@ public class PersonTable extends Table {
         newAddress.setCity(request.getParameter("city"));
         newAddress.setState(request.getParameter("state"));
         newAddress.setZipcode(request.getParameter("zipcode"));
-        newPerson.setAddress(newAddress);
+        newPerson.setActorAddress(newAddress);
 
         newPerson.setFirst(request.getParameter("first"));
         newPerson.setMiddle(request.getParameter("middle"));
@@ -76,8 +76,8 @@ public class PersonTable extends Table {
         newPerson.setEmail(request.getParameter("email"));
 
         GenericDao dao = HibernateAdapter.getBoByEntityName("RelationType");
-        RelationType rt = (RelationType) dao.findByPrimaryKey(new Long(request.getParameter("relationType")));
-        newPerson.setRelationType(rt);
+        RelationType rt = (RelationType) dao.findByPrimaryKey(new Long(request.getParameter("actorRelationType")));
+        newPerson.setActorRelationType(rt);
 
         dao = new HibernateAdapter();
         dao.save(newPerson);
@@ -103,7 +103,7 @@ public class PersonTable extends Table {
             forms.add(Form.builder().setType("text").setName("zipcode").setLabel("Zip").setMaxLength(9).build());
             forms.add(Form.builder().setType("tel").setName("home_phone").setLabel("Phone Number").setMaxLength(20).build());
             forms.add(Form.builder().setType("email").setName("email").setLabel("Email").setMaxLength(120).build());
-            forms.add(Form.builder().setType("select").setName("relationType").setLabel("Relation Type").setFromTable("RelationType","relation_name").build());
+            forms.add(Form.builder().setType("select").setName("actorRelationType").setLabel("Relation Type").setFromTable("RelationType","relation_name").build());
         }
     }
 }

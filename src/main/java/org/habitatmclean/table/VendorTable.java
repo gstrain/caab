@@ -15,7 +15,7 @@ public class VendorTable extends Table {
         Organization organization = (Organization) entity;
         List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
         tableCells.add(new TableRow.TableCell(organization.getName()));
-        tableCells.add(new TableRow.TableCell(organization.getContact().getFirst()));
+        tableCells.add(new TableRow.TableCell(organization.getOrganizationContact().getFirst()));
         TableRow tr = new TableRow(tableCells);
         tr.setRowId( "" + entity.getId());
         rows.add(tr);

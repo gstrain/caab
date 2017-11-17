@@ -30,7 +30,7 @@ public class Person extends Actor implements Serializable {
     @Fetch(FetchMode.JOIN)
     private Family family;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contact", cascade = javax.persistence.CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "organizationContact", cascade = javax.persistence.CascadeType.REMOVE, orphanRemoval = true)
     @Fetch(FetchMode.SUBSELECT)
     @SortNatural
     private SortedSet<Organization> organizations;
@@ -148,7 +148,7 @@ public class Person extends Actor implements Serializable {
             case "person_id":
             case "id":
                 return "" + getId();
-            case "family_id":
+            case "family":
                 return "" + getFamily();
             case "first":
                 return "" + getFirst();
@@ -164,6 +164,8 @@ public class Person extends Actor implements Serializable {
                 return "" + getCell_phone();
             case "work_phone":
                 return "" + getWork_phone();
+            case "this":
+                return toString();
             default:
                 return "invalid property specifier";
         }

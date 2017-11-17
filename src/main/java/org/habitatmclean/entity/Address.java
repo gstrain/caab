@@ -162,6 +162,8 @@ public class Address extends GenericEntity implements Serializable { // to be se
                 return "" + getState();
             case "zipcode":
                 return "" + getZipcode();
+            case "this":
+                return toString();
             default:
                 return "invalid property specifier";
         }

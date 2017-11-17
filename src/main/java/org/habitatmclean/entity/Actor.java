@@ -23,20 +23,20 @@ public class Actor extends GenericEntity implements Serializable {
     @JoinColumn(name="relation_id")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
     @Fetch(FetchMode.JOIN)
-    private RelationType relationType;
+    private RelationType actorRelationType;
 
     @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="address_id")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @Fetch(FetchMode.JOIN)
-    private Address address;
+    private Address actorAddress;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "actor", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "logContact", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<Log> logs;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "actor", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "contributor", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<HouseContribution> contributions;
@@ -48,14 +48,14 @@ public class Actor extends GenericEntity implements Serializable {
 
     public Actor() { }
 
-    public Actor(RelationType relationType, Address address) {
-        this.relationType = relationType;
-        this.address = address;
+    public Actor(RelationType actorRelationType, Address actorAddress) {
+        this.actorRelationType = actorRelationType;
+        this.actorAddress = actorAddress;
     }
-    public Actor(Long id, RelationType relationType, Address address) {
+    public Actor(Long id, RelationType actorRelationType, Address actorAddress) {
         this.id = id;
-        this.relationType = relationType;
-        this.address = address;
+        this.actorRelationType = actorRelationType;
+        this.actorAddress = actorAddress;
     }
 
 
@@ -83,20 +83,20 @@ public class Actor extends GenericEntity implements Serializable {
         this.logs = logs;
     }
 
-    public RelationType getRelationType() {
-        return relationType;
+    public RelationType getActorRelationType() {
+        return actorRelationType;
     }
 
-    public void setRelationType(RelationType relationType) {
-        this.relationType = relationType;
+    public void setActorRelationType(RelationType relationType) {
+        this.actorRelationType = relationType;
     }
 
-    public Address getAddress() {
-        return address;
+    public Address getActorAddress() {
+        return actorAddress;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setActorAddress(Address address) {
+        this.actorAddress = address;
     }
 
     @Override
@@ -105,10 +105,12 @@ public class Actor extends GenericEntity implements Serializable {
             case "actor_id":
             case "id":
                 return "" + getId();
-            case "address_id":
-                return "" + getAddress().getId();
-            case "relation_id":
-                return "" + getRelationType().getId();
+            case "actorAddress":
+                return "" + getActorAddress();
+            case "actorRelationType":
+                return "" + getActorRelationType();
+            case "this":
+                return toString();
             default:
                 return "invalid property specifier";
         }
