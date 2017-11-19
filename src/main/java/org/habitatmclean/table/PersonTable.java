@@ -44,6 +44,7 @@ public class PersonTable extends Table {
         person.setEmail(request.getParameter("email"));
 
         Address newAddress = person.getActorAddress();
+        newAddress.setApartment_no("apartment_no");
         newAddress.setStreet(request.getParameter("street"));
         newAddress.setCity(request.getParameter("city"));
         newAddress.setState(request.getParameter("state"));
@@ -63,6 +64,7 @@ public class PersonTable extends Table {
 
         //make address
         Address newAddress = new Address();
+        newAddress.setApartment_no("apartment_no");
         newAddress.setStreet(request.getParameter("street"));
         newAddress.setCity(request.getParameter("city"));
         newAddress.setState(request.getParameter("state"));
@@ -97,6 +99,7 @@ public class PersonTable extends Table {
             forms.add(Form.builder().setType("text").setName("first").setLabel("First Name").build());
             forms.add(Form.builder().setType("text").setName("middle").setLabel("Middle Name").setRequired(false).build());
             forms.add(Form.builder().setType("text").setName("last").setLabel("Last Name").build());
+            forms.add(Form.builder().setType("text").setName("apartment_no").setLabel("Apartment #").setRequired(false).build());
             forms.add(Form.builder().setType("text").setName("street").setLabel("Address").setMaxLength(120).build());
             forms.add(Form.builder().setType("text").setName("city").setLabel("City").setMaxLength(120).build());
             forms.add(Form.builder().setType("text").setName("state").setLabel("State").setMaxLength(20).build());

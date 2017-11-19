@@ -12,7 +12,6 @@ import java.io.Serializable;
 public class Address extends GenericEntity implements Serializable { // to be sent over a network and reconstructed elsewhere
 
     private String street;
-    private String number;
     private String apartment_no;
     private String city;
     private String state;
@@ -21,10 +20,9 @@ public class Address extends GenericEntity implements Serializable { // to be se
     public Address() { }
 
     // PK + all
-    public Address(Long id, String street, String number, String apartment_no, String city, String state, String zipcode) {
+    public Address(Long id, String street, String apartment_no, String city, String state, String zipcode) {
         this.id = id;
         this.street = street;
-        this.number = number;
         this.apartment_no = apartment_no;
         this.city = city;
         this.state = state;
@@ -32,28 +30,25 @@ public class Address extends GenericEntity implements Serializable { // to be se
     }
 
     // PK + all - apartment number
-    public Address(Long id, String street, String number, String city, String state, String zipcode) {
+    public Address(Long id, String street, String city, String state, String zipcode) {
         this.id = id;
         this.street = street;
-        this.number = number;
         this.city = city;
         this.state = state;
         this.zipcode = zipcode;
     }
 
     // doesn't contain an apartment number (for property DA)
-    public Address(String street, String number, String city, String state, String zipcode) {
+    public Address(String street, String city, String state, String zipcode) {
         this.street = street;
-        this.number = number;
         this.city = city;
         this.state = state;
         this.zipcode = zipcode;
     }
 
     // contains an apartment number
-    public Address(String street, String number, String apartment_no, String city, String state, String zipcode) {
+    public Address(String street, String apartment_no, String city, String state, String zipcode) {
         this.street = street;
-        this.number = number;
         this.apartment_no = apartment_no;
         this.city = city;
         this.state = state;
@@ -67,15 +62,6 @@ public class Address extends GenericEntity implements Serializable { // to be se
 
     public void setStreet(String street) {
         this.street = street;
-    }
-
-    @Column(name="number")
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
     }
 
     @Column(name="apartment_no")
@@ -125,7 +111,6 @@ public class Address extends GenericEntity implements Serializable { // to be se
         Address address = (Address) o;
 
         if (!street.equals(address.street)) return false;
-        if (number != null ? !number.equals(address.number) : address.number != null) return false;
         if (apartment_no != null ? !apartment_no.equals(address.apartment_no) : address.apartment_no != null)
             return false;
         if (!city.equals(address.city)) return false;
@@ -136,7 +121,6 @@ public class Address extends GenericEntity implements Serializable { // to be se
     @Override
     public int hashCode() {
         int result = street.hashCode();
-        result = 31 * result + (number != null ? number.hashCode() : 0);
         result = 31 * result + (apartment_no != null ? apartment_no.hashCode() : 0);
         result = 31 * result + city.hashCode();
         result = 31 * result + state.hashCode();
@@ -152,8 +136,6 @@ public class Address extends GenericEntity implements Serializable { // to be se
                 return "" + getId();
             case "street":
                 return "" + getStreet();
-            case "number":
-                return "" + getNumber();
             case "apartment_no":
                 return "" + getApartment_no();
             case "city":
@@ -176,7 +158,6 @@ public class Address extends GenericEntity implements Serializable { // to be se
             apartment = "Apartment " + apartment_no + " - ";
         return "Address: " +
                 apartment +
-                number + " " +
                 street + " - " +
                 city + ", " +
                 state.toUpperCase() + " " +

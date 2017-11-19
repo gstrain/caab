@@ -35,13 +35,15 @@
         }
 
         clearTable();
+        $('#spinner').show();
         $.ajax({
             type: 'GET',
             url: url,
             cache: false,
             success: function (response) {
                 console.log('success');
-                $('#tableContent').append(response);
+                $('#spinner').hide();
+                $('#tableContent').append(response).hide().fadeIn(300);
                 new Table($('.table'))
             }
         });

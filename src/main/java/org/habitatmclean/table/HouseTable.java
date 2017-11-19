@@ -17,7 +17,7 @@ public class HouseTable extends Table {
     public void addRow(GenericEntity entity) {
         House house = (House) entity;
         List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
-        tableCells.add(new TableRow.TableCell(house.getHouseAddress().getNumber() + " " +
+        tableCells.add(new TableRow.TableCell(((house.getHouseAddress().getApartment_no().equals("")) ? "Apartment #" + house.getHouseAddress().getApartment_no() + ", " : "") +
                                             house.getHouseAddress().getStreet() + "\n" +
                                             house.getHouseAddress().getCity() + ", " +
                                             house.getHouseAddress().getState() + " " +

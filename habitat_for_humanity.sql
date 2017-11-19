@@ -54,7 +54,6 @@ INSERT INTO `actor` (`actor_id`, `address_id`, `relation_id`, `actor_type`) VALU
 CREATE TABLE `address` (
   `address_id` int(9) NOT NULL,
   `street` varchar(120) DEFAULT '',
-  `number` varchar(10) DEFAULT '',
   `apartment_no` varchar(6) DEFAULT '',
   `city` varchar(120) NOT NULL,
   `state` varchar(20) NOT NULL,
@@ -65,16 +64,16 @@ CREATE TABLE `address` (
 -- Dumping data for table `address`
 --
 
-INSERT INTO `address` (`address_id`, `street`, `number`, `apartment_no`, `city`, `state`, `zipcode`) VALUES
-(1, 'County rd 1300 N', '1443', '', 'roanoke', 'illinois', '61561'),
-(2, 'crossings drive', '124', '4', 'normal', 'il', '61760'),
-(3, 'candy lane', '12', 'b', 'London', 'MO', '23485'),
-(4, 'empty lot street', '', '', 'hiroshima', 'AR', '96248'),
-(5, 'candy lane', '', '', 'London', 'Maine', '00210'),
-(6, 'another empty lot', '54', '2', 'New York City', 'NY', '94854'),
-(7, 'this one is full', '65', '6', 'Phillidalphia', 'WA', '45321'),
-(8, 'qwert lane', '6328', '', 'Memphis', 'NJ', '30421'),
-(9, 'aoeu dr', '049', '', 'here', 'FA', '09200');
+INSERT INTO `address` (`address_id`, `street`, `apartment_no`, `city`, `state`, `zipcode`) VALUES
+(1, '1443 County rd 1300 N', '', 'roanoke', 'illinois', '61561'),
+(2, '124 crossings drive', '4', 'normal', 'il', '61760'),
+(3, '12 candy lane', 'b', 'London', 'MO', '23485'),
+(4, '965 empty lot street', '', 'hiroshima', 'AR', '96248'),
+(5, '12 candy lane', '', 'London', 'Maine', '00210'),
+(6, '54 another empty lot', '2', 'New York City', 'NY', '94854'),
+(7, '65 aoeu dr', '6', 'Phillidalphia', 'WA', '45321'),
+(8, 'qwert lane', '', 'Memphis', 'NJ', '30421'),
+(9, 'aoeu dr', '', 'Phillidalphia', 'WA', '45321');
 
 -- --------------------------------------------------------
 
@@ -190,9 +189,9 @@ CREATE TABLE `house_contribution` (
 --
 
 INSERT INTO `house_contribution` (`contribution_id`, `actor_id`, `house_id`, `involvement_desc`) VALUES
-(1, 1, 1, ''),
-(2, 2, 1, ''),
-(3, 2, 2, '');
+(1, 1, 1, 'did laundry'),
+(2, 2, 1, 'donated $5000'),
+(3, 2, 2, 'organized volunteers together');
 
 -- --------------------------------------------------------
 
