@@ -24,17 +24,19 @@
                 });
             },
 
-            searchObject:function(obj, name,index){
+            searchObject:function(obj,name,drop,target,parent){
                 var result = null;
                 for(var key in obj){
                     if("object" == typeof(obj[key]))
-                        if(key == name)
-                            result = table.searchObject(obj[key], table.$modalForms.eq(index).attr('data-value-type'),index);
+                        result = table.searchObject(obj[key],name,drop,target, key);
+                    else if(key == name) {
+                        if (parent && drop) {
+                            if (target == parent)
+                                result = obj[key];
+                        }
                         else
-                        result = table.searchObject(obj[key], name, index);
-                    else if(key == name)
-                        result = obj[key];
-
+                            result = obj[key];
+                    }
                     if(result != null)
                         return result;
                 }
@@ -60,8 +62,12 @@
                         console.log(response);
                         var value;
                         table.$modalForms.each(function(index){
-                            name = $(this).attr("name");
-                            value = table.searchObject(response,name,index);
+                            var name = $(this).attr("name");
+                            var drop = $(this).attr('data-value-type');
+                            if(drop)
+                                value = table.searchObject(response,drop,drop,name)
+                            else
+                                value = table.searchObject(response,name);
                             if(value != null)
                                 $(this).val(value);
                         });
