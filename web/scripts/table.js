@@ -24,13 +24,13 @@
                 });
             },
 
-            searchObject:function(obj,name,drop,target,parent){
+            searchObject:function(obj,name,target,parent){
                 var result = null;
                 for(var key in obj){
                     if("object" == typeof(obj[key]))
-                        result = table.searchObject(obj[key],name,drop,target, key);
+                        result = table.searchObject(obj[key],name,target, key);
                     else if(key == name) {
-                        if (parent && drop) {
+                        if (parent) {
                             if (target == parent)
                                 result = obj[key];
                         }
@@ -63,9 +63,12 @@
                         var value;
                         table.$modalForms.each(function(index){
                             var name = $(this).attr("name");
-                            var drop = $(this).attr('data-value-type');
+                            var drop = $(this).attr('data-value-drop');
+                            var parent = $(this).attr('data-value-parent')
                             if(drop)
-                                value = table.searchObject(response,drop,drop,name)
+                                value = table.searchObject(response,drop,name)
+                            else if(parent)
+                                value = table.searchObject(response,name,parent)
                             else
                                 value = table.searchObject(response,name);
                             if(value != null)
@@ -103,6 +106,12 @@
                             iziToast.success({
                                 title: 'OK',
                                 message: 'Successfully ' + (data.id == 0 ? 'Added' : 'Edited') + ' Record'
+                            });
+                        },
+                        error: function(){
+                            iziToast.error({
+                                title: 'Unsuccessful',
+                                message: 'Record was not successfully' + (data.id == 0 ? 'Added.' : 'Edited.')
                             });
                         }
                     });

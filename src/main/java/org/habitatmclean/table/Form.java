@@ -18,6 +18,8 @@ public class Form {
     private int maxLength = 0;
     private boolean fromTable = false;
     private String fillTable;
+    private String parent;
+    private boolean hasParent;
     private String selectLabel;
     private String selectValue = "id";
     //for select types only:
@@ -47,6 +49,8 @@ public class Form {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void setParent(String parent) {this.parent = parent; this.hasParent=true; }
 
     public String getLabel() {
         return label;
@@ -112,7 +116,7 @@ public class Form {
                 html.append("<input type='" + type + "' ");
                 html.append("class='form-control' ");
                 html.append("id='" + name + "' ");
-                html.append("name='" + name + "' ");
+                html.append("name='" + name + "' " + ( hasParent? "data-value-parent='" + parent+"'":""));
                 if (required)
                     html.append("required ");
                 html.append("value ");
@@ -124,7 +128,7 @@ public class Form {
                     html.append("<small id='" + name + "-extra" + "' class='form-text text-muted'>" + extraText + "</small>");
             }
             else if(type.equals("select")){
-                html.append("<select class='form-control' id='" + name + "' name='"+name+"'"+ (fromTable ? "data-value-type='" + selectValue+"'":"") +(required ? " required " : "") + ">\n");
+                html.append("<select class='form-control' id='" + name + "' name='"+name+"'"+ (fromTable ? "data-value-drop='" + selectValue+"'":"") +(required ? " required " : "") + ">\n");
                 html.append("<option selected value disabled> Choose a "+label.toLowerCase()+"</option>\n");
                 if(fromTable)
                     fillTable();

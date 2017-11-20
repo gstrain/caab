@@ -66,14 +66,7 @@ public abstract class Table {
         try{id = Integer.parseInt(request.getParameter("id"));}
         catch(Exception e){ id = 0;}
 
-        if(id != 0) { // edit functionality
-            System.out.println("Edit: " + id);
-            recordEdit(request, id);
-        }
-        else {//add functionality
-            System.out.println("Add");
-            recordAdd(request);
-        }
+
         //print all data retrieved for debugging and viability
         List<String> fields = this.returnModalFields();
         for(String field : fields){
@@ -81,6 +74,15 @@ public abstract class Table {
                 System.out.println(field + ": " + request.getParameter(field));
             else
                 System.out.println(field + ": " + "not retrieved");
+        }
+
+        if(id != 0) { // edit functionality
+            System.out.println("Edit: " + id);
+            recordEdit(request, id);
+        }
+        else {//add functionality
+            System.out.println("Add");
+            recordAdd(request);
         }
     }
 

@@ -150,11 +150,11 @@ public class HouseTable extends Table {
             forms.add(Form.builder().setType("text").setName("size").setLabel("Square Ft").setMaxLength(30).build());
             forms.add(Form.builder().setType("text").setName("bedrooms").setLabel("Bedrooms").setMaxLength(2).build());
             forms.add(Form.builder().setType("text").setName("bathrooms").setLabel("Bathrooms").build());
-            forms.add(Form.builder().setType("text").setName("apartment_no").setLabel("Apartment #").setMaxLength(6).setRequired(false).build());
-            forms.add(Form.builder().setType("text").setName("street").setLabel("Address").setMaxLength(120).build());
-            forms.add(Form.builder().setType("text").setName("city").setLabel("City").setMaxLength(120).build());
-            forms.add(Form.builder().setType("text").setName("state").setLabel("State").setMaxLength(20).build());
-            forms.add(Form.builder().setType("text").setName("zipcode").setLabel("Zip").setMaxLength(9).build());
+            forms.add(Form.builder().setType("text").setName("apartment_no").setLabel("Apartment #").setParent("houseAddress").setMaxLength(6).setRequired(false).build());
+            forms.add(Form.builder().setType("text").setName("street").setLabel("Address").setParent("houseAddress").setMaxLength(120).build());
+            forms.add(Form.builder().setType("text").setName("city").setLabel("City").setParent("houseAddress").setMaxLength(120).build());
+            forms.add(Form.builder().setType("text").setName("state").setLabel("State").setParent("houseAddress").setMaxLength(20).build());
+            forms.add(Form.builder().setType("text").setName("zipcode").setLabel("Zip").setParent("houseAddress").setMaxLength(9).build());
             forms.add(Form.builder().setType("select").setName("houseProperty").setLabel("Property").setFromTable("Property","this").build());
             forms.add(Form.builder().setType("select").setName("houseFamily").setLabel("Family").setFromTable("Family","this").build());
             forms.add(Form.builder().setType("select").setName("house_style").setLabel("House Style").setFromTable("HouseStyle","style").build());
