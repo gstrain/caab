@@ -110,8 +110,8 @@
                         },
                         error: function(){
                             iziToast.error({
-                                title: 'Unsuccessful',
-                                message: 'Record was not successfully' + (data.id == 0 ? 'Added.' : 'Edited.')
+                                title: 'Unsuccessful!',
+                                message: 'Record was not able to be ' + (data.id == 0 ? 'added.' : 'edited.')
                             });
                         }
                     });
