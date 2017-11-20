@@ -44,7 +44,7 @@ public class PersonTable extends Table {
         person.setEmail(request.getParameter("email"));
 
         Address newAddress = person.getActorAddress();
-        newAddress.setApartment_no("apartment_no");
+        newAddress.setApartment_no(request.getParameter("apartment_no"));
         newAddress.setStreet(request.getParameter("street"));
         newAddress.setCity(request.getParameter("city"));
         newAddress.setState(request.getParameter("state"));
@@ -64,7 +64,7 @@ public class PersonTable extends Table {
 
         //make address
         Address newAddress = new Address();
-        newAddress.setApartment_no("apartment_no");
+        newAddress.setApartment_no(request.getParameter("apartment_no"));
         newAddress.setStreet(request.getParameter("street"));
         newAddress.setCity(request.getParameter("city"));
         newAddress.setState(request.getParameter("state"));
