@@ -2,7 +2,6 @@ package org.habitatmclean.table;
 
 import org.habitatmclean.dao.GenericDao;
 import org.habitatmclean.entity.GenericEntity;
-import org.habitatmclean.entity.Person;
 import org.habitatmclean.entity.Zone;
 import org.habitatmclean.hibernate.HibernateAdapter;
 import org.habitatmclean.hibernate.HibernateUtil;
@@ -61,7 +60,7 @@ public class ZoneTable extends Table {
         }
 
         public void buildModal(){
-            forms.add(Form.builder().setType("text").setName("zone_info").setLabel("Name").build());
+            forms.add(Form.builder().setType("text").setName("zone_info").setLabel("Name").setMaxLength(120).build());
             forms.add(Form.builder().setType("text").setName("zone_desc").setLabel("Description").setRequired(false).build());
         }
     }

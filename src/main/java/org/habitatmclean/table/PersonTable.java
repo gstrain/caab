@@ -96,15 +96,17 @@ public class PersonTable extends Table {
             //text is currently the only supported type. more will be supported soon!
             //maxLength is important for fields that could be complained about in the database.
             //make sure to name the name EXACTLY
-            forms.add(Form.builder().setType("text").setName("first").setLabel("First Name").build());
-            forms.add(Form.builder().setType("text").setName("middle").setLabel("Middle Name").setRequired(false).build());
-            forms.add(Form.builder().setType("text").setName("last").setLabel("Last Name").build());
+            forms.add(Form.builder().setType("text").setName("first").setLabel("First Name").setMaxLength(20).build());
+            forms.add(Form.builder().setType("text").setName("middle").setLabel("Middle Name").setMaxLength(20).setRequired(false).build());
+            forms.add(Form.builder().setType("text").setName("last").setLabel("Last Name").setMaxLength(20).build());
             forms.add(Form.builder().setType("text").setName("apartment_no").setLabel("Apartment #").setParent("actorAddress").setRequired(false).build());
             forms.add(Form.builder().setType("text").setName("street").setLabel("Address").setMaxLength(120).setParent("actorAddress").build());
             forms.add(Form.builder().setType("text").setName("city").setLabel("City").setMaxLength(120).setParent("actorAddress").build());
             forms.add(Form.builder().setType("text").setName("state").setLabel("State").setMaxLength(20).setParent("actorAddress").build());
             forms.add(Form.builder().setType("text").setName("zipcode").setLabel("Zip").setMaxLength(9).setParent("actorAddress").build());
-            forms.add(Form.builder().setType("tel").setName("home_phone").setLabel("Phone Number").setMaxLength(20).build());
+            forms.add(Form.builder().setType("tel").setName("home_phone").setLabel("Home Phone").setMaxLength(20).build());
+            forms.add(Form.builder().setType("tel").setName("cell_phone").setLabel("Cell Phone").setMaxLength(20).setRequired(false).build());
+            forms.add(Form.builder().setType("tel").setName("work_phone").setLabel("Work Phone").setMaxLength(20).setRequired(false).build());
             forms.add(Form.builder().setType("email").setName("email").setLabel("Email").setMaxLength(120).build());
             forms.add(Form.builder().setType("select").setName("actorRelationType").setLabel("Relation Type").setFromTable("RelationType","relation_name").build());
         }
