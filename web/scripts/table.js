@@ -64,11 +64,11 @@
                         table.$modalForms.each(function(index){
                             var name = $(this).attr("name");
                             var drop = $(this).attr('data-value-drop');
-                            var parent = $(this).attr('data-value-parent')
+                            var parent = $(this).attr('data-value-parent');
                             if(drop)
-                                value = table.searchObject(response,drop,name)
+                                value = table.searchObject(response,drop,name);
                             else if(parent)
-                                value = table.searchObject(response,name,parent)
+                                value = table.searchObject(response,name,parent);
                             else
                                 value = table.searchObject(response,name);
                             if(value != null)
@@ -231,7 +231,7 @@
                 });
             },
             downloadReport:function() {
-                window.location='/pdfgen?page=' + $('#page-type').val();
+                window.location='/pdfgen?page=' + $('#page-type').val() + '&method=table';
                 $reportBtn.toggleClass('disabled');
                 $reportBtn.html('Generating...');
                 setTimeout(function() {

@@ -42,9 +42,10 @@ public class PdfGenServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long ts = System.currentTimeMillis();
         String type = Functions.hiddenInputToHTMLPage(request.getParameter("page"));
+        String method = request.getParameter("method");
         String option;
         String[] cmdArr;
-        if(type != null) {
+        if(type != null && method.equals("table")) {
             switch (type) {
                 case "log":
                     //TODO log case
@@ -66,6 +67,10 @@ public class PdfGenServlet extends HttpServlet {
             } catch (InterruptedException e) {
                 System.err.println(e.getStackTrace());
             }
+        }
+        else if(method.equals("individual")) {
+            Long pk = Long.parseLong(request.getParameter("primary_k"));
+
         }
 
         OutputStream out = response.getOutputStream();
