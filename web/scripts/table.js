@@ -3,7 +3,7 @@
     Table = function($table){
         const $modal = $table.nextAll('#record-modal');
         const $addBtn = $('.btn-add');
-        const $reportBtn = $('.btn-report');
+        const $reportBtn = $('#reportButton');
         const table = this;
         $.extend(this,{
             page:$('#page-type').val(), // if we ever want more than one table per page, we'll need to remove this from the page and mase it specific to table
@@ -239,6 +239,15 @@
                     $reportBtn.html('Generate Report');
                 }, 1500); // prevent spamming report generation button
             },
+            individualReport:function(pk, button) {
+                // window.location='/pdfgen?page=' + $('#page-type').val() + '&method=individual&primary_k=' + pk;
+                $(button).toggleClass('disabled');
+                $(button).html('Generating...');
+                setTimeout(function() {
+                    $(button).toggleClass('disabled');
+                    $(button).html('Report');
+                }, 1500); // prevent spamming report generation button
+            },
             init:function(){
                 this.initButtons();
                 //any other things to init
@@ -261,6 +270,9 @@
                 $table.find('.btn-delete').on('click', function() {
                     table.confirmDelete(getId(this));
                 });
+                $table.find('.btn-report').on('click', function() {
+                    table.individualReport(getId(this), this);
+                })
             }
         });
         this.init();

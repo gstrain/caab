@@ -15,7 +15,7 @@ import java.util.List;
 
 public class PersonTable extends Table {
     public PersonTable() {
-        super(new String[]{"id", "first", "middle", "last", "home phone", "email"}, new PersonModal(), false); // adjust this to determine table columns
+        super(new String[]{"id", "first", "middle", "last", "home phone", "email"}, new PersonModal(), false, false); // adjust this to determine table columns
     }
     public void addRow(GenericEntity entity) {
         Person person = (Person) entity;

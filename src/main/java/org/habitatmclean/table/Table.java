@@ -11,8 +11,9 @@ public abstract class Table {
     private final String TABLE_BEGIN = "<table id='table' class='table table-hover'>\n";
     private final String TABLE_END = "\n</table>";
     private final String ADD_BUTTON = "<button id='addButton' type='button' class='btn btn-success btn-lg btn-add d-print-none'>Add</button>";
-    private final String REPORT_BUTTON = "<button id='reportButton' type='button' class='btn btn-info` btn-lg btn-report d-print-none'>Generate Report</button>";
-    private static boolean flag;
+    private final String REPORT_BUTTON = "<button id='reportButton' type='button' class='btn btn-info` btn-lg d-print-none'>Generate Report</button>";
+    private static boolean logFlag;
+    private static boolean individualReportFlag;
     Modal modal;
     List<TableRow> rows;
     private TableRow headers;
@@ -23,24 +24,34 @@ public abstract class Table {
     /**
      * @param HEADERS the headers of the table column to create
      * @param modal a modal object to add to the table
+     * @param logFlag whether the table should have a log button
+     * @param individualReportFlag whether this table allows generating reports for individual entries
      */
-    Table(String[] HEADERS, Modal modal, boolean flag) {
+    Table(String[] HEADERS, Modal modal, boolean logFlag, boolean individualReportFlag) {
         rows = new ArrayList<Table.TableRow>();
         this.HEADERS = HEADERS;
         addHeaders();
         this.modal = modal;
-        Table.flag = flag;
+        logFlag = logFlag;
+        Table.logFlag = logFlag;
+        Table.individualReportFlag = individualReportFlag;
     }
     public List<String> returnModalFields(){
         return modal.returnFields();
     }
 
     /**
+     * creates a fully built table with data already in it
+     *
      * @param HEADERS the headers of the table column to create
      * @param modal a modal object to add to the table
+     * @param logFlag whether the table should have a log button
+     * @param individualReportFlag whether this table allows generating reports for individual entries
+
      */
-    Table(String[] HEADERS, Modal modal, boolean flag, SortedSet entities) {
-        this(HEADERS,modal, flag);
+    Table(String[] HEADERS, Modal modal, boolean logFlag, boolean individualReportFlag, SortedSet entities) {
+        this(HEADERS,modal, logFlag, individualReportFlag);
+        this.addData(entities);
     }
 
     /**
@@ -102,14 +113,14 @@ public abstract class Table {
     public String toString() {
         StringBuilder table = new StringBuilder();
 
-//        table.append("<span id=\"open\" style='font-size:30px;cursor:pointer' onclick='openNav()'>&#9776; open</span>");
-        table.append("<span id=\"open\" style='font-size:30px;cursor:pointer' onclick='openNav()'><i class=\"fa fa-chevron-right\" aria-hidden=\"true\"></i></span>");
-        table.append("<div id=\"drawer\" class=\"sidenav\"> <!-- The drawer -->" +
-                "        <a href=\"javascript:void(0)\" class=\"closebtn\" onclick=\"closeNav()\">&times;</a>");
+//        table.append("<span id='open' style='font-size:30px;cursor:pointer' onclick='openNav()'>&#9776; open</span>");
+        table.append("<span id='open' style='font-size:30px;cursor:pointer' onclick='openNav()'><i class='fa fa-chevron-right' aria-hidden='true'></i></span>");
+        table.append("<div id='drawer' class='sidenav'> <!-- The drawer -->" +
+                "        <a href='javascript:void(0)' class='closebtn' onclick='closeNav()'>&times;</a>");
         table.append(ADD_BUTTON);
 //        for (int i = 0; i < HEADERS.length; i++) {
             table.append("<form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
-            "<input type='search' id=\"search\" onkeyup=\"searchTable();\" class='form-control mr-sm-2' data-table=\"order-table\" placeholder=\"Search Table\">\n </input> \n </form>\n");
+            "<input type='search' id='search' onkeyup='searchTable();' class='form-control mr-sm-2' data-table='order-table' placeholder='Search Table'>\n </input> \n </form>\n");
 //        }
         table.append(REPORT_BUTTON + "</div>");
         table.append(TABLE_BEGIN);
@@ -126,10 +137,10 @@ public abstract class Table {
         final String LINE_BEGIN = "\t<tr ";
         final String LINE_END = "\n\t</tr>\n";
 
-        final String EDIT_BUTTON = "<td><button id=\"editButton\" type=\"button\" class=\"btn btn-warning btn-sm btn-edit d-print-none\">Edit</button>";
-        final String DELETE_BUTTON = "<button id=\"deleteButton\" type=\"button\" class=\"btn btn-danger btn-sm btn-delete d-print-none\">Delete</button>";
-        final String LOG = "<a href=\"logs.html\" class=\"btn btn-info btn-sm btn-log d-print-none\">Logs</a></td>";
-
+        final String EDIT_BUTTON = "<td><button id='editButton' type='button' class='btn btn-warning btn-sm btn-edit d-print-none'>Edit</button>";
+        final String DELETE_BUTTON = "<button id='deleteButton' type='button' class='btn btn-danger btn-sm btn-delete d-print-none'>Delete</button>";
+        final String LOG = "<a href='logs.html' class='btn btn-info btn-sm btn-log d-print-none'>Logs</a>";
+        final String REPORT = "<button type='button' class='btn btn-info btn-sm btn-report d-print-none'>Report</button></td>";   // watch location of <td> and </td> tags
 
         List<TableCell> tableCells = new ArrayList<TableCell>();
         private String rowId = "id=";
@@ -161,7 +172,6 @@ public abstract class Table {
         }
 
         public String toString() {
-            boolean first = true;
             StringBuilder row = new StringBuilder();
             row.append(LINE_BEGIN);
             row.append(rowId);
@@ -170,8 +180,11 @@ public abstract class Table {
             }
             row.append(EDIT_BUTTON);
             row.append(DELETE_BUTTON);
-            if (flag) {
+            if (logFlag) {
                 row.append(LOG);
+            }
+            if (individualReportFlag) {
+                row.append(REPORT);
             }
             row.append(LINE_END);
             return row.toString();

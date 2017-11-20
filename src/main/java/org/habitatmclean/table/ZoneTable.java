@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ZoneTable extends Table {
     public ZoneTable() {
-        super(new String[]{"zone_info", "zone_desc"}, new ZoneModal(), false); // adjust this to determine table columns
+        super(new String[]{"zone_info", "zone_desc"}, new ZoneModal(), false, false); // adjust this to determine table columns
     }
     public void addRow(GenericEntity entity) {
         Zone zone = (Zone) entity;

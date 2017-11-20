@@ -37,6 +37,7 @@ public class PdfGenServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // return a generated html body for the report
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -70,7 +71,12 @@ public class PdfGenServlet extends HttpServlet {
         }
         else if(method.equals("individual")) {
             Long pk = Long.parseLong(request.getParameter("primary_k"));
-
+            switch (type) {
+                case "people":
+                    break;
+                case "properties":
+                    break;
+            }
         }
 
         OutputStream out = response.getOutputStream();

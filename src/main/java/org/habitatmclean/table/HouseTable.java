@@ -12,7 +12,7 @@ import java.util.List;
 
 public class HouseTable extends Table {
     public HouseTable() {
-        super(new String[]{"address", "Sq Feet", "bedrooms", "bathrooms", "style"}, new HouseModal(), true); // adjust this to determine table columns
+        super(new String[]{"address", "Sq Feet", "bedrooms", "bathrooms", "style"}, new HouseModal(), true, true); // adjust this to determine table columns
     }
     public void addRow(GenericEntity entity) {
         House house = (House) entity;
