@@ -17,7 +17,7 @@ public class HouseTable extends Table {
     public void addRow(GenericEntity entity) {
         House house = (House) entity;
         List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
-        tableCells.add(new TableRow.TableCell(((house.getHouseAddress().getApartment_no().equals("")) ? "Apartment #" + house.getHouseAddress().getApartment_no() + ", " : "") +
+        tableCells.add(new TableRow.TableCell((!(house.getHouseAddress().getApartment_no().equals("")) ? "Apartment #" + house.getHouseAddress().getApartment_no() + ", " : "") +
                                             house.getHouseAddress().getStreet() + "\n" +
                                             house.getHouseAddress().getCity() + ", " +
                                             house.getHouseAddress().getState() + " " +
@@ -156,9 +156,9 @@ public class HouseTable extends Table {
             forms.add(Form.builder().setType("text").setName("state").setLabel("State").setParent("houseAddress").setMaxLength(20).build());
             forms.add(Form.builder().setType("text").setName("zipcode").setLabel("Zip").setParent("houseAddress").setMaxLength(9).build());
             forms.add(Form.builder().setType("select").setName("houseProperty").setLabel("Property").setFromTable("Property","this").build());
-            forms.add(Form.builder().setType("select").setName("houseFamily").setLabel("Family").setFromTable("Family","this").build());
-            forms.add(Form.builder().setType("select").setName("house_style").setLabel("House Style").setFromTable("HouseStyle","style").build());
-            forms.add(Form.builder().setType("select").setName("houseConstructionStatus").setLabel("Construction Status").setFromTable("ConstructionStatus","this").build());
+            forms.add(Form.builder().setType("select").setName("houseFamily").setLabel("Family").setFromTable("Family","this").setRequired(false).build());
+            forms.add(Form.builder().setType("select").setName("house_style").setLabel("House Style").setFromTable("HouseStyle","style").setRequired(false).build());
+            forms.add(Form.builder().setType("select").setName("houseConstructionStatus").setLabel("Construction Status").setFromTable("ConstructionStatus","this").setRequired(false).build());
         }
     }
 

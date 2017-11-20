@@ -52,12 +52,12 @@ public class PdfGenServlet extends HttpServlet {
                     //TODO log case
                     option = request.getParameter("options");
                     String url = "http://localhost:8085/" + type + ".html?type=" + option;
-                    cmdArr = new String[]{installDirectory + "/bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", url, tempDirectory + ts + ".pdf"};
+                    cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", url, tempDirectory + ts + ".pdf"};
                     break;
                 case "people":
                     cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", "http://localhost:8085/" + type + ".html", tempDirectory + ts + ".pdf"};
                     break;
-                default:
+                default: // vendors, zones, properties, houses, etc. anything that is in the /web/pages/ directory
                     cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", "http://localhost:8085/pages/" + type + ".html", tempDirectory + ts + ".pdf"};
                     break;
             }

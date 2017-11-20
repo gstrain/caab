@@ -23,11 +23,11 @@ public class DeleteServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // first grab the entity that is being deleted
-        int pk = Integer.parseInt(request.getParameter("primary_k"));
+        Long pk = Long.parseLong(request.getParameter("primary_k"));
         String type = Functions.hiddenInputToClass(request.getParameter("page"));
         GenericDao reader = HibernateAdapter.getBoByEntityName(type);
         HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-        GenericEntity toDelete = reader.findByPrimaryKey(new Long(pk));
+        GenericEntity toDelete = reader.findByPrimaryKey(pk);
         switch (request.getParameter("method")) {
             case "delete":
                 HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
