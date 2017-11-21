@@ -160,7 +160,7 @@ public class Address extends GenericEntity implements Serializable { // to be se
                 apartment +
                 street + " - " +
                 city + ", " +
-                state.toUpperCase() + " " +
+                state + " " +
                 zipcode;
     }
 }

@@ -53,5 +53,4 @@
 
         $('#tableContent').empty(); // everything
     }
-
 })();

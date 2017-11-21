@@ -76,4 +76,13 @@ public class HouseStyle extends GenericEntity implements Serializable {
                 return "invalid property specifier";
         }
     }
+
+    @Override
+    public String toString() {
+        String toReturn = "Style: " + getStyle();
+        if(!style_desc.equals("") && !style_desc.equals(null))
+            toReturn += " - " + style_desc;
+
+        return toReturn;
+    }
 }

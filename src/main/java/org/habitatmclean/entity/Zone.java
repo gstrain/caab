@@ -76,4 +76,12 @@ public class Zone extends GenericEntity implements Serializable {
                 return "invalid property specifier";
         }
     }
+
+    @Override
+    public String toString() {
+        String response = "Zone: " + zone_info;
+        if(!zone_desc.equals("") && zone_desc != null)
+            response += " - " + zone_desc;
+        return response;
+    }
 }

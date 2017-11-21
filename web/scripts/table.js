@@ -240,7 +240,7 @@
                 }, 1500); // prevent spamming report generation button
             },
             individualReport:function(pk, button) {
-                // window.location='/pdfgen?page=' + $('#page-type').val() + '&method=individual&primary_k=' + pk;
+                window.location='/pdfgen?page=' + $('#page-type').val() + '&method=individual&primary_k=' + pk;
                 $(button).toggleClass('disabled');
                 $(button).html('Generating...');
                 setTimeout(function() {
