@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -54,7 +55,7 @@ public class LogTable extends Table {
 
         Log log = new Log();
         log.setReason(request.getParameter("reason"));
-//        log.setDate(request.getParameter("date"));
+        log.setDate(request.getParameter("date"));
         log.setNotes(request.getParameter("notes"));
         log.setStatus(request.getParameter("status"));
 
