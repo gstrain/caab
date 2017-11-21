@@ -176,6 +176,6 @@ public class Person extends Actor implements Serializable {
         return "Person: " +
                 first + " " +
                 middle + " " +
-                last;
+                last + " - " + email;
     }
 }
