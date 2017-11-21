@@ -23,7 +23,7 @@ public class House extends GenericEntity implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="cstatus_id")
     @Fetch(FetchMode.JOIN)
-    private ConstructionStatus construction_status;
+    private ConstructionStatus houseConstructionStatus;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="house_style")
@@ -34,53 +34,53 @@ public class House extends GenericEntity implements Serializable {
     @JoinColumn(name = "property_id")
     @Fetch(FetchMode.JOIN)
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
-    private Property property;
+    private Property houseProperty;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinColumn(name="family_id")
     @Fetch(FetchMode.JOIN)
-    private Family family;
+    private Family houseFamily;
 
     @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="address_id")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @Fetch(FetchMode.JOIN)
-    private Address address;
+    private Address houseAddress;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "house", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contributionHouse", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<HouseContribution> contributions;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "house", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "logHouse", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<Log> logs;
 
-    public House(Long id, Family family, double construction_cost, int size, int bedrooms, double bathrooms, ConstructionStatus construction_status, HouseStyle house_style, Property property, Address address) {
+    public House(Long id, Family houseFamily, double construction_cost, int size, int bedrooms, double bathrooms, ConstructionStatus houseConstructionStatus, HouseStyle house_style, Property houseProperty, Address houseAddress) {
         this.id = id;
-        this.family = family;
+        this.houseFamily = houseFamily;
         this.construction_cost = construction_cost;
         this.size = size;
         this.bedrooms = bedrooms;
         this.bathrooms = bathrooms;
-        this.construction_status = construction_status;
+        this.houseConstructionStatus = houseConstructionStatus;
         this.house_style = house_style;
-        this.property = property;
-        this.address = address;
+        this.houseProperty = houseProperty;
+        this.houseAddress = houseAddress;
     }
 
-    public House(double construction_cost, Family family, int size, int bedrooms, double bathrooms, ConstructionStatus construction_status, HouseStyle house_style, Property property, Address address) {
+    public House(double construction_cost, Family houseFamily, int size, int bedrooms, double bathrooms, ConstructionStatus houseConstructionStatus, HouseStyle house_style, Property houseProperty, Address houseAddress) {
         this.construction_cost = construction_cost;
-        this.family = family;
+        this.houseFamily = houseFamily;
         this.size = size;
         this.bedrooms = bedrooms;
         this.bathrooms = bathrooms;
-        this.construction_status = construction_status;
+        this.houseConstructionStatus = houseConstructionStatus;
         this.house_style = house_style;
-        this.property = property;
-        this.address = address;
+        this.houseProperty = houseProperty;
+        this.houseAddress = houseAddress;
     }
 
     public SortedSet<Log> getLogs() {
@@ -99,31 +99,31 @@ public class House extends GenericEntity implements Serializable {
         this.contributions = contributions;
     }
 
-    public Family getFamily() {
-        return family;
+    public Family getHouseFamily() {
+        return houseFamily;
     }
 
-    public void setFamily(Family family) {
-        this.family = family;
+    public void setHouseFamily(Family family) {
+        this.houseFamily = family;
     }
 
     public House() { }
 
 
-    public Address getAddress() {
-        return address;
+    public Address getHouseAddress() {
+        return houseAddress;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setHouseAddress(Address address) {
+        this.houseAddress = address;
     }
 
-    public ConstructionStatus getConstruction_status() {
-        return construction_status;
+    public ConstructionStatus getHouseConstructionStatus() {
+        return houseConstructionStatus;
     }
 
-    public void setConstruction_status(ConstructionStatus construction_status) {
-        this.construction_status = construction_status;
+    public void setHouseConstructionStatus(ConstructionStatus construction_status) {
+        this.houseConstructionStatus = construction_status;
     }
 
     public HouseStyle getHouse_style() {
@@ -134,12 +134,12 @@ public class House extends GenericEntity implements Serializable {
         this.house_style = house_style;
     }
 
-    public Property getProperty() {
-        return property;
+    public Property getHouseProperty() {
+        return houseProperty;
     }
 
-    public void setProperty(Property property) {
-        this.property = property;
+    public void setHouseProperty(Property property) {
+        this.houseProperty = property;
     }
 
     @Column(name="construction_cost")
@@ -183,12 +183,12 @@ public class House extends GenericEntity implements Serializable {
         switch(property) {
             case "id":
                 return "" + getId();
-            case "address_id":
-                return "" + getAddress().getId();
-            case "property_id":
-                return "" + getProperty().getId();
-            case "family_id":
-                return "" + getFamily().getId();
+            case "houseAddress":
+                return "" + getHouseAddress();
+            case "houseProperty":
+                return "" + getHouseProperty();
+            case "houseFamily":
+                return "" + getHouseFamily();
             case "construction_cost":
                 return "" + getConstruction_cost();
             case "size":
@@ -197,10 +197,12 @@ public class House extends GenericEntity implements Serializable {
                 return "" + getBedrooms();
             case "bathrooms":
                 return "" + getBathrooms();
-            case "cstatus_id":
-                return "" + getConstruction_status().getId();
+            case "houseConstructionStatus":
+                return "" + getHouseConstructionStatus();
             case "house_style":
-                return "" + getHouse_style().getId();
+                return "" + getHouse_style();
+            case "this":
+                return toString();
             default:
                 return "invalid property specifier";
         }
@@ -208,12 +210,12 @@ public class House extends GenericEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "House:" + Functions.NEWLINE_TAB +
-                "Property #: " + getProperty().getId() + Functions.NEWLINE_TAB +
+        return "House #:" + id + Functions.NEWLINE_TAB +
+                "Property #: " + getHouseProperty().getId() + Functions.NEWLINE_TAB +
                 "Style: " + getHouse_style().getStyle() + Functions.NEWLINE_TAB +
                 size + " sq ft., " +
                 bedrooms + "  bedrooms, " +
                 bathrooms + "  bathrooms" + Functions.NEWLINE_TAB +
-                address.toString();
+                houseAddress.toString();
     }
 }

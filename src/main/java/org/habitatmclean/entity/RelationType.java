@@ -16,7 +16,7 @@ public class RelationType extends GenericEntity implements Serializable {
     private String relation_name;
     private String relation_desc;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "relationType")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "actorRelationType")
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<Actor> actors;
@@ -70,6 +70,8 @@ public class RelationType extends GenericEntity implements Serializable {
                 return "" + getRelation_name();
             case "relation_desc":
                 return "" + getRelation_desc();
+            case "this":
+                return toString();
             default:
                 return "invalid property specifier";
         }

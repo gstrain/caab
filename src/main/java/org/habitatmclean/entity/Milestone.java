@@ -16,7 +16,7 @@ public class Milestone extends GenericEntity implements Serializable {
     private String milestone;
     private String mileStone_desc;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "milestone")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "familyMilestone")
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<Family> families;
@@ -70,8 +70,15 @@ public class Milestone extends GenericEntity implements Serializable {
                 return "" + getMilestone();
             case "milestone_desc":
                 return "" + getMileStone_desc();
+            case "this":
+                return toString();
             default:
                 return "invalid property specifier";
         }
+    }
+
+    @Override
+    public String toString() {
+        return milestone;
     }
 }

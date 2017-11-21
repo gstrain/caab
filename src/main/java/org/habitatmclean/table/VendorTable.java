@@ -9,13 +9,13 @@ import java.util.List;
 
 public class VendorTable extends Table {
     public VendorTable() {
-        super(new String[]{"name", "contact"}, new VendorModal(), false); // adjust this to determine table columns
+        super(new String[]{"name", "contact"}, new VendorModal(), false, false); // adjust this to determine table columns
     }
     public void addRow(GenericEntity entity) {
         Organization organization = (Organization) entity;
         List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
         tableCells.add(new TableRow.TableCell(organization.getName()));
-        tableCells.add(new TableRow.TableCell(organization.getContact().getFirst()));
+        tableCells.add(new TableRow.TableCell(organization.getOrganizationContact().getFirst()));
         TableRow tr = new TableRow(tableCells);
         tr.setRowId( "" + entity.getId());
         rows.add(tr);
@@ -26,7 +26,7 @@ public class VendorTable extends Table {
     public void recordAdd(HttpServletRequest request){
     }
 
-    static class VendorModal extends Modal{
+    static class VendorModal extends Modal {
         public VendorModal(){
             super("Vendor");
         }

@@ -24,49 +24,49 @@ public class Log extends GenericEntity implements Serializable {
     @JoinColumn(name="family_id")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
     @Fetch(FetchMode.JOIN)
-    private Family family;
+    private Family logFamily;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="contact_id")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
     @Fetch(FetchMode.JOIN)
-    private Actor actor;
+    private Actor logContact;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="house_id")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
     @Fetch(FetchMode.JOIN)
-    private House house;
+    private House logHouse;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="property_id")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
     @Fetch(FetchMode.JOIN)
-    private Property property;
+    private Property logProperty;
 
     public Log() { }
 
-    public Log(Long id, String reason, Date date, String notes, String status, Family family, Actor actor, House house, Property property) {
+    public Log(Long id, String reason, Date date, String notes, String status, Family logFamily, Actor logContact, House logHouse, Property logProperty) {
         this.id = id;
         this.reason = reason;
         this.date = date;
         this.notes = notes;
         this.status = status;
-        this.family = family;
-        this.actor = actor;
-        this.house = house;
-        this.property = property;
+        this.logFamily = logFamily;
+        this.logContact = logContact;
+        this.logHouse = logHouse;
+        this.logProperty = logProperty;
     }
 
-    public Log(String reason, Date date, String notes, String status, Family family, Actor actor, House house, Property property) {
+    public Log(String reason, Date date, String notes, String status, Family logFamily, Actor logContact, House logHouse, Property logProperty) {
         this.reason = reason;
         this.date = date;
         this.notes = notes;
         this.status = status;
-        this.family = family;
-        this.actor = actor;
-        this.house = house;
-        this.property = property;
+        this.logFamily = logFamily;
+        this.logContact = logContact;
+        this.logHouse = logHouse;
+        this.logProperty = logProperty;
     }
 
     @Column(name="reason")
@@ -105,51 +105,52 @@ public class Log extends GenericEntity implements Serializable {
         this.status = status;
     }
 
-    public Family getFamily() {
-        return family;
+    public Family getLogFamily() {
+        return logFamily;
     }
 
-    public void setFamily(Family family) {
-        this.family = family;
+    public void setLogFamily(Family family) {
+        this.logFamily = family;
     }
 
-    public Actor getActor() {
-        return actor;
+    public Actor getLogContact() {
+        return logContact;
     }
 
-    public void setActor(Actor actor) {
-        this.actor = actor;
+    public void setLogContact(Actor actor) {
+        this.logContact = actor;
     }
 
-    public House getHouse() {
-        return house;
+    public House getLogHouse() {
+        return logHouse;
     }
 
-    public void setHouse(House house) {
-        this.house = house;
+    public void setLogHouse(House house) {
+        this.logHouse = house;
     }
 
-    public Property getProperty() {
-        return property;
+    public Property getLogProperty() {
+        return logProperty;
     }
 
-    public void setProperty(Property property) {
-        this.property = property;
+    public void setLogProperty(Property property) {
+        this.logProperty = property;
     }
 
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
+            case "log_id":
             case "id":
                 return "" + getId();
-            case "family_id":
-                return "" + getFamily().getId();
-            case "contact_id":
-                return "" + getActor().getId();
-            case "house_id":
-                return "" + getHouse().getId();
-            case "property_id":
-                return "" + getProperty().getId();
+            case "logFamily":
+                return "" + getLogFamily();
+            case "logContact":
+                return "" + getLogContact();
+            case "logHouse":
+                return "" + getLogHouse();
+            case "logProperty":
+                return "" + getLogProperty();
             case "reason":
                 return "" + getReason();
             case "date":
@@ -158,6 +159,8 @@ public class Log extends GenericEntity implements Serializable {
                 return "" + getNotes();
             case "status":
                 return getStatus();
+            case "this":
+                return toString();
             default:
                 return "invalid property specifier";
         }

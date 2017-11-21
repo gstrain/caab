@@ -20,27 +20,27 @@ public class HouseContribution extends GenericEntity implements Serializable {
     @JoinColumn(name="actor_id")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
     @Fetch(FetchMode.JOIN)
-    private Actor actor;
+    private Actor contributor;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="house_id")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
     @Fetch(FetchMode.JOIN)
-    private House house;
+    private House contributionHouse;
 
     public HouseContribution() { }
 
-    public HouseContribution(String involvementDescription, Actor actor, House house) {
+    public HouseContribution(String involvementDescription, Actor contributor, House contributionHouse) {
         this.involvementDescription = involvementDescription;
-        this.actor = actor;
-        this.house = house;
+        this.contributor = contributor;
+        this.contributionHouse = contributionHouse;
     }
 
-    public HouseContribution(Long id, String involvementDescription, Actor actor, House house) {
+    public HouseContribution(Long id, String involvementDescription, Actor contributor, House contributionHouse) {
         this.id = id;
         this.involvementDescription = involvementDescription;
-        this.actor = actor;
-        this.house = house;
+        this.contributor = contributor;
+        this.contributionHouse = contributionHouse;
     }
 
 
@@ -52,20 +52,20 @@ public class HouseContribution extends GenericEntity implements Serializable {
         this.involvementDescription = involvementDescription;
     }
 
-    public Actor getActor() {
-        return actor;
+    public Actor getContributor() {
+        return contributor;
     }
 
-    public void setActor(Actor actor) {
-        this.actor = actor;
+    public void setContributor(Actor actor) {
+        this.contributor = actor;
     }
 
-    public House getHouse() {
-        return house;
+    public House getContributionHouse() {
+        return contributionHouse;
     }
 
-    public void setHouse(House house) {
-        this.house = house;
+    public void setContributionHouse(House house) {
+        this.contributionHouse = house;
     }
 
     @Override
@@ -74,12 +74,14 @@ public class HouseContribution extends GenericEntity implements Serializable {
             case "contribution_id":
             case "id":
                 return "" + getId();
-            case "actor_id":
-                return "" + getActor().getId();
-            case "house_id":
-                return "" + getHouse().getId();
+            case "contributor":
+                return "" + getContributor();
+            case "contributionHouse":
+                return "" + getContributionHouse();
             case "involvement_desc":
                 return "" + getInvolvementDescription();
+            case "this":
+                return toString();
             default:
                 return "invalid property specifier";
         }
@@ -89,6 +91,6 @@ public class HouseContribution extends GenericEntity implements Serializable {
     public String toString() {
         return "Contribution: " + Functions.NEWLINE_TAB +
                 involvementDescription + Functions.NEWLINE_TAB +
-                "House #: " + house.getId();
+                "House #: " + contributionHouse.getId();
     }
 }

@@ -53,6 +53,11 @@ public class FormBuilder {
         return this;
     }
 
+    public FormBuilder setParent(String parent){
+        form.setParent(parent);
+        return this;
+    }
+
     public FormBuilder setFromTable(String table,String label){
         form.setFromTable(table, label, "id");
         return this;

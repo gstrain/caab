@@ -16,7 +16,7 @@ public class Class extends GenericEntity implements Serializable {
     private String class_name;
     private String class_desc;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "classType")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "familyClassType")
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<Family> families;
@@ -70,6 +70,8 @@ public class Class extends GenericEntity implements Serializable {
                 return "" + getClass_name();
             case "class_desc":
                 return "" + getClass_desc();
+            case "this":
+                return toString();
             default:
                 return "invalid property specifier";
         }

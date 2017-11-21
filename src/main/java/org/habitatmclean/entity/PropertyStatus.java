@@ -70,8 +70,18 @@ public class PropertyStatus extends GenericEntity implements Serializable {
                 return "" + getPstatus();
             case "pstatus_desc":
                 return "" + getPstatus_desc();
+            case "this":
+                return toString();
             default:
                 return "invalid property specifier";
         }
+    }
+
+    @Override
+    public String toString() {
+        String response = "Status: " + pstatus;
+        if(!pstatus_desc.equals("") && pstatus_desc != null)
+            response += " - " + pstatus_desc;
+        return response;
     }
 }

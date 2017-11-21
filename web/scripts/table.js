@@ -3,7 +3,7 @@
     Table = function($table){
         const $modal = $table.nextAll('#record-modal');
         const $addBtn = $('.btn-add');
-        const $reportBtn = $('.btn-report');
+        const $reportBtn = $('#reportButton');
         const table = this;
         $.extend(this,{
             page:$('#page-type').val(), // if we ever want more than one table per page, we'll need to remove this from the page and mase it specific to table
@@ -24,17 +24,19 @@
                 });
             },
 
-            searchObject:function(obj, name,index){
+            searchObject:function(obj,name,target,parent){
                 var result = null;
                 for(var key in obj){
                     if("object" == typeof(obj[key]))
-                        if(key == name)
-                            result = table.searchObject(obj[key], table.$modalForms.eq(index).attr('data-value-type'),index);
+                        result = table.searchObject(obj[key],name,target, key);
+                    else if(key == name) {
+                        if (parent) {
+                            if (target == parent)
+                                result = obj[key];
+                        }
                         else
-                        result = table.searchObject(obj[key], name, index);
-                    else if(key == name)
-                        result = obj[key];
-
+                            result = obj[key];
+                    }
                     if(result != null)
                         return result;
                 }
@@ -60,8 +62,15 @@
                         console.log(response);
                         var value;
                         table.$modalForms.each(function(index){
-                            name = $(this).attr("name");
-                            value = table.searchObject(response,name,index);
+                            var name = $(this).attr("name");
+                            var drop = $(this).attr('data-value-drop');
+                            var parent = $(this).attr('data-value-parent');
+                            if(drop)
+                                value = table.searchObject(response,drop,name);
+                            else if(parent)
+                                value = table.searchObject(response,name,parent);
+                            else
+                                value = table.searchObject(response,name);
                             if(value != null)
                                 $(this).val(value);
                         });
@@ -97,6 +106,12 @@
                             iziToast.success({
                                 title: 'OK',
                                 message: 'Successfully ' + (data.id == 0 ? 'Added' : 'Edited') + ' Record'
+                            });
+                        },
+                        error: function(){
+                            iziToast.error({
+                                title: 'Unsuccessful!',
+                                message: 'Record was not able to be ' + (data.id == 0 ? 'added.' : 'edited.')
                             });
                         }
                     });
@@ -166,7 +181,7 @@
                                 icon: 'fa fa-exclamation',
                                 message: 'The following table entries reference this row <strong> and WILL ALSO BE DELETED</strong> if this record is removed!<br/><br/>' +
                                     // text section with references
-                                '<div id="references" style="display:none;">' + references +
+                                '<div id="references">' + references +
                                     '<input type="checkbox" class="" id="deleteCheck"><label for="deleteCheck">&nbsp;&nbsp;&nbsp;I understand</label>' +
                                     '<button id="deleteEverythingButton" class="btn btn-sm" style="margin-left:15px;color:#000; background:rgba(0,0,0,.1);"><strong>DELETE EVERYTHING</strong></button>' +
                                 '</div>',
@@ -216,12 +231,21 @@
                 });
             },
             downloadReport:function() {
-                window.location='/pdfgen?page=' + $('#page-type').val();
+                window.location='/pdfgen?page=' + $('#page-type').val() + '&method=table';
                 $reportBtn.toggleClass('disabled');
                 $reportBtn.html('Generating...');
                 setTimeout(function() {
                     $reportBtn.toggleClass('disabled');
                     $reportBtn.html('Generate Report');
+                }, 1500); // prevent spamming report generation button
+            },
+            individualReport:function(pk, button) {
+                window.location='/pdfgen?page=' + $('#page-type').val() + '&method=individual&primary_k=' + pk;
+                $(button).toggleClass('disabled');
+                $(button).html('Generating...');
+                setTimeout(function() {
+                    $(button).toggleClass('disabled');
+                    $(button).html('Report');
                 }, 1500); // prevent spamming report generation button
             },
             init:function(){
@@ -246,6 +270,9 @@
                 $table.find('.btn-delete').on('click', function() {
                     table.confirmDelete(getId(this));
                 });
+                $table.find('.btn-report').on('click', function() {
+                    table.individualReport(getId(this), this);
+                })
             }
         });
         this.init();

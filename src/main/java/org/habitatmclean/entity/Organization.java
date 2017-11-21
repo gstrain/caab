@@ -20,19 +20,19 @@ public class Organization extends Actor implements Serializable {
     @JoinColumn(name="contact_id")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE})
     @Fetch(FetchMode.JOIN)
-    private Person contact;
+    private Person organizationContact;
 
     public Organization() { }
 
-    public Organization(String name, Person contact, RelationType relationType, Address address) {
+    public Organization(String name, Person organizationContact, RelationType relationType, Address address) {
         this.name = name;
-        this.contact = contact;
+        this.organizationContact = organizationContact;
     }
 
-    public Organization(Long actor_id, String name, Person contact, Address address, RelationType relationType) {
+    public Organization(Long actor_id, String name, Person organizationContact, Address address, RelationType relationType) {
         super(relationType, address);
         this.name = name;
-        this.contact = contact;
+        this.organizationContact = organizationContact;
     }
 
     @Column(name="name")
@@ -44,12 +44,12 @@ public class Organization extends Actor implements Serializable {
         this.name = name;
     }
 
-    public Person getContact() {
-        return contact;
+    public Person getOrganizationContact() {
+        return organizationContact;
     }
 
-    public void setContact(Person person) {
-        this.contact = person;
+    public void setOrganizationContact(Person person) {
+        this.organizationContact = person;
     }
 
     @Override
@@ -60,8 +60,10 @@ public class Organization extends Actor implements Serializable {
                 return "" + getId();
             case "name":
                 return "" + getName();
-            case "contact_id":
-                return "" + getContact().getId();
+            case "organizationContact":
+                return "" + getOrganizationContact();
+            case "this":
+                return toString();
             default:
                 return "invalid property specifier";
         }

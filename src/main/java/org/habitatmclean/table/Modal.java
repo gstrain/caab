@@ -8,7 +8,7 @@ public abstract class Modal {
     private String id = "<input type='hidden' name='item-id' value=''>";
     protected List<Form> forms;
 
-    Modal(String title){
+    protected Modal(String title){
         forms = new ArrayList<Form>();
         this.title = title;
         buildModal();

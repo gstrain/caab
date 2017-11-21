@@ -41,21 +41,21 @@ public class Property extends GenericEntity implements Serializable {
     @JoinColumn(name="address_id")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @Fetch(FetchMode.JOIN)
-    private Address address;
+    private Address propertyAddress;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "property", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "logProperty", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<Log> logs;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "property", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseProperty", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<House> houses;
 
     public Property() {}
 
-    public Property(Long id, double appraised_value, Date appraised_date, double taxes, String notes, PropertyStatus property_status, Zone zone, Actor owner, Address address) {
+    public Property(Long id, double appraised_value, Date appraised_date, double taxes, String notes, PropertyStatus property_status, Zone zone, Actor owner, Address propertyAddress) {
         this.id = id;
         this.appraised_value = appraised_value;
         this.appraised_date = appraised_date;
@@ -64,10 +64,10 @@ public class Property extends GenericEntity implements Serializable {
         this.property_status = property_status;
         this.zone = zone;
         this.owner = owner;
-        this.address = address;
+        this.propertyAddress = propertyAddress;
     }
 
-    public Property(double appraised_value, Date appraised_date, double taxes, String notes, PropertyStatus property_status, Zone zone, Actor owner, Address address) {
+    public Property(double appraised_value, Date appraised_date, double taxes, String notes, PropertyStatus property_status, Zone zone, Actor owner, Address propertyAddress) {
         this.appraised_value = appraised_value;
         this.appraised_date = appraised_date;
         this.taxes = taxes;
@@ -75,7 +75,7 @@ public class Property extends GenericEntity implements Serializable {
         this.property_status = property_status;
         this.zone = zone;
         this.owner = owner;
-        this.address = address;
+        this.propertyAddress = propertyAddress;
     }
 
     public SortedSet<Log> getLogs() {
@@ -155,27 +155,27 @@ public class Property extends GenericEntity implements Serializable {
         this.owner = actor;
     }
 
-    public Address getAddress() {
-        return address;
+    public Address getPropertyAddress() {
+        return propertyAddress;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setPropertyAddress(Address address) {
+        this.propertyAddress = address;
     }
 
     @Override
     public String getValueByPropertyName(String property) {
         switch(property) {
-            case "property_no":
+            case "id":
                 return "" + getId();
-            case "address_id":
-                return "" + getAddress().getId();
-            case "zone_id":
-                return "" + getZone().getId();
-            case "owner_id":
-                return "" + getOwner().getId();
+            case "propertyAddress":
+                return "" + getPropertyAddress();
+            case "zone":
+                return "" + getZone();
+            case "owner":
+                return "" + getOwner();
             case "property_status":
-                return "" + getProperty_status().getId();
+                return "" + getProperty_status();
             case "appraised_value":
                 return "" + getAppraised_value();
             case "appraised_date":
@@ -184,6 +184,8 @@ public class Property extends GenericEntity implements Serializable {
                 return "" + getTaxes();
             case "notes":
                 return "" + getNotes();
+            case "this":
+                return toString();
             default:
                 return "invalid property specifier";
         }
@@ -195,6 +197,6 @@ public class Property extends GenericEntity implements Serializable {
                 "Property #" + id + Functions.NEWLINE_TAB +
                 "taxes: " + String.format("$%.2f", taxes) +
                 ", zone: " + zone.getZone_info() + Functions.NEWLINE_TAB +
-                address.toString();
+                propertyAddress.toString();
     }
 }

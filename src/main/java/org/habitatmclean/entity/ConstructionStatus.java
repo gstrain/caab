@@ -16,7 +16,7 @@ public class ConstructionStatus extends GenericEntity implements Serializable {
     private String cstatus;
     private String cstatus_description;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "construction_status")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "houseConstructionStatus")
     @SortNatural
     @Fetch(FetchMode.SUBSELECT)
     private SortedSet<House> houses;
@@ -65,8 +65,15 @@ public class ConstructionStatus extends GenericEntity implements Serializable {
                 return "" + getCstatus();
             case "cstatus_description":
                 return "" + getCstatus_description();
+            case "this":
+                return this.toString();
             default:
                 return "invalid property specifier";
         }
+    }
+
+    @Override
+    public String toString() {
+        return cstatus + ": " + cstatus_description;
     }
 }

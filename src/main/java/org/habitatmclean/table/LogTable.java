@@ -17,7 +17,7 @@ import java.util.List;
 
 public class LogTable extends Table {
     public LogTable() {
-        super(new String[]{"Reason", "Date", "Notes", "Status"}, new LogModal(), false);
+        super(new String[]{"Reason", "Date", "Notes", "Status"}, new LogModal(), false, false);
     }
 
     /**
