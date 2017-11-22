@@ -37,6 +37,7 @@ public class VendorServlet extends HttpServlet {
         int page = 1;
         try {
             page = Integer.parseInt(request.getParameter("page")); // default to 1st page, otherwise whatever page in request
+            if(page < 1 || page > vendors.size()/Functions.RESULTS_PER_PAGE) page = 1;  // don't allow invalid pages
         } catch (NumberFormatException e) { }
 
         Table table = null;

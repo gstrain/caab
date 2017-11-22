@@ -6,6 +6,7 @@ import java.util.*;
 public class Functions {
     public static final String TAB = "&nbsp;&nbsp;&nbsp;&nbsp;";
     public static final String NEWLINE_TAB = "<br/>" + TAB;
+    public static int RESULTS_PER_PAGE = 50;
 
     public static boolean checkfor(String ... strings){
         boolean filled = true;
@@ -71,7 +72,6 @@ public class Functions {
     }
 
     public static SortedSet resultSet(SortedSet all, int page) {
-        final int RESULTS_PER_PAGE = 50;
         SortedSet results = new TreeSet();
         Iterator itr = all.iterator();
         int beginIndex = (page-1)*RESULTS_PER_PAGE;

@@ -85,19 +85,6 @@ td {
     margin-top: 50px;
  width: 90%;
 }
-
-@media print {
-    #tableContent {
-        margin-top:10px; /* Originally 40px */
-    }
-    th {
-        font-size: .8em;
-    }
-    #table {
-        margin: 10px;
-    }
-}
-
 /* izitoast expanded section*/
 #references {
     display:none;
@@ -122,9 +109,17 @@ td {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: #555;
 }
+/* ul of pages */
 .pagination {
     margin-right: 2em;
     margin-top: 1em;
+}
+/* dropdown list of pages to navigate to */
+#pageSelector {
+    margin-left: 1em;
+}
+#pagesForm {
+    display: flex;
 }
 /* loading spinner */
 #spinner {
@@ -159,4 +154,15 @@ td {
             transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
             -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
         }
+}
+@media print {
+    #tableContent {
+        margin-top:10px; /* Originally 40px */
+    }
+    th {
+        font-size: .8em;
+    }
+    #table {
+        margin: 10px;
+    }
 }

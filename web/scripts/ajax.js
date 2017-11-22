@@ -55,7 +55,7 @@
                 $('#tableContent').append(response).hide().fadeIn(300);
                 new Table($('.table'));
 
-                addPages(size);
+                addPagination(size);
             }
         });
     };
@@ -75,7 +75,7 @@
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     };
 
-    function addPages(size) {
+    function addPagination(size) {
         // create a navigation bar with the first & last pages, the current page, two before, and two after - 7 total links
         const RESULTS_PER_PAGE = 50; // needs to match constant in resultSet() method in Functions.java
         const $pagination = $('.pagination');
@@ -83,9 +83,16 @@
         const currentPage = window.location.href.split('?')[0];
         const currentPageParam = window.location.href.split('?')[1];
         var currentPageNumber = 1;
-        if(currentPageParam) // if the url has a parameter, use it, otherwise default to 1
-            currentPageNumber = parseInt(currentPageParam.substring(currentPageParam.lastIndexOf('=')+1, currentPageParam.length));
-        var lastPageNumber = Math.floor(size / RESULTS_PER_PAGE);
+        var lastPageNumber = Math.ceil(size / RESULTS_PER_PAGE);
+        if(currentPageParam) {  // if the url has a parameter, use it, otherwise default to 1
+            currentPageNumber = parseInt(currentPageParam.substring(currentPageParam.lastIndexOf('=') + 1, currentPageParam.length));
+            // don't allow invalid pages)
+            if(currentPageNumber < 1)
+                currentPageNumber = 1;
+            if(currentPageNumber > lastPageNumber)
+                currentPageNumber = lastPageNumber;
+        }
+        console.log('last page number', lastPageNumber);
 
         // first page
         $pagination.append('<li class="page-item"><a class="page-link" href="' + currentPage + '?page=1">1</a></li>');
@@ -107,14 +114,29 @@
         // last page
         if(currentPageNumber < lastPageNumber-3)
             $pagination.append(filler);
-        if(currentPageNumber <= lastPageNumber) // TODO might break on small page amounts, I didn't think too hard about this
+        if(currentPageNumber !== lastPageNumber && currentPageNumber <= lastPageNumber)
             $pagination.append('<li class="page-item"><a class="page-link" href="' + currentPage + '?page=' + lastPageNumber+ '">' + lastPageNumber + '</a></li>');
 
         // highlight active page
         $('.page-item').each(function() {
-            if(parseInt($(this).text()) === currentPageNumber)
-                $(this).toggleClass('active');
+            if(parseInt($(this).text()) === currentPageNumber) {
+                $(this).addClass('active');
+                return false; // stop iterating once we find the correct page
+            }
         });
 
+        // add selector box and fill
+        if(lastPageNumber > 5) {
+            $pagination.append('<form id="pagesForm" method="GET" action="' + currentPage + '">' +
+                '<select class="form-control" name="page" id="pageSelector" onchange="this.form.submit()">' +
+                '</select>' +
+                '</form>');
+            for (var i = 1; i <= lastPageNumber; i++) {
+                if (i === currentPageNumber)
+                    $('#pageSelector').append('<option selected="selected" value="' + i + '">' + i + '</option>');
+                else
+                    $('#pageSelector').append('<option value="' + i + '">' + i + '</option>')
+            }
+        }
     }
 })();
