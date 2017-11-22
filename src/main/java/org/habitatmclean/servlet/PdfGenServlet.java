@@ -127,12 +127,12 @@ public class PdfGenServlet extends HttpServlet {
                     case "houses":
                         String options = "?page=house&method=individual"; // the page variable holds 'houses', we need 'house'
                         options += "&primary_k=" + pk;
-                        cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "portrait", "http://localhost:" + port + "/pages/house_report.html" + options, tempDirectory + ts + ".pdf"};
+                        cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "portrait", "http://localhost:" + port + "/reports/house_report.html" + options, tempDirectory + ts + ".pdf"};
                         break;
                     case "properties":
                         options = "?page=property&method=individual"; // the page variable holds 'houses', we need 'house'
                         options += "&primary_k=" + pk;
-                        cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1080x1920", "-O", "portrait", "http://localhost:" + port + "/pages/property_report.html" + options, tempDirectory + ts + ".pdf"};
+                        cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1080x1920", "-O", "portrait", "http://localhost:" + port + "/reports/property_report.html" + options, tempDirectory + ts + ".pdf"};
                         break;
                 }
             }
