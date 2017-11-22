@@ -1,8 +1,7 @@
 package org.habitatmclean.hibernate;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Functions {
     public static final String TAB = "&nbsp;&nbsp;&nbsp;&nbsp;";
@@ -69,5 +68,17 @@ public class Functions {
         }
 
         return fields;
+    }
+
+    public static SortedSet resultSet(SortedSet all, int page) {
+        final int RESULTS_PER_PAGE = 50;
+        SortedSet results = new TreeSet();
+        Iterator itr = all.iterator();
+        int beginIndex = (page-1)*RESULTS_PER_PAGE;
+        for(int i = 0; i < beginIndex && itr.hasNext(); i++) itr.next(); // move the iterator to the appropriate position
+        for(int i = 0; i < RESULTS_PER_PAGE && itr.hasNext(); i++) {  // grab the desired amount or the rest of the results, whichever comes first
+            results.add(itr.next());
+        }
+        return results; // the results to display
     }
 }

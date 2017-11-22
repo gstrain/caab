@@ -28,15 +28,11 @@ input:-webkit-autofill {
     /*max-width:100%;*/
 /*}*/
 #table {
-    margin-top: 40px; /* Originally no margin. */
-    margin-bottom: 20px;
+    margin: auto;
     width: 93%;
-    margin-left: 20px;
-    margin-right: auto;
     overflow-x: scroll;
     overflow-y: scroll;
     table-layout: fixed;
-    float: left;
     -ms-word-wrap: break-word;
     word-wrap: break-word;
 }
@@ -125,6 +121,10 @@ td {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: #555;
+}
+.pagination {
+    margin-right: 2em;
+    margin-top: 1em;
 }
 /* loading spinner */
 #spinner {

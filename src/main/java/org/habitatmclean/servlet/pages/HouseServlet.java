@@ -3,6 +3,7 @@ package org.habitatmclean.servlet.pages;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.habitatmclean.dao.ReadDAO;
+import org.habitatmclean.hibernate.Functions;
 import org.habitatmclean.hibernate.HibernateAdapter;
 import org.habitatmclean.hibernate.HibernateUtil;
 import org.habitatmclean.table.Table;
@@ -31,15 +32,22 @@ public class HouseServlet extends HttpServlet {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         ReadDAO dao = HibernateAdapter.getBoByEntityName("House");
         sessionFactory.getCurrentSession().beginTransaction();
-        SortedSet persons = dao.findAll();
+        SortedSet houses = dao.findAll();
+
+        int page = 1;
+        try {
+            page = Integer.parseInt(request.getParameter("page")); // default to 1st page, otherwise whatever page in request
+        } catch (NumberFormatException e) { }
+
         Table table = null;
         try {
             table = TableFactory.getTable("house");
         } catch (TableTypeNotFoundException e) {
             e.printStackTrace();
         }
-        table.addData(persons);
+        table.addData(Functions.resultSet(houses, page));
         response.getWriter().println(table);
+        response.getWriter().print("resultsSize:" + houses.size());
         sessionFactory.getCurrentSession().getTransaction().commit();
 
     }
