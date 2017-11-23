@@ -114,8 +114,8 @@ public abstract class Table {
         StringBuilder table = new StringBuilder();
 
 //        table.append("<span id='open' style='font-size:30px;cursor:pointer' onclick='openNav()'>&#9776; open</span>");
-        table.append("<span id='open' style='font-size:30px;cursor:pointer' onclick='openNav()'><i class='fa fa-chevron-right' aria-hidden='true'></i></span>");
-        table.append("<div id='drawer' class='sidenav'> <!-- The drawer -->" +
+        table.append("<span id='open' class='d-print-none' style='font-size:30px;cursor:pointer' onclick='openNav()'><i class='fa fa-chevron-right' aria-hidden='true'></i></span>");
+        table.append("<div id='drawer' class='sidenav d-print-none'> <!-- The drawer -->" +
                 "        <a href='javascript:void(0)' class='closebtn' onclick='closeNav()'>&times;</a>");
         table.append(ADD_BUTTON);
 //        for (int i = 0; i < HEADERS.length; i++) {

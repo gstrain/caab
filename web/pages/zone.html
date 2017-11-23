@@ -33,7 +33,7 @@
                     <a href="houses.html"><button type="button" class="btn">Houses</button></a>
                     <a href="vendors.html"><button type="button" class="btn">Vendors</button></a>
                     <a href="../people.html"><button type="button" class="btn">People</button></a>
-                    <a href="#"><button type="button" class="btn active">Zone</button></a>
+                    <a href=""><button type="button" class="btn active">Zone</button></a>
                 </form>
             </div>
         </div>
@@ -45,9 +45,17 @@
     <p id="reportTime" class="d-print-inline">Zone Table<br/>Report generated at </p>
 
     <div id="spinner"></div>
-    <ul id="pageList" class="pagination justify-content-end d-print-none">
-
-    </ul>
+    <form class="d-print-none justify-content-end" id="pagesForm" method="GET">
+        <label for="pageSelector">Page</label>
+        <select class="form-control" name="page" id="pageSelector" onchange="this.form.submit()"></select>
+        <label for="perPageSelector">Results Per Page</label>
+        <select id="perPageSelector" class="form-control" name="perPage" onChange="this.form.submit()">
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="500">500</option>
+            <option value="-1">All</option>
+        </select>
+    </form>
     <div id="tableContent">
 
     </div>

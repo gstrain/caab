@@ -52,11 +52,7 @@ public class PersonServlet extends HttpServlet {
 
         sessionFactory.getCurrentSession().beginTransaction();
         SortedSet persons = dao.findAll();
-        int page = 1;
-        try {
-            page = Integer.parseInt(request.getParameter("page")); // default to 1st page, otherwise whatever page in request
-            if(page < 1 || page > persons.size()/Functions.RESULTS_PER_PAGE) page = 1;  // don't allow invalid pages
-        } catch (NumberFormatException e) { }
+
 
         Table table = null;
         try {
@@ -65,7 +61,8 @@ public class PersonServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        table.addData(Functions.resultSet(persons, page));
+        int[] options = Functions.getPageAndCount(request, persons.size());
+        table.addData(Functions.resultSet(persons, options[0], options[1]));
         response.getWriter().println(table);
         response.getWriter().print("resultsSize:" + persons.size());
         System.out.println(persons.size());

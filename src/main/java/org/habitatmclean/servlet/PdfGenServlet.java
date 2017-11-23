@@ -107,6 +107,8 @@ public class PdfGenServlet extends HttpServlet {
         String[] cmdArr = new String[]{"echo", "."};
         if(method != null) {
             if (page != null && method.equals("table")) {
+                int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+                int rowsToShow = Integer.parseInt(request.getParameter("perPage"));
                 switch (page) {
                     case "log":
                         //TODO log case
@@ -115,10 +117,10 @@ public class PdfGenServlet extends HttpServlet {
                         cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", url, tempDirectory + ts + ".pdf"};
                         break;
                     case "people":
-                        cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", "http://localhost:" + port + "/" + page + ".html", tempDirectory + ts + ".pdf"};
+                        cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", "http://localhost:" + port + "/" + page + ".html?page=" + pageNumber + "&perPage=" + rowsToShow, tempDirectory + ts + ".pdf"};
                         break;
                     default: // vendors, zones, properties, houses, etc. anything that is in the /web/pages/ directory
-                        cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", "http://localhost:" + port + "/pages/" + page + ".html", tempDirectory + ts + ".pdf"};
+                        cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", "http://localhost:" + port + "/pages/" + page + ".html?&page=" + pageNumber + "&perPage=" + rowsToShow, tempDirectory + ts + ".pdf"};
                         break;
                 }
             } else if (method.equals("individual")) {

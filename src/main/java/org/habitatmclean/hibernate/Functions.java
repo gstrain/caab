@@ -1,12 +1,12 @@
 package org.habitatmclean.hibernate;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.util.*;
 
 public class Functions {
     public static final String TAB = "&nbsp;&nbsp;&nbsp;&nbsp;";
     public static final String NEWLINE_TAB = "<br/>" + TAB;
-    public static int RESULTS_PER_PAGE = 50;
 
     public static boolean checkfor(String ... strings){
         boolean filled = true;
@@ -38,7 +38,6 @@ public class Functions {
                 return null;
         }
     }
-
     /**
      * returns the class name that a hidden input refers to
      * @param hiddenInput
@@ -71,14 +70,43 @@ public class Functions {
         return fields;
     }
 
-    public static SortedSet resultSet(SortedSet all, int page) {
+    public static SortedSet resultSet(SortedSet all, int page, int resultsPerPage) {
+        if(resultsPerPage == -1) return all; // -1 is flag to indicate the entire result set
         SortedSet results = new TreeSet();
         Iterator itr = all.iterator();
-        int beginIndex = (page-1)*RESULTS_PER_PAGE;
+        int beginIndex = (page-1)*resultsPerPage;
         for(int i = 0; i < beginIndex && itr.hasNext(); i++) itr.next(); // move the iterator to the appropriate position
-        for(int i = 0; i < RESULTS_PER_PAGE && itr.hasNext(); i++) {  // grab the desired amount or the rest of the results, whichever comes first
+        for(int i = 0; i < resultsPerPage && itr.hasNext(); i++) {  // grab the desired amount or the rest of the results, whichever comes first
             results.add(itr.next());
         }
         return results; // the results to display
     }
+
+    /**
+     * @param request
+     * @param size the result set size
+     * @return an int[] of size 2: page # is [0], count per page is [1]
+     */
+    public static int[] getPageAndCount(HttpServletRequest request, int size) {
+        int[] result = {1, 50};
+        try {
+            if(request.getParameter("perPage") != null) {
+                int perPage = Integer.parseInt(request.getParameter("perPage"));
+                if(perPage == -1)
+                    return new int[] {1, -1};
+                result[1] = perPage;
+            }
+            if(request.getParameter("page") != null)
+                result[0] = Integer.parseInt(request.getParameter("page"));
+            if(result[0] < 1)
+                result[0] = 1;  // don't allow invalid pages
+            result[0] = Math.min(result[0], size/Math.abs(result[1]));
+        } catch (NumberFormatException e) {
+            result[0] = 1;
+            result [1] = 50;// default to page 1 and a count of 50
+        }
+        return result;
+    }
+
+
 }

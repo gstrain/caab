@@ -11,6 +11,7 @@
     getData = function() {
         const page = $('#page-type').val();
         const pageNumber = getParameterByName('page');
+        const params = '?' + window.location.href.split('?')[1];
         var url;
         switch(page){
             case "person":
@@ -34,6 +35,7 @@
             default:
                 url = '/person-servlet';
         }
+        url += params;
 
         clearTable();
         $('#spinner').show();
@@ -43,7 +45,6 @@
             cache: false,
             data: $.param({page:pageNumber}),
             success: function (response) {
-                console.log('success');
                 $('#spinner').hide();
 
                 // remove trailing result size info and use it to build page links
@@ -75,68 +76,43 @@
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     };
 
+    // fills the page selector with the appropriate values
     function addPagination(size) {
-        // create a navigation bar with the first & last pages, the current page, two before, and two after - 7 total links
-        const RESULTS_PER_PAGE = 50; // needs to match constant in resultSet() method in Functions.java
-        const $pagination = $('.pagination');
-        const filler = '<li class="page-item disabled"><a class="page-link" href="">. . .</a></li>';
-        const currentPage = window.location.href.split('?')[0];
-        const currentPageParam = window.location.href.split('?')[1];
+        var resultsPerPage = 50;
+        if(getParameterByName('perPage'))
+            resultsPerPage = getParameterByName('perPage');
+        var lastPageNumber;
+        if(resultsPerPage == -1)
+            lastPageNumber = 1;
+        else
+            lastPageNumber = Math.abs(Math.ceil(size / resultsPerPage));
         var currentPageNumber = 1;
-        var lastPageNumber = Math.ceil(size / RESULTS_PER_PAGE);
-        if(currentPageParam) {  // if the url has a parameter, use it, otherwise default to 1
-            currentPageNumber = parseInt(currentPageParam.substring(currentPageParam.lastIndexOf('=') + 1, currentPageParam.length));
-            // don't allow invalid pages)
-            if(currentPageNumber < 1)
+        if(getParameterByName('page')) {
+            currentPageNumber = getParameterByName('page');
+            // don't allow invalid pages #s
+            if (currentPageNumber < 1)
                 currentPageNumber = 1;
-            if(currentPageNumber > lastPageNumber)
+            if (currentPageNumber > lastPageNumber)
                 currentPageNumber = lastPageNumber;
         }
+
+        const currentPage = window.location.href.split('?')[0];
+
         console.log('last page number', lastPageNumber);
 
-        // first page
-        $pagination.append('<li class="page-item"><a class="page-link" href="' + currentPage + '?page=1">1</a></li>');
-        if(currentPageNumber > 4)
-            $pagination.append(filler);
+        for (var i = 1; i <= lastPageNumber; i++) {
+            if (i == currentPageNumber)
+                $('#pageSelector').append('<option selected="selected" value="' + i + '">' + i + '</option>');
+            else
+                $('#pageSelector').append('<option value="' + i + '">' + i + '</option>')
+        }
 
-        // 5 in the middle
-        if(currentPageNumber-2 > 1)
-            $pagination.append('<li class="page-item"><a class="page-link" href="' + currentPage + '?page=' + (currentPageNumber-2) + '">' + (currentPageNumber-2) + '</a></li>');
-        if(currentPageNumber-1 > 1)
-            $pagination.append('<li class="page-item"><a class="page-link" href="' + currentPage + '?page=' + (currentPageNumber-1) + '">' + (currentPageNumber-1) + '</a></li>');
-        if(currentPageNumber !== 1 && currentPageNumber !== lastPageNumber)
-            $pagination.append('<li class="page-item"><a class="page-link" href="' + currentPage + '?page=' + currentPageNumber + '">' + currentPageNumber + '</a></li>');
-        if(currentPageNumber+1 < lastPageNumber)
-            $pagination.append('<li class="page-item"><a class="page-link" href="' + currentPage + '?page=' + (currentPageNumber+1) + '">' + (currentPageNumber+1) + '</a></li>');
-        if(currentPageNumber+2 < lastPageNumber)
-            $pagination.append('<li class="page-item"><a class="page-link" href="' + currentPage + '?page=' + (currentPageNumber+2) + '">' + (currentPageNumber+2) + '</a></li>');
-
-        // last page
-        if(currentPageNumber < lastPageNumber-3)
-            $pagination.append(filler);
-        if(currentPageNumber !== lastPageNumber && currentPageNumber <= lastPageNumber)
-            $pagination.append('<li class="page-item"><a class="page-link" href="' + currentPage + '?page=' + lastPageNumber+ '">' + lastPageNumber + '</a></li>');
-
-        // highlight active page
-        $('.page-item').each(function() {
-            if(parseInt($(this).text()) === currentPageNumber) {
-                $(this).addClass('active');
-                return false; // stop iterating once we find the correct page
+        // results per page box
+        $('#perPageSelector').find('option').each(function() {
+            if($(this).text() == resultsPerPage || (resultsPerPage == -1 && $(this).text() == 'All')) {
+                $(this).attr('selected', 'selected');
+                return false;
             }
         });
-
-        // add selector box and fill
-        if(lastPageNumber > 5) {
-            $pagination.append('<form id="pagesForm" method="GET" action="' + currentPage + '">' +
-                '<select class="form-control" name="page" id="pageSelector" onchange="this.form.submit()">' +
-                '</select>' +
-                '</form>');
-            for (var i = 1; i <= lastPageNumber; i++) {
-                if (i === currentPageNumber)
-                    $('#pageSelector').append('<option selected="selected" value="' + i + '">' + i + '</option>');
-                else
-                    $('#pageSelector').append('<option value="' + i + '">' + i + '</option>')
-            }
-        }
     }
 })();

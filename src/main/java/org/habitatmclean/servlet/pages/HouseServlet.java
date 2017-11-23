@@ -34,19 +34,15 @@ public class HouseServlet extends HttpServlet {
         sessionFactory.getCurrentSession().beginTransaction();
         SortedSet houses = dao.findAll();
 
-        int page = 1;
-        try {
-            page = Integer.parseInt(request.getParameter("page")); // default to 1st page, otherwise whatever page in request
-            if(page < 1 || page > houses.size()/Functions.RESULTS_PER_PAGE) page = 1;  // don't allow invalid pages
-        } catch (NumberFormatException e) { }
-
         Table table = null;
         try {
             table = TableFactory.getTable("house");
         } catch (TableTypeNotFoundException e) {
             e.printStackTrace();
         }
-        table.addData(Functions.resultSet(houses, page));
+
+        int[] options = Functions.getPageAndCount(request, houses.size());
+        table.addData(Functions.resultSet(houses, options[0], options[1]));
         response.getWriter().println(table);
         response.getWriter().print("resultsSize:" + houses.size());
         sessionFactory.getCurrentSession().getTransaction().commit();
