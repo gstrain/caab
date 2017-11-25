@@ -201,8 +201,8 @@ public abstract class Table {
             @Override
             public String toString() {
                 StringBuilder row = new StringBuilder();
-
                 row.append(HEADER_BEGIN);
+
                 for(TableCell tableCell : tableCells) {
                     row.append(tableCell);
                 }
@@ -240,8 +240,8 @@ public abstract class Table {
             }
 
             static class HeaderCell extends TableCell {
-                private final String HEAD = "<th>";
-                private final String END = "</th>";
+                private final String HEAD = "<th onclick=\"sort(\"";
+                private final String END = "\")></th>";
 
                 public HeaderCell(String value) {
                     super(value);
@@ -250,6 +250,7 @@ public abstract class Table {
                 public String toString() {
                     StringBuilder header = new StringBuilder();
                     header.append(HEAD);
+                    for (int i = 0; i < tableCells.size(); )
                     header.append(value);
                     header.append(END);
                     return header.toString();

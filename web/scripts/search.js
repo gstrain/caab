@@ -20,3 +20,49 @@ function searchTable() {
     }
 }
 
+
+function sort(n) {
+    var table, row, flag, i, current, next, flag2, dir,
+        count = 0;
+
+    table = document.getElementById("table");
+    flag = true;
+
+    dir = "asc";
+
+    while (flag) {
+        flag = false;
+
+        row = table.getElementsByTagName("TR");
+
+        for (i = 0; i < row.length - 1; i++) {
+            flag2 = false;
+            current = row[i].getElementsByTagName("TD")[n];
+            next = row[i+1].getElementsByTagName("TD")[n];
+            if (dir == "asc") {
+                if (current.innerHTML.toLowerCase() > next.innerHTML.toLowerCase()) {
+                    flag2 = true;
+                    break;
+                }
+            } else if (dir == "desc") {
+                    if (current.innerHTML.toLowerCase() < next.innerHTML.toLowerCase()) {
+                        flag2 = true;
+                        break;
+                    }
+                }
+            }
+
+            if (flag2) {
+                row[i].parentNode.insertBefore(row[i+1], row[i]);
+                flag = true;
+                count++;
+            } else {
+                if (count == 0 && dir == "asc") {
+                    dir = "desc";
+                    flag = true;
+                }
+            }
+
+        }
+}
+

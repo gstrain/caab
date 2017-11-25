@@ -7,6 +7,9 @@ import org.habitatmclean.hibernate.HibernateUtil;
 import org.hibernate.SessionFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,9 +47,7 @@ public class LogTable extends Table {
     }
 
     @Override
-    public void recordEdit(HttpServletRequest request, int id) {
-
-    }
+    public void recordEdit(HttpServletRequest request, int id) {}
 
     @Override
     public void recordAdd(HttpServletRequest request) {
@@ -55,7 +56,6 @@ public class LogTable extends Table {
 
         Log log = new Log();
         log.setReason(request.getParameter("reason"));
-        log.setDate(request.getParameter("date"));
         log.setNotes(request.getParameter("notes"));
         log.setStatus(request.getParameter("status"));
 
@@ -72,10 +72,9 @@ public class LogTable extends Table {
 
         @Override
         public void buildModal() {
-            forms.add(Form.builder().setType("text").setName("reason").setLabel("Reason").build());
-            forms.add(Form.builder().setType("text").setName("date").setLabel("Date").build());
-            forms.add(Form.builder().setType("text").setName("notes").setLabel("Notes").build());
-            forms.add(Form.builder().setType("text").setName("status").setLabel("Status").build());
+            forms.add(Form.builder().setType("text").setName("reason").setLabel("Reason").setMaxLength(120).setRequired(false).build());
+            forms.add(Form.builder().setType("text").setName("notes").setLabel("Notes").setMaxLength(500).build());
+            forms.add(Form.builder().setType("text").setName("status").setLabel("Status").setMaxLength(50).build());
         }
     }
 }
