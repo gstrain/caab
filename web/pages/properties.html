@@ -42,6 +42,17 @@
     <p id="reportTime" class="d-print-inline">Properties Table<br/>Report generated at </p>
 
     <div id="spinner"></div>
+    <form class="d-print-none justify-content-end" id="pagesForm" method="GET">
+        <label for="pageSelector">Page</label>
+        <select class="form-control" name="page" id="pageSelector" onchange="this.form.submit()"></select>
+        <label for="perPageSelector">Results Per Page</label>
+        <select id="perPageSelector" class="form-control" name="perPage" onChange="this.form.submit()">
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="500">500</option>
+            <option value="-1">All</option>
+        </select>
+    </form>
     <div id="tableContent">
 
     </div>
@@ -50,7 +61,7 @@
     <ul id="footer-list" class="mdl-mega-footer--link-list">
         <li><a href="https://www.facebook.com/HabitatMcLean/"> <i class="fa fa-facebook-official" style="font-size:36px;color: #ffffff;" ></i> </a> </li>
         <li><a href="https://twitter.com/HabitatMcLean"> <i class="fa fa-twitter-square" aria-hidden="true" style="font-size: 36px;color: #ffffff"></i></a></li>
-        <li><a href="#"><i class="fa fa-question-circle" aria-hidden="true" style="font-size: 36px;color: #ffffff"></i></a></li>
+        <li><a href=""><i class="fa fa-question-circle" aria-hidden="true" style="font-size: 36px;color: #ffffff"></i></a></li>
     </ul>
 </footer>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

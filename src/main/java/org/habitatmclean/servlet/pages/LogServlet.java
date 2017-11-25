@@ -1,6 +1,7 @@
 package org.habitatmclean.servlet.pages;
 
 import org.habitatmclean.dao.ReadDAO;
+import org.habitatmclean.hibernate.Functions;
 import org.habitatmclean.hibernate.HibernateAdapter;
 import org.habitatmclean.hibernate.HibernateUtil;
 import org.habitatmclean.table.Table;
@@ -27,14 +28,18 @@ public class LogServlet extends HttpServlet{
         ReadDAO dao = HibernateAdapter.getBoByEntityName("Log");
         sessionFactory.getCurrentSession().beginTransaction();
         SortedSet logs = dao.findAll();
+
         Table table = null;
         try {
             table = TableFactory.getTable("log");
         } catch (TableTypeNotFoundException e) {
             e.printStackTrace();
         }
-        table.addData(logs);
+
+        int[] options = Functions.getPageAndCount(request, logs.size());
+        table.addData(Functions.resultSet(logs, options[0], options[1]));
         response.getWriter().println(table);
+        response.getWriter().print("resultsSize:" + logs.size());
         sessionFactory.getCurrentSession().getTransaction().commit();
     }
 }

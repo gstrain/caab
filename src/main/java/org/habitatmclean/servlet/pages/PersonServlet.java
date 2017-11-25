@@ -3,6 +3,7 @@ package org.habitatmclean.servlet.pages;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.habitatmclean.dao.ReadDAO;
+import org.habitatmclean.hibernate.Functions;
 import org.habitatmclean.hibernate.HibernateAdapter;
 import org.habitatmclean.hibernate.HibernateUtil;
 import org.habitatmclean.table.Table;
@@ -36,12 +37,12 @@ public class PersonServlet extends HttpServlet {
 //
 //        Random gen = new Random();
 //        GenericDao saver = new HibernateAdapter();
-
+//
 
 //        for(int i = 0; i < 3000; i++) {
 //            sessionFactory.getCurrentSession().beginTransaction();
 //            Person p = new Person("abe" + gen.nextInt(9999), "west", "ram", "231@example.com", "1234567890", "5432106987", "0987654321", fam, relationType,
-//                    new Address("1st", "" + gen.nextInt(100), "" + gen.nextInt(100), "peo", "IL", "" + gen.nextInt(999999)));
+//                    new Address("1st", "" + gen.nextInt(100), "peo", "IL", "" + gen.nextInt(999999)));
 //            saver.save(p);
 //            sessionFactory.getCurrentSession().getTransaction().commit();
 //        }
@@ -51,11 +52,7 @@ public class PersonServlet extends HttpServlet {
 
         sessionFactory.getCurrentSession().beginTransaction();
         SortedSet persons = dao.findAll();
-//        SortedSet actual = new TreeSet();
-//        Iterator itr = persons.iterator();
-//        for(int i = 0; i < 500; i++) { // add first 500 to result set
-//            actual.add(itr.next());
-//        }
+
 
         Table table = null;
         try {
@@ -64,10 +61,11 @@ public class PersonServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        table.addData(persons);
+        int[] options = Functions.getPageAndCount(request, persons.size());
+        table.addData(Functions.resultSet(persons, options[0], options[1]));
         response.getWriter().println(table);
+        response.getWriter().print("resultsSize:" + persons.size());
         System.out.println(persons.size());
         sessionFactory.getCurrentSession().getTransaction().commit();
     }
-
 }

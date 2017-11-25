@@ -231,13 +231,26 @@
                 });
             },
             downloadReport:function() {
-                window.location='/pdfgen?page=' + $('#page-type').val() + '&method=table';
-                $reportBtn.toggleClass('disabled');
-                $reportBtn.html('Generating...');
-                setTimeout(function() {
+                var pageNumber = 1;
+                var perPage = 50;
+                if(getParameterByName('page'))
+                    pageNumber = getParameterByName('page');
+                if(getParameterByName('perPage'))
+                    perPage = getParameterByName('perPage');
+                if(perPage != -1) {
+                    window.location = '/pdfgen?page=' + $('#page-type').val() + '&method=table&pageNumber=' + pageNumber + '&perPage=' + perPage;
                     $reportBtn.toggleClass('disabled');
-                    $reportBtn.html('Generate Report');
-                }, 1500); // prevent spamming report generation button
+                    $reportBtn.html('Generating...');
+                    setTimeout(function () {
+                        $reportBtn.toggleClass('disabled');
+                        $reportBtn.html('Generate Report');
+                    }, 1500); // prevent spamming report generation button
+                } else {
+                    iziToast.warning({
+                        title: 'Caution',
+                        message: 'Choose a smaller amount of data per page to generate a report',
+                    });
+                }
             },
             individualReport:function(pk, button) {
                 window.location='/pdfgen?page=' + $('#page-type').val() + '&method=individual&primary_k=' + pk;
