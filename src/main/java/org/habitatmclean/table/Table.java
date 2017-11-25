@@ -241,7 +241,8 @@ public abstract class Table {
 
             static class HeaderCell extends TableCell {
                 private final String HEAD = "<th onclick=\"sort(\"";
-                private final String END = "\")></th>";
+                private final String END = "\")>";
+                private final String CLOSE = "</th>";
 
                 public HeaderCell(String value) {
                     super(value);
@@ -250,9 +251,9 @@ public abstract class Table {
                 public String toString() {
                     StringBuilder header = new StringBuilder();
                     header.append(HEAD);
-                    for (int i = 0; i < tableCells.size(); )
-                    header.append(value);
                     header.append(END);
+                    header.append(value);
+                    header.append(CLOSE);
                     return header.toString();
                 }
             }
