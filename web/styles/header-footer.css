@@ -7,10 +7,14 @@
 
 #nav
 {
+    top: 0;
+    left: 0;
+    bottom: 100px;
     background-color: rgba(1,174,216,1);
     padding-bottom: 0px;
     width: 100%;
     z-index: 0;
+    flex-shrink: 0;
 }
 /* navbar buttons */
 nav div div form button {

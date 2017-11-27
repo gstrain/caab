@@ -29,6 +29,7 @@ input:-webkit-autofill {
 /*}*/
 #table {
     margin: auto;
+    z-index: 1;
     width: 93%;
     overflow-x: scroll;
     overflow-y: scroll;
