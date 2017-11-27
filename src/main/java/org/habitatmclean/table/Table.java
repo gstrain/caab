@@ -113,15 +113,17 @@ public abstract class Table {
     public String toString() {
         StringBuilder table = new StringBuilder();
 
-//        table.append("<span id='open' style='font-size:30px;cursor:pointer' onclick='openNav()'>&#9776; open</span>");
         table.append("<span id='open' class='d-print-none' style='font-size:30px;cursor:pointer' onclick='openNav()'><i class='fa fa-chevron-right' aria-hidden='true'></i></span>");
         table.append("<div id='drawer' class='sidenav d-print-none'> <!-- The drawer -->" +
                 "        <a href='javascript:void(0)' class='closebtn' onclick='closeNav()'>&times;</a>");
         table.append(ADD_BUTTON);
-//        for (int i = 0; i < HEADERS.length; i++) {
-            table.append("<form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
-            "<input type='search' id='search' onkeyup='searchTable();' class='form-control mr-sm-2' data-table='order-table' placeholder='Search Table'>\n </input> \n </form>\n");
-//        }
+        table.append("<form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
+            "<input type='search' id='search' onkeyup='searchTable(-1);' class='form-control mr-sm-2' data-table='order-table' placeholder='Search Table'>\n </input> \n </form>\n");
+        table.append("<form id=\"checkboxes\">");
+        for(int i = 0; i < HEADERS.length; i++) {
+            table.append("<input id=\"filter\" class=\"filter\" onclick=\"searchTable(" + i + ");\" type=\"checkbox\"> " + HEADERS[i] + " <br>");
+        }
+        table.append("</form>");
         table.append(REPORT_BUTTON + "</div>");
         table.append(TABLE_BEGIN);
         table.append(headers);

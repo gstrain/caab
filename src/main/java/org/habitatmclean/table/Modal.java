@@ -41,7 +41,7 @@ public abstract class Modal {
         String foot = " </div>\n" +
                 "      <div class='modal-footer'>\n" +
                 "        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>\n" +
-                "        <button type='submit' class='btn btn-primary save' id='modal-submit'>Save changes</button>\n" +
+                "        <button type='submit' class='btn btn-primary save' id='modal-submit' onclick='closeNav()'>Save changes</button>\n" +
                 "           " + id +
                 "        </form>\n" +
                 "      </div>\n" +

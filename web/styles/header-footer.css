@@ -1,3 +1,12 @@
+#left
+{
+    width: 250px;
+    position: absolute;
+    right: 5%;
+    padding-top: 75px;
+    padding-bottom: 0px;
+}
+
 #list
 {
     float:right;
@@ -49,13 +58,13 @@ nav div div form button {
 
 #footer
 {
-    top: 100px;
     left: 0;
     bottom: 0;
     width: 100%;
     color: #FFFFFF;
     background-color: rgba(1,174,216,1);
     z-index: 2;
+    position: fixed;
     flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
 }
 #footer-list {
