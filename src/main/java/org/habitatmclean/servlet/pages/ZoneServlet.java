@@ -1,7 +1,5 @@
 package org.habitatmclean.servlet.pages;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.habitatmclean.dao.ReadDAO;
 import org.habitatmclean.hibernate.Functions;
 import org.habitatmclean.hibernate.HibernateAdapter;
@@ -21,8 +19,6 @@ import java.util.SortedSet;
 
 @WebServlet(name = "ZoneServlet", value="/zone-servlet")
 public class ZoneServlet extends HttpServlet {
-    private static Gson gson = new GsonBuilder().setPrettyPrinting()
-            .create();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }

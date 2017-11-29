@@ -9,7 +9,7 @@
         <module name="CAAB" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.8">
       <module name="CAAB" target="1.8" />
     </bytecodeTargetLevel>
   </component>

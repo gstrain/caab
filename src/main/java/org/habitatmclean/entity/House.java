@@ -210,7 +210,7 @@ public class House extends GenericEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "House #:" + id + Functions.NEWLINE_TAB +
+        return "House #: " + id + Functions.NEWLINE_TAB +
                 "Property #: " + getHouseProperty().getId() + Functions.NEWLINE_TAB +
                 "Style: " + getHouse_style().getStyle() + Functions.NEWLINE_TAB +
                 size + " sq ft., " +

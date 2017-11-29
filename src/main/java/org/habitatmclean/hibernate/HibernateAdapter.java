@@ -8,6 +8,7 @@ import java.lang.Class;
 
 
 public class HibernateAdapter extends GenericDao {
+    private static final ActorBO ACTOR_BO = new ActorBO();
     private static final AddressBO ADDRESS_BO = new AddressBO();
     private static final ClassBO CLASS_BO = new ClassBO();
     private static final ConstructionStatusBO CONSTRUCTION_STATUS_BO = new ConstructionStatusBO();
@@ -46,6 +47,8 @@ public class HibernateAdapter extends GenericDao {
      */
     public static GenericDao getBoByEntityName(String className) {
         switch(className) {
+            case "Actor":
+                return ACTOR_BO;
             case "Address":
                 return ADDRESS_BO;
             case "Class":
@@ -89,7 +92,9 @@ public class HibernateAdapter extends GenericDao {
     }
 
     public static GenericDao getBoByEntityName(Class<?> clazz) {
-        if (clazz == Address.class){
+        if (clazz == Actor.class) {
+            return ACTOR_BO;
+        } else if (clazz == Address.class){
             return ADDRESS_BO;
         } else if (clazz == Class.class){
             return CLASS_BO;

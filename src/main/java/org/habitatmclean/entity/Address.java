@@ -154,7 +154,7 @@ public class Address extends GenericEntity implements Serializable { // to be se
     @Override
     public String toString() {
         String apartment = "";
-        if(!apartment_no.equals("") && !(apartment_no == null))
+        if(apartment_no != null && !apartment_no.equals(""))
             apartment = "Apartment " + apartment_no + " - ";
         return "Address: " +
                 apartment +

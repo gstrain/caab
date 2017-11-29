@@ -39,22 +39,22 @@ public class HouseTable extends Table {
 
         try {
             house.setConstruction_cost(Double.parseDouble(request.getParameter("construction_cost").trim()));
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | NullPointerException e) {
             house.setConstruction_cost(0);
         }
         try {
             house.setSize(Integer.parseInt(request.getParameter("size").trim()));
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | NullPointerException e) {
             house.setSize(0);
         }
         try {
             house.setBedrooms(Integer.parseInt(request.getParameter("bedrooms").trim()));
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | NullPointerException e) {
             house.setSize(0);
         }
         try {
             house.setBathrooms(Double.parseDouble(request.getParameter("bathrooms").trim()));
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | NullPointerException e) {
             house.setBathrooms(0);
         }
 
@@ -92,22 +92,22 @@ public class HouseTable extends Table {
 
         try {
             house.setConstruction_cost(Double.parseDouble(request.getParameter("construction_cost").trim()));
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | NullPointerException e) {
             house.setConstruction_cost(0);
         }
         try {
             house.setSize(Integer.parseInt(request.getParameter("size").trim()));
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | NullPointerException e) {
             house.setSize(0);
         }
         try {
             house.setBedrooms(Integer.parseInt(request.getParameter("bedrooms").trim()));
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | NullPointerException e) {
             house.setSize(0);
         }
         try {
             house.setConstruction_cost(Double.parseDouble(request.getParameter("bathrooms").trim()));
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | NullPointerException e) {
             house.setBathrooms(0);
         }
 
