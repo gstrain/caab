@@ -119,9 +119,9 @@ public abstract class Table {
         table.append(ADD_BUTTON);
         table.append("<form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
             "<input type='search' id='search' onkeyup='searchTable(-1);' class='form-control mr-sm-2' data-table='order-table' placeholder='Search Table'>\n </input> \n </form>\n");
-        table.append("<form id=\"checkboxes\">");
+        table.append("<form id='checkboxes'>");
         for(int i = 0; i < HEADERS.length; i++) {
-            table.append("<input id=\"filter\" class=\"filter\" onclick=\"searchTable(" + i + ");\" type=\"checkbox\"> " + HEADERS[i] + " <br>");
+            table.append("<input class='filter' id='filter' onclick='searchTable(" + i + ");' type='checkbox' value='" + HEADERS[i] + "'> " + HEADERS[i] + " <br>");
         }
         table.append("</form>");
         table.append(REPORT_BUTTON + "</div>");
@@ -242,8 +242,8 @@ public abstract class Table {
             }
 
             static class HeaderCell extends TableCell {
-                private final String HEAD = "<th onclick=\"sort(\"";
-                private final String END = "\")>";
+                private final String HEAD = "<th onclick='sort('";
+                private final String END = "')>";
                 private final String CLOSE = "</th>";
 
                 public HeaderCell(String value) {

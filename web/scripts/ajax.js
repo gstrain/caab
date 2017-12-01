@@ -5,8 +5,74 @@
         var meridian = date.getHours() > 12 ? 'PM' : 'AM';
         var timeString = (((date.getHours() > 12) ? date.getHours()-12 : date.getHours()) + ":") + date.getMinutes() + ' ' + meridian;
         $('#reportTime').html($('#reportTime').html() + timeString + '<br/>' + dateString);
+        loadPropertySearch();
         getData();
+
     });
+
+    function loadPropertySearch() {
+        $.ajax({
+            type: 'GET',
+            url: '/search-servlet',
+            cache: false,
+            success: function (response) {
+                // add listener to button and enable
+                const $searchButton = $('#propertyAddressSearchBtn');
+                const $searchBox = $('#propertySearchBox');
+                const $properties = $('#properties');
+                const $hiddenInput = $('#propertySearchBox-hidden');
+                $searchButton.prop('disabled', false);
+                $searchButton.on('click', function() {
+                    var valid = false;
+                    $('datalist option').each(function() {
+                       if($(this).val() == $searchBox.val())
+                           valid = true;
+                    });
+                    if($searchBox.val() != '' && valid) {
+                        // load properties page with all results
+                        if ($('#page-type').val() == 'person')
+                            window.location = './pages/properties.html?page=1&perPage=-1&search=' + $hiddenInput.val();
+                        else
+                            window.location = './properties.html?page=1&perPage=-1&search=' + $hiddenInput.val();
+                    }
+                    else if(!valid) {
+                        iziToast.error({
+                            title: 'Address Error',
+                            timeout: 1500,
+                            message: 'Specify a valid address from the list'
+                        });
+                    }
+                });
+
+                // populate data list
+                console.log(response);
+                var obj = JSON.parse(response);
+                $.each(obj, function(id, addr) {
+                    if(id != '')
+                        $properties.append('<option data-value="' + id + '">' + addr + '</option>');
+                });
+
+                // listener to update correct value from datalist
+                $searchBox.on('input', function (e) {
+                    var $input = $(e.target),
+                        $options = $('#' + $input.attr('list') + ' option'),
+                        label = $input.val();
+
+                    $hiddenInput.val(label);
+
+                    for (var i = 0; i < $options.length; i++) {
+                        var $option = $options.eq(i);
+
+                        if ($option.text() === label) {
+                            $hiddenInput.val($option.attr('data-value'));
+                            break;
+                        }
+                    }
+                });
+
+            }
+        });
+    }
 
     getData = function() {
         const page = $('#page-type').val();
@@ -53,8 +119,18 @@
                 response = response.substring(0, index);
                 console.log('result set size:' + size);
 
-                $('#tableContent').append(response).hide().fadeIn(300);
+                $('#tableContent').append(response);//.hide().fadeIn(300);
                 new Table($('.table'));
+
+                //handle property address search
+                if($('#page-type').val() == 'property' && getParameterByName('search') != null) {
+                    $('#search').val(getParameterByName('search'));
+                    $('.filter').each(function() {
+                        if($(this).attr('value') == 'property number') {
+                            $(this).trigger("click");
+                        }
+                    });
+                }
 
                 addPagination(size);
             }

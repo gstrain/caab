@@ -28,7 +28,7 @@
                 <img src="https://pbs.twimg.com/profile_images/702542049719898112/hmptfgCQ.jpg" width="100" height="100">
             </a>
             <div id="collapse" class="collapse navbar-collapse">
-                <div class="navbar-nav" id="list">
+                <div class="navbar-nav mr-auto" id="list">
                     <form class="form-linline">
                         <a href="pages/properties.html"><button type="button" class="btn">Properties</button></a>
                         <a href="pages/houses.html"><button type="button" class="btn">Houses</button></a>
@@ -37,6 +37,12 @@
                         <a href="pages/zone.html"><button type="button" class="btn">Zone</button></a>
                     </form>
                 </div>
+                <form id="searchForm" class="form-inline">
+                    <input class="form-control mr-sm-2" list="properties" id="propertySearchBox" type="search" placeholder="Search Properties" aria-label="Search">
+                    <datalist id="properties"></datalist>
+                    <button class="btn btn-success my-2 my-sm-0" id="propertyAddressSearchBtn" type="button" disabled>Search</button>
+                </form>
+                <input type="hidden" name="answer" id="propertySearchBox-hidden">
                 <!--<div id="left">-->
                     <!--<form class="navbar-form navbar-left" role="search" autocomplete="on">-->
                         <!--<div class="form-group">-->

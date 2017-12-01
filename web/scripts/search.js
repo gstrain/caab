@@ -1,10 +1,10 @@
 /* Global table search with search bar */
-function searchTable(p) {
+searchTable = function(p) {
     // Declare variables
     var input, filter, table, i, j, row, col;
     input = document.getElementById("search");
     table = document.getElementById("table");
-
+    var count = 0;
     if (p == -1 && !(document.getElementById('filter').checked)) {
         filter = input.value.toUpperCase();
         for (i = 1, row; row = table.rows[i]; i++) {
@@ -33,7 +33,7 @@ function searchTable(p) {
             }
         }
     }
-}
+};
 
 function filter() {
 

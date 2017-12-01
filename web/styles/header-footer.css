@@ -64,7 +64,7 @@ nav div div form button {
     color: #FFFFFF;
     background-color: rgba(1,174,216,1);
     z-index: 2;
-    position: fixed;
+    /*position: fixed;*/ /* uncomment to break the sticky footer */
     flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
 }
 #footer-list {
@@ -80,7 +80,11 @@ nav div div form button {
     float: left;
     padding-right: 50px;
 }
-
+#searchForm {
+    float: right;
+    padding-top: 60px;
+    padding-bottom: 0px;
+}
 .body {
     margin: 50px;
 }
