@@ -117,12 +117,18 @@ public abstract class Table {
         table.append("<div id='drawer' class='sidenav d-print-none'> <!-- The drawer -->" +
                 "        <a href='javascript:void(0)' class='closebtn' onclick='closeNav()'>&times;</a>");
         table.append(ADD_BUTTON);
-        table.append("<form class='filter-box searchTable()\" form-inline d-print-none searchForm' role='search' autocomplete='on'>\n");
+        table.append("<div class=\"dropdown\">\n" +
+                "  <button class=\"dropbtn\" class='btn btn-success btn-lg btn-down d-print-none'>Dropdown</button>\n" +
+                "  <div class=\"dropdown-content\">\n" +
+                "    <a href=\"#\">Link 1</a>\n" +
+                "    <a href=\"#\">Link 2</a>\n" +
+                "  </div>\n" +
+                "</div>");
+        table.append("<form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n");
         table.append("<input type='search' id='search' onKeyUp=\"searchTable()\" class='form-control mr-sm-2' data-table='order-table' placeholder='Search Table'>\n </input> \n </form>\n");
-//        table.append("<button id='tableSearch' onclick=\"searchTable()\" type='button' class='btn btn-success btn-lg btn-search d-print-none'>Search</button>");
         table.append("<form id='checkboxes'>");
         for(int i = 0; i < HEADERS.length; i++) {
-            table.append("<input class='filter' id='filter' onclick='filter(" + i + ")' type='checkbox' value='" + HEADERS[i] + "'> " + HEADERS[i] + " <br>");
+            table.append("<input class='filter' id='filter' onclick='column(" + i + ")' type='checkbox' value='" + HEADERS[i] + "'> " + HEADERS[i] + " <br>");
         }
         table.append("</form>");
         table.append(REPORT_BUTTON + "</div>");

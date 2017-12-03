@@ -1,7 +1,6 @@
 package org.habitatmclean.table;
 import org.habitatmclean.dao.GenericDao;
-import org.habitatmclean.entity.GenericEntity;
-import org.habitatmclean.entity.Log;
+import org.habitatmclean.entity.*;
 import org.habitatmclean.hibernate.HibernateAdapter;
 import org.habitatmclean.hibernate.HibernateUtil;
 import org.hibernate.SessionFactory;
@@ -51,17 +50,51 @@ public class LogTable extends Table {
 
     @Override
     public void recordAdd(HttpServletRequest request) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        sessionFactory.getCurrentSession().beginTransaction();
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            sessionFactory.getCurrentSession().beginTransaction();
 
-        Log log = new Log();
-        log.setReason(request.getParameter("reason"));
-        log.setNotes(request.getParameter("notes"));
-        log.setStatus(request.getParameter("status"));
+            Log log = new Log();
+            log.setReason(request.getParameter("reason"));
+            log.setNotes(request.getParameter("notes"));
+            log.setStatus(request.getParameter("status"));
 
-        GenericDao dao = new HibernateAdapter();
-        dao.save(log);
-        sessionFactory.getCurrentSession().getTransaction().commit();
+            String check = request.getParameter("pname");
+            String fk = request.getParameter("fk");
+            System.out.println(check);
+            System.out.println(fk);
+
+
+                switch (check) {
+                    case "property":
+                        GenericDao dao = HibernateAdapter.getBoByEntityName("Property");
+                        Property property = (Property) dao.findByPrimaryKey(new Long(request.getParameter("fk")));
+                        log.setLogProperty(property);
+                        log.setLogFamily(null);
+                        log.setLogHouse(null);
+                        break;
+                    case "house":
+                        GenericDao hD = HibernateAdapter.getBoByEntityName("House");
+                        House house = (House) hD.findByPrimaryKey(new Long(request.getParameter("fk")));
+                        log.setLogHouse(house);
+                        log.setLogFamily(null);
+                        log.setLogProperty(null);
+                        break;
+                    case "family":
+                        GenericDao fD = HibernateAdapter.getBoByEntityName("Family");
+                        Family family = (Family) fD.findByPrimaryKey(new Long(request.getParameter("fk")));
+                        log.setLogFamily(family);
+                        log.setLogHouse(null);
+                        log.setLogProperty(null);
+                        break;
+                    default:
+                        System.out.println("Nothing passed");
+                }
+
+
+//            System.out.println(log.toString());
+            GenericDao dao = new HibernateAdapter();
+            dao.save(log);
+            sessionFactory.getCurrentSession().getTransaction().commit();
     }
 
     static class LogModal extends Modal {

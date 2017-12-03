@@ -101,6 +101,7 @@
                         data: data,
                         cache: false,
                         success: function () {
+                            console.log(data);
                             console.log('returned');
                             getData();
                             iziToast.success({
@@ -110,6 +111,7 @@
                             });
                         },
                         error: function(){
+                            console.log(data);
                             iziToast.error({
                                 title: 'Unsuccessful!',
                                 message: 'Record was not able to be ' + (data.id == 0 ? 'added.' : 'edited.')
@@ -119,11 +121,8 @@
                 });
             },
             log: function(pk) {
-                // window.location.href = ;
-                // console.log(window.location);
-                // console.log(pk);
-                window.location.href = "logs.html" + "?fk=" + pk;
-                // console.log(pk);
+                console.log(this.page);
+                window.location.href = "logs.html" + "?fk=" + pk + "?pname=" + this.page;
             },
             confirmDelete:function(pk){
                 // TODO apply styling to selected row to show which will be deleted

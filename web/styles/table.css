@@ -3,30 +3,19 @@
     width: 150%;
 }
 form.filter-box input.form-control { /* The drawer search bar */
-    /*max-width:80%;*/
+    visibility: hidden;
     width: 80%;
     height: 45px;
     font-size: 20px;
     margin-top: 30px;
     margin-left: 20px;
     padding: 3px 0px;
-    /*margin: 10px;*/
 }
 
-/*Change text in autofill textbox
-    especially important for clearing modals
- */
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 30px white inset;
 }
-/*!* each search box *!*/
-/*.searchForm {*/
-    /*display:inline;*/
-    /*margin-left: 10px;*/
-/*}*/
-/*form.filter-box input.form-control {*/
-    /*max-width:100%;*/
-/*}*/
+
 #table {
     margin: auto;
     z-index: 1;
@@ -47,11 +36,9 @@ td {
     padding: .5rem !important;
 }
 #reportButton {
-    /*margin: 10px;*/
     margin-top: 30px;
     margin-left: 20px;
     width: 80%;
-    /*text-align: left;*/
     display:block;
     float: left;
     padding-right: 40px;
@@ -59,8 +46,6 @@ td {
 #addButton {
     margin-top: 70px;
     margin-left: 20px;
-    /*margin-right: 4px;*/
-    /*margin: 10px;*/
     width: 80%;
     display:block;
     float: left;
