@@ -1,4 +1,5 @@
 (function() {
+    var pk;
     $( document ).ready(function() {
         var date = new Date();
         var dateString = ((date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear());
@@ -78,6 +79,7 @@
         const page = $('#page-type').val();
         const pageNumber = getParameterByName('page');
         const params = '?' + window.location.href.split('?')[1];
+        // var log_par = '?' + $(Table.table.find('.btn-log')).parent().parent().attr('id').substring(7);
         var url;
         switch(page){
             case "person":
@@ -97,6 +99,8 @@
                 break;
             case "log":
                 url = '/log-servlet';
+                console.log(window.location.href);
+                // url += pk;
                 break;
             default:
                 url = '/person-servlet';
@@ -153,7 +157,7 @@
     };
 
     // fills the page selector with the appropriate values
-    function addPagination(size) {
+    addPagination= function(size) {
         var resultsPerPage = 50;
         if(getParameterByName('perPage'))
             resultsPerPage = getParameterByName('perPage');

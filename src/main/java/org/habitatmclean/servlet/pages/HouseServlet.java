@@ -36,6 +36,8 @@ public class HouseServlet extends HttpServlet {
             e.printStackTrace();
         }
 
+
+
         int[] options = Functions.getPageAndCount(request, houses.size());
         table.addData(Functions.resultSet(houses, options[0], options[1]));
         response.getWriter().println(table);

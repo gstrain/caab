@@ -118,9 +118,16 @@
                     });
                 });
             },
+            log: function(pk) {
+                // window.location.href = ;
+                // console.log(window.location);
+                // console.log(pk);
+                window.location.href = "logs.html" + "?fk=" + pk;
+                // console.log(pk);
+            },
             confirmDelete:function(pk){
                 // TODO apply styling to selected row to show which will be deleted
-
+                console.log(pk);
                 $.ajax({
                     type: 'POST',
                     url: '/delete',
@@ -286,6 +293,9 @@
                 });
                 $table.find('.btn-report').on('click', function() {
                     table.individualReport(getId(this), this);
+                });
+                $table.find('.btn-log').on('click', function() {
+                    table.log(getId(this));
                 })
             }
         });
@@ -306,6 +316,8 @@
                 return '/property-servlet';
             case "vendor":
                 return '/vendor-servlet';
+            case "log":
+                return '/log-servlet';
             case "zone":
                 return '/zone-servlet';
             default:

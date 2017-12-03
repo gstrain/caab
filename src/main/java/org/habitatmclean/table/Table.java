@@ -117,11 +117,12 @@ public abstract class Table {
         table.append("<div id='drawer' class='sidenav d-print-none'> <!-- The drawer -->" +
                 "        <a href='javascript:void(0)' class='closebtn' onclick='closeNav()'>&times;</a>");
         table.append(ADD_BUTTON);
-        table.append("<form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n" +
-            "<input type='search' id='search' onkeyup='searchTable(-1);' class='form-control mr-sm-2' data-table='order-table' placeholder='Search Table'>\n </input> \n </form>\n");
+        table.append("<form class='filter-box searchTable()\" form-inline d-print-none searchForm' role='search' autocomplete='on'>\n");
+        table.append("<input type='search' id='search' onKeyUp=\"searchTable()\" class='form-control mr-sm-2' data-table='order-table' placeholder='Search Table'>\n </input> \n </form>\n");
+//        table.append("<button id='tableSearch' onclick=\"searchTable()\" type='button' class='btn btn-success btn-lg btn-search d-print-none'>Search</button>");
         table.append("<form id='checkboxes'>");
         for(int i = 0; i < HEADERS.length; i++) {
-            table.append("<input class='filter' id='filter' onclick='searchTable(" + i + ");' type='checkbox' value='" + HEADERS[i] + "'> " + HEADERS[i] + " <br>");
+            table.append("<input class='filter' id='filter' onclick='filter(" + i + ")' type='checkbox' value='" + HEADERS[i] + "'> " + HEADERS[i] + " <br>");
         }
         table.append("</form>");
         table.append(REPORT_BUTTON + "</div>");
@@ -141,7 +142,8 @@ public abstract class Table {
 
         final String EDIT_BUTTON = "<td><button id='editButton' type='button' class='btn btn-warning btn-sm btn-edit d-print-none'>Edit</button>";
         final String DELETE_BUTTON = "<button id='deleteButton' type='button' class='btn btn-danger btn-sm btn-delete d-print-none'>Delete</button>";
-        final String LOG = "<a href='logs.html' class='btn btn-info btn-sm btn-log d-print-none'>Logs</a>";
+//        final String LOG = "<button id='logButton' href='logs.html' class='btn btn-info btn-sm btn-log d-print-none'>Logs</a>";
+        final String LOG = "<button id='logButton' type='button' class='btn btn-info btn-sm btn-log d-print-none'>Logs</button>";
         final String REPORT = "<button type='button' class='btn btn-info btn-sm btn-report d-print-none'>Report</button></td>";   // watch location of <td> and </td> tags
 
         List<TableCell> tableCells = new ArrayList<TableCell>();

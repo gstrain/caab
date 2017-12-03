@@ -1,6 +1,8 @@
 package org.habitatmclean.servlet.pages;
 
+import org.habitatmclean.dao.GenericDao;
 import org.habitatmclean.dao.ReadDAO;
+import org.habitatmclean.entity.GenericEntity;
 import org.habitatmclean.hibernate.Functions;
 import org.habitatmclean.hibernate.HibernateAdapter;
 import org.habitatmclean.hibernate.HibernateUtil;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.SortedSet;
+import java.util.TreeSet;
 
 @WebServlet(name = "LogServlet", value="/log-servlet")
 public class LogServlet extends HttpServlet{
@@ -24,9 +27,15 @@ public class LogServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Long fk = Long.parseLong(request.getParameter("fk"));
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        ReadDAO dao = HibernateAdapter.getBoByEntityName("Log");
+        GenericDao dao = HibernateAdapter.getBoByEntityName("Log");
         sessionFactory.getCurrentSession().beginTransaction();
+//        SortedSet logs = new TreeSet();
+
+//        GenericEntity a = dao.findByPrimaryKey(fk);
+//        logs.add(a);
+//        SortedSet logs = dao.findAllByForeignKey(fk);
         SortedSet logs = dao.findAll();
 
         Table table = null;

@@ -2,7 +2,9 @@ package org.habitatmclean.dao;
 
 import org.habitatmclean.entity.GenericEntity;
 import org.habitatmclean.hibernate.HibernateUtil;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 import java.util.SortedSet;
@@ -40,6 +42,19 @@ public class GenericDao<T extends GenericEntity> implements CreateUpdateDeleteDA
         if(aLong != null)
             obj = sessionFactory.getCurrentSession().get(clazz, aLong);
         return obj;
+    }
+
+    @Override
+    public SortedSet<T> findAllByForeignKey(Long fk) {
+        List<T> objects = sessionFactory.getCurrentSession().createCriteria(clazz).add(Restrictions.eq("property.id", fk)).setCacheable(false).list();
+        SortedSet actual = new TreeSet();
+        actual.add(objects);
+//        for (T obj : objects) {
+//            if (obj.equals(sessionFactory.getCurrentSession().get(clazz, fk))) {
+//                actual.add(obj);
+//            }
+//        }
+        return actual;
     }
 
     @Override

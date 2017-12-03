@@ -1,6 +1,7 @@
 .sidenav {
-    height: 75%;
-    margin-top: 118px;
+    height: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
     width: 0;
     position: absolute;
     z-index: 1;

@@ -1,11 +1,24 @@
 /* Global table search with search bar */
-searchTable = function(p) {
+
+// var searchBox = document.getElementById("search");
+// searchBox.addEventListener("keydown", function (e) {
+//     if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+//         searchTable();
+//     }
+// });
+
+function search(evt) {
+    evt.preventDefault();
+    searchTable();
+    return false;
+}
+
+searchTable = function() {
     // Declare variables
-    var input, filter, table, i, j, row, col;
+    var  input, filter, table, i, j, row, col;
     input = document.getElementById("search");
     table = document.getElementById("table");
-    var count = 0;
-    if (p == -1 && !(document.getElementById('filter').checked)) {
+
         filter = input.value.toUpperCase();
         for (i = 1, row; row = table.rows[i]; i++) {
             for (j = 0, col; col = row.cells[j]; j++) {
@@ -19,7 +32,12 @@ searchTable = function(p) {
                 }
             }
         }
-    } else {
+}
+
+filter = function(p) {
+    var input, filter, table, i, j, row, col;
+    input = document.getElementById("search");
+    table = document.getElementById("table");
         filter = input.value.toUpperCase();
         row = table.getElementsByTagName("tr");
         for (i = 0; i < row.length; i++) {
@@ -32,11 +50,6 @@ searchTable = function(p) {
                 }
             }
         }
-    }
-};
-
-function filter() {
-
 }
 
 /* Alphabetize columns? */

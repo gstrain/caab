@@ -12,3 +12,13 @@ function closeNav() {
     document.getElementById("tableContent").style.marginLeft= "0";
     document.getElementById("open").style.visibility = "visible";
 }
+
+// $(window).on('scroll', function () {
+//     var scrollTop = $(window).scrollTop();
+//     if (scrollTop == 0) {
+//         $('#drawer').stop().animate({height: "100%"},200);
+//     }
+//     else {
+//         $('#drawer').stop().animate({height: "150%"},200);
+//     }
+// });
