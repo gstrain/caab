@@ -5,6 +5,8 @@
         const $addBtn = $('.btn-add');
         const $reportBtn = $('#reportButton');
         const table = this;
+        var pName;
+        var pId;
         $.extend(this,{
             page:$('#page-type').val(), // if we ever want more than one table per page, we'll need to remove this from the page and mase it specific to table
             pageTarget: findTarget(this.page),
@@ -16,7 +18,6 @@
             $Form: $modal.find('.modal-content'),
             $modalForms: $modal.find('.form-control'),
             $recordId: $modal.find('input[name="item-id"]'),
-
 
             clearModal:function(){
                 this.$modalForms.each(function(index){
@@ -47,8 +48,15 @@
                 table.clearModal();
                 this.$modal.modal('show');
                 this.$recordAction.html('Add ');
+                if (this.page == 'log') {
+                    var path = window.location.href.toString();
+                    var j = path.indexOf('&');
+                    var path2 = path.substr(j + 1, path.length - (j + 1));
+                    var i = path.indexOf('&') - 41;
+                    pId = path.substr(41, i);
+                    pName = path2.substr(6, (path2.indexOf('&') - 6));
+                }
                 this.$recordId.val("");
-                console.log(window.location.href);
             },
 
             edit:function(id){
@@ -84,10 +92,19 @@
             },
 
             submit:function(){
-                var data = {
-                    id: this.$recordId.val(),
-                    table: this.page
-                };
+                if (this.page == 'log') {
+                    var data = {
+                        id: this.$recordId.val(),
+                        table: this.page,
+                        pId: pId,
+                        pName: pName
+                    };
+                } else {
+                    var data = {
+                        id: this.$recordId.val(),
+                        table: this.page
+                    }
+                }
 
                 var name;
                 this.$modalForms.each(function(index){
@@ -122,8 +139,9 @@
                 });
             },
             log: function(pk) {
-                console.log(this.page);
-                window.location.href = "logs.html" + "?fk=" + pk + "&pname=" + this.page;
+                // console.log(this.page);
+                window.location.href = "logs.html" + "?fk=" + pk + "&pname=" + this.page + "&";
+                console.log(window.location.href);
             },
             confirmDelete:function(pk){
                 // TODO apply styling to selected row to show which will be deleted
@@ -281,6 +299,7 @@
                 this.$addBtn.on('click',function(){
                     table.add();
                 });
+
                 this.$reportBtn.on('click', function() {
                     table.downloadReport();
                 });

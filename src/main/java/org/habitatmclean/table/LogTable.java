@@ -17,13 +17,9 @@ import java.util.List;
  */
 
 public class LogTable extends Table {
-    static Long parentId;
-    static boolean isFamily = false;
-    static boolean isProperty = false;
-    static boolean isHouse = false;
+
     public LogTable() {
         super(new String[]{"Id","Reason", "Date", "Notes", "Status"}, new LogModal(), false, false);
-
     }
 
     /**
@@ -37,16 +33,6 @@ public class LogTable extends Table {
         List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
 
         tableCells.add(new TableRow.TableCell("" + log.getId()));
-
-        if ( log.getLogProperty().getId() != null) {
-            parentId = log.getLogProperty().getId();
-            isProperty = true;
-        } else if (log.getLogHouse().getId() != null) {
-            isHouse = true;
-            parentId = log.getLogHouse().getId();
-        } else {
-            isFamily = true;
-        }
         tableCells.add(new TableRow.TableCell(log.getReason()));
         tableCells.add(new TableRow.TableCell(log.getDate().toString()));
         tableCells.add(new TableRow.TableCell(log.getNotes()));
@@ -62,9 +48,11 @@ public class LogTable extends Table {
 
     @Override
     public void recordAdd(HttpServletRequest request) {
-            System.out.print("\nValue of parentId: " + parentId);
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             sessionFactory.getCurrentSession().beginTransaction();
+
+            String parentName = request.getParameter("pName");
+            String parentId = request.getParameter("pId");
 
             Log log = new Log();
             log.setReason(request.getParameter("reason"));
@@ -72,26 +60,23 @@ public class LogTable extends Table {
             log.setStatus(request.getParameter("status"));
             Date date = new Date();
             log.setDate(date);
-            if(isProperty)
+            if(parentName.equals("property"))
             {
                 GenericDao propDao = HibernateAdapter.getBoByEntityName("Property");
-                Property property = (Property) propDao.findByPrimaryKey(parentId);
+                Property property = (Property) propDao.findByPrimaryKey(Long.parseLong(parentId));
                 log.setLogProperty(property);
                 log.setLogContact(property.getOwner());
                 log.setLogHouse(null);
                 log.setLogFamily(null);
-                isProperty = false;
             }
-            else if (isHouse)
+            else if (parentName.equals("house"))
             {
                 GenericDao houseDao = HibernateAdapter.getBoByEntityName("House");
-                House house = (House) houseDao.findByPrimaryKey(parentId);
+                House house = (House) houseDao.findByPrimaryKey(Long.parseLong(parentId));
                 log.setLogHouse(house);
                 log.setLogFamily(null);
                 log.setLogProperty(null);
                 log.setLogContact(house.getHouseProperty().getOwner());
-                System.out.print("\n\n\n ADDING RECORD TO HOUSE LOGS \n\n\n");
-                isHouse = false;
             }
             else
             {

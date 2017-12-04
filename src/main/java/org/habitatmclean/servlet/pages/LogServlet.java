@@ -36,7 +36,6 @@ public class LogServlet extends HttpServlet{
             Property property = (Property) dao.findByPrimaryKey(new Long(request.getParameter("fk")));
             logs = property.getLogs();
         } else if (pname.equals("house")) {
-            System.out.print("\n\n\n                IN HOUSE\n\n\n");
             GenericDao dao = HibernateAdapter.getBoByEntityName("House");
             House house = (House) dao.findByPrimaryKey(new Long(request.getParameter("fk")));
             logs = house.getLogs();
