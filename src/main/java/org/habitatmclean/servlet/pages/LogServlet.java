@@ -1,10 +1,8 @@
 package org.habitatmclean.servlet.pages;
 
 import org.habitatmclean.dao.GenericDao;
-import org.habitatmclean.dao.HouseBO;
-import org.habitatmclean.dao.PropertyBO;
-import org.habitatmclean.dao.ReadDAO;
-import org.habitatmclean.entity.GenericEntity;
+import org.habitatmclean.entity.House;
+import org.habitatmclean.entity.Property;
 import org.habitatmclean.hibernate.Functions;
 import org.habitatmclean.hibernate.HibernateAdapter;
 import org.habitatmclean.hibernate.HibernateUtil;
@@ -20,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.SortedSet;
-import java.util.TreeSet;
 
 @WebServlet(name = "LogServlet", value="/log-servlet")
 public class LogServlet extends HttpServlet{
@@ -32,24 +29,22 @@ public class LogServlet extends HttpServlet{
         Long fk = Long.parseLong(request.getParameter("fk"));
         String pname = request.getParameter("pname");
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        GenericDao dao = HibernateAdapter.getBoByEntityName("Log");
         SortedSet logs = null;
-
         sessionFactory.getCurrentSession().beginTransaction();
         if (pname.equals("property")) {
-            PropertyBO prop = new PropertyBO();
-            System.out.println("\n\n\n" + fk + "\n\n\n" + pname + "\n\n\n");
-            logs = prop.findAllByForeignKey(fk);
+            GenericDao dao = HibernateAdapter.getBoByEntityName("Property");
+            Property property = (Property) dao.findByPrimaryKey(new Long(request.getParameter("fk")));
+            logs = property.getLogs();
         } else if (pname.equals("house")) {
-            HouseBO ho = new HouseBO();
-            logs = ho.findAllByForeignKey(fk);
+            System.out.print("\n\n\n                IN HOUSE\n\n\n");
+            GenericDao dao = HibernateAdapter.getBoByEntityName("House");
+            House house = (House) dao.findByPrimaryKey(new Long(request.getParameter("fk")));
+            logs = house.getLogs();
         } else if (pname.equals("family")) {
 //            logs = FamilyBO fo = new FamilyBO();
         } else {
 
         }
-//        SortedSet logs = dao.findAllByForeignKey(fk, pname);
-//        SortedSet logs = dao.findAll();
 
         Table table = null;
         try {

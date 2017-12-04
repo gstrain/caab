@@ -16,7 +16,6 @@ public class WriteServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String table = request.getParameter("table");
-            System.out.println(request.getParameter("fk"));
             if(table!= null)
                 TableFactory.getTable(table).write(request);
         } catch (TableTypeNotFoundException e) {

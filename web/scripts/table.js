@@ -48,6 +48,7 @@
                 this.$modal.modal('show');
                 this.$recordAction.html('Add ');
                 this.$recordId.val("");
+                console.log(window.location.href);
             },
 
             edit:function(id){

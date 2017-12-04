@@ -1,4 +1,6 @@
 package org.habitatmclean.table;
+
+
 import org.habitatmclean.dao.GenericDao;
 import org.habitatmclean.entity.*;
 import org.habitatmclean.hibernate.HibernateAdapter;
@@ -6,9 +8,6 @@ import org.habitatmclean.hibernate.HibernateUtil;
 import org.hibernate.SessionFactory;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,8 +17,13 @@ import java.util.List;
  */
 
 public class LogTable extends Table {
+    static Long parentId;
+    static boolean isFamily = false;
+    static boolean isProperty = false;
+    static boolean isHouse = false;
     public LogTable() {
-        super(new String[]{"Reason", "Date", "Notes", "Status"}, new LogModal(), false, false);
+        super(new String[]{"Id","Reason", "Date", "Notes", "Status"}, new LogModal(), false, false);
+
     }
 
     /**
@@ -33,8 +37,16 @@ public class LogTable extends Table {
         List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
 
         tableCells.add(new TableRow.TableCell("" + log.getId()));
-        /*TODO get the ids for contact and property from the servlet */
 
+        if ( log.getLogProperty().getId() != null) {
+            parentId = log.getLogProperty().getId();
+            isProperty = true;
+        } else if (log.getLogHouse().getId() != null) {
+            isHouse = true;
+            parentId = log.getLogHouse().getId();
+        } else {
+            isFamily = true;
+        }
         tableCells.add(new TableRow.TableCell(log.getReason()));
         tableCells.add(new TableRow.TableCell(log.getDate().toString()));
         tableCells.add(new TableRow.TableCell(log.getNotes()));
@@ -50,6 +62,7 @@ public class LogTable extends Table {
 
     @Override
     public void recordAdd(HttpServletRequest request) {
+            System.out.print("\nValue of parentId: " + parentId);
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             sessionFactory.getCurrentSession().beginTransaction();
 
@@ -57,41 +70,34 @@ public class LogTable extends Table {
             log.setReason(request.getParameter("reason"));
             log.setNotes(request.getParameter("notes"));
             log.setStatus(request.getParameter("status"));
+            Date date = new Date();
+            log.setDate(date);
+            if(isProperty)
+            {
+                GenericDao propDao = HibernateAdapter.getBoByEntityName("Property");
+                Property property = (Property) propDao.findByPrimaryKey(parentId);
+                log.setLogProperty(property);
+                log.setLogContact(property.getOwner());
+                log.setLogHouse(null);
+                log.setLogFamily(null);
+                isProperty = false;
+            }
+            else if (isHouse)
+            {
+                GenericDao houseDao = HibernateAdapter.getBoByEntityName("House");
+                House house = (House) houseDao.findByPrimaryKey(parentId);
+                log.setLogHouse(house);
+                log.setLogFamily(null);
+                log.setLogProperty(null);
+                log.setLogContact(house.getHouseProperty().getOwner());
+                System.out.print("\n\n\n ADDING RECORD TO HOUSE LOGS \n\n\n");
+                isHouse = false;
+            }
+            else
+            {
+                // FamilyDAO stuff should go here.
+            }
 
-            String check = request.getParameter("pname");
-            String fk = request.getParameter("fk");
-            System.out.println(check);
-            System.out.println(fk);
-
-
-                switch (check) {
-                    case "property":
-                        GenericDao dao = HibernateAdapter.getBoByEntityName("Property");
-                        Property property = (Property) dao.findByPrimaryKey(new Long(request.getParameter("fk")));
-                        log.setLogProperty(property);
-                        log.setLogFamily(null);
-                        log.setLogHouse(null);
-                        break;
-                    case "house":
-                        GenericDao hD = HibernateAdapter.getBoByEntityName("House");
-                        House house = (House) hD.findByPrimaryKey(new Long(request.getParameter("fk")));
-                        log.setLogHouse(house);
-                        log.setLogFamily(null);
-                        log.setLogProperty(null);
-                        break;
-                    case "family":
-                        GenericDao fD = HibernateAdapter.getBoByEntityName("Family");
-                        Family family = (Family) fD.findByPrimaryKey(new Long(request.getParameter("fk")));
-                        log.setLogFamily(family);
-                        log.setLogHouse(null);
-                        log.setLogProperty(null);
-                        break;
-                    default:
-                        System.out.println("Nothing passed");
-                }
-
-
-//            System.out.println(log.toString());
             GenericDao dao = new HibernateAdapter();
             dao.save(log);
             sessionFactory.getCurrentSession().getTransaction().commit();

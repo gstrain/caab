@@ -55,6 +55,8 @@ public class Functions {
                 return "Zone";
             case "house":
                 return "House";
+            case "log":
+                return "Log";
             default:
                 return null;
         }
