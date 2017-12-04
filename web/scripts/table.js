@@ -122,7 +122,7 @@
             },
             log: function(pk) {
                 console.log(this.page);
-                window.location.href = "logs.html" + "?fk=" + pk + "?pname=" + this.page;
+                window.location.href = "logs.html" + "?fk=" + pk + "&pname=" + this.page;
             },
             confirmDelete:function(pk){
                 // TODO apply styling to selected row to show which will be deleted

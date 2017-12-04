@@ -1,6 +1,8 @@
 package org.habitatmclean.servlet.pages;
 
 import org.habitatmclean.dao.GenericDao;
+import org.habitatmclean.dao.HouseBO;
+import org.habitatmclean.dao.PropertyBO;
 import org.habitatmclean.dao.ReadDAO;
 import org.habitatmclean.entity.GenericEntity;
 import org.habitatmclean.hibernate.Functions;
@@ -28,15 +30,26 @@ public class LogServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long fk = Long.parseLong(request.getParameter("fk"));
+        String pname = request.getParameter("pname");
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         GenericDao dao = HibernateAdapter.getBoByEntityName("Log");
-        sessionFactory.getCurrentSession().beginTransaction();
-//        SortedSet logs = new TreeSet();
+        SortedSet logs = null;
 
-//        GenericEntity a = dao.findByPrimaryKey(fk);
-//        logs.add(a);
-//        SortedSet logs = dao.findAllByForeignKey(fk);
-        SortedSet logs = dao.findAll();
+        sessionFactory.getCurrentSession().beginTransaction();
+        if (pname.equals("property")) {
+            PropertyBO prop = new PropertyBO();
+            System.out.println("\n\n\n" + fk + "\n\n\n" + pname + "\n\n\n");
+            logs = prop.findAllByForeignKey(fk);
+        } else if (pname.equals("house")) {
+            HouseBO ho = new HouseBO();
+            logs = ho.findAllByForeignKey(fk);
+        } else if (pname.equals("family")) {
+//            logs = FamilyBO fo = new FamilyBO();
+        } else {
+
+        }
+//        SortedSet logs = dao.findAllByForeignKey(fk, pname);
+//        SortedSet logs = dao.findAll();
 
         Table table = null;
         try {
