@@ -70,7 +70,7 @@ public class VendorTable extends Table {
         public void buildModal(){
             forms.add(Form.builder().setType("text").setName("name").setLabel("Name").setMaxLength(120).build());
             forms.add(Form.builder().setType("select").setName("organizationContact").setLabel("Contact").setFromTable("Person","this").build());
-            forms.add(Form.builder().setType("select").setName("actorRelationType").setParent("actorRelationType").setLabel("Relation Type").setFromTable("RelationType","relation_name").build());
+            forms.add(Form.builder().setType("select").setName("actorRelationType").setPath(new String[] {"actorRelationType","relation_name"}).setLabel("Relation Type").setFromTable("RelationType","relation_name").build());
         }
     }
 }

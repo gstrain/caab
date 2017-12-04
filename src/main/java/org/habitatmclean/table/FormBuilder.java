@@ -48,6 +48,20 @@ public class FormBuilder {
         return this;
     }
 
+    public FormBuilder setPath(String[] pathy){
+        StringBuilder path = new StringBuilder();
+        int count = 0;
+        for(String item : pathy){
+            path.append(item);
+            if(pathy.length - 1 != count){
+                path.append("->");
+            }
+            count++;
+        }
+        form.setPath(path.toString());
+        return this;
+    }
+
     public FormBuilder setFromTable(String table,String label,String value){
         form.setFromTable(table, label, value);
         return this;
