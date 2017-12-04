@@ -12,6 +12,7 @@ public abstract class Table {
     private final String TABLE_END = "\n</table>";
     private final String ADD_BUTTON = "<button id='addButton' type='button' class='btn btn-success btn-lg btn-add d-print-none'>Add</button>";
     private final String REPORT_BUTTON = "<button id='reportButton' type='button' class='btn btn-info` btn-lg d-print-none'>Generate Report</button>";
+    private final String FILTER_BUTTON = "<button id='filterButton' type='button' class='btn btn-info btn-filter btn-lg d-print-none' onclick='colFil()'>Filter</button>";
     private static boolean logFlag;
     private static boolean individualReportFlag;
     Modal modal;
@@ -117,21 +118,14 @@ public abstract class Table {
         table.append("<div id='drawer' class='sidenav d-print-none'> <!-- The drawer -->" +
                 "        <a href='javascript:void(0)' class='closebtn' onclick='closeNav()'>&times;</a>");
         table.append(ADD_BUTTON);
-        table.append("<div class=\"dropdown\">\n" +
-                "  <button class=\"dropbtn\" class='btn btn-success btn-lg btn-down d-print-none'>Dropdown</button>\n" +
-                "  <div class=\"dropdown-content\">\n" +
-                "    <a href=\"#\">Link 1</a>\n" +
-                "    <a href=\"#\">Link 2</a>\n" +
-                "  </div>\n" +
-                "</div>");
+        table.append(REPORT_BUTTON);
         table.append("<form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n");
         table.append("<input type='search' id='search' onKeyUp=\"searchTable()\" class='form-control mr-sm-2' data-table='order-table' placeholder='Search Table'>\n </input> \n </form>\n");
-        table.append("<form id='checkboxes'>");
-        for(int i = 0; i < HEADERS.length; i++) {
-            table.append("<input class='filter' id='filter' onclick='column(" + i + ")' type='checkbox' value='" + HEADERS[i] + "'> " + HEADERS[i] + " <br>");
+        for (int i = 0; i < HEADERS.length; i++) {
+            table.append("<form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>");
+            table.append("<input type='search' id='search' onKeyUp=\"searchTable()\" class='form-control mr-sm-2' data-table='order-table' placeholder='" + HEADERS[i] + "'>\n </input> \n </form>\n");
         }
-        table.append("</form>");
-        table.append(REPORT_BUTTON + "</div>");
+        table.append(FILTER_BUTTON + "</div>");
         table.append(TABLE_BEGIN);
         table.append(headers);
         for(TableRow row : rows) {

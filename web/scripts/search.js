@@ -1,6 +1,4 @@
 /* Global table search with search bar */
-
-
 searchTable = function () {
        // Declare variables
        var input, filter, table, i, j, row, col;
