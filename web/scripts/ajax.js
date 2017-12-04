@@ -128,10 +128,10 @@
 
                 //handle property address search
                 if($('#page-type').val() === 'property' && getParameterByName('search') != null) {
-                    $('#search').val(getParameterByName('search'));
-                    $('.filter').each(function() {
-                        if($(this).attr('value') === 'property number') {
-                            $(this).trigger("click");
+                    $('.filter-boxes').each(function() {
+                        if($(this).attr('placeholder') === 'property number') {
+                            $(this).val(getParameterByName('search'));
+                            $(this).trigger("onkeyup");
                         }
                     });
                 }
