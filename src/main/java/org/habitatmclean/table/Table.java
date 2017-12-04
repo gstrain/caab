@@ -123,9 +123,9 @@ public abstract class Table {
         table.append("<input type='search' id='search' onKeyUp=\"searchTable()\" class='form-control mr-sm-2' data-table='order-table' placeholder='Search Table'>\n </input> \n </form>\n");
         for (int i = 0; i < HEADERS.length; i++) {
             table.append("<form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>");
-            table.append("<input type='search' id='search' onKeyUp=\"searchTable()\" class='form-control mr-sm-2' data-table='order-table' placeholder='" + HEADERS[i] + "'>\n </input> \n </form>\n");
+            table.append("<input type='search' id='search" + i + "' onKeyUp=\"column(" + i + ")\" class='form-control mr-sm-2' data-table='order-table' placeholder='" + HEADERS[i] + "'>\n </input> \n </form>\n");
         }
-        table.append(FILTER_BUTTON + "</div>");
+        table.append("</div>");
         table.append(TABLE_BEGIN);
         table.append(headers);
         for(TableRow row : rows) {
@@ -142,7 +142,6 @@ public abstract class Table {
 
         final String EDIT_BUTTON = "<td><button id='editButton' type='button' class='btn btn-warning btn-sm btn-edit d-print-none'>Edit</button>";
         final String DELETE_BUTTON = "<button id='deleteButton' type='button' class='btn btn-danger btn-sm btn-delete d-print-none'>Delete</button>";
-//        final String LOG = "<button id='logButton' href='logs.html' class='btn btn-info btn-sm btn-log d-print-none'>Logs</a>";
         final String LOG = "<button id='logButton' type='button' class='btn btn-info btn-sm btn-log d-print-none'>Logs</button>";
         final String REPORT = "<button type='button' class='btn btn-info btn-sm btn-report d-print-none'>Report</button></td>";   // watch location of <td> and </td> tags
 
