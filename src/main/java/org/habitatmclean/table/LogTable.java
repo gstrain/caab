@@ -2,12 +2,16 @@ package org.habitatmclean.table;
 
 
 import org.habitatmclean.dao.GenericDao;
-import org.habitatmclean.entity.*;
+import org.habitatmclean.entity.GenericEntity;
+import org.habitatmclean.entity.House;
+import org.habitatmclean.entity.Log;
+import org.habitatmclean.entity.Property;
 import org.habitatmclean.hibernate.HibernateAdapter;
 import org.habitatmclean.hibernate.HibernateUtil;
 import org.hibernate.SessionFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +38,7 @@ public class LogTable extends Table {
 
         tableCells.add(new TableRow.TableCell("" + log.getId()));
         tableCells.add(new TableRow.TableCell(log.getReason()));
-        tableCells.add(new TableRow.TableCell(log.getDate().toString()));
+        tableCells.add(new TableRow.TableCell(new SimpleDateFormat("MM.dd.yyyy '-' hh:mm aa").format(log.getDate())));
         tableCells.add(new TableRow.TableCell(log.getNotes()));
         tableCells.add(new TableRow.TableCell(log.getStatus()));
 

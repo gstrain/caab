@@ -49,12 +49,8 @@
                 this.$modal.modal('show');
                 this.$recordAction.html('Add ');
                 if (this.page == 'log') {
-                    var path = window.location.href.toString();
-                    var j = path.indexOf('&');
-                    var path2 = path.substr(j + 1, path.length - (j + 1));
-                    var i = path.indexOf('&') - 41;
-                    pId = path.substr(41, i);
-                    pName = path2.substr(6, (path2.indexOf('&') - 6));
+                    pId = getParameterByName('fk');
+                    pName = getParameterByName('pname');
                 }
                 this.$recordId.val("");
             },

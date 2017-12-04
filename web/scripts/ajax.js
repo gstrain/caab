@@ -79,9 +79,8 @@
         const page = $('#page-type').val();
         const pageNumber = getParameterByName('page');
         const params = '?' + window.location.href.split('?')[1];
-        // var log_par = '?' + $(Table.table.find('.btn-log')).parent().parent().attr('id').substring(7);
         var url;
-        switch(page){
+        switch(page){   // put any table-specific code in here (i.e., the log hidden input fill)
             case "person":
                 url = '/person-servlet';
                 break;
@@ -100,7 +99,8 @@
             case "log":
                 url = '/log-servlet';
                 console.log(window.location.href);
-                // url += pk;
+                $('#fk').val(getParameterByName('fk'));
+                $('#pname').val(getParameterByName('pname'));
                 break;
             default:
                 url = '/person-servlet';
@@ -127,10 +127,10 @@
                 new Table($('.table'));
 
                 //handle property address search
-                if($('#page-type').val() == 'property' && getParameterByName('search') != null) {
+                if($('#page-type').val() === 'property' && getParameterByName('search') != null) {
                     $('#search').val(getParameterByName('search'));
                     $('.filter').each(function() {
-                        if($(this).attr('value') == 'property number') {
+                        if($(this).attr('value') === 'property number') {
                             $(this).trigger("click");
                         }
                     });
