@@ -58,6 +58,9 @@ td {
     margin-top: 50px;
  width: 90%;
 }
+#list form button.active {
+    background-color: #01b7ff;
+}
 /* izitoast expanded section*/
 #references {
     display:none;
