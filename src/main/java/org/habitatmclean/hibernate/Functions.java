@@ -26,8 +26,8 @@ public class Functions {
         switch (hiddenInput) {
             case "person":
                 return"people";
-            case "vendor":
-                return"vendors";
+            case "organization":
+                return"organizations";
             case "property":
                 return"properties";
             case "zone":
@@ -47,7 +47,7 @@ public class Functions {
         switch (hiddenInput) {
             case "person":
                 return "Person";
-            case "vendor":
+            case "organization":
                 return "Organization";
             case "property":
                 return "Property";
