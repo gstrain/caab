@@ -282,7 +282,11 @@
                 if(getParameterByName('perPage'))
                     perPage = getParameterByName('perPage');
                 if(perPage != -1) {
-                    window.location = '/pdfgen?page=' + $('#page-type').val() + '&method=table&pageNumber=' + pageNumber + '&perPage=' + perPage;
+                    if($('#page-type').val() === 'log')
+                        window.location = '/pdfgen?page=' + $('#page-type').val() + '&method=table&pageNumber=' + pageNumber + '&perPage=' + perPage
+                            + '&fk=' + getParameterByName('fk') + '&pname=' + getParameterByName('pname');
+                    else
+                        window.location = '/pdfgen?page=' + $('#page-type').val() + '&method=table&pageNumber=' + pageNumber + '&perPage=' + perPage;
                     $reportBtn.toggleClass('disabled');
                     $reportBtn.html('Generating...');
                     setTimeout(function () {
@@ -292,7 +296,7 @@
                 } else {
                     iziToast.warning({
                         title: 'Caution',
-                        message: 'Choose a smaller amount of data per page to generate a report',
+                        message: 'Choose a smaller amount of data per page to generate a report'
                     });
                 }
             },

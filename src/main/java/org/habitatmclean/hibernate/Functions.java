@@ -28,6 +28,8 @@ public class Functions {
                 return"people";
             case "organization":
                 return"organizations";
+            case "log":
+                return "logs";
             case "property":
                 return"properties";
             case "zone":

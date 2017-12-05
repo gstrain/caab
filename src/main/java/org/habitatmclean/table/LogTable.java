@@ -35,7 +35,7 @@ public class LogTable extends Table {
     public void addRow(GenericEntity entity) {
         Log log = (Log) entity;
         List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
-        tableCells.add(new TableRow.TableCell(new SimpleDateFormat("MM.dd.yyyy '-' hh:mm aa").format(log.getDate())));
+        tableCells.add(new TableRow.TableCell(new SimpleDateFormat("hh:mm aa '-' MM/dd/yyyy").format(log.getDate())));
         tableCells.add(new TableRow.TableCell(log.getReason()));
         tableCells.add(new TableRow.TableCell(log.getNotes()));
         tableCells.add(new TableRow.TableCell(log.getStatus()));

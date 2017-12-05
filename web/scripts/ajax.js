@@ -1,9 +1,9 @@
 (function() {
     $( document ).ready(function() {
         var date = new Date();
-        var dateString = ((date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear());
+        var dateString = ('on ' + (date.getMonth() + 1) + '/' + (date.getDate() < 10 ? '0' : '') + date.getDate() + '/' +  date.getFullYear());
         var meridian = date.getHours() > 12 ? 'PM' : 'AM';
-        var timeString = (((date.getHours() > 12) ? date.getHours()-12 : date.getHours()) + ":") + date.getMinutes() + ' ' + meridian;
+        var timeString = (((date.getHours() > 12) ? date.getHours()-12 : date.getHours()) + ":") + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes() + ' ' + meridian;
         $('#reportTime').html($('#reportTime').html() + timeString + '<br/>' + dateString);
         loadPropertySearch();
         getData();
@@ -125,8 +125,9 @@
                 $('#tableContent').append(response);//.hide().fadeIn(300);
                 new Table($('.table'));
 
-                // resize table headers and drawer (necessary for fixed headers)
-                resizeHeaders();
+                // resize table headers (necessary for fixed header scrolling)
+                if(!getParameterByName('pdf'))
+                    resizeHeaders();
 
                 //handle property address search
                 if($('#page-type').val() === 'property' && getParameterByName('search') != null) {

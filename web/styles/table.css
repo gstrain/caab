@@ -150,12 +150,22 @@ td {
 }
 @media print {
     #tableContent {
-        margin-top:10px; /* Originally 40px */
+        margin-top:10px;
     }
     th {
         font-size: .8em;
     }
     #table {
         margin: 10px;
+        display: table;
+    }
+    thead {
+        display: table-header-group;
+    }
+    tbody {
+        display: table-row-group;
+    }
+    tbody tr {
+        display: table-row;
     }
 }
