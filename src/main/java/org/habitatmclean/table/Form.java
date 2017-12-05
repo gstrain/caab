@@ -170,6 +170,6 @@ public class Form {
     }
 
     public String path(){
-        return (hasPath ? " data-value-path='"+path+" " : "");
+        return (hasPath ? " data-value-path='"+path+"'" : "");
     }
 }
