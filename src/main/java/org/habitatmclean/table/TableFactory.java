@@ -9,8 +9,8 @@ public class TableFactory {
                 return new PropertyTable<Property>();
             case "house":
                 return new HouseTable();
-            case "vendor":
-                return new VendorTable();
+            case "organization":
+                return new OrganizationTable();
             case "person":
                 return new PersonTable();
             case "zone":

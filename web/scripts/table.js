@@ -44,6 +44,21 @@
                 return null;
             },
 
+            pathy:function(obj,path){
+                var result = null;
+                if(path.length > 1) {
+                    for (var key in obj) {
+                        if ("object" == typeof(obj[key]) && key==path[0]) {
+                            path.splice(0, 1);
+                            return table.pathy(obj[key], path);
+                        }
+                    }
+                }
+                else{
+                    return table.searchObject(obj, path[0]);
+                }
+            },
+
             add:function(){
                 table.clearModal();
                 this.$modal.modal('show');
@@ -70,13 +85,20 @@
                             var name = $(this).attr("name");
                             var drop = $(this).attr('data-value-drop');
                             var parent = $(this).attr('data-value-parent');
-                            if(drop)
-                                value = table.searchObject(response,drop,name);
-                            else if(parent)
-                                value = table.searchObject(response,name,parent);
-                            else
-                                value = table.searchObject(response,name);
-                            if(value != null)
+                            var path = $(this).attr('data-value-path');
+                            if(path) {
+                                path = path.split('->');
+                                value = table.pathy(response, path);
+                            }
+                            else {
+                                if (drop)
+                                    value = table.searchObject(response, drop, name);
+                                else if (parent)
+                                    value = table.searchObject(response, name, parent);
+                                else
+                                    value = table.searchObject(response, name);
+                            }
+                            if (value != null)
                                 $(this).val(value);
                         });
                     }
@@ -329,8 +351,8 @@
                 return '/house-servlet';
             case "property":
                 return '/property-servlet';
-            case "vendor":
-                return '/vendor-servlet';
+            case "organization":
+                return '/organization-servlet';
             case "log":
                 return '/log-servlet';
             case "zone":

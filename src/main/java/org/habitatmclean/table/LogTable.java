@@ -23,7 +23,7 @@ import java.util.List;
 public class LogTable extends Table {
 
     public LogTable() {
-        super(new String[]{"Id","Reason", "Date", "Notes", "Status"}, new LogModal(), false, false);
+        super(new String[]{"Id","Date", "Reason", "Notes", "Status"}, new LogModal(), false, false);
     }
 
     /**
@@ -37,8 +37,8 @@ public class LogTable extends Table {
         List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
 
         tableCells.add(new TableRow.TableCell("" + log.getId()));
-        tableCells.add(new TableRow.TableCell(log.getReason()));
         tableCells.add(new TableRow.TableCell(new SimpleDateFormat("MM.dd.yyyy '-' hh:mm aa").format(log.getDate())));
+        tableCells.add(new TableRow.TableCell(log.getReason()));
         tableCells.add(new TableRow.TableCell(log.getNotes()));
         tableCells.add(new TableRow.TableCell(log.getStatus()));
 

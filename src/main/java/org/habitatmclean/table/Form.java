@@ -21,6 +21,8 @@ public class Form {
     private String parent;
     private boolean hasParent;
     private String selectLabel;
+    private String path;
+    private boolean hasPath;
     private String selectValue = "id";
     //for select types only:
     private Map<String,String> options = new HashMap<>();
@@ -52,6 +54,7 @@ public class Form {
 
     public void setParent(String parent) {this.parent = parent; this.hasParent=true; }
 
+    public void setPath(String path) {this.path = path; hasPath = true; }
     public String getLabel() {
         return label;
     }
@@ -116,7 +119,7 @@ public class Form {
                 html.append("<input type='" + type + "' ");
                 html.append("class='form-control' ");
                 html.append("id='" + name + "' ");
-                html.append("name='" + name + "' " + ( hasParent? "data-value-parent='" + parent+"'":""));
+                html.append("name='" + name + "' " + ( hasParent? "data-value-parent='" + parent+"'":"") + path());
                 if (required)
                     html.append("required ");
                 html.append("value ");
@@ -128,7 +131,7 @@ public class Form {
                     html.append("<small id='" + name + "-extra" + "' class='form-text text-muted'>" + extraText + "</small>");
             }
             else if(type.equals("select")){
-                html.append("<select class='form-control' id='" + name + "' name='"+name+"'"+ (fromTable ? "data-value-drop='" + selectValue+"'":"") +(required ? " required " : "") + ">\n");
+                html.append("<select class='form-control' id='" + name + "' name='"+name+"'"+ (fromTable ? "data-value-drop='" + selectValue+"'":"") +(required ? " required " : "") + path() +">\n");
                 html.append("<option selected value disabled> Choose a "+label.toLowerCase()+"</option>\n");
                 if(fromTable)
                     fillTable();
@@ -164,5 +167,9 @@ public class Form {
         }
         // we are already in a transaction.
         //sessionFactory.getCurrentSession().getTransaction().commit();
+    }
+
+    public String path(){
+        return (hasPath ? " data-value-path='"+path+"'" : "");
     }
 }

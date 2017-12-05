@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VendorTable extends Table {
-    public VendorTable() {
-        super(new String[]{"name", "contact"}, new VendorModal(), false, false); // adjust this to determine table columns
+public class OrganizationTable extends Table {
+    public OrganizationTable() {
+        super(new String[]{"name", "contact"}, new OrganizationModal(), false, false); // adjust this to determine table columns
     }
     public void addRow(GenericEntity entity) {
         Organization organization = (Organization) entity;
@@ -62,15 +62,15 @@ public class VendorTable extends Table {
         sessionFactory.getCurrentSession().getTransaction().commit();
     }
 
-    static class VendorModal extends Modal {
-        public VendorModal(){
-            super("Vendor");
+    static class OrganizationModal extends Modal {
+        public OrganizationModal(){
+            super("Organizations");
         }
 
         public void buildModal(){
             forms.add(Form.builder().setType("text").setName("name").setLabel("Name").setMaxLength(120).build());
             forms.add(Form.builder().setType("select").setName("organizationContact").setLabel("Contact").setFromTable("Person","this").build());
-            forms.add(Form.builder().setType("select").setName("actorRelationType").setParent("actorRelationType").setLabel("Relation Type").setFromTable("RelationType","relation_name").build());
+            forms.add(Form.builder().setType("select").setName("actorRelationType").setPath(new String[] {"actorRelationType","id"}).setLabel("Relation Type").setFromTable("RelationType","relation_name").build());
         }
     }
 }

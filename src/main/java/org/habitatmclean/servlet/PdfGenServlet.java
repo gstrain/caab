@@ -8,7 +8,6 @@ import org.habitatmclean.hibernate.HibernateUtil;
 import org.hibernate.SessionFactory;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +25,7 @@ public class PdfGenServlet extends HttpServlet {
     private static String port;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         // read PdfGeneration.properties for install directory of wkhtmltopdf
         Properties properties = new Properties();
         InputStream input = null;
@@ -46,7 +45,7 @@ public class PdfGenServlet extends HttpServlet {
         }
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // return a generated html body for the report
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         String page = Functions.hiddenInputToHTMLPage(request.getParameter("page"));
@@ -99,7 +98,7 @@ public class PdfGenServlet extends HttpServlet {
             sessionFactory.getCurrentSession().getTransaction().commit();
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         long ts = System.currentTimeMillis();
         String page = Functions.hiddenInputToHTMLPage(request.getParameter("page"));
         String method = request.getParameter("method");
@@ -119,7 +118,7 @@ public class PdfGenServlet extends HttpServlet {
                     case "people":
                         cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", "http://localhost:" + port + "/" + page + ".html?page=" + pageNumber + "&perPage=" + rowsToShow, tempDirectory + ts + ".pdf"};
                         break;
-                    default: // vendors, zones, properties, houses, etc. anything that is in the /web/pages/ directory
+                    default: // organization, zones, properties, houses, etc. anything that is in the /web/pages/ directory
                         cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", "http://localhost:" + port + "/pages/" + page + ".html?&page=" + pageNumber + "&perPage=" + rowsToShow, tempDirectory + ts + ".pdf"};
                         break;
                 }
