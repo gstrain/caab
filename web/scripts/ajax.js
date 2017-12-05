@@ -1,5 +1,4 @@
 (function() {
-    var pk;
     $( document ).ready(function() {
         var date = new Date();
         var dateString = ((date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear());
@@ -46,7 +45,7 @@
                 });
 
                 // populate data list
-                console.log(response);
+                // console.log(response);
                 var obj = JSON.parse(response);
                 $.each(obj, function(id, addr) {
                     if(id != '')
@@ -98,7 +97,7 @@
                 break;
             case "log":
                 url = '/log-servlet';
-                console.log(window.location.href);
+                //console.log(window.location.href);
                 $('#fk').val(getParameterByName('fk'));
                 $('#pname').val(getParameterByName('pname'));
                 break;
@@ -121,10 +120,13 @@
                 var index = response.lastIndexOf('resultsSize:');
                 var size = response.substring(index+12, response.size); // 12 is length of string 'resultsSize:'
                 response = response.substring(0, index);
-                console.log('result set size:' + size);
+                //console.log('result set size:' + size);
 
                 $('#tableContent').append(response);//.hide().fadeIn(300);
                 new Table($('.table'));
+
+                // resize table headers and drawer (necessary for fixed headers)
+                resizeHeaders();
 
                 //handle property address search
                 if($('#page-type').val() === 'property' && getParameterByName('search') != null) {
@@ -144,6 +146,12 @@
     function clearTable() {
         $('#tableContent').empty(); // everything
     }
+
+    resizeHeaders = function() {
+        $('thead tr th').each(function() {
+            $(this).outerWidth($('tbody tr td').outerWidth());
+        });
+    };
 
     /* copied from https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript */
     getParameterByName = function(name, url) {
@@ -178,7 +186,7 @@
 
         const currentPage = window.location.href.split('?')[0];
 
-        console.log('last page number', lastPageNumber);
+        //console.log('last page number', lastPageNumber);
 
         for (var i = 1; i <= lastPageNumber; i++) {
             if (i == currentPageNumber)

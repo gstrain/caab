@@ -138,11 +138,11 @@
                         cache: false,
                         success: function () {
                             console.log(data);
-                            console.log('returned');
+                            //console.log('returned');
                             getData();
                             iziToast.success({
                                 title: 'OK',
-                                timeout: 2500000000000,
+                                timeout: 2500,
                                 message: 'Successfully ' + (data.id == 0 ? 'Added' : 'Edited') + ' Record'
                             });
                         },
@@ -158,12 +158,12 @@
             },
             log: function(pk) {
                 // console.log(this.page);
-                window.location.href = "logs.html" + "?fk=" + pk + "&pname=" + this.page + "&";
-                console.log(window.location.href);
+                window.location.href = "logs.html" + "?fk=" + pk + "&pname=" + this.page;
+                //console.log(window.location.href);
             },
             confirmDelete:function(pk){
                 // TODO apply styling to selected row to show which will be deleted
-                console.log(pk);
+                //console.log(pk);
                 $.ajax({
                     type: 'POST',
                     url: '/delete',
@@ -258,7 +258,7 @@
                         cache: false,
                         data: $.param({method:'delete', page: this.page, primary_k: pk}),
                         success: function () {
-                            console.log(' ' + pk);
+                            //console.log(' ' + pk);
                             getData(); // reload table after deletion
                         }
                     });
@@ -333,7 +333,7 @@
                 });
                 $table.find('.btn-log').on('click', function() {
                     table.log(getId(this));
-                })
+                });
             }
         });
         this.init();

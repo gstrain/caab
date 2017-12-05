@@ -9,6 +9,7 @@
     left: 0;
     background-color: #a5a5a5;
     overflow-x: hidden;
+    overflow-y:auto;
     transition: 0.5s;
 }
 
@@ -70,7 +71,7 @@ form.filter-box input.form-control { /* The drawer search bar */
     font-size: 20px;
     margin-top: 30px;
     margin-left: 20px;
-    padding: 3px 0px;
+    /*padding: 3px 0px;*/
 }
 
 @media screen and (max-height: 450px) {
