@@ -90,8 +90,8 @@
             case "property":
                 url = '/property-servlet';
                 break;
-            case "vendor":
-                url = '/vendor-servlet';
+            case "organization":
+                url = '/organization-servlet';
                 break;
             case "zone":
                 url = '/zone-servlet';

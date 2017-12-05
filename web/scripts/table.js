@@ -329,8 +329,8 @@
                 return '/house-servlet';
             case "property":
                 return '/property-servlet';
-            case "vendor":
-                return '/vendor-servlet';
+            case "organization":
+                return '/organization-servlet';
             case "log":
                 return '/log-servlet';
             case "zone":
