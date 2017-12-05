@@ -70,7 +70,7 @@ td {
 
 #searchBar{
     margin-top: 50px;
- width: 90%;
+    width: 90%;
 }
 #list form button.active {
     background-color: #01b7ff;
@@ -102,7 +102,7 @@ td {
 /* page selector */
 #pagesForm {
     display: flex;
-    margin-top: 1em;
+    margin-top: 150px;
     margin-right: 1em;
 }
 /* page selector and results per page form */
