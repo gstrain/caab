@@ -142,7 +142,7 @@
                             getData();
                             iziToast.success({
                                 title: 'OK',
-                                timeout: 2500000000000,
+                                timeout: 2500,
                                 message: 'Successfully ' + (data.id == 0 ? 'Added' : 'Edited') + ' Record'
                             });
                         },
