@@ -353,6 +353,8 @@
                 return '/person-servlet';
             case "house":
                 return '/house-servlet';
+            case "family":
+                return '/family-servlet';
             case "property":
                 return '/property-servlet';
             case "organization":

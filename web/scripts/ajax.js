@@ -83,6 +83,9 @@
             case "person":
                 url = '/person-servlet';
                 break;
+            case "family":
+                url = '/family-servlet';
+                break;
             case "house":
                 url = '/house-servlet';
                 break;

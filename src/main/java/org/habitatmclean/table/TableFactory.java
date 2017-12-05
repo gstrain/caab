@@ -9,6 +9,8 @@ public class TableFactory {
                 return new PropertyTable<Property>();
             case "house":
                 return new HouseTable();
+            case "family":
+                return new FamilyTable();
             case "organization":
                 return new OrganizationTable();
             case "person":
