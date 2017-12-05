@@ -243,8 +243,8 @@ public abstract class Table {
             }
 
             static class HeaderCell extends TableCell {
-                private final String HEAD = "<th onclick='sort('";
-                private final String END = "')>";
+                private final String HEAD = "<th"; // onclick='sort(";
+                private final String END = ">"; //")'>";
                 private final String CLOSE = "</th>";
 
                 public HeaderCell(String value) {
