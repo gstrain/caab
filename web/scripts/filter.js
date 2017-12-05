@@ -1,17 +1,31 @@
 column = function(p) {
-    var input, param, table, i, j, row, col;
-    input = document.getElementById("search" + p);
-    table = document.getElementById("table");
-    param = input.value.toUpperCase();
-    row = table.getElementsByTagName("tr");
-    for (i = 0; i < row.length; i++) {
-           col = row[i].getElementsByTagName("td")[p];
-           if (col) {
-               if (col.innerHTML.toUpperCase().indexOf(param) > -1) {
-                   row[i].style.display = "";
-               } else {
-                   row[i].style.display = "none";
-               }
-           }
-       }
-}
+    var cInput, cParam, cTable, i, j, row, col;
+    cTable = document.getElementById("table");
+
+    searchTable(cTable);
+
+    for (j = 0; j < p; j++) {
+        cInput = document.getElementById("search" + j);
+        if (cInput.value) {
+            // console.log(cInput.value.toUpperCase());
+            cParam = cInput.value.toUpperCase();
+            row = cTable.getElementsByTagName("tr");
+            for (i = 1; i < row.length; i++) {
+                    if (row[i].style.display != "none") {
+                        col = row[i].getElementsByTagName("td")[j];
+                        if (col) {
+                            console.log(j);
+                            console.log(cParam);
+                            console.log(col.innerText.toUpperCase());
+                            console.log(col.innerText.toUpperCase().indexOf(cParam) + "\n\n\n\n");
+                            if (col.innerText.toUpperCase().indexOf(cParam) > -1) {
+                                row[i].style.display = "";
+                            } else {
+                                row[i].style.display = "none";
+                            }
+                        }
+                    }
+            }
+        }
+    }
+};

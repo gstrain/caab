@@ -120,10 +120,10 @@ public abstract class Table {
         table.append(ADD_BUTTON);
         table.append(REPORT_BUTTON);
         table.append("<form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>\n");
-        table.append("<input type='search' id='search' onKeyUp='searchTable()' class='form-control mr-sm-2' data-table='order-table' placeholder='Search Table'>\n </input> \n </form>\n");
+        table.append("<input type='search' id='search' onkeyup='column(" + HEADERS.length + ")' class='form-control mr-sm-2' data-table='order-table' placeholder='Search Table'>\n </input> \n </form>\n");
         for (int i = 0; i < HEADERS.length; i++) {
             table.append("<form class='filter-box form-inline d-print-none searchForm' role='search' autocomplete='on'>");
-            table.append("<input type='search' id='search" + i + "' onKeyUp='column(" + i + ")' class='form-control mr-sm-2 filter-boxes' data-table='order-table' placeholder='" + HEADERS[i] + "'>\n </input> \n </form>\n");
+            table.append("<input type='search' id='search" + i + "' onkeyup='column(" + HEADERS.length + ")' class='form-control mr-sm-2 filter-boxes' data-table='order-table' placeholder='" + HEADERS[i] + "'>\n </input> \n </form>\n");
         }
         table.append("</div>");
         table.append(TABLE_BEGIN);
