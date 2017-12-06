@@ -1,10 +1,7 @@
 package org.habitatmclean.table;
 
 import org.habitatmclean.dao.GenericDao;
-import org.habitatmclean.entity.Address;
-import org.habitatmclean.entity.GenericEntity;
-import org.habitatmclean.entity.Person;
-import org.habitatmclean.entity.RelationType;
+import org.habitatmclean.entity.*;
 import org.habitatmclean.hibernate.HibernateAdapter;
 import org.habitatmclean.hibernate.HibernateUtil;
 import org.hibernate.SessionFactory;
@@ -50,9 +47,13 @@ public class PersonTable extends Table {
         newAddress.setState(request.getParameter("state"));
         newAddress.setZipcode(request.getParameter("zipcode"));
 
-        GenericDao relationDao = HibernateAdapter.getBoByEntityName("RelationType");
-        RelationType rt = (RelationType) relationDao.findByPrimaryKey(new Long(request.getParameter("actorRelationType")));
+        GenericDao dao = HibernateAdapter.getBoByEntityName("RelationType");
+        RelationType rt = (RelationType) dao.findByPrimaryKey(new Long(request.getParameter("actorRelationType")));
         person.setActorRelationType(rt);
+
+        dao = HibernateAdapter.getBoByEntityName("Family");
+        Family family = (Family) dao.findByPrimaryKey(new Long(request.getParameter("family")));
+        person.setFamily(family);
 
         sessionFactory.getCurrentSession().getTransaction().commit();
     }
@@ -80,6 +81,10 @@ public class PersonTable extends Table {
         GenericDao dao = HibernateAdapter.getBoByEntityName("RelationType");
         RelationType rt = (RelationType) dao.findByPrimaryKey(new Long(request.getParameter("actorRelationType")));
         newPerson.setActorRelationType(rt);
+
+        dao = HibernateAdapter.getBoByEntityName("Family");
+        Family family = (Family) dao.findByPrimaryKey(new Long(request.getParameter("family")));
+        newPerson.setFamily(family);
 
         dao = new HibernateAdapter();
         dao.save(newPerson);
@@ -109,6 +114,7 @@ public class PersonTable extends Table {
             forms.add(Form.builder().setType("tel").setName("work_phone").setLabel("Work Phone").setMaxLength(20).setRequired(false).build());
             forms.add(Form.builder().setType("email").setName("email").setLabel("Email").setMaxLength(120).build());
             forms.add(Form.builder().setType("select").setName("actorRelationType").setLabel("Relation Type").setFromTable("RelationType","relation_name").build());
+            forms.add(Form.builder().setType("select").setName("family").setLabel("Family").setFromTable("Family","this").build());
         }
     }
 }
