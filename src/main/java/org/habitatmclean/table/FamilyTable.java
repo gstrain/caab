@@ -15,13 +15,19 @@ import java.util.List;
 
 public class FamilyTable extends Table {
     public FamilyTable() {
-        super(new String[]{"class", "milestone", "equity hours", "income"}, new FamilyModal(), false, false); // adjust this to determine table columns
+        super(new String[]{"class", "milestone", "equity hours", "income"}, new FamilyModal(), true, true); // adjust this to determine table columns
     }
     public void addRow(GenericEntity entity) {
         Family family = (Family) entity;
         List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
-        tableCells.add(new TableRow.TableCell("" + family.getFamilyClassType().getClass_name()));
-        tableCells.add(new TableRow.TableCell("" + family.getFamilyMilestone().getMilestone()));
+        if(family.getFamilyMilestone() != null)
+            tableCells.add(new TableRow.TableCell("" + family.getFamilyClassType().getClass_name()));
+        else
+            tableCells.add(new TableRow.TableCell(""));
+        if(family.getFamilyMilestone() != null)
+            tableCells.add(new TableRow.TableCell("" + family.getFamilyMilestone().getMilestone()));
+        else
+            tableCells.add(new TableRow.TableCell(""));
         tableCells.add(new TableRow.TableCell("" + family.getEquity_hrs()));
         tableCells.add(new TableRow.TableCell("$" + String.format("%.2f", family.getIncome())));
         TableRow tr = new TableRow(tableCells);

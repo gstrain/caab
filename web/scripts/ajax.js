@@ -7,7 +7,7 @@
         $('#reportTime').html($('#reportTime').html() + timeString + '<br/>' + dateString);
         loadPropertySearch();
         getData();
-
+        $(window).resize(resizeHeaders);
     });
 
     function loadPropertySearch() {

@@ -19,9 +19,19 @@ public class PropertyTable<P> extends Table {
         List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
         tableCells.add(new TableRow.TableCell("" + property.getId()));
         tableCells.add(new TableRow.TableCell("" + property.getPropertyAddress().toString()));
-        tableCells.add(new TableRow.TableCell("" + property.getOwner().toString()));
-        tableCells.add(new TableRow.TableCell(property.getProperty_status().getPstatus()));
-        tableCells.add(new TableRow.TableCell(property.getZone().getZone_info()));
+        if(property.getOwner() != null)
+            tableCells.add(new TableRow.TableCell("" + property.getOwner().toString()));
+        else
+            tableCells.add(new TableRow.TableCell(""));
+        if(property.getOwner() != null)
+            tableCells.add(new TableRow.TableCell(property.getProperty_status().getPstatus()));
+        else
+            tableCells.add(new TableRow.TableCell(""));
+        if(property.getZone() != null)
+            tableCells.add(new TableRow.TableCell(property.getZone().getZone_info()));
+        else
+            tableCells.add(new TableRow.TableCell(""));
+
         TableRow tr = new TableRow(tableCells);
         tr.setRowId("" + entity.getId());
         rows.add(tr);
@@ -122,12 +132,12 @@ public class PropertyTable<P> extends Table {
             forms.add(Form.builder().setType("text").setName("state").setLabel("State").setParent("propertyAddress").setMaxLength(20).build());
             forms.add(Form.builder().setType("text").setName("zipcode").setLabel("Zip").setParent("propertyAddress").setMaxLength(9).build());
             forms.add(Form.builder().setType("text").setName("appraised_value").setLabel("Appraised Value").setRequired(false).build());
-//            forms.add(Form.builder().setType("date").setName("appraised_date").setLabel("Appraised Date").build());   //TODO type should be date
+//            forms.add(Form.builder().setType("text").setName("appraised_date").setLabel("Appraised Date").build());   //TODO type should be date
             forms.add(Form.builder().setType("text").setName("taxes").setLabel("Taxes").setRequired(false).build());
             forms.add(Form.builder().setType("text").setName("notes").setLabel("Notes").setRequired(false).build());
-            forms.add(Form.builder().setType("select").setName("owner").setLabel("Owner").setFromTable("Actor", "this").setRequired(false).build());
-            forms.add(Form.builder().setType("select").setName("property_status").setLabel("Property Status").setFromTable("PropertyStatus", "this").setRequired(false).build());
-            forms.add(Form.builder().setType("select").setName("zone").setLabel("Zone").setFromTable("Zone","this").setRequired(false).build());
+            forms.add(Form.builder().setType("select").setName("owner").setLabel("Owner").setFromTable("Actor", "this").build());
+            forms.add(Form.builder().setType("select").setName("property_status").setLabel("Property Status").setFromTable("PropertyStatus", "this").build());
+            forms.add(Form.builder().setType("select").setName("zone").setLabel("Zone").setFromTable("Zone","this").build());
         }
     }
 }

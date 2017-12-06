@@ -24,7 +24,6 @@
     width: 100%;
     z-index: 0;
     flex-shrink: 0;
-    position: fixed;
 }
 /* navbar buttons */
 nav div div form button {
@@ -72,6 +71,7 @@ nav div div form button {
     width: 60%;
     float: right;
     list-style: none;
+    margin: 0;
 }
 
 #footer-list li {
