@@ -211,7 +211,7 @@
         });
     }
 
-    const $rishi = $('<img src="/img/rishi.jpg" id="rishi">').appendTo('body');
+    /*const $rishi = $('<img src="/img/rishi.jpg" id="rishi">').appendTo('body');
     let showTimer;
     $('#footer-list li:eq(2) a')
         .hover(
@@ -222,5 +222,5 @@
             }
         );
 
-
+*/
 })();
