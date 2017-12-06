@@ -126,7 +126,7 @@
                 response = response.substring(0, index);
                 //console.log('result set size:' + size);
 
-                $('#tableContent').append(response);//.hide().fadeIn(300);
+                $('#tableContent').append(response).hide().fadeIn(300);
                 new Table($('.table'));
 
                 // resize table headers (necessary for fixed header scrolling)
@@ -210,4 +210,17 @@
             }
         });
     }
+
+    const $rishi = $('<img src="/img/rishi.jpg" id="rishi">').appendTo('body');
+    let showTimer;
+    $('#footer-list li:eq(2) a')
+        .hover(
+            () => showTimer = setTimeout(() => $rishi.addClass('hi'), 3000),
+            () => {
+                clearInterval(showTimer);
+                $rishi.removeClass('hi');
+            }
+        );
+
+
 })();
