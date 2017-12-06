@@ -1,4 +1,5 @@
 (function() {
+    var theadSize = 0;
     $( document ).ready(function() {
         var date = new Date();
         var dateString = ('on ' + (date.getMonth() + 1) + '/' + (date.getDate() < 10 ? '0' : '') + date.getDate() + '/' +  date.getFullYear());
@@ -129,8 +130,10 @@
                 new Table($('.table'));
 
                 // resize table headers (necessary for fixed header scrolling)
-                if(!getParameterByName('pdf'))
+                if(!getParameterByName('pdf')) {
+                    theadSize = $('tbody tr td').outerWidth();
                     resizeHeaders();
+                }
 
                 //handle property address search
                 if($('#page-type').val() === 'property' && getParameterByName('search') != null) {
@@ -153,7 +156,7 @@
 
     resizeHeaders = function() {
         $('thead tr th').each(function() {
-            $(this).outerWidth($('tbody tr td').outerWidth());
+            $(this).outerWidth(theadSize);
         });
     };
 
