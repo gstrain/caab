@@ -56,7 +56,7 @@ public class HouseTable extends Table {
             house.setSize(0);
         }
         try {
-            house.setBathrooms(Double.parseDouble(request.getParameter("bathrooms").trim()));
+            house.setBathrooms(Double.parseDouble(request.getParameter("bathrooms   ").trim()));
         } catch (NumberFormatException | NullPointerException e) {
             house.setBathrooms(0);
         }
@@ -109,7 +109,7 @@ public class HouseTable extends Table {
             house.setSize(0);
         }
         try {
-            house.setConstruction_cost(Double.parseDouble(request.getParameter("bathrooms").trim()));
+            house.setBathrooms(Double.parseDouble(request.getParameter("bathrooms").trim()));
         } catch (NumberFormatException | NullPointerException e) {
             house.setBathrooms(0);
         }

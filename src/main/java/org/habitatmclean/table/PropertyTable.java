@@ -57,6 +57,11 @@ public class PropertyTable<P> extends Table {
         } catch (Exception e) {
             property.setAppraised_date(null);
         }
+        try {
+            property.setTaxes(Double.parseDouble(request.getParameter("taxes")));
+        } catch (NumberFormatException | NullPointerException e) {
+            property.setTaxes(0);
+        }
 
         Address address = property.getPropertyAddress();
         address.setApartment_no(request.getParameter("apartment_no"));
@@ -99,6 +104,12 @@ public class PropertyTable<P> extends Table {
         } catch (Exception e) {
             property.setAppraised_date(null);
         }
+        try {
+            property.setTaxes(Double.parseDouble(request.getParameter("taxes")));
+        } catch (NumberFormatException | NullPointerException e) {
+            property.setTaxes(0);
+        }
+
         Address address = new Address();
         address.setApartment_no(request.getParameter("apartment_no"));
         address.setStreet(request.getParameter("street"));
