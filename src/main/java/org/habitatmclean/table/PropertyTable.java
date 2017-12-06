@@ -7,7 +7,9 @@ import org.habitatmclean.hibernate.HibernateUtil;
 import org.hibernate.SessionFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PropertyTable<P> extends Table {
@@ -49,11 +51,12 @@ public class PropertyTable<P> extends Table {
             property.setAppraised_value(0);
         }
         property.setNotes(request.getParameter("notes"));
-//        try {
-//            property.setAppraised_date(request.getParameter("appriase_date").trim()));
-//        } catch (NumberFormatException e) {
-//            property.setAppraised_date(null);
-//        } //TODO once date types are supported
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("appraised_date").trim());
+            property.setAppraised_date(date);
+        } catch (Exception e) {
+            property.setAppraised_date(null);
+        }
 
         Address address = property.getPropertyAddress();
         address.setApartment_no(request.getParameter("apartment_no"));
@@ -90,12 +93,12 @@ public class PropertyTable<P> extends Table {
             property.setAppraised_value(0);
         }
         property.setNotes(request.getParameter("notes").trim());
-//        try {
-//            property.setAppraised_date(request.getParameter("appriase_date").trim()));
-//        } catch (NumberFormatException e) {
-//            property.setAppraised_date(null);
-//        } //TODO once date types are supported
-
+         try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("appraised_date").trim());
+            property.setAppraised_date(date);
+        } catch (Exception e) {
+            property.setAppraised_date(null);
+        }
         Address address = new Address();
         address.setApartment_no(request.getParameter("apartment_no"));
         address.setStreet(request.getParameter("street"));
@@ -132,7 +135,7 @@ public class PropertyTable<P> extends Table {
             forms.add(Form.builder().setType("text").setName("state").setLabel("State").setParent("propertyAddress").setMaxLength(20).build());
             forms.add(Form.builder().setType("text").setName("zipcode").setLabel("Zip").setParent("propertyAddress").setMaxLength(9).build());
             forms.add(Form.builder().setType("text").setName("appraised_value").setLabel("Appraised Value").setRequired(false).build());
-//            forms.add(Form.builder().setType("text").setName("appraised_date").setLabel("Appraised Date").build());   //TODO type should be date
+            forms.add(Form.builder().setType("date").setName("appraised_date").setLabel("Appraised Date").build());   //TODO type should be date
             forms.add(Form.builder().setType("text").setName("taxes").setLabel("Taxes").setRequired(false).build());
             forms.add(Form.builder().setType("text").setName("notes").setLabel("Notes").setRequired(false).build());
             forms.add(Form.builder().setType("select").setName("owner").setLabel("Owner").setFromTable("Actor", "this").build());

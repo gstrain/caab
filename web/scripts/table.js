@@ -86,6 +86,7 @@
                             var drop = $(this).attr('data-value-drop');
                             var parent = $(this).attr('data-value-parent');
                             var path = $(this).attr('data-value-path');
+                            var isDate = $(this).attr('data-value-date');
                             if(path) {
                                 path = path.split('->');
                                 value = table.pathy(response, path);
@@ -98,8 +99,13 @@
                                 else
                                     value = table.searchObject(response, name);
                             }
-                            if (value != null)
+                            if (value != null){
+                                if(isDate)
+                                    value = dateParse(value);
                                 $(this).val(value);
+                            }
+
+
                         });
                     }
                 });
@@ -342,6 +348,11 @@
         });
         this.init();
     };
+
+    function dateParse(date){
+        const milli = new Date(Date.parse(date));
+        return milli.getFullYear()+'-'+(milli.getMonth() < 10 ? '0' : '')+milli.getMonth()+'-'+(milli.getDate() < 10 ? '0' : '')+milli.getDate()
+    }
 
     function getId(button){
         return $(button).parent().parent().attr('id').substring(7);
