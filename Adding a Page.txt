@@ -1,0 +1,41 @@
+-----------------------------------------
+---Adding a new page from class in ORM---
+-----------------------------------------
+This was written during commit #0a764c8c7ee, so all changes should be reflected there
+
+New html page in pages folder
+1. create html page
+2. adjust title, hidden input, header link, and report tags
+
+Ajax.js:
+1. add case in getData() to match hidden input value
+
+table.js
+1. add case in findTarget() method with same url as in ajax.js
+
+Functions.java:
+1. add case to hiddenInputToClass() to match the class name of the entity
+2. add case to hiddenInputToHTML to match name of html file created
+
+new servlet in servlet.pages package
+1. adjust name and value in the @WebServlet annotation
+1.5 optionally change name of SortedSet
+2. change value in line getBoByEntityName()
+3. change value in TableFactory.getTable()
+
+new Table in table package
+1.change super constructor to list of column names desired
+1.5 change super constructor new Modal call to new type of page
+1.6 change super constructor log and individual report flags
+2. change addRow method to add desired column data, should have the same number of tableCells.add() calls as you have in your super constructor string array
+3. create static inner class that extends Modal (what you use in the table super constructor)
+	-use form builder to create the modal appropriately (see other classes for examples).
+	-the .setName() method takes the quoted name of the variable in the class (see examples)
+4. when creating the recordAdd() and recordEdit() methods, use the same variable name that you used in .setName() in the form builder to grab parameters from the request
+	-recordAdd and recordEdit should be almost identical except for the initial creation and the call to dao.save() at the end (see examples).
+
+TableFactory.java
+1. add case for new table type
+
+all other .html pages
+1. add link in header
