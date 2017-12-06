@@ -28,6 +28,10 @@ public class Functions {
                 return"people";
             case "organization":
                 return"organizations";
+            case "family":
+                return "families";
+            case "log":
+                return "logs";
             case "property":
                 return"properties";
             case "zone":
@@ -49,6 +53,8 @@ public class Functions {
                 return "Person";
             case "organization":
                 return "Organization";
+            case "family":
+                return "Family";
             case "property":
                 return "Property";
             case "zone":

@@ -1,6 +1,7 @@
 package org.habitatmclean.servlet.pages;
 
 import org.habitatmclean.dao.GenericDao;
+import org.habitatmclean.entity.Family;
 import org.habitatmclean.entity.House;
 import org.habitatmclean.entity.Property;
 import org.habitatmclean.hibernate.Functions;
@@ -11,7 +12,6 @@ import org.habitatmclean.table.TableFactory;
 import org.habitatmclean.table.TableTypeNotFoundException;
 import org.hibernate.SessionFactory;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,10 +22,10 @@ import java.util.SortedSet;
 @WebServlet(name = "LogServlet", value="/log-servlet")
 public class LogServlet extends HttpServlet{
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {}
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Long fk = Long.parseLong(request.getParameter("fk"));
         String pname = request.getParameter("pname");
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -41,6 +41,9 @@ public class LogServlet extends HttpServlet{
             logs = house.getLogs();
         } else if (pname.equals("family")) {
 //            logs = FamilyBO fo = new FamilyBO();
+            GenericDao dao = HibernateAdapter.getBoByEntityName("Family");
+            Family family = (Family) dao.findByPrimaryKey(new Long(request.getParameter("fk")));
+            logs = family.getLogs();
         } else {
 
         }

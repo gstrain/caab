@@ -86,6 +86,7 @@
                             var drop = $(this).attr('data-value-drop');
                             var parent = $(this).attr('data-value-parent');
                             var path = $(this).attr('data-value-path');
+                            var isDate = $(this).attr('data-value-date');
                             if(path) {
                                 path = path.split('->');
                                 value = table.pathy(response, path);
@@ -98,8 +99,13 @@
                                 else
                                     value = table.searchObject(response, name);
                             }
-                            if (value != null)
+                            if (value != null){
+                                if(isDate)
+                                    value = dateParse(value);
                                 $(this).val(value);
+                            }
+
+
                         });
                     }
                 });
@@ -280,7 +286,11 @@
                 if(getParameterByName('perPage'))
                     perPage = getParameterByName('perPage');
                 if(perPage != -1) {
-                    window.location = '/pdfgen?page=' + $('#page-type').val() + '&method=table&pageNumber=' + pageNumber + '&perPage=' + perPage;
+                    if($('#page-type').val() === 'log')
+                        window.location = '/pdfgen?page=' + $('#page-type').val() + '&method=table&pageNumber=' + pageNumber + '&perPage=' + perPage
+                            + '&fk=' + getParameterByName('fk') + '&pname=' + getParameterByName('pname');
+                    else
+                        window.location = '/pdfgen?page=' + $('#page-type').val() + '&method=table&pageNumber=' + pageNumber + '&perPage=' + perPage;
                     $reportBtn.toggleClass('disabled');
                     $reportBtn.html('Generating...');
                     setTimeout(function () {
@@ -290,7 +300,7 @@
                 } else {
                     iziToast.warning({
                         title: 'Caution',
-                        message: 'Choose a smaller amount of data per page to generate a report',
+                        message: 'Choose a smaller amount of data per page to generate a report'
                     });
                 }
             },
@@ -337,6 +347,11 @@
         this.init();
     };
 
+    function dateParse(date){
+        const milli = new Date(Date.parse(date));
+        return milli.getFullYear()+'-'+(milli.getMonth() < 10 ? '0' : '')+milli.getMonth()+'-'+(milli.getDate() < 10 ? '0' : '')+milli.getDate()
+    }
+
     function getId(button){
         return $(button).parent().parent().attr('id').substring(7);
     }
@@ -347,6 +362,8 @@
                 return '/person-servlet';
             case "house":
                 return '/house-servlet';
+            case "family":
+                return '/family-servlet';
             case "property":
                 return '/property-servlet';
             case "organization":

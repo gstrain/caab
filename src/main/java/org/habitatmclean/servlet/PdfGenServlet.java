@@ -102,24 +102,24 @@ public class PdfGenServlet extends HttpServlet {
         long ts = System.currentTimeMillis();
         String page = Functions.hiddenInputToHTMLPage(request.getParameter("page"));
         String method = request.getParameter("method");
-        String option;
         String[] cmdArr = new String[]{"echo", "."};
         if(method != null) {
             if (page != null && method.equals("table")) {
                 int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
                 int rowsToShow = Integer.parseInt(request.getParameter("perPage"));
                 switch (page) {
-                    case "log":
-                        //TODO log case
-                        option = request.getParameter("options");
-                        String url = "http://localhost:" + port + "/" + page + ".html?type=" + option;
+                    case "logs":
+                        // pdf=true is a flag used in ajax.js to prevent running the resizeHeaders() function
+                        String pname = request.getParameter("pname");
+                        String fk = request.getParameter("fk");
+                        String url = "http://localhost:" + port + "/pages/" + page + ".html?pname=" + pname + "&fk=" + fk + "&pdf=true";
                         cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", url, tempDirectory + ts + ".pdf"};
                         break;
                     case "people":
-                        cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", "http://localhost:" + port + "/" + page + ".html?page=" + pageNumber + "&perPage=" + rowsToShow, tempDirectory + ts + ".pdf"};
+                        cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", "http://localhost:" + port + "/" + page + ".html?page=" + pageNumber + "&perPage=" + rowsToShow + "&pdf=true", tempDirectory + ts + ".pdf"};
                         break;
                     default: // organization, zones, properties, houses, etc. anything that is in the /web/pages/ directory
-                        cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", "http://localhost:" + port + "/pages/" + page + ".html?&page=" + pageNumber + "&perPage=" + rowsToShow, tempDirectory + ts + ".pdf"};
+                        cmdArr = new String[]{installDirectory + "bin/wkhtmltopdf.exe", "--print-media-type", "--viewport-size", "1920x1080", "-O", "landscape", "http://localhost:" + port + "/pages/" + page + ".html?&page=" + pageNumber + "&perPage=" + rowsToShow + "&pdf=true", tempDirectory + ts + ".pdf"};
                         break;
                 }
             } else if (method.equals("individual")) {

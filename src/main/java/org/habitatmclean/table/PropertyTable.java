@@ -7,7 +7,9 @@ import org.habitatmclean.hibernate.HibernateUtil;
 import org.hibernate.SessionFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PropertyTable<P> extends Table {
@@ -19,9 +21,19 @@ public class PropertyTable<P> extends Table {
         List<TableRow.TableCell> tableCells = new ArrayList<TableRow.TableCell>();
         tableCells.add(new TableRow.TableCell("" + property.getId()));
         tableCells.add(new TableRow.TableCell("" + property.getPropertyAddress().toString()));
-        tableCells.add(new TableRow.TableCell("" + property.getOwner().toString()));
-        tableCells.add(new TableRow.TableCell(property.getProperty_status().getPstatus()));
-        tableCells.add(new TableRow.TableCell(property.getZone().getZone_info()));
+        if(property.getOwner() != null)
+            tableCells.add(new TableRow.TableCell("" + property.getOwner().toString()));
+        else
+            tableCells.add(new TableRow.TableCell(""));
+        if(property.getOwner() != null)
+            tableCells.add(new TableRow.TableCell(property.getProperty_status().getPstatus()));
+        else
+            tableCells.add(new TableRow.TableCell(""));
+        if(property.getZone() != null)
+            tableCells.add(new TableRow.TableCell(property.getZone().getZone_info()));
+        else
+            tableCells.add(new TableRow.TableCell(""));
+
         TableRow tr = new TableRow(tableCells);
         tr.setRowId("" + entity.getId());
         rows.add(tr);
@@ -39,11 +51,17 @@ public class PropertyTable<P> extends Table {
             property.setAppraised_value(0);
         }
         property.setNotes(request.getParameter("notes"));
-//        try {
-//            property.setAppraised_date(request.getParameter("appriase_date").trim()));
-//        } catch (NumberFormatException e) {
-//            property.setAppraised_date(null);
-//        } //TODO once date types are supported
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("appraised_date").trim());
+            property.setAppraised_date(date);
+        } catch (Exception e) {
+            property.setAppraised_date(null);
+        }
+        try {
+            property.setTaxes(Double.parseDouble(request.getParameter("taxes")));
+        } catch (NumberFormatException | NullPointerException e) {
+            property.setTaxes(0);
+        }
 
         Address address = property.getPropertyAddress();
         address.setApartment_no(request.getParameter("apartment_no"));
@@ -80,11 +98,17 @@ public class PropertyTable<P> extends Table {
             property.setAppraised_value(0);
         }
         property.setNotes(request.getParameter("notes").trim());
-//        try {
-//            property.setAppraised_date(request.getParameter("appriase_date").trim()));
-//        } catch (NumberFormatException e) {
-//            property.setAppraised_date(null);
-//        } //TODO once date types are supported
+         try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("appraised_date").trim());
+            property.setAppraised_date(date);
+        } catch (Exception e) {
+            property.setAppraised_date(null);
+        }
+        try {
+            property.setTaxes(Double.parseDouble(request.getParameter("taxes")));
+        } catch (NumberFormatException | NullPointerException e) {
+            property.setTaxes(0);
+        }
 
         Address address = new Address();
         address.setApartment_no(request.getParameter("apartment_no"));
@@ -122,12 +146,12 @@ public class PropertyTable<P> extends Table {
             forms.add(Form.builder().setType("text").setName("state").setLabel("State").setParent("propertyAddress").setMaxLength(20).build());
             forms.add(Form.builder().setType("text").setName("zipcode").setLabel("Zip").setParent("propertyAddress").setMaxLength(9).build());
             forms.add(Form.builder().setType("text").setName("appraised_value").setLabel("Appraised Value").setRequired(false).build());
-//            forms.add(Form.builder().setType("date").setName("appraised_date").setLabel("Appraised Date").build());   //TODO type should be date
+            forms.add(Form.builder().setType("date").setName("appraised_date").setLabel("Appraised Date").build());   //TODO type should be date
             forms.add(Form.builder().setType("text").setName("taxes").setLabel("Taxes").setRequired(false).build());
             forms.add(Form.builder().setType("text").setName("notes").setLabel("Notes").setRequired(false).build());
-            forms.add(Form.builder().setType("select").setName("owner").setLabel("Owner").setFromTable("Actor", "this").setRequired(false).build());
-            forms.add(Form.builder().setType("select").setName("property_status").setLabel("Property Status").setFromTable("PropertyStatus", "this").setRequired(false).build());
-            forms.add(Form.builder().setType("select").setName("zone").setLabel("Zone").setFromTable("Zone","this").setRequired(false).build());
+            forms.add(Form.builder().setType("select").setName("owner").setLabel("Owner").setFromTable("Actor", "this").build());
+            forms.add(Form.builder().setType("select").setName("property_status").setLabel("Property Status").setFromTable("PropertyStatus", "this").build());
+            forms.add(Form.builder().setType("select").setName("zone").setLabel("Zone").setFromTable("Zone","this").build());
         }
     }
 }

@@ -1,10 +1,7 @@
 package org.habitatmclean.table;
 
 import org.habitatmclean.dao.GenericDao;
-import org.habitatmclean.entity.GenericEntity;
-import org.habitatmclean.entity.Organization;
-import org.habitatmclean.entity.Person;
-import org.habitatmclean.entity.RelationType;
+import org.habitatmclean.entity.*;
 import org.habitatmclean.hibernate.HibernateAdapter;
 import org.habitatmclean.hibernate.HibernateUtil;
 import org.hibernate.SessionFactory;
@@ -35,6 +32,14 @@ public class OrganizationTable extends Table {
 
         organization.setName(request.getParameter("name"));
 
+        Address newAddress = organization.getActorAddress();
+        newAddress.setApartment_no(request.getParameter("apartment_no"));
+        newAddress.setStreet(request.getParameter("street"));
+        newAddress.setCity(request.getParameter("city"));
+        newAddress.setState(request.getParameter("state"));
+        newAddress.setZipcode(request.getParameter("zipcode"));
+
+
         Person contact = (Person) HibernateAdapter.getBoByEntityName("Person").findByPrimaryKey(Long.parseLong(request.getParameter("organizationContact")));
         organization.setOrganizationContact(contact);
 
@@ -54,6 +59,14 @@ public class OrganizationTable extends Table {
         Person contact = (Person) HibernateAdapter.getBoByEntityName("Person").findByPrimaryKey(Long.parseLong(request.getParameter("organizationContact")));
         organization.setOrganizationContact(contact);
 
+        Address newAddress = new Address();
+        newAddress.setApartment_no(request.getParameter("apartment_no"));
+        newAddress.setStreet(request.getParameter("street"));
+        newAddress.setCity(request.getParameter("city"));
+        newAddress.setState(request.getParameter("state"));
+        newAddress.setZipcode(request.getParameter("zipcode"));
+        organization.setActorAddress(newAddress);
+
         RelationType rt = (RelationType) HibernateAdapter.getBoByEntityName("RelationType").findByPrimaryKey(new Long(request.getParameter("actorRelationType")));
         organization.setActorRelationType(rt);
 
@@ -69,6 +82,11 @@ public class OrganizationTable extends Table {
 
         public void buildModal(){
             forms.add(Form.builder().setType("text").setName("name").setLabel("Name").setMaxLength(120).build());
+            forms.add(Form.builder().setType("text").setName("apartment_no").setLabel("Apartment #").setParent("actorAddress").setRequired(false).build());
+            forms.add(Form.builder().setType("text").setName("street").setLabel("Address").setMaxLength(120).setParent("actorAddress").build());
+            forms.add(Form.builder().setType("text").setName("city").setLabel("City").setMaxLength(120).setParent("actorAddress").build());
+            forms.add(Form.builder().setType("text").setName("state").setLabel("State").setMaxLength(20).setParent("actorAddress").build());
+            forms.add(Form.builder().setType("text").setName("zipcode").setLabel("Zip").setMaxLength(9).setParent("actorAddress").build());
             forms.add(Form.builder().setType("select").setName("organizationContact").setLabel("Contact").setFromTable("Person","this").build());
             forms.add(Form.builder().setType("select").setName("actorRelationType").setPath(new String[] {"actorRelationType","id"}).setLabel("Relation Type").setFromTable("RelationType","relation_name").build());
         }

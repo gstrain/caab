@@ -25,7 +25,10 @@ public class HouseTable extends Table {
         tableCells.add(new TableRow.TableCell("" + house.getSize()));
         tableCells.add(new TableRow.TableCell("" + house.getBedrooms()));
         tableCells.add(new TableRow.TableCell("" + house.getBathrooms()));
-        tableCells.add(new TableRow.TableCell(house.getHouse_style().getStyle()));
+        if(house.getHouse_style() != null)
+            tableCells.add(new TableRow.TableCell(house.getHouse_style().getStyle()));
+        else
+            tableCells.add(new TableRow.TableCell(""));
         TableRow tr = new TableRow(tableCells);
         tr.setRowId("" + entity.getId());
         rows.add(tr);
@@ -53,7 +56,7 @@ public class HouseTable extends Table {
             house.setSize(0);
         }
         try {
-            house.setBathrooms(Double.parseDouble(request.getParameter("bathrooms").trim()));
+            house.setBathrooms(Double.parseDouble(request.getParameter("bathrooms   ").trim()));
         } catch (NumberFormatException | NullPointerException e) {
             house.setBathrooms(0);
         }
@@ -106,7 +109,7 @@ public class HouseTable extends Table {
             house.setSize(0);
         }
         try {
-            house.setConstruction_cost(Double.parseDouble(request.getParameter("bathrooms").trim()));
+            house.setBathrooms(Double.parseDouble(request.getParameter("bathrooms").trim()));
         } catch (NumberFormatException | NullPointerException e) {
             house.setBathrooms(0);
         }
@@ -123,17 +126,23 @@ public class HouseTable extends Table {
         Property property = (Property) dao.findByPrimaryKey(new Long(request.getParameter("houseProperty")));
         house.setHouseProperty(property);
 
-        dao = HibernateAdapter.getBoByEntityName("Family");
-        Family family = (Family) dao.findByPrimaryKey(new Long(request.getParameter("houseFamily")));
-        house.setHouseFamily(family);
+        if(!request.getParameter("houseFamily").equals("")) {
+            dao = HibernateAdapter.getBoByEntityName("Family");
+            Family family = (Family) dao.findByPrimaryKey(new Long(request.getParameter("houseFamily")));
+            house.setHouseFamily(family);
+        }
 
-        dao = HibernateAdapter.getBoByEntityName("ConstructionStatus");
-        ConstructionStatus cs = (ConstructionStatus) dao.findByPrimaryKey(new Long(request.getParameter("houseConstructionStatus")));
-        house.setHouseConstructionStatus(cs);
+        if(!request.getParameter("houseConstructionStatus").equals("")) {
+            dao = HibernateAdapter.getBoByEntityName("ConstructionStatus");
+            ConstructionStatus cs = (ConstructionStatus) dao.findByPrimaryKey(new Long(request.getParameter("houseConstructionStatus")));
+            house.setHouseConstructionStatus(cs);
+        }
 
-        dao = HibernateAdapter.getBoByEntityName("HouseStyle");
-        HouseStyle hs = (HouseStyle) dao.findByPrimaryKey(new Long(request.getParameter("house_style")));
-        house.setHouse_style(hs);
+        if(!request.getParameter("house_style").equals("")) {
+            dao = HibernateAdapter.getBoByEntityName("HouseStyle");
+            HouseStyle hs = (HouseStyle) dao.findByPrimaryKey(new Long(request.getParameter("house_style")));
+            house.setHouse_style(hs);
+        }
 
         dao = new HibernateAdapter();
         dao.save(house);
@@ -156,9 +165,9 @@ public class HouseTable extends Table {
             forms.add(Form.builder().setType("text").setName("state").setLabel("State").setParent("houseAddress").setMaxLength(20).build());
             forms.add(Form.builder().setType("text").setName("zipcode").setLabel("Zip").setParent("houseAddress").setMaxLength(9).build());
             forms.add(Form.builder().setType("select").setName("houseProperty").setLabel("Property").setFromTable("Property","this").build());
-            forms.add(Form.builder().setType("select").setName("houseFamily").setLabel("Family").setFromTable("Family","this").setRequired(false).build());
-            forms.add(Form.builder().setType("select").setName("house_style").setLabel("House Style").setFromTable("HouseStyle","style").setRequired(false).build());
-            forms.add(Form.builder().setType("select").setName("houseConstructionStatus").setLabel("Construction Status").setFromTable("ConstructionStatus","this").setRequired(false).build());
+            forms.add(Form.builder().setType("select").setName("houseFamily").setLabel("Family").setFromTable("Family","this").build());
+            forms.add(Form.builder().setType("select").setName("house_style").setLabel("House Style").setFromTable("HouseStyle","style").build());
+            forms.add(Form.builder().setType("select").setName("houseConstructionStatus").setLabel("Construction Status").setFromTable("ConstructionStatus","this").build());
         }
     }
 

@@ -102,7 +102,7 @@ td {
 /* page selector */
 #pagesForm {
     display: flex;
-    margin-top: 150px;
+    margin-top: 15px;
     margin-right: 1em;
 }
 /* page selector and results per page form */
@@ -150,12 +150,22 @@ td {
 }
 @media print {
     #tableContent {
-        margin-top:10px; /* Originally 40px */
+        margin-top:10px;
     }
     th {
         font-size: .8em;
     }
     #table {
         margin: 10px;
+        display: table;
+    }
+    thead {
+        display: table-header-group;
+    }
+    tbody {
+        display: table-row-group;
+    }
+    tbody tr {
+        display: table-row;
     }
 }

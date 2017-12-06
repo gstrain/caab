@@ -1,13 +1,14 @@
 (function() {
+    var theadSize = 0;
     $( document ).ready(function() {
         var date = new Date();
-        var dateString = ((date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear());
+        var dateString = ('on ' + (date.getMonth() + 1) + '/' + (date.getDate() < 10 ? '0' : '') + date.getDate() + '/' +  date.getFullYear());
         var meridian = date.getHours() > 12 ? 'PM' : 'AM';
-        var timeString = (((date.getHours() > 12) ? date.getHours()-12 : date.getHours()) + ":") + date.getMinutes() + ' ' + meridian;
+        var timeString = (((date.getHours() > 12) ? date.getHours()-12 : date.getHours()) + ":") + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes() + ' ' + meridian;
         $('#reportTime').html($('#reportTime').html() + timeString + '<br/>' + dateString);
         loadPropertySearch();
         getData();
-
+        $(window).resize(resizeHeaders);
     });
 
     function loadPropertySearch() {
@@ -83,6 +84,9 @@
             case "person":
                 url = '/person-servlet';
                 break;
+            case "family":
+                url = '/family-servlet';
+                break;
             case "house":
                 url = '/house-servlet';
                 break;
@@ -122,11 +126,14 @@
                 response = response.substring(0, index);
                 //console.log('result set size:' + size);
 
-                $('#tableContent').append(response);//.hide().fadeIn(300);
+                $('#tableContent').append(response).hide().fadeIn(300);
                 new Table($('.table'));
 
-                // resize table headers and drawer (necessary for fixed headers)
-                resizeHeaders();
+                // resize table headers (necessary for fixed header scrolling)
+                if(!getParameterByName('pdf')) {
+                    theadSize = $('tbody tr td').outerWidth();
+                    resizeHeaders();
+                }
 
                 //handle property address search
                 if($('#page-type').val() === 'property' && getParameterByName('search') != null) {
@@ -149,7 +156,7 @@
 
     resizeHeaders = function() {
         $('thead tr th').each(function() {
-            $(this).outerWidth($('tbody tr td').outerWidth());
+            $(this).outerWidth(theadSize);
         });
     };
 
@@ -203,4 +210,17 @@
             }
         });
     }
+
+    /*const $rishi = $('<img src="/img/rishi.jpg" id="rishi">').appendTo('body');
+    let showTimer;
+    $('#footer-list li:eq(2) a')
+        .hover(
+            () => showTimer = setTimeout(() => $rishi.addClass('hi'), 3000),
+            () => {
+                clearInterval(showTimer);
+                $rishi.removeClass('hi');
+            }
+        );
+
+*/
 })();

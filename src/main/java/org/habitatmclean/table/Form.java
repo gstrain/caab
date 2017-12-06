@@ -119,7 +119,7 @@ public class Form {
                 html.append("<input type='" + type + "' ");
                 html.append("class='form-control' ");
                 html.append("id='" + name + "' ");
-                html.append("name='" + name + "' " + ( hasParent? "data-value-parent='" + parent+"'":"") + path());
+                html.append("name='" + name + "' " + ( hasParent? "data-value-parent='" + parent+"'":"") + (type.equals("date") ? "data-value-date='yes' ":"") + path());
                 if (required)
                     html.append("required ");
                 html.append("value ");
