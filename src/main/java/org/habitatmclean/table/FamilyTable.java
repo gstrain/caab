@@ -15,7 +15,7 @@ import java.util.List;
 
 public class FamilyTable extends Table {
     public FamilyTable() {
-        super(new String[]{"class", "milestone", "equity hours", "income"}, new FamilyModal(), true, true); // adjust this to determine table columns
+        super(new String[]{"class", "milestone", "equity hours", "income"}, new FamilyModal(), true, false); // adjust this to determine table columns
     }
     public void addRow(GenericEntity entity) {
         Family family = (Family) entity;
