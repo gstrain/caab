@@ -10,3 +10,5 @@
 
 /out/
 /target/
+
+/src/main/resources/PdfGeneration.properties
